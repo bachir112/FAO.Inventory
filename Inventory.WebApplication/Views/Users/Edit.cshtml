@@ -1,0 +1,183 @@
+﻿@model Inventory.DataObjects.EDM.AspNetUser
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="theme-panel hidden-xs hidden-sm">
+            <div class="toggler"> </div>
+            <div class="toggler-close"> </div>
+            <div class="theme-options">
+                <div class="theme-option theme-colors clearfix">
+                    <span> THEME COLOR </span>
+                    <ul>
+                        <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="Default"> </li>
+                        <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="Dark Blue"> </li>
+                        <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="Blue"> </li>
+                        <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="Grey"> </li>
+                        <li class="color-light tooltips" data-style="light" data-container="body" data-original-title="Light"> </li>
+                        <li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="Light 2"> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <h1 class="page-title"> Dashboard </h1>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="index.html">Home</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <span>Dashboard</span>
+                </li>
+            </ul>
+        </div>
+        @*Content starts here*@
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="Email">Role</label>
+                    <div class="col-md-10">
+                        <select id="userRole" name="UserRole">
+                            <option value="Admin">Admin</option>
+                            <option value="SchoolManager">School Manager</option>
+                            <option value="SchoolStockKeeper">School Stock Keeper</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" style="display:none;">
+                    @Html.LabelFor(model => model.EmailConfirmed, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.EmailConfirmed)
+                            @Html.ValidationMessageFor(model => model.EmailConfirmed, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="display:none;">
+                    @Html.LabelFor(model => model.PasswordHash, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PasswordHash, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PasswordHash, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="display:none;">
+                    @Html.LabelFor(model => model.SecurityStamp, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SecurityStamp, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SecurityStamp, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="display:none;">
+                    @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="display:none;">
+                    @Html.LabelFor(model => model.PhoneNumberConfirmed, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.PhoneNumberConfirmed)
+                            @Html.ValidationMessageFor(model => model.PhoneNumberConfirmed, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="display:none;">
+                    @Html.LabelFor(model => model.TwoFactorEnabled, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.TwoFactorEnabled)
+                            @Html.ValidationMessageFor(model => model.TwoFactorEnabled, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="display:none;">
+                    @Html.LabelFor(model => model.LockoutEndDateUtc, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.LockoutEndDateUtc, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LockoutEndDateUtc, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="display:none;">
+                    @Html.LabelFor(model => model.LockoutEnabled, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.LockoutEnabled)
+                            @Html.ValidationMessageFor(model => model.LockoutEnabled, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="display:none;">
+                    @Html.LabelFor(model => model.AccessFailedCount, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.AccessFailedCount, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AccessFailedCount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="display:none;">
+                    @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                        <div style="float:right;">
+                            @Html.ActionLink("Back to List", "Index")
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        @*Content ends here*@
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        
+        usersActive();
+        $("select").select2();
+        $('select').val('@ViewBag.UserRole').trigger('change');
+        //$('#userRole').val('').trigger('change');
+
+    });
+
+</script>

@@ -1,0 +1,10 @@
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Debug\Inventory.DataObjects.dll.config
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Debug\Inventory.DataObjects.dll
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Debug\Inventory.DataObjects.pdb
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Debug\EntityFramework.dll
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Debug\EntityFramework.xml
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.csproj.CopyComplete
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.dll
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.pdb

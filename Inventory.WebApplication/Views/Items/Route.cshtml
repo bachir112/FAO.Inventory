@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Route";
+}
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <div class="theme-panel hidden-xs hidden-sm">
+            <div class="toggler"> </div>
+            <div class="toggler-close"> </div>
+            <div class="theme-options">
+                <div class="theme-option theme-colors clearfix">
+                    <span> THEME COLOR </span>
+                    <ul>
+                        <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="Default"> </li>
+                        <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="Dark Blue"> </li>
+                        <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="Blue"> </li>
+                        <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="Grey"> </li>
+                        <li class="color-light tooltips" data-style="light" data-container="body" data-original-title="Light"> </li>
+                        <li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="Light 2"> </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <h1 class="page-title"> Items </h1>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="index.html">Items</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <span> What would you like to do? </span>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-xs-12 col-sm-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-bubble font-dark hide"></i>
+                            <span class="caption-subject font-hide bold uppercase">Add or Edit items</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mt-widget-1 addNewItemsSection">
+                                    <div class="mt-img">
+                                        <img src="../images/new-items.png" style="width:100px;">
+                                    </div>
+                                    <div class="mt-body">
+                                        <h3 class="mt-username">Add new items to stock</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mt-widget-1 editItemsSection">
+                                    <div class="mt-img">
+                                        <img src="../images/edit-items.png" style="width:100px;">
+                                    </div>
+                                    <div class="mt-body">
+                                        <h3 class="mt-username">Edit items in stock</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        itemsActive();
+    });
+
+</script>
