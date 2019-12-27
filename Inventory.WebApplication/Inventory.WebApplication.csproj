@@ -5541,6 +5541,11 @@
     <Content Include="assets\pages\scripts\v,..min.js" />
     <Content Include="assets\pages\scripts\widgets.js" />
     <Content Include="assets\pages\scripts\widgets.min.js" />
+    <Content Include="assets\wizard\demo.css" />
+    <Content Include="assets\wizard\gsdk-bootstrap-wizard.css" />
+    <Content Include="assets\wizard\gsdk-bootstrap-wizard.js" />
+    <Content Include="assets\wizard\jquery.bootstrap.wizard.js" />
+    <Content Include="assets\wizard\jquery.validate.min.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -5971,6 +5976,7 @@
     <Content Include="Views\Items\Edit.cshtml" />
     <Content Include="Views\Items\Index.cshtml" />
     <Content Include="Views\Items\Route.cshtml" />
+    <Content Include="Views\Items\EditSection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

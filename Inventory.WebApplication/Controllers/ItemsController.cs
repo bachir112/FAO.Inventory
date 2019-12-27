@@ -65,7 +65,13 @@ namespace Inventory.WebApplication.Controllers
         }
 
         // GET: Items/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult EditSection()
+        {
+            return View();
+        }
+
+        // GET: Items/Edit/5
+        public ActionResult Edit(int id)
         {
             if (id == null)
             {

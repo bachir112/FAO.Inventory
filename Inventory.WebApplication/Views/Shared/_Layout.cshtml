@@ -393,7 +393,6 @@
             var table = $('#itemsTable');
 
             var oTable = table.dataTable({
-
                 "language": {
                     "aria": {
                         "sortAscending": ": activate to sort column ascending",
@@ -407,12 +406,6 @@
                     "search": "Search:",
                     "zeroRecords": "No matching records found"
                 },
-                buttons: [
-                    { extend: 'print', className: 'btn dark btn-outline' },
-                    { extend: 'pdf', className: 'btn green btn-outline' },
-                    { extend: 'excel', className: 'btn yellow btn-outline ' }
-                ],
-                responsive: true,
                 "order": [
                     [0, 'asc']
                 ],
@@ -422,7 +415,39 @@
                 ],
                 "pageLength": 10,
                 "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+                buttons: [
+                    { extend: 'print', className: 'btn dark btn-outline' },
+                    { extend: 'pdf', className: 'btn green btn-outline' },
+                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                ],
+                responsive: true,
+                //"drawCallback": function (settings) {
+                //    var api = this.api();
+                //    var rows = api.rows( {page:'current'} ).nodes();
+                //    var last=null;
+ 
+                //    api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
+                //        if ( last !== group ) {
+                //            $(rows).eq( i ).before(
+                //                '<tr class="group"><td colspan="7">'+group+'</td></tr>'
+                //            );
+ 
+                //            last = group;
+                //        }
+                //    } );
+                //},
             });
+
+                // Order by the grouping
+            //$('#itemsTable tbody').on( 'click', 'tr.group', function () {
+            //    var currentOrder = table.order()[0];
+            //    if ( currentOrder[0] === groupColumn && currentOrder[1] === 'asc' ) {
+            //        table.order( [ groupColumn, 'desc' ] ).draw();
+            //    }
+            //    else {
+            //        table.order( [ groupColumn, 'asc' ] ).draw();
+            //    }
+            //});
 
         });
         

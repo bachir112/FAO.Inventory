@@ -77,6 +77,16 @@
 
     $(document).ready(function () {
         itemsActive();
+
+        $('.addNewItemsSection').click(function () {
+            var url = '@Url.Action("Create","Items")';
+            window.location = url;
+        });
+        
+        $('.editItemsSection').click(function () {
+            var url = '@Url.Action("EditSection","Items")';
+            window.location = url;
+        });
     });
 
 </script>
