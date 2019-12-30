@@ -6,8 +6,9 @@
     <EntitySet Name="AspNetUserClaims" EntityType="InventoryModel.AspNetUserClaim" />
     <EntitySet Name="AspNetUserLogins" EntityType="InventoryModel.AspNetUserLogin" />
     <EntitySet Name="AspNetUsers" EntityType="InventoryModel.AspNetUser" />
-    <EntitySet Name="Items" EntityType="InventoryModel.Item" />
     <EntitySet Name="Categories" EntityType="InventoryModel.Category" />
+    <EntitySet Name="Items" EntityType="InventoryModel.Item" />
+    <EntitySet Name="ItemsSearchValues" EntityType="InventoryModel.ItemsSearchValue" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="InventoryModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
@@ -77,9 +78,19 @@
     <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
     <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
     <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="Verified" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="AspNetUserClaims" Relationship="InventoryModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
     <NavigationProperty Name="AspNetUserLogins" Relationship="InventoryModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
     <NavigationProperty Name="AspNetRoles" Relationship="InventoryModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Picture" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ParentCategory" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="Item">
     <Key>
@@ -87,22 +98,23 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AvailabilityStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="LocationInStock" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="ExpiryDate" Type="DateTime" Precision="0" />
+    <Property Name="Unit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UnitAmount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="ItemStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
   </EntityType>
-  <EntityType Name="Category">
+  <EntityType Name="ItemsSearchValue">
     <Key>
       <PropertyRef Name="Id" />
-      <PropertyRef Name="Name" />
-      <PropertyRef Name="Picture" />
-      <PropertyRef Name="ParentCategory" />
     </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="Picture" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="ParentCategory" Type="Int32" Nullable="false" />
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Type="InventoryModel.AspNetUser" Role="AspNetUser" Multiplicity="1">

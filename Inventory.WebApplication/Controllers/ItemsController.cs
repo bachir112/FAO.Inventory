@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Inventory.DataObjects.DTO;
 using Inventory.DataObjects.EDM;
 
 namespace Inventory.WebApplication.Controllers
@@ -44,6 +45,19 @@ namespace Inventory.WebApplication.Controllers
         // GET: Items/Create
         public ActionResult Create()
         {
+            List<CategoryDTO> categoriesList = new List<CategoryDTO>();
+
+            categoriesList = db.Categories
+                                .Select(x => new CategoryDTO
+                                {
+                                    Id = x.Id,
+                                    Name = x.Name,
+                                    Picture = x.Picture,
+                                    ParentCategory = x.ParentCategory
+                                }).ToList();
+
+            ViewBag.CategoriesList = categoriesList;
+
             return View();
         }
 
@@ -52,7 +66,7 @@ namespace Inventory.WebApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Status,LocationInStock,ExpiryDate,Description")] Item item)
+        public ActionResult Create([Bind(Include = "Id,Name,AvailabilityStatus,ItemStatus,LocationInStock,ExpiryDate,Description,CategoryID")] Item item)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +104,7 @@ namespace Inventory.WebApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Status,LocationInStock,ExpiryDate,Description")] Item item)
+        public ActionResult Edit([Bind(Include = "Id,Name,AvailabilityStatus,ItemStatus,LocationInStock,ExpiryDate,Description,CategoryID")] Item item)
         {
             if (ModelState.IsValid)
             {

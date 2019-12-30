@@ -5977,6 +5977,7 @@
     <Content Include="Views\Items\Index.cshtml" />
     <Content Include="Views\Items\Route.cshtml" />
     <Content Include="Views\Items\EditSection.cshtml" />
+    <Content Include="Views\Home\CategoriesPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

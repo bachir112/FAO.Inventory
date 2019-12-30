@@ -1,22 +1,86 @@
-﻿@model Inventory.DataObjects.EDM.Item
+﻿@using Inventory.DataObjects.DTO
+@model Inventory.DataObjects.EDM.Item
 
 @{
     ViewBag.Title = "Create";
+    List<CategoryDTO> categoriesList = ViewBag.CategoriesList as List<CategoryDTO>;
 }
 
 <link href="@Url.Content("~/assets/wizard/gsdk-bootstrap-wizard.css")" rel="stylesheet" />
 <link href="@Url.Content("~/assets/wizard/demo.css")" rel="stylesheet" />
 
 <style type="text/css">
-    
-    .wizard-card .choice .icon{
-        background-color:white;
+
+    .wizard-card .choice .icon {
+        background-color: white;
     }
 
-    .wizard-card .choice img{
-        margin:29px;
+    .wizard-card .choice img {
+        margin: 29px;
     }
 
+    .wizard-card .choice {
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .select2-container .select2-selection--single {
+        background-color: #fff;
+        border: 1px solid #aaa;
+        border-top-color: rgb(170, 170, 170);
+        border-top-style: solid;
+        border-top-width: 1px;
+        border-right-color: rgb(170, 170, 170);
+        border-right-style: solid;
+        border-right-width: 1px;
+        border-bottom-color: rgb(170, 170, 170);
+        border-bottom-style: solid;
+        border-bottom-width: 1px;
+        border-left-color: rgb(170, 170, 170);
+        border-left-style: solid;
+        border-left-width: 1px;
+        border-image-source: initial;
+        border-image-slice: initial;
+        border-image-width: initial;
+        border-image-outset: initial;
+        border-image-repeat: initial;
+        border-radius: 4px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+    .select2-container .select2-selection--single .select2-selection__arrow {
+        height: 26px;
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        width: 20px;
+    }
+
+
+    .select2-container .select2-selection--single .select2-selection__arrow b {
+        border-color: #888 transparent transparent transparent;
+        border-style: solid;
+        border-width: 5px 4px 0 4px;
+        height: 0;
+        left: 50%;
+        margin-left: -4px;
+        margin-top: -2px;
+        position: absolute;
+        top: 50%;
+        width: 0;
+    }
+
+    .select2-container .select2-selection--single .select2-selection__rendered {
+        color: #444;
+        line-height: 28px;
+    }
+
+    .select2-selection__clear{
+        display:none;
+    }
 </style>
 
 <div class="page-content-wrapper">
@@ -63,10 +127,10 @@
                                     <a href="#Categories" data-toggle="tab">Categories</a>
                                 </li>
                                 <li style="width: 25%;">
-                                    <a href="#facilities" data-toggle="tab">Item</a>
+                                    <a href="#item" data-toggle="tab">Item</a>
                                 </li>
                                 <li style="width: 25%;">
-                                    <a href="#description" data-toggle="tab">Description</a>
+                                    <a href="#details" data-toggle="tab">Details</a>
                                 </li>
                             </ul>
                             <div class="moving-tab" style="width: 187.5px; transform: translate3d(0px, 0px, 0px); transition: transform 0s ease 0s;">Location</div>
@@ -77,116 +141,30 @@
                                 <h4 class="info-text"> What category does this item belong to? </h4>
                                 <div class="row">
                                     <div class="col-sm-10 col-sm-offset-1">
-                                        <div class="col-sm-4">
-                                            <div class="choice btn-next" data-toggle="wizard-radio" rel="tooltip" title="" data-original-title="Select this option if you have a house.">
-                                                <input type="radio" name="type" value="House">
-                                                <div class="icon">
-                                                    <img src="../images/office-supplies.png" style="width:50px;margin:29px;" />
+                                        @{
+                                            foreach (CategoryDTO category in categoriesList)
+                                            {
+                                                <div class="col-sm-4">
+                                                    <div class="choice category btn-next" data-categoryID="@category.Id" data-toggle="wizard-radio" rel="tooltip" title="" data-original-title="Select this option if @category.Name.">
+                                                        <div class="icon">
+                                                            <img src="@Url.Content("~/images/" + category.Picture)" style="width:50px;margin:29px;" />
+                                                        </div>
+                                                        <h6>@category.Name</h6>
+                                                    </div>
                                                 </div>
-                                                <h6>Office equipment and supplies</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="choice btn-next" data-toggle="wizard-radio" rel="tooltip" title="" data-original-title="Select this option if you have an appartment">
-                                                <input type="radio" name="type" value="Appartment">
-                                                <div class="icon">
-                                                    <img src="../images/agricultural-equipment.jpg" style="width:50px;" />
-                                                </div>
-                                                <h6>Technical agricultural equipment and their supplies</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="choice btn-next" data-toggle="wizard-radio" rel="tooltip" title="" data-original-title="Select this option if you have an appartment">
-                                                <input type="radio" name="type" value="Appartment">
-                                                <div class="icon">
-                                                    <img src="../images/generator.jpg" style="width:50px;" />
-                                                </div>
-                                                <h6>Maintenance of generator and lightning systems</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-10 col-sm-offset-1">
-                                        <div class="col-sm-4">
-                                            <div class="choice btn-next" data-toggle="wizard-radio" rel="tooltip" title="" data-original-title="Select this option if you have a house.">
-                                                <input type="radio" name="type" value="House">
-                                                <div class="icon">
-                                                    <img src="../images/heating.png" style="width:50px;" />
-                                                </div>
-                                                <h6>Air conditioning, heating supplies and maintenance of respective supplies and installations</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="choice btn-next" data-toggle="wizard-radio" rel="tooltip" title="" data-original-title="Select this option if you have an appartment">
-                                                <input type="radio" name="type" value="Appartment">
-                                                <div class="icon">
-                                                    <img src="../images/health.jpg" style="width:50px;" />
-                                                </div>
-                                                <h6>Student health care</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="choice btn-next" data-toggle="wizard-radio" rel="tooltip" title="" data-original-title="Select this option if you have an appartment">
-                                                <input type="radio" name="type" value="Appartment">
-                                                <div class="icon">
-                                                    <img src="../images/teaching-material.png" style="width:50px;" />
-                                                </div>
-                                                <h6>Teaching material and tools</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-10 col-sm-offset-1">
-                                        <div class="col-sm-4">
-                                            <div class="choice btn-next" data-toggle="wizard-radio" rel="tooltip" title="" data-original-title="Select this option if you have a house.">
-                                                <input type="radio" name="type" value="House">
-                                                <div class="icon">
-                                                    <img src="../images/laboratory-tools.png" style="width:50px;" />
-                                                </div>
-                                                <h6>Laboratory tools and materials</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="choice btn-next" data-toggle="wizard-radio" rel="tooltip" title="" data-original-title="Select this option if you have an appartment">
-                                                <input type="radio" name="type" value="Appartment">
-                                                <div class="icon">
-                                                    <img src="../images/furniture.jpg" style="width:50px;" />
-                                                </div>
-                                                <h6>Furniture</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="choice btn-next" data-toggle="wizard-radio" rel="tooltip" title="" data-original-title="Select this option if you have an appartment">
-                                                <input type="radio" name="type" value="Appartment">
-                                                <div class="icon">
-                                                    <img src="../images/books.jpg" style="width:50px;" />
-                                                </div>
-                                                <h6>Library books and materials</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-10 col-sm-offset-1">
-                                        <div class="col-sm-4">
-                                            <div class="choice btn-next" data-toggle="wizard-radio" rel="tooltip" title="" data-original-title="Select this option if you have a house.">
-                                                <input type="radio" name="type" value="House">
-                                                <div class="icon">
-                                                    <img src="../images/miscellanious.png" style="width:50px;" />
-                                                </div>
-                                                <h6>Miscellaneous expenses (other non-stated items)</h6>
-                                            </div>
-                                        </div>
+                                            }
+                                        }
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="facilities">
+                            <div class="tab-pane" id="item">
                                 <h4 class="info-text"> Items under this category. </h4>
                                 <div class="row">
                                     <div class="col-sm-5 col-sm-offset-1">
                                         <div class="form-group">
                                             <label>Select from this list</label>
-                                            <select class="form-control">
-                                                <option disabled="" selected="">- type -</option>
-                                                <option>Business</option>
-                                                <option>Vacation </option>
-                                                <option>Work</option>
+                                            <select id="itemsInCategory" style="width:100%;" class="form-control">
+                                                <option></option>
                                             </select>
                                         </div>
                                     </div>
@@ -198,30 +176,44 @@
                                     <div class="col-sm-5 col-sm-offset-1">
                                         <div class="form-group">
                                             <label>Add it here</label>
-                                            <input type="text" class="form-control" />
+                                            <input id="newSearchableItem" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <label style="width:100%;"></label>
+                                            <a id="addToSearchable" class="btn btn-success">Add</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="description">
+                            <div class="tab-pane" id="details">
                                 <div class="row">
-                                    <h4 class="info-text"> Drop us a small description. </h4>
+                                    <h4 class="info-text"> Write down the final details. </h4>
                                     <div class="col-sm-12">
                                         <div class="form-horizontal">
                                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                             <div class="form-group">
                                                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                                                 <div class="col-md-10">
-                                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new {@id="itemName", @class = "form-control", @readonly="readonly" } })
                                                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                @Html.LabelFor(model => model.AvailabilityStatus, htmlAttributes: new { @class = "control-label col-md-2" })
                                                 <div class="col-md-10">
-                                                    @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                                                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                                    @Html.EditorFor(model => model.AvailabilityStatus, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.AvailabilityStatus, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.ItemStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.ItemStatus, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.ItemStatus, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
 
@@ -234,9 +226,25 @@
                                             </div>
 
                                             <div class="form-group">
-                                                @Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                @Html.LabelFor(model => model.Unit, htmlAttributes: new { @class = "control-label col-md-2" })
                                                 <div class="col-md-10">
-                                                    @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.EditorFor(model => model.Unit, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.Unit, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.UnitAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.UnitAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.UnitAmount, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "control-label col-md-2 datepicker" })
+                                                <div class="col-md-10">
+                                                    <input id="expiryDate" name="ExpiryDate" style="width:100%!important;" class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="">                                                    
                                                     @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
@@ -249,14 +257,21 @@
                                                 </div>
                                             </div>
 
-                                            @*<div class="form-group">
-                                                <div class="col-md-offset-2 col-md-10">
-                                                    <input type="submit" value="Create" class="btn btn-default" />
-                                                    <div style="float:right;">
-                                                        @Html.ActionLink("Back to List", "Index")
-                                                    </div>
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    <input class="form-control text-box single-line" data-val="true" data-val-number="The field Price must be a number." id="Price" name="Price" type="number" value="">       
+                                                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
                                                 </div>
-                                            </div>*@
+                                            </div>
+
+                                            <div style="display:none;" class="form-group">
+                                                @Html.LabelFor(model => model.CategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                <div class="col-md-10">
+                                                    @Html.EditorFor(model => model.CategoryID, new { htmlAttributes = new {@id="categoryID", @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -275,67 +290,8 @@
                         </div>
 
                     }
-                    </div>
+                </div>
             </div>
-            @*@using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-
-                    <div class="form-horizontal">
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.LocationInStock, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.LocationInStock, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.LocationInStock, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Create" class="btn btn-default" />
-                                <div style="float:right;">
-                                    @Html.ActionLink("Back to List", "Index")
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                }*@
-
         </div>
         @*Content ends here*@
     </div>
@@ -347,11 +303,102 @@
 
 <script type="text/javascript">
 
+    var categoryID = -1;
+
     $(document).ready(function () {
+        
+        $("#expiryDate").datepicker("setDate", new Date());
+
 
         $('#toggleAddNewItemContainer').click(function () {
             $('#addNewItemContainer').toggle();
         });
+
+        $('#itemsInCategory').select2({
+            placeholder: "Select Item"
+        });
+
+        $('#addToSearchable').click(function () {
+
+            var newSearchableItem = $('#newSearchableItem').val();
+            
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: '@Url.Action("AddItemToSearchble", "Home")',
+                data:
+                {
+                    itemName: newSearchableItem,
+                    categoryID: categoryID
+                },
+                success: function (data)
+                {
+                    getItemsInCategory(newSearchableItem);
+                    $('#addNewItemContainer').hide();
+                    console.log(data);
+                },
+                error: function () {
+                    console.log('error');
+                }
+            });
+        });
+
+        $('.choice.category').click(function () {
+
+            categoryID = $(this).attr('data-categoryID');
+
+            $('#categoryID').val(categoryID);
+            getItemsInCategory();
+
+        });
+
+        $('#itemsInCategory').change(function () {
+
+            var itemName = $(this).val();
+            $('#itemName').val(itemName);
+
+        });
+
+        function getItemsInCategory(selectedItem) {
+            
+            $('#itemsInCategory').select2('destroy');
+            $('#itemsInCategory').html('');
+
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                url: '@Url.Action("ItemsInCategory", "Home")',
+                data:
+                {
+                    categoryID: categoryID
+                },
+                success: function (data)
+                {
+                    console.log(data);
+
+                    var htmlOptions = '<option></option>';
+
+                    $.each(data, function (k, v) {
+                        console.log('v = ' + v);
+                        htmlOptions += '<option value="' + v + '">' + v + '</option>';
+                    });
+
+                    $('#itemsInCategory').append(htmlOptions);
+
+                    $('#itemsInCategory').select2({
+                        placeholder: 'Select Item',
+                        allowClear: true
+                    });
+
+                    $('#itemsInCategory').val(selectedItem).trigger('change');
+                },
+                error: function () {
+                    console.log('error');
+                }
+            });
+        }
 
     });
 

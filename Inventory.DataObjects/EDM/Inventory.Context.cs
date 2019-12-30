@@ -30,7 +30,8 @@ namespace Inventory.DataObjects.EDM
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<ItemsSearchValue> ItemsSearchValues { get; set; }
     }
 }

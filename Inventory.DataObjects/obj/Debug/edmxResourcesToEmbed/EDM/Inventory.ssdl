@@ -61,17 +61,13 @@
     <Property Name="LockoutEndDateUtc" Type="datetime" />
     <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
     <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="Verified" Type="bit" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'Inventory.dbo.Category' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Category">
     <Key>
       <PropertyRef Name="Id" />
-      <PropertyRef Name="Name" />
-      <PropertyRef Name="Picture" />
-      <PropertyRef Name="ParentCategory" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
     <Property Name="Picture" Type="nvarchar" MaxLength="250" Nullable="false" />
     <Property Name="ParentCategory" Type="int" Nullable="false" />
@@ -82,10 +78,23 @@ warning 6002: The table/view 'Inventory.dbo.Category' does not have a primary ke
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
-    <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="AvailabilityStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="LocationInStock" Type="nvarchar" MaxLength="250" />
     <Property Name="ExpiryDate" Type="date" />
+    <Property Name="Unit" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UnitAmount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="ItemStatus" Type="nvarchar" MaxLength="50" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="CategoryID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ItemsSearchValues">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CategoryID" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -150,15 +159,9 @@ warning 6002: The table/view 'Inventory.dbo.Category' does not have a primary ke
     <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Category" EntityType="Self.Category" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [Category].[Id] AS [Id], 
-    [Category].[Name] AS [Name], 
-    [Category].[Picture] AS [Picture], 
-    [Category].[ParentCategory] AS [ParentCategory]
-    FROM [dbo].[Category] AS [Category]</DefiningQuery>
-    </EntitySet>
+    <EntitySet Name="ItemsSearchValues" EntityType="Self.ItemsSearchValues" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />

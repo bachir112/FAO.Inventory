@@ -12,18 +12,10 @@ namespace Inventory.DataObjects.EDM
     using System;
     using System.Collections.Generic;
     
-    public partial class Item
+    public partial class ItemsSearchValue
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string AvailabilityStatus { get; set; }
-        public string LocationInStock { get; set; }
-        public Nullable<System.DateTime> ExpiryDate { get; set; }
-        public string Unit { get; set; }
-        public decimal UnitAmount { get; set; }
-        public Nullable<decimal> Price { get; set; }
-        public string ItemStatus { get; set; }
-        public string Description { get; set; }
+        public string ItemName { get; set; }
         public int CategoryID { get; set; }
     }
 }
