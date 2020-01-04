@@ -64,6 +64,9 @@
     <Compile Include="EDM\AspNetUserLogin.cs">
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>
+    <Compile Include="EDM\AvailabilityStatu.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
     <Compile Include="EDM\Category.cs">
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>
@@ -89,6 +92,15 @@
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>
     <Compile Include="EDM\ItemsSearchValue.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\ItemStatu.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\Supplier.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\Unit.cs">
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

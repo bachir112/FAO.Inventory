@@ -12,20 +12,10 @@ namespace Inventory.DataObjects.EDM
     using System;
     using System.Collections.Generic;
     
-    public partial class Item
+    public partial class ItemStatu
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public int AvailabilityStatusID { get; set; }
-        public int ItemStatusID { get; set; }
-        public string LocationInStock { get; set; }
-        public Nullable<System.DateTime> ExpiryDate { get; set; }
-        public int UnitID { get; set; }
-        public int UnitAmount { get; set; }
-        public Nullable<decimal> Price { get; set; }
+        public string Status { get; set; }
         public string Description { get; set; }
-        public int CategoryID { get; set; }
-        public int SupplierID { get; set; }
-        public int Quantity { get; set; }
     }
 }

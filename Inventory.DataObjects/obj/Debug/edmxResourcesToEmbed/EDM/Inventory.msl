@@ -58,6 +58,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="AvailabilityStatus">
+      <EntityTypeMapping TypeName="InventoryModel.AvailabilityStatu">
+        <MappingFragment StoreEntitySet="AvailabilityStatus">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Categories">
       <EntityTypeMapping TypeName="InventoryModel.Category">
         <MappingFragment StoreEntitySet="Category">
@@ -71,15 +80,16 @@
     <EntitySetMapping Name="Items">
       <EntityTypeMapping TypeName="InventoryModel.Item">
         <MappingFragment StoreEntitySet="Items">
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
           <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
           <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="ItemStatus" ColumnName="ItemStatus" />
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="UnitAmount" ColumnName="UnitAmount" />
-          <ScalarProperty Name="Unit" ColumnName="Unit" />
+          <ScalarProperty Name="UnitID" ColumnName="UnitID" />
           <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
           <ScalarProperty Name="LocationInStock" ColumnName="LocationInStock" />
-          <ScalarProperty Name="AvailabilityStatus" ColumnName="AvailabilityStatus" />
+          <ScalarProperty Name="ItemStatusID" ColumnName="ItemStatusID" />
+          <ScalarProperty Name="AvailabilityStatusID" ColumnName="AvailabilityStatusID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
@@ -90,6 +100,32 @@
         <MappingFragment StoreEntitySet="ItemsSearchValues">
           <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
           <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItemStatus">
+      <EntityTypeMapping TypeName="InventoryModel.ItemStatu">
+        <MappingFragment StoreEntitySet="ItemStatus">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Suppliers">
+      <EntityTypeMapping TypeName="InventoryModel.Supplier">
+        <MappingFragment StoreEntitySet="Suppliers">
+          <ScalarProperty Name="Supplier1" ColumnName="Supplier" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Units">
+      <EntityTypeMapping TypeName="InventoryModel.Unit">
+        <MappingFragment StoreEntitySet="Unit">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

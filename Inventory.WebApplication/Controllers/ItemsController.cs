@@ -45,9 +45,7 @@ namespace Inventory.WebApplication.Controllers
         // GET: Items/Create
         public ActionResult Create()
         {
-            List<CategoryDTO> categoriesList = new List<CategoryDTO>();
-
-            categoriesList = db.Categories
+            List<CategoryDTO> categoriesList = db.Categories
                                 .Select(x => new CategoryDTO
                                 {
                                     Id = x.Id,
@@ -56,7 +54,16 @@ namespace Inventory.WebApplication.Controllers
                                     ParentCategory = x.ParentCategory
                                 }).ToList();
 
+            List<Supplier> suppliersList = db.Suppliers.ToList();
+            List<AvailabilityStatu> availabilityStatusList = db.AvailabilityStatus.ToList();
+            List<ItemStatu> itemStatusList = db.ItemStatus.ToList();
+            List<Unit> unitList = db.Units.ToList();
+
             ViewBag.CategoriesList = categoriesList;
+            ViewBag.SuppliersList = suppliersList;
+            ViewBag.AvailabilityStatusList = availabilityStatusList;
+            ViewBag.ItemStatusList = itemStatusList;
+            ViewBag.UnitList = unitList;
 
             return View();
         }
@@ -66,16 +73,20 @@ namespace Inventory.WebApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,AvailabilityStatus,ItemStatus,LocationInStock,ExpiryDate,Description,CategoryID")] Item item)
+        public ActionResult Create([Bind(Include = "Id,Name,AvailabilityStatusID,ItemStatusID,LocationInStock,UnitID,UnitAmount,ExpiryDate,Description,SupplierID,CategoryID,Quantity")] Item item)
         {
             if (ModelState.IsValid)
             {
-                db.Items.Add(item);
+                int quantity = item.Quantity == 0 ? item.UnitAmount : item.Quantity;
+                for (int i=0; i < item.Quantity; i++)
+                {
+                    db.Items.Add(item);
+                }
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
 
-            return View(item);
+            return RedirectToAction("Create");
         }
 
         // GET: Items/Edit/5
@@ -104,7 +115,7 @@ namespace Inventory.WebApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,AvailabilityStatus,ItemStatus,LocationInStock,ExpiryDate,Description,CategoryID")] Item item)
+        public ActionResult Edit([Bind(Include = "Id,Name,AvailabilityStatusID,ItemStatusID,LocationInStock,UnitID,UnitAmount,ExpiryDate,Description,SupplierID,CategoryID")] Item item)
         {
             if (ModelState.IsValid)
             {

@@ -6,9 +6,13 @@
     <EntitySet Name="AspNetUserClaims" EntityType="InventoryModel.AspNetUserClaim" />
     <EntitySet Name="AspNetUserLogins" EntityType="InventoryModel.AspNetUserLogin" />
     <EntitySet Name="AspNetUsers" EntityType="InventoryModel.AspNetUser" />
+    <EntitySet Name="AvailabilityStatus" EntityType="InventoryModel.AvailabilityStatu" />
     <EntitySet Name="Categories" EntityType="InventoryModel.Category" />
     <EntitySet Name="Items" EntityType="InventoryModel.Item" />
     <EntitySet Name="ItemsSearchValues" EntityType="InventoryModel.ItemsSearchValue" />
+    <EntitySet Name="ItemStatus" EntityType="InventoryModel.ItemStatu" />
+    <EntitySet Name="Suppliers" EntityType="InventoryModel.Supplier" />
+    <EntitySet Name="Units" EntityType="InventoryModel.Unit" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="InventoryModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
       <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
@@ -83,6 +87,14 @@
     <NavigationProperty Name="AspNetUserLogins" Relationship="InventoryModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
     <NavigationProperty Name="AspNetRoles" Relationship="InventoryModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
   </EntityType>
+  <EntityType Name="AvailabilityStatu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
   <EntityType Name="Category">
     <Key>
       <PropertyRef Name="Id" />
@@ -98,15 +110,16 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="AvailabilityStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AvailabilityStatusID" Type="Int32" Nullable="false" />
+    <Property Name="ItemStatusID" Type="Int32" Nullable="false" />
     <Property Name="LocationInStock" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="ExpiryDate" Type="DateTime" Precision="0" />
-    <Property Name="Unit" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="UnitAmount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="UnitID" Type="Int32" Nullable="false" />
+    <Property Name="UnitAmount" Type="Int32" Nullable="false" />
     <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
-    <Property Name="ItemStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="SupplierID" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="ItemsSearchValue">
     <Key>
@@ -115,6 +128,29 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="CategoryID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ItemStatu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Supplier">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Supplier1" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Unit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
     <End Type="InventoryModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
