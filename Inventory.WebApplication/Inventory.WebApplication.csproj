@@ -5978,6 +5978,7 @@
     <Content Include="Views\Items\Route.cshtml" />
     <Content Include="Views\Items\EditSection.cshtml" />
     <Content Include="Views\Home\CategoriesPartial.cshtml" />
+    <Content Include="Views\Home\ItemsPartialDefault.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

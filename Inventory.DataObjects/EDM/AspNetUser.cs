@@ -11,7 +11,7 @@ namespace Inventory.DataObjects.EDM
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class AspNetUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +21,7 @@ namespace Inventory.DataObjects.EDM
             this.AspNetUserLogins = new HashSet<AspNetUserLogin>();
             this.AspNetRoles = new HashSet<AspNetRole>();
         }
-    
+
         public string UserRole { get; set; }
         public string Id { get; set; }
         public string UserName { get; set; }

@@ -42,13 +42,42 @@ namespace Inventory.WebApplication.Controllers
 
                 foreach(var category in categoriesList)
                 {
-                    category.ItemTypeInCategoryCount = itemsList.Where(x => x.GroupID == category.Id).Select(x => x.ItemsNames).Distinct().Count();
-                    category.ItemInCategoryCount = itemsList.Where(x => x.GroupID == category.Id).Select(x => x).Count();
+                    category.ItemTypeInCategoryCount = itemsList.Where(x => x.GroupID == category.Id).Select(x => x.ItemsNames).SelectMany(x => x).Distinct().Count();
+                    //var ss = itemsList.Where(x => x.GroupID == category.Id).Select(x => x.ItemsNames).SelectMany(x => x).ToList();
+                    category.ItemInCategoryCount = itemsList.Where(x => x.GroupID == category.Id).Select(x => x).SelectMany(x => x.Items).Count();
                 }
             }
 
             return View(categoriesList);
         }
+
+        public ActionResult ItemsPartialDefault()
+        {
+            List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
+
+            using (var db = new InventoryEntities())
+            {
+                List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
+                List<Supplier> suppliers = db.Suppliers.ToList();
+
+                itemsInStock = (from item in db.Items
+                                             group item by new { item.Name, item.AvailabilityStatusID, item.ExpiryDate } into items
+                                             select items).AsEnumerable().Select(
+                                             items => new ItemsGroupedDTO()
+                                             {
+                                                 Name = items.Key.Name,
+                                                 AvailabilityStatus = availabilityStatuses.FirstOrDefault(x => x.Id == items.Key.AvailabilityStatusID).Status,
+                                                 AvailabilityStatusID = items.Key.AvailabilityStatusID,
+                                                 Quantity = items.Count(),
+                                                 LocationInStock = string.Join(",", items.Where(x => !string.IsNullOrEmpty(x.LocationInStock)).Select(x => x.LocationInStock)),
+                                                 Description = string.Join(",", items.Where(x => !string.IsNullOrEmpty(x.Description)).Select(x => x.Description)),
+                                                 ExpiryDate = items.Key.ExpiryDate
+                                             }).ToList();
+            }
+
+            return View(itemsInStock);
+        }
+
 
         public ActionResult Transactions()
         {

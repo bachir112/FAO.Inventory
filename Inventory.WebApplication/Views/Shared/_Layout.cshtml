@@ -395,11 +395,34 @@
     <script src="@Url.Content("~/assets/layouts/global/scripts/quick-sidebar.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/assets/layouts/global/scripts/quick-nav.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/assets/pages/scripts/components-date-time-pickers.js")" type="text/javascript"></script>
+
     <script>
+
         $(document).ready(function () {
             $('#clickmewow').click(function () {
                 $('#radio1003').attr('checked', 'checked');
             });
+        });
+
+        $(document).ready(function () {
+
+            $('.categoriesFilterContainer').click(function () {
+
+                console.log('clicked');
+
+                $(this).parent().find('.portlet-body').slideToggle("slow", function () { });
+
+                var arrowElement = $(this).find('i.fa');
+                if (arrowElement.hasClass('fa-chevron-down')) {
+                    arrowElement.removeClass('fa-chevron-down');
+                    arrowElement.addClass('fa-chevron-up');
+                } else {
+                    arrowElement.removeClass('fa-chevron-up');
+                    arrowElement.addClass('fa-chevron-down');
+                }
+
+            });
+
         });
 
         $(document).ready(function () {
@@ -434,35 +457,8 @@
                     { extend: 'pdf', className: 'btn green btn-outline' },
                     { extend: 'excel', className: 'btn yellow btn-outline ' }
                 ],
-                responsive: true,
-                //"drawCallback": function (settings) {
-                //    var api = this.api();
-                //    var rows = api.rows( {page:'current'} ).nodes();
-                //    var last=null;
-
-                //    api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
-                //        if ( last !== group ) {
-                //            $(rows).eq( i ).before(
-                //                '<tr class="group"><td colspan="7">'+group+'</td></tr>'
-                //            );
-
-                //            last = group;
-                //        }
-                //    } );
-                //},
+                responsive: true
             });
-
-            // Order by the grouping
-            //$('#itemsTable tbody').on( 'click', 'tr.group', function () {
-            //    var currentOrder = table.order()[0];
-            //    if ( currentOrder[0] === groupColumn && currentOrder[1] === 'asc' ) {
-            //        table.order( [ groupColumn, 'desc' ] ).draw();
-            //    }
-            //    else {
-            //        table.order( [ groupColumn, 'asc' ] ).draw();
-            //    }
-            //});
-
         });
 
 
@@ -495,6 +491,7 @@
         }
 
     </script>
+
 </body>
 
 </html>

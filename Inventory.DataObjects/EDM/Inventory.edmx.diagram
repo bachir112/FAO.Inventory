@@ -7,8 +7,8 @@
       <Diagram DiagramId="4a65590fae8b4fa7bf3f6eb641fac010" Name="Diagram1" >
         <EntityTypeShape EntityType="InventoryModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="6.75" />
         <EntityTypeShape EntityType="InventoryModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" />
-        <EntityTypeShape EntityType="InventoryModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1" />
-        <EntityTypeShape EntityType="InventoryModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="3.75" />
+        <EntityTypeShape EntityType="InventoryModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="3.625" />
+        <EntityTypeShape EntityType="InventoryModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="1" />
         <EntityTypeShape EntityType="InventoryModel.AspNetUser" Width="1.5" PointX="3" PointY="1.125" />
         <EntityTypeShape EntityType="InventoryModel.AvailabilityStatu" Width="1.5" PointX="2.75" PointY="6.75" />
         <EntityTypeShape EntityType="InventoryModel.Category" Width="1.5" PointX="4.75" PointY="6.75" />

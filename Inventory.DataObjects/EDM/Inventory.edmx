@@ -96,7 +96,7 @@
           <Property Name="LocationInStock" Type="nvarchar" MaxLength="250" />
           <Property Name="ExpiryDate" Type="date" />
           <Property Name="UnitID" Type="int" Nullable="false" />
-          <Property Name="UnitAmount" Type="int" Nullable="false" />
+          <Property Name="UnitAmount" Type="int" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
           <Property Name="CategoryID" Type="int" Nullable="false" />
@@ -339,7 +339,7 @@
           <Property Name="LocationInStock" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ExpiryDate" Type="DateTime" Precision="0" />
           <Property Name="UnitID" Type="Int32" Nullable="false" />
-          <Property Name="UnitAmount" Type="Int32" Nullable="false" />
+          <Property Name="UnitAmount" Type="Int32" />
           <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="CategoryID" Type="Int32" Nullable="false" />

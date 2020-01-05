@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="DTO\CategoryDTO.cs" />
+    <Compile Include="DTO\ItemsGroupedDTO.cs" />
     <Compile Include="EDM\AspNetRole.cs">
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>

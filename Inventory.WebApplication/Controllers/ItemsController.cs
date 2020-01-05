@@ -77,11 +77,31 @@ namespace Inventory.WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                int quantity = item.Quantity == 0 ? item.UnitAmount : item.Quantity;
-                for (int i=0; i < item.Quantity; i++)
+                List<Item> addedItems = new List<Item>();
+
+                int quantity = item.Quantity == null ? Convert.ToInt32(item.UnitAmount): Convert.ToInt32(item.Quantity);
+                item.UnitAmount = item.UnitID == 1 ? null : item.UnitAmount;
+                int maxID = db.Items.Max(x => x.Id);
+                for (int i=0; i < quantity; i++)
                 {
-                    db.Items.Add(item);
+                    Item newItem = new Item();
+                    newItem.Name = item.Name;
+                    newItem.AvailabilityStatusID = item.AvailabilityStatusID;
+                    newItem.CategoryID = item.CategoryID;
+                    newItem.Description = item.Description;
+                    newItem.ExpiryDate = item.ExpiryDate;
+                    newItem.ItemStatusID = item.ItemStatusID;
+                    newItem.LocationInStock = item.LocationInStock;
+                    newItem.Price = item.Price;
+                    newItem.SupplierID = item.SupplierID;
+                    newItem.UnitAmount = item.UnitAmount;
+                    newItem.UnitID = item.UnitID;
+
+                    item.Id = maxID + i;
+                    addedItems.Add(newItem);
                 }
+
+                db.Items.AddRange(addedItems);
                 db.SaveChanges();
                 return RedirectToAction("Create");
             }
