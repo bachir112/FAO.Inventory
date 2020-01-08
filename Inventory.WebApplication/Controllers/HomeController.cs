@@ -1,5 +1,7 @@
 ﻿using Inventory.DataObjects.DTO;
 using Inventory.DataObjects.EDM;
+using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,6 +84,42 @@ namespace Inventory.WebApplication.Controllers
         public ActionResult Transactions()
         {
             return View();
+        }
+
+        public JsonResult AssignItems(int quantity, int AvailabilityStatusID, IEnumerable<Dictionary<string, object>> selectedItems)
+        {
+            List<string> result = new List<string>();
+
+            var selectedItemsJSON = JsonConvert.SerializeObject(selectedItems);
+            List<ItemsGroupedDTO> selectedItemsList = JsonConvert.DeserializeObject<List<ItemsGroupedDTO>>(selectedItemsJSON);
+
+            using (var db = new InventoryEntities())
+            {
+                foreach(var item in selectedItemsList)
+                {
+                    var itemInDB = db.Items.Where(x => x.Name == item.Name && 
+                                                    x.AvailabilityStatusID == item.AvailabilityStatusID && 
+                                                    x.ExpiryDate == item.ExpiryDate && 
+                                                    x.LocationInStock == item.LocationInStock && 
+                                                    x.ReceivedOn == item.ReceivedOn && 
+                                                    x.Description == item.Description 
+                                                    ).Select(x => x).Take(quantity).ToList();
+                    itemInDB.ForEach(x => x.AvailabilityStatusID = AvailabilityStatusID);
+
+                    Transaction newTransaction = new Transaction();
+                    newTransaction.ItemName = item.Name;
+                    newTransaction.OldAvailabilityStatus = 1;
+                    newTransaction.NewAvailabilityStatus = item.AvailabilityStatusID;
+                    newTransaction.StockKeeper = User.Identity.GetUserId();
+                    newTransaction.Quantity = quantity;
+
+                    db.Transactions.Add(newTransaction);
+
+                    db.SaveChanges();
+                }
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult ItemsInCategory(Nullable<int> categoryID = null)

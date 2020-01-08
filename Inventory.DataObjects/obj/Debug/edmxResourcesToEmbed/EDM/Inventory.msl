@@ -80,8 +80,11 @@
     <EntitySetMapping Name="Items">
       <EntityTypeMapping TypeName="InventoryModel.Item">
         <MappingFragment StoreEntitySet="Items">
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
           <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
           <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="ReceivedOn" ColumnName="ReceivedOn" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="UnitAmount" ColumnName="UnitAmount" />
@@ -117,6 +120,20 @@
       <EntityTypeMapping TypeName="InventoryModel.Supplier">
         <MappingFragment StoreEntitySet="Suppliers">
           <ScalarProperty Name="Supplier1" ColumnName="Supplier" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transactions">
+      <EntityTypeMapping TypeName="InventoryModel.Transaction">
+        <MappingFragment StoreEntitySet="Transaction">
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+          <ScalarProperty Name="StockKeeper" ColumnName="StockKeeper" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="NewAvailabilityStatus" ColumnName="NewAvailabilityStatus" />
+          <ScalarProperty Name="OldAvailabilityStatus" ColumnName="OldAvailabilityStatus" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

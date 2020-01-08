@@ -12,6 +12,7 @@
     <EntitySet Name="ItemsSearchValues" EntityType="InventoryModel.ItemsSearchValue" />
     <EntitySet Name="ItemStatus" EntityType="InventoryModel.ItemStatu" />
     <EntitySet Name="Suppliers" EntityType="InventoryModel.Supplier" />
+    <EntitySet Name="Transactions" EntityType="InventoryModel.Transaction" />
     <EntitySet Name="Units" EntityType="InventoryModel.Unit" />
     <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="InventoryModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -118,8 +119,11 @@
     <Property Name="UnitAmount" Type="Int32" />
     <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ReceivedOn" Type="DateTime" Precision="0" />
     <Property Name="CategoryID" Type="Int32" Nullable="false" />
     <Property Name="SupplierID" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
   </EntityType>
   <EntityType Name="ItemsSearchValue">
     <Key>
@@ -143,6 +147,19 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Supplier1" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Transaction">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="OldAvailabilityStatus" Type="Int32" />
+    <Property Name="NewAvailabilityStatus" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="StockKeeper" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="Unit">
     <Key>

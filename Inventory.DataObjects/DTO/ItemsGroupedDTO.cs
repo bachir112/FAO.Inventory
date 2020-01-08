@@ -25,5 +25,6 @@ namespace Inventory.DataObjects.DTO
         public int SupplierID { get; set; }
         public string Supplier { get; set; }
         public Nullable<int> Quantity { get; set; }
+        public Nullable<System.DateTime> ReceivedOn { get; set; }
     }
 }

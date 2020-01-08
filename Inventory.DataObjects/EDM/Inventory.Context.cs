@@ -36,6 +36,7 @@ namespace Inventory.DataObjects.EDM
         public virtual DbSet<ItemsSearchValue> ItemsSearchValues { get; set; }
         public virtual DbSet<ItemStatu> ItemStatus { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
     }
 }

@@ -16,7 +16,8 @@
         <EntityTypeShape EntityType="InventoryModel.ItemsSearchValue" Width="1.5" PointX="7.75" PointY="0.75" />
         <EntityTypeShape EntityType="InventoryModel.ItemStatu" Width="1.5" PointX="7.75" PointY="3.75" />
         <EntityTypeShape EntityType="InventoryModel.Supplier" Width="1.5" PointX="8.75" PointY="6.75" />
-        <EntityTypeShape EntityType="InventoryModel.Unit" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="InventoryModel.Transaction" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="InventoryModel.Unit" Width="1.5" PointX="0.75" PointY="9.75" />
         <AssociationConnector Association="InventoryModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="InventoryModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="InventoryModel.AspNetUserRoles" />
