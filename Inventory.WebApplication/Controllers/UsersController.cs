@@ -155,8 +155,6 @@ namespace Inventory.WebApplication.Controllers
             return RedirectToAction("Index");
         }
 
-
-
         public async Task<JsonResult> ResetPassword(string newPassword, string userID = null)
         {
             string response = Global.Global.EnumsError;
@@ -189,6 +187,50 @@ namespace Inventory.WebApplication.Controllers
                 {
                     response = Global.Global.EnumsSuccess;
                 }
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<JsonResult> AddRole(string roleName)
+        {
+            string response = Global.Global.EnumsError;
+
+            try
+            {
+                AspNetRole aspNetRole = new AspNetRole();
+                aspNetRole.Name = roleName;
+
+                db.AspNetRoles.Add(aspNetRole);
+                db.SaveChanges();
+
+                response = Global.Global.EnumsSuccess;
+            }
+            catch(Exception ex)
+            {
+                response = Global.Global.EnumsError;
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public async Task<JsonResult> editRole(string oldRoleName, string newRoleName)
+        {
+            string response = Global.Global.EnumsError;
+
+            try
+            {
+                AspNetRole aspNetRole = db.AspNetRoles.First(x => x.Name == oldRoleName);
+                aspNetRole.Name = newRoleName;
+
+                db.SaveChanges();
+
+                response = Global.Global.EnumsSuccess;
+            }
+            catch
+            {
+                response = Global.Global.EnumsError;
             }
 
             return Json(response, JsonRequestBehavior.AllowGet);

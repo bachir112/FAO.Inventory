@@ -5,31 +5,71 @@
     Layout = null;
 }
 
-<div class="row widget-row">
-    @{
-        foreach (CategoryDTO cat in Model)
-        {
-            <div class="col-md-3 categoryContainer" data-categoryID="@cat.Id">
-                <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
-                    <h4 class="widget-thumb-heading">@cat.Name</h4>
-                    <div class="widget-thumb-wrap">
-                        <img src="@Url.Content("~/images/" + cat.Picture)" style="width:50px;" />
-                        <div class="widget-thumb-body">
-                            <p style="float:left;margin:0;width:100%;">
-                                <span style="font-size:14px;" class="pull-left">Items</span>
-                                <span style="font-size:14px;margin-left:10px;" class="widget-thumb-body-stat pull-left" data-counter="counterup" data-value="@cat.ItemTypeInCategoryCount">0</span>
-                            </p>
-                            <p style="float:left;margin:0;width:100%;">
-                                <span style="font-size:14px;" class="pull-left">Count</span>                                
-                                <span style="font-size:14px;margin-left:10px;" class="widget-thumb-body-stat pull-left" data-counter="counterup" data-value="@cat.ItemInCategoryCount">0</span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-12 goToButton">
-                        <a href=""> Go to </a>
-                    </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light bordered">
+            <div id="categoriesFilterContainer" class="portlet-title" style="cursor:pointer;">
+                <div class="caption font-dark">
+                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    <span class="caption-subject bold uppercase">
+                        Filter by Category
+                    </span>
                 </div>
             </div>
-        }
-    }
+            <div id="allCategoriesContainer" class="portlet-body" style="display:none;">
+
+                <div class="row widget-row">
+                    @{
+                        foreach (CategoryDTO cat in Model)
+                        {
+                            <div class="col-md-3 categoryContainer" data-categoryID="@cat.Id">
+                                <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
+                                    <h4 class="widget-thumb-heading">@cat.Name</h4>
+                                    <div class="widget-thumb-wrap">
+                                        <img src="@Url.Content("~/images/" + cat.Picture)" style="width:50px;" />
+                                        <div class="widget-thumb-body">
+                                            <p style="float:left;margin:0;width:100%;">
+                                                <span style="font-size:14px;" class="pull-left">Items</span>
+                                                <span style="font-size:14px;margin-left:10px;" class="widget-thumb-body-stat pull-left" data-counter="counterup" data-value="@cat.ItemTypeInCategoryCount">0</span>
+                                            </p>
+                                            <p style="float:left;margin:0;width:100%;">
+                                                <span style="font-size:14px;" class="pull-left">Count</span>
+                                                <span style="font-size:14px;margin-left:10px;" class="widget-thumb-body-stat pull-left" data-counter="counterup" data-value="@cat.ItemInCategoryCount">0</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 goToButton">
+                                        <a href="javascript:getItemsInCategory(@cat.Id);"> Go to </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div id="itemsPartialView" class="row">
+    @{ Html.RenderAction("ItemsPartialDefault", "Home"); }
+</div>
+
+<script>
+
+    function getItemsInCategory(categoryID) {
+        console.log('reloading Partial Items for category: ' + categoryID);
+        $.ajax({
+            url: '@Url.Action("ItemsPartialDefault", "Home")',
+            data: { categoryID: categoryID },
+            type: "POST",
+            success: function (data) {
+                $('#itemsPartialView').show();
+                $('#itemsPartialView').html(data);
+                $('html, body').animate({
+                    scrollTop: $("#itemsPartialView").offset().top
+                }, 2000);
+            }
+        });
+    }
+</script>

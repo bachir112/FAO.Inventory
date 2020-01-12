@@ -112,6 +112,26 @@ namespace Inventory.WebApplication.Controllers
         // GET: Items/Edit/5
         public ActionResult EditSection()
         {
+            List<CategoryDTO> categoriesList = db.Categories
+                                .Select(x => new CategoryDTO
+                                {
+                                    Id = x.Id,
+                                    Name = x.Name,
+                                    Picture = x.Picture,
+                                    ParentCategory = x.ParentCategory
+                                }).ToList();
+
+            List<Supplier> suppliersList = db.Suppliers.ToList();
+            List<AvailabilityStatu> availabilityStatusList = db.AvailabilityStatus.ToList();
+            List<ItemStatu> itemStatusList = db.ItemStatus.ToList();
+            List<Unit> unitList = db.Units.ToList();
+
+            ViewBag.CategoriesList = categoriesList;
+            ViewBag.SuppliersList = suppliersList;
+            ViewBag.AvailabilityStatusList = availabilityStatusList;
+            ViewBag.ItemStatusList = itemStatusList;
+            ViewBag.UnitList = unitList;
+
             return View();
         }
 

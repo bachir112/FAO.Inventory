@@ -3,6 +3,8 @@
 
 @{ 
     Layout = null;
+    string categoryName = ViewBag.CategoryName;
+    categoryName = categoryName == null ? "All Stock" : categoryName;
 }
 
 <div class="col-md-12">
@@ -15,7 +17,7 @@
         <div class="portlet-title">
             <div class="caption font-dark">
                 <img src="../images/all-items.png" style="width:50px;">
-                <span class="caption-subject bold uppercase"> Items in <span style="color: red;">ALL STOCK</span></span>
+                <span class="caption-subject bold uppercase"> Items in <span style="color: red;">@categoryName.ToUpper()</span></span>
             </div>
         </div>
         <div class="portlet-body">
@@ -23,12 +25,12 @@
                 <div id="editActionContainer" class="row" style="display:none;">
                     <div class="col-md-6">
                         <div class="btn-group">
-                            <button id="sample_editable_1_new" class="btn sbold green">
+                            <button id="editItemActionSelector" class="btn sbold green" data-toggle="modal" data-target="#editItemModal">
                                 Edit
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </button>
 
-                            <button id="sample_editable_1_new" class="btn sbold green" style="margin-left:15px;">
+                            <button id="batchEditItemActionSelector" class="btn sbold green" style="margin-left:15px;" data-toggle="modal" data-target="#editItemModal">
                                 Edit Batch
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             </button>
@@ -59,6 +61,7 @@
                         <th> Availability </th>
                         <th> Received On </th>
                         <th> Quantity </th>
+                        <th> Amount </th>
                         <th> Location in Stock </th>
                         <th> Description </th>
                         <th> Expiry Date </th>
@@ -95,6 +98,8 @@
                                                data-LocationInStock="@item.LocationInStock" 
                                                data-ReceivedOn="@item.ReceivedOn" 
                                                data-Description="@item.Description" 
+                                               data-UnitID="@item.UnitID" 
+                                               data-UnitAmount="@item.UnitAmount" 
                                                />
                                         <span></span>
                                     </label>
@@ -106,10 +111,13 @@
                                     <span class="label label-sm label-@AvailabilityStatusColor"> @item.AvailabilityStatus </span>                                    
                                 </td>
                                 <td>
-                                    27 Dec 2019
+                                    @item.ReceivedOn
                                 </td>
                                 <td>
                                     @item.Quantity
+                                </td>
+                                <td>
+                                    @item.UnitAmount @item.Unit
                                 </td>
                                 <td class="center">
                                     @item.LocationInStock
@@ -128,3 +136,42 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var table = $('#itemsTable');
+
+        var oTable = table.dataTable({
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "_MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+            "order": [
+                [0, 'asc']
+            ],
+            "lengthMenu": [
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, "All"] // change per page values here
+            ],
+            "pageLength": 10,
+            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+            buttons: [
+                { extend: 'print', className: 'btn dark btn-outline' },
+                { extend: 'pdf', className: 'btn green btn-outline' },
+                { extend: 'excel', className: 'btn yellow btn-outline ' }
+            ],
+            responsive: true
+        });
+    });
+
+</script>

@@ -53,7 +53,7 @@ namespace Inventory.WebApplication.Controllers
             return View(categoriesList);
         }
 
-        public ActionResult ItemsPartialDefault()
+        public ActionResult ItemsPartialDefault(Nullable<int> categoryID = null)
         {
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
@@ -61,20 +61,27 @@ namespace Inventory.WebApplication.Controllers
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Unit> units = db.Units.ToList();
 
                 itemsInStock = (from item in db.Items
-                                             group item by new { item.Name, item.AvailabilityStatusID, item.ExpiryDate } into items
-                                             select items).AsEnumerable().Select(
-                                             items => new ItemsGroupedDTO()
-                                             {
-                                                 Name = items.Key.Name,
-                                                 AvailabilityStatus = availabilityStatuses.FirstOrDefault(x => x.Id == items.Key.AvailabilityStatusID).Status,
-                                                 AvailabilityStatusID = items.Key.AvailabilityStatusID,
-                                                 Quantity = items.Count(),
-                                                 LocationInStock = string.Join(",", items.Where(x => !string.IsNullOrEmpty(x.LocationInStock)).Select(x => x.LocationInStock)),
-                                                 Description = string.Join(",", items.Where(x => !string.IsNullOrEmpty(x.Description)).Select(x => x.Description)),
-                                                 ExpiryDate = items.Key.ExpiryDate
-                                             }).ToList();
+                                where item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
+                                group item by new { item.Name, item.AvailabilityStatusID, item.ExpiryDate, item.UnitID, item.UnitAmount } into items
+                                select items).AsEnumerable().Select(
+                                items => new ItemsGroupedDTO()
+                                {
+                                    Name = items.Key.Name,
+                                    AvailabilityStatus = availabilityStatuses.FirstOrDefault(x => x.Id == items.Key.AvailabilityStatusID).Status,
+                                    AvailabilityStatusID = items.Key.AvailabilityStatusID,
+                                    Quantity = items.Count(),
+                                    LocationInStock = string.Join(", ", items.Where(x => !string.IsNullOrEmpty(x.LocationInStock)).Select(x => x.LocationInStock + " (" + items.Where(y => y.LocationInStock == x.LocationInStock).Select(y => y).Count().ToString() + ")").Distinct()),
+                                    Description = string.Join(",", items.Where(x => !string.IsNullOrEmpty(x.Description)).Select(x => x.Description)),
+                                    ExpiryDate = items.Key.ExpiryDate,
+                                    UnitID = items.Key.UnitID,
+                                    UnitAmount = items.Key.UnitAmount,
+                                    Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
+                                }).ToList();
+
+                ViewBag.CategoryName = categoryID == null ? null : db.Categories.First(x => x.Id == categoryID).Name;
             }
 
             return View(itemsInStock);
@@ -86,7 +93,7 @@ namespace Inventory.WebApplication.Controllers
             return View();
         }
 
-        public JsonResult AssignItems(int quantity, int AvailabilityStatusID, IEnumerable<Dictionary<string, object>> selectedItems)
+        public JsonResult AssignItems(int quantity, int AvailabilityStatusID, string LocationInStock, IEnumerable<Dictionary<string, object>> selectedItems)
         {
             List<string> result = new List<string>();
 
@@ -100,10 +107,16 @@ namespace Inventory.WebApplication.Controllers
                     var itemInDB = db.Items.Where(x => x.Name == item.Name && 
                                                     x.AvailabilityStatusID == item.AvailabilityStatusID && 
                                                     x.ExpiryDate == item.ExpiryDate && 
-                                                    x.LocationInStock == item.LocationInStock && 
-                                                    x.ReceivedOn == item.ReceivedOn && 
-                                                    x.Description == item.Description 
+                                                    x.LocationInStock == LocationInStock && 
+                                                    x.ReceivedOn == item.ReceivedOn
+                                                    &&
+                                                    (
+                                                        x.Description == (item.Description == string.Empty ? null : item.Description)
+                                                        ||
+                                                        x.Description == (item.Description == null ? string.Empty : item.Description)
+                                                    )
                                                     ).Select(x => x).Take(quantity).ToList();
+
                     itemInDB.ForEach(x => x.AvailabilityStatusID = AvailabilityStatusID);
 
                     Transaction newTransaction = new Transaction();
@@ -129,7 +142,7 @@ namespace Inventory.WebApplication.Controllers
             using (var db = new InventoryEntities())
             {
                 result = db.Items.Where(x => (categoryID == null) ? true : x.CategoryID == categoryID).Select(x => x.Name).ToList();
-                List<string> searchableItems = db.ItemsSearchValues.Where(x => (categoryID == null) ? true : x.CategoryID == categoryID).Select(x => x.ItemName).ToList();
+                List<string> searchableItems = db.ItemsSearchValues.Where(x => (categoryID == null) ? true : x.CategoryID == categoryID).Select(x => x.ItemName).Distinct().ToList();
                 result.AddRange(searchableItems);
             }
 
