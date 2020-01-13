@@ -99,6 +99,8 @@ namespace Inventory.WebApplication.Controllers
                 ViewBag.UserRole = rolename;
             }
 
+            ViewBag.AspNetRoles = db.AspNetRoles.ToList();
+
             return View(aspNetUser);
         }
 
@@ -199,6 +201,7 @@ namespace Inventory.WebApplication.Controllers
             try
             {
                 AspNetRole aspNetRole = new AspNetRole();
+                aspNetRole.Id = Guid.NewGuid().ToString();
                 aspNetRole.Name = roleName;
 
                 db.AspNetRoles.Add(aspNetRole);
@@ -224,6 +227,26 @@ namespace Inventory.WebApplication.Controllers
                 AspNetRole aspNetRole = db.AspNetRoles.First(x => x.Name == oldRoleName);
                 aspNetRole.Name = newRoleName;
 
+                db.SaveChanges();
+
+                response = Global.Global.EnumsSuccess;
+            }
+            catch
+            {
+                response = Global.Global.EnumsError;
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<JsonResult> DeleteRole(string roleName)
+        {
+            string response = Global.Global.EnumsError;
+
+            try
+            {
+                AspNetRole aspNetRole = db.AspNetRoles.First(x => x.Name == roleName);
+                db.AspNetRoles.Remove(aspNetRole);
                 db.SaveChanges();
 
                 response = Global.Global.EnumsSuccess;

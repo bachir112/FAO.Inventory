@@ -5,7 +5,6 @@ C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Debu
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Debug\EntityFramework.xml
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.csprojAssemblyReference.cache
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.csproj.CopyComplete
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.dll
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.pdb

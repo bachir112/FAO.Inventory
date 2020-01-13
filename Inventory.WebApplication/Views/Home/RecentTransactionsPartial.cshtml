@@ -1,0 +1,108 @@
+﻿@using Inventory.DataObjects.DTO
+@model List<TransactionDTO>
+
+@{
+    Layout = null;
+}
+
+<style type="text/css">
+
+    .feeds li .col2 {
+        width: 200px;
+        margin-left: -200px;
+    }
+
+</style>
+
+<div class="row">
+    <div class="col-lg-12 col-xs-12 col-sm-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-share font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">Recent Activities</span>
+                </div>
+                <div class="actions">
+                    <div class="btn-group">
+                        <a class="btn btn-sm blue btn-outline btn-circle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            Filter By
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <div class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
+                            <label class="mt-checkbox mt-checkbox-outline">
+                                <input type="checkbox" /> In
+                                <span></span>
+                            </label>
+                            <label class="mt-checkbox mt-checkbox-outline">
+                                <input type="checkbox" checked="" /> Out
+                                <span></span>
+                            </label>
+                            <label class="mt-checkbox mt-checkbox-outline">
+                                <input type="checkbox" /> Out of Service
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="scroller" style="height: 300px;" data-always-visible="1" data-rail-visible="0">
+                    <ul class="feeds">
+                        @{
+                            foreach (TransactionDTO transaction in Model)
+                            {
+                                string availabilityColor = string.Empty;
+                                string newvailabilityStatus = string.Empty;
+                                switch (transaction.NewAvailabilityStatus)
+                                {
+                                    case "In Stock":
+                                        availabilityColor = "success";
+                                        newvailabilityStatus = "In";
+                                        break;
+                                    case "Out of Stock":
+                                        availabilityColor = "danger";
+                                        newvailabilityStatus = "Out";
+                                        break;
+                                    case "Not Used":
+                                        availabilityColor = "info";
+                                        newvailabilityStatus = "Thrown";
+                                        break;
+                                    default:
+                                        availabilityColor = "default";
+                                        newvailabilityStatus = "N/A";
+                                        break;
+                                }
+
+                                TimeSpan timeDiff = (DateTime.Now - transaction.TransactionDate);
+
+                                <li>
+                                    <div class="col1">
+                                        <div class="cont">
+                                            <div class="cont-col1">
+                                                <div class="label label-sm label-@availabilityColor">
+                                                    @newvailabilityStatus
+                                                </div>
+                                            </div>
+                                            <div class="cont-col2">
+                                                <div class="desc"> @transaction.StockKeeper Checked out @transaction.Quantity @transaction.ItemName to @transaction.ToWhom. </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col2">
+                                        <div class="date"> @(String.Format("{0} d, {1} h, {2} m, {3} s", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds).ToString()) ago</div>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="scroller-footer">
+                    <div class="btn-arrow-link pull-right">
+                        <a href="javascript:;">See All Records</a>
+                        <i class="icon-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5970,7 +5970,6 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Shared\_Categories.cshtml" />
     <Content Include="Views\Items\Create.cshtml" />
     <Content Include="Views\Items\Delete.cshtml" />
     <Content Include="Views\Items\Details.cshtml" />
@@ -5981,6 +5980,9 @@
     <Content Include="Views\Home\CategoriesPartial.cshtml" />
     <Content Include="Views\Home\ItemsPartialDefault.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Home\TransactionsHistory.cshtml" />
+    <Content Include="Views\Shared\_ThemeColors.cshtml" />
+    <Content Include="Views\Home\RecentTransactionsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -16,20 +16,22 @@ namespace Inventory.WebApplication.Controllers
         private InventoryEntities db = new InventoryEntities();
 
         // GET: Roles
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            List<AspNetUser> listAspNetUser = db.AspNetUsers.ToList();
+            //List<AspNetUser> listAspNetUser = db.AspNetUsers.ToList();
 
-            using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
-            {
-                foreach (var user in listAspNetUser)
-                {
-                    var userRole = await userManager.GetRolesAsync(user.Id);
-                    user.UserRole = userRole.FirstOrDefault();
-                }
-            }
+            //using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            //{
+            //    foreach (var user in listAspNetUser)
+            //    {
+            //        var userRole = await userManager.GetRolesAsync(user.Id);
+            //        user.UserRole = userRole.FirstOrDefault();
+            //    }
+            //}
 
-            return View(listAspNetUser);
+            List<AspNetRole> roles = db.AspNetRoles.ToList();
+
+            return View(roles);
         }
     }
 }

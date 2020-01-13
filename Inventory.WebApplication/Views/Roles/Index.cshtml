@@ -1,14 +1,8 @@
-﻿@model IEnumerable<Inventory.DataObjects.EDM.AspNetUser>
+﻿@using Inventory.DataObjects.EDM
+@model List<AspNetRole>
 
 @{
     ViewBag.Title = "Index";
-    var usersByRoles = (from model in Model
-                        group model by model.UserRole into groupedUsers
-                        select new
-                        {
-                            Role = groupedUsers.Key,
-                            Users = groupedUsers
-                        }).ToList();
 }
 
 
@@ -74,23 +68,9 @@
 
 <div class="page-content-wrapper">
     <div class="page-content">
-        <div class="theme-panel hidden-xs hidden-sm">
-            <div class="toggler"> </div>
-            <div class="toggler-close"> </div>
-            <div class="theme-options">
-                <div class="theme-option theme-colors clearfix">
-                    <span> THEME COLOR </span>
-                    <ul>
-                        <li class="color-default current tooltips" data-style="default" data-container="body" data-original-title="Default"> </li>
-                        <li class="color-darkblue tooltips" data-style="darkblue" data-container="body" data-original-title="Dark Blue"> </li>
-                        <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="Blue"> </li>
-                        <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="Grey"> </li>
-                        <li class="color-light tooltips" data-style="light" data-container="body" data-original-title="Light"> </li>
-                        <li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true" data-original-title="Light 2"> </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+
+        @Html.Partial("_ThemeColors")
+
         <h1 class="page-title"> Dashboard </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
@@ -123,9 +103,9 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="portlet_comments_1">
                                 <div class="mt-comments">
-                                    @foreach (var role in usersByRoles)
+                                    @foreach (var role in Model)
                                     {
-                                        string roleName = role.Role == null ? "No Role Assigned" : role.Role;
+                                        string roleName = role.Name == null ? "No Role Assigned" : role.Name;
                                         <div class="mt-comment">
                                             <div class="mt-comment-body">
                                                 <div class="mt-comment-info">
@@ -142,7 +122,7 @@
                                                 </div>
                                                 <div class="mt-comment-text">
                                                     @{
-                                                        foreach (var user in role.Users)
+                                                        foreach (var user in role.AspNetUsers)
                                                         {
                                                             <h5>User: @user.UserName</h5>
                                                         }
@@ -185,7 +165,7 @@
             url: '@Url.Action("AddRole", "Users")' + '?roleName=' + newRoleName,
             dataType: 'text',
             success: function (data) {
-
+                location.reload();
             }
         });
 
@@ -194,10 +174,10 @@
     function editRole() {
         $.ajax({
             type: 'GET',
-            url: '@Url.Action("EditRole", "Users")' + '?oldRoleName=' +  + '&roleName=' + selectedRole,
+            url: '@Url.Action("EditRole", "Users")' + '?oldRoleName=' + selectedRole + '&newRoleName=' + selectedRole,
             dataType: 'text',
             success: function (data) {
-
+                location.reload();
             }
         });
     }
@@ -208,7 +188,7 @@
             url: '@Url.Action("DeleteRole", "Users")' + '?roleName=' + selectedRole,
             dataType: 'text',
             success: function (data) {
-
+                location.reload();
             }
         });
     }

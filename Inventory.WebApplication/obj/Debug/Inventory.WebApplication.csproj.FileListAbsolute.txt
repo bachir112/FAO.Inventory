@@ -1,3 +1,4 @@
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.WebApplication\obj\Debug\Inventory.WebApplication.csprojAssemblyReference.cache
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.WebApplication\bin\Inventory.WebApplication.dll.config
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.WebApplication\bin\Inventory.WebApplication.dll
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.WebApplication\bin\Inventory.WebApplication.pdb
@@ -101,7 +102,6 @@ C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.WebApplication\bin\M
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.WebApplication\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.WebApplication\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.WebApplication\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.WebApplication\obj\Debug\Inventory.WebApplication.csprojAssemblyReference.cache
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.WebApplication\obj\Debug\Inventory.WebApplication.csproj.CopyComplete
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.WebApplication\obj\Debug\Inventory.WebApplication.dll
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.WebApplication\obj\Debug\Inventory.WebApplication.pdb

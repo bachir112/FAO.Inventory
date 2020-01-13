@@ -93,6 +93,56 @@ namespace Inventory.WebApplication.Controllers
             return View();
         }
 
+        public ActionResult RecentTransactionsPartial()
+        {
+            List<TransactionDTO> result = new List<TransactionDTO>();
+
+            using (var db = new InventoryEntities())
+            {
+                List<Transaction> transactions = db.Transactions.ToList();
+                result = transactions.Select(x => new TransactionDTO
+                {
+                    Id = x.Id,
+                    ItemName = x.ItemName,
+                    Quantity = x.Quantity,
+                    NewAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus).Status : string.Empty,
+                    OldAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus).Status : string.Empty,
+                    StockKeeper = db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper) != null ? db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper).UserName : string.Empty,
+                    Description = x.Description,
+                    ToWhom = x.ToWhom,
+                    TransactionDate = x.TransactionDate
+                }).ToList();
+            }
+
+            return View(result);
+        }
+        
+
+        public ActionResult TransactionsHistory()
+        {
+            List<TransactionDTO> result = new List<TransactionDTO>();
+
+            using (var db = new InventoryEntities())
+            {
+                List<Transaction> transactions = db.Transactions.ToList();
+                result = transactions.Select(x => new TransactionDTO
+                {
+                    Id = x.Id,
+                    ItemName = x.ItemName,
+                    Quantity = x.Quantity,
+                    NewAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus).Status : string.Empty,
+                    OldAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus).Status : string.Empty,
+                    StockKeeper = db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper) != null ? db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper).FullName : string.Empty,
+                    Description = x.Description,
+                    ToWhom = x.ToWhom,
+                    TransactionDate = x.TransactionDate
+                }).ToList();
+            }
+            
+            return View(result);
+        }
+
+
         public JsonResult AssignItems(int quantity, int AvailabilityStatusID, string LocationInStock, IEnumerable<Dictionary<string, object>> selectedItems)
         {
             List<string> result = new List<string>();
