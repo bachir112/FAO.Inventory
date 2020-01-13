@@ -129,6 +129,8 @@
         <MappingFragment StoreEntitySet="Transaction">
           <ScalarProperty Name="ToWhom" ColumnName="ToWhom" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="UnitAmount" ColumnName="UnitAmount" />
+          <ScalarProperty Name="UnitID" ColumnName="UnitID" />
           <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
           <ScalarProperty Name="StockKeeper" ColumnName="StockKeeper" />
           <ScalarProperty Name="Description" ColumnName="Description" />

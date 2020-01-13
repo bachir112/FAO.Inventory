@@ -75,6 +75,27 @@
 
                                 TimeSpan timeDiff = (DateTime.Now - transaction.TransactionDate);
 
+                                string unitAmout = transaction.UnitAmount == null ? string.Empty : transaction.UnitAmount.ToString();
+
+                                string unit = string.Empty;
+                                switch (transaction.Unit)
+                                {
+                                    case "Unit":
+                                        unitAmout = string.Empty;
+                                        break;
+                                    case "Kilogram":
+                                        unit = "Kg";
+                                        break;
+                                    case "Litre":
+                                        unit = "L";
+                                        break;
+                                    case "Milliliter":
+                                        unit = "ml";
+                                        break;
+                                    default:
+                                        break;
+                                }
+
                                 <li>
                                     <div class="col1">
                                         <div class="cont">
@@ -84,7 +105,7 @@
                                                 </div>
                                             </div>
                                             <div class="cont-col2">
-                                                <div class="desc"> @transaction.StockKeeper Checked out @transaction.Quantity @transaction.ItemName to @transaction.ToWhom. </div>
+                                                <div class="desc"> @transaction.StockKeeper Checked out @transaction.Quantity @transaction.ItemName @unit@unitAmout to @transaction.ToWhom. </div>
                                             </div>
                                         </div>
                                     </div>

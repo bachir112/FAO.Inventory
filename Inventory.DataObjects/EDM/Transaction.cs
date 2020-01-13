@@ -21,6 +21,8 @@ namespace Inventory.DataObjects.EDM
         public string Description { get; set; }
         public string StockKeeper { get; set; }
         public System.DateTime TransactionDate { get; set; }
+        public Nullable<int> UnitID { get; set; }
+        public Nullable<int> UnitAmount { get; set; }
         public int Quantity { get; set; }
         public string ToWhom { get; set; }
     }
