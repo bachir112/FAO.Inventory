@@ -34,6 +34,11 @@
                     <select id="locationInStock" class="form-control">
                     </select>
                 </div>
+                
+                <div class="form-group">
+                    <label>ToWhom</label>
+                    <input id="toWhom" type="text" class="form-control" placeholder="To Whom" />
+                </div>
                 <div class="form-group">
                     <label>Description</label>
                     <textarea id="assignDescription" class="form-control" rows="3"></textarea>
@@ -89,10 +94,13 @@
             var item = {
                 Name: $(this).attr('data-Name'),
                 AvailabilityStatusID: $(this).attr('data-AvailabilityStatusID'),
+                ItemStatusID: $(this).attr('data-ItemStatusID'),
                 ExpiryDate: $(this).attr('data-ExpiryDate'),
                 LocationInStock: $(this).attr('data-LocationInStock'),
                 ReceivedOn: $(this).attr('data-ReceivedOn'),
-                Description: $(this).attr('data-Description')
+                Description: $(this).attr('data-Description'),
+                UnitID: $(this).attr('data-UnitID'),
+                UnitAmount: $(this).attr('data-UnitAmount')
             };
 
             selectedItems.push(item);
@@ -120,8 +128,6 @@
             $('#assignQuantity').val('');
             $('#assignQuantity').prop('disabled', false);
         }
-
-        //console.log(selectedItems);
     });
 
     $(document).on('click', '#assignItem', function () {
@@ -133,13 +139,33 @@
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             type: 'POST',
-            url: "@Url.Action("AssignItems","Home")?quantity=" + $('#assignQuantity').val() + '&AvailabilityStatusID=' + $('#assignStatus').val() + '&LocationInStock=' + $('#locationInStock').val(),
+            url: "@Url.Action("AssignItems","Home")?quantity=" + $('#assignQuantity').val()
+                + '&AvailabilityStatusID=' + $('#assignStatus').val()
+                + '&LocationInStock=' + $('#locationInStock').val()
+                + '&Description=' + $('#assignDescription').val()
+                + '&ToWhom=' + $('#toWhom').val(),
             data: selectedItems,
             success: function (response) {
-                alert(response);
+                $('#assignItemModal').modal('hide');
+                refreshItemsTable();
             }
         });
 
     });
+    
+    function refreshItemsTable() {
+        $.ajax({
+            url: '@Url.Action("ItemsPartialDefault", "Home")',
+            type: "POST",
+            success: function (data) {
+                $('#itemsPartialView').show();
+                $('#itemsPartialView').html(data);
+                $('html, body').animate({
+                    scrollTop: $("#itemsPartialView").offset().top
+                }, 2000);
+                $('#assignActionContainer').show();
+            }
+        });
+    }
 
 </script>

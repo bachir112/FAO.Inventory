@@ -11,7 +11,6 @@
         width: 200px;
         margin-left: -200px;
     }
-
 </style>
 
 <div class="row">
@@ -105,12 +104,14 @@
                                                 </div>
                                             </div>
                                             <div class="cont-col2">
-                                                <div class="desc"> @transaction.StockKeeper Checked out @transaction.Quantity @transaction.ItemName @unit@unitAmout to @transaction.ToWhom. </div>
+                                                <div class="desc"> @transaction.StockKeeper Checked out @transaction.Quantity @transaction.ItemName @unitAmout@unit to @transaction.ToWhom. </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col2">
-                                        <div class="date"> @(String.Format("{0} d, {1} h, {2} m, {3} s", timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds).ToString()) ago</div>
+                                        <div class="date">
+                                            @(dateFormat(timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds)) ago
+                                        </div>
                                     </div>
                                 </li>
                             }
@@ -127,3 +128,29 @@
         </div>
     </div>
 </div>
+
+@functions{
+    public string dateFormat(int days, int hours, int minutes, int seconds)
+    {
+        if(days > 0)
+        {
+            return String.Format("{0} d, {1} h, {2} m, {3} s", days, hours, minutes, seconds).ToString();
+        }
+        else if(hours > 0)
+        {
+            return String.Format("{0} h, {1} m, {2} s", hours, minutes, seconds).ToString();
+        }
+        else if(minutes > 0)
+        {
+            return String.Format("{0} m, {1} s", minutes, seconds).ToString();
+        }
+        else if(seconds > 0)
+        {
+            return String.Format("{0} s", seconds).ToString();
+        }
+        else
+        {
+            return String.Format("{0} d, {1} h, {2} m, {3} s", days, hours, minutes, seconds).ToString();
+        }
+    }
+}

@@ -65,7 +65,7 @@ namespace Inventory.WebApplication.Controllers
 
                 itemsInStock = (from item in db.Items
                                 where item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
-                                group item by new { item.Name, item.AvailabilityStatusID, item.ExpiryDate, item.UnitID, item.UnitAmount } into items
+                                group item by new { item.Name, item.AvailabilityStatusID, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
                                 {
@@ -78,6 +78,7 @@ namespace Inventory.WebApplication.Controllers
                                     ExpiryDate = items.Key.ExpiryDate,
                                     UnitID = items.Key.UnitID,
                                     UnitAmount = items.Key.UnitAmount,
+                                    ItemStatusID = items.Key.ItemStatusID,
                                     Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
                                 }).ToList();
 
@@ -86,7 +87,6 @@ namespace Inventory.WebApplication.Controllers
 
             return View(itemsInStock);
         }
-
 
         public ActionResult Transactions()
         {
@@ -113,13 +113,12 @@ namespace Inventory.WebApplication.Controllers
                     Description = x.Description,
                     ToWhom = x.ToWhom,
                     TransactionDate = x.TransactionDate
-                }).ToList();
+                }).OrderByDescending(x => x.TransactionDate).ToList();
             }
 
             return View(result);
         }
         
-
         public ActionResult TransactionsHistory()
         {
             List<TransactionDTO> result = new List<TransactionDTO>();
@@ -144,8 +143,12 @@ namespace Inventory.WebApplication.Controllers
             return View(result);
         }
 
-
-        public JsonResult AssignItems(int quantity, int AvailabilityStatusID, string LocationInStock, IEnumerable<Dictionary<string, object>> selectedItems)
+        public JsonResult AssignItems(int quantity, 
+            int AvailabilityStatusID, 
+            string LocationInStock, 
+            string Description,
+            string ToWhom, 
+            IEnumerable<Dictionary<string, object>> selectedItems)
         {
             List<string> result = new List<string>();
 
@@ -158,14 +161,22 @@ namespace Inventory.WebApplication.Controllers
                 {
                     var itemInDB = db.Items.Where(x => x.Name == item.Name && 
                                                     x.AvailabilityStatusID == item.AvailabilityStatusID && 
+                                                    x.ItemStatusID == item.ItemStatusID &&
                                                     x.ExpiryDate == item.ExpiryDate && 
-                                                    x.LocationInStock == LocationInStock && 
-                                                    x.ReceivedOn == item.ReceivedOn
-                                                    &&
+                                                    x.ReceivedOn == item.ReceivedOn &&
+                                                    x.UnitID == item.UnitID &&
+                                                    x.UnitAmount == item.UnitAmount &&
+                                                    (
+                                                        x.LocationInStock == LocationInStock
+                                                        ||
+                                                        x.LocationInStock == (LocationInStock == string.Empty ? null : string.Empty)
+                                                    ) &&
                                                     (
                                                         x.Description == (item.Description == string.Empty ? null : item.Description)
                                                         ||
                                                         x.Description == (item.Description == null ? string.Empty : item.Description)
+                                                        ||
+                                                        x.Description == item.Description
                                                     )
                                                     ).Select(x => x).Take(quantity).ToList();
 
@@ -173,10 +184,15 @@ namespace Inventory.WebApplication.Controllers
 
                     Transaction newTransaction = new Transaction();
                     newTransaction.ItemName = item.Name;
-                    newTransaction.OldAvailabilityStatus = 1;
-                    newTransaction.NewAvailabilityStatus = item.AvailabilityStatusID;
+                    newTransaction.OldAvailabilityStatus = item.AvailabilityStatusID;
+                    newTransaction.NewAvailabilityStatus = AvailabilityStatusID;
                     newTransaction.StockKeeper = User.Identity.GetUserId();
                     newTransaction.Quantity = quantity;
+                    newTransaction.ToWhom = ToWhom;
+                    newTransaction.Description = Description;
+                    newTransaction.UnitID = item.UnitID;
+                    newTransaction.UnitAmount = item.UnitAmount;
+                    newTransaction.TransactionDate = DateTime.Now;
 
                     db.Transactions.Add(newTransaction);
 
