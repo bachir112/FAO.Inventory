@@ -38,5 +38,6 @@ namespace Inventory.DataObjects.EDM
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
+        public virtual DbSet<PageManagement> PageManagements { get; set; }
     }
 }

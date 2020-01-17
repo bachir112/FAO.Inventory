@@ -169,6 +169,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
+    <Compile Include="Controllers\PageManagementController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -5983,6 +5984,7 @@
     <Content Include="Views\Home\TransactionsHistory.cshtml" />
     <Content Include="Views\Shared\_ThemeColors.cshtml" />
     <Content Include="Views\Home\RecentTransactionsPartial.cshtml" />
+    <Content Include="Views\PageManagement\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

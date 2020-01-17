@@ -26,6 +26,7 @@
       <End Role="AspNetRole" EntitySet="AspNetRoles" />
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
     </AssociationSet>
+    <EntitySet Name="PageManagements" EntityType="InventoryModel.PageManagement" />
   </EntityContainer>
   <EntityType Name="C__MigrationHistory">
     <Key>
@@ -204,4 +205,13 @@
     <End Type="InventoryModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
     <End Type="InventoryModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
   </Association>
+  <EntityType Name="PageManagement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PageName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Allowed" Type="Boolean" Nullable="false" />
+  </EntityType>
 </Schema>
