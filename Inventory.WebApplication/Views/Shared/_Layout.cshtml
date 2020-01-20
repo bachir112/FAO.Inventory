@@ -293,14 +293,14 @@
                             <ul class="sub-menu" style="display: none;">
                                 <li id="dashboardTab" class="nav-item start">
                                     <a href="@Url.Action("Index","Home")" class="nav-link ">
-                                        <i class="icon-graph"></i>
+                                        <i class="fa fa-tachometer" aria-hidden="true"></i>
                                         <span class="title">Dashboard</span>
                                         <span class="selected"></span>
                                     </a>
                                 </li>
-                                <li id="dashboardTab" class="nav-item start">
-                                    <a href="@Url.Action("Reports","Home")" class="nav-link ">
-                                        <i class="icon-graph"></i>
+                                <li id="reportTab" class="nav-item start">
+                                    <a href="@Url.Action("Index","Reports")" class="nav-link ">
+                                        <i class="fa fa-flag-o" aria-hidden="true"></i>
                                         <span class="title">Reports</span>
                                         <span class="selected"></span>
                                     </a>
@@ -449,25 +449,36 @@
             });
 
         });
-
+        
 
         function dashboardActive() {
             $('#dashboardParentTab').addClass('active');
             $('#dashboardParentTab').addClass('open');
+            $('#dashboardParentTab .arrow').addClass('open');
             $('#dashboardParentTab .sub-menu').css('display', 'block');
             $('#dashboardTab').addClass('active');
+        }
+
+        function reportActive() {
+            $('#dashboardParentTab').addClass('active');
+            $('#dashboardParentTab').addClass('open');
+            $('#dashboardParentTab .arrow').addClass('open');
+            $('#dashboardParentTab .sub-menu').css('display', 'block');
+            $('#reportTab').addClass('active');
         }
 
         function itemsActive() {
             $('#itemsParentTab').addClass('active');
             $('#itemsParentTab').addClass('open');
-            $('#itemsParentTab .sub-menu').css('display', 'block');
+            $('#itemsParentTab .arrow').addClass('open');
+            $('#itemsParentTab .sub-menu').css('display', 'block');            
             $('#itemsTab').addClass('active');
         }
 
         function usersActive() {
             $('#usersParentTab').addClass('active');
             $('#usersParentTab').addClass('open');
+            $('#usersParentTab .arrow').addClass('open');
             $('#usersParentTab .sub-menu').css('display', 'block');
             $('#usersTab').addClass('active');
         }
@@ -475,6 +486,7 @@
         function pageManagementActive() {
             $('#usersParentTab').addClass('active');
             $('#usersParentTab').addClass('open');
+            $('#usersParentTab .arrow').addClass('open');
             $('#usersParentTab .sub-menu').css('display', 'block');
             $('#pageManagementTab').addClass('active');
         }
@@ -482,6 +494,7 @@
         function rolesActive() {
             $('#usersParentTab').addClass('active');
             $('#usersParentTab').addClass('open');
+            $('#usersParentTab .arrow').addClass('open');
             $('#usersParentTab .sub-menu').css('display', 'block');
             $('#rolesTab').addClass('active');
         }
@@ -489,6 +502,7 @@
         function transactionsActive() {
             $('#transactionsParentTab').addClass('active');
             $('#transactionsParentTab').addClass('open');
+            $('#transactionsParentTab .arrow').addClass('open');
             $('#transactionsParentTab .sub-menu').css('display', 'block');
             $('#transactionsTab').addClass('active');
         }
@@ -496,11 +510,10 @@
         function transactionsHistoryActive() {
             $('#transactionsParentTab').addClass('active');
             $('#transactionsParentTab').addClass('open');
+            $('#transactionsParentTab .arrow').addClass('open');
             $('#transactionsParentTab .sub-menu').css('display', 'block');
             $('#transactionsHistoryTab').addClass('active');
         }
-
-        
 
     </script>
 

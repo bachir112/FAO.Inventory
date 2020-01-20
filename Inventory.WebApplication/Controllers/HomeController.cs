@@ -18,6 +18,12 @@ namespace Inventory.WebApplication.Controllers
             return View();
         }
 
+        public ActionResult Reports()
+        {
+            return View();
+        }
+
+
         public ActionResult CategoriesPartial()
         {
             List<CategoryDTO> categoriesList = new List<CategoryDTO>();

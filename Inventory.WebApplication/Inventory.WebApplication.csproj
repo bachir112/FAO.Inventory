@@ -170,6 +170,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\PageManagementController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -5985,6 +5986,7 @@
     <Content Include="Views\Shared\_ThemeColors.cshtml" />
     <Content Include="Views\Home\RecentTransactionsPartial.cshtml" />
     <Content Include="Views\PageManagement\Index.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
