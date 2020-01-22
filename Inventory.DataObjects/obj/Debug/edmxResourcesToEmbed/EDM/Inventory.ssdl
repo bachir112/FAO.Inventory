@@ -125,6 +125,34 @@
     <Property Name="RoleName" Type="nvarchar" MaxLength="250" Nullable="false" />
     <Property Name="Allowed" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="ReportQueries">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemName" Type="nvarchar" MaxLength="250" />
+    <Property Name="MinimumQuantity" Type="int" />
+    <Property Name="MaximumQuantity" Type="int" />
+    <Property Name="MinimumPrice" Type="int" />
+    <Property Name="MaximumPrice" Type="int" />
+    <Property Name="AvailabilityStatusID" Type="int" />
+  </EntityType>
+  <EntityType Name="ReportSettings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReportID" Type="int" Nullable="false" />
+    <Property Name="ReportName" Type="nvarchar" MaxLength="250" />
+    <Property Name="ReceivedByUsers" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="DailyBasis" Type="bit" Nullable="false" />
+    <Property Name="WeeklyBasis" Type="bit" Nullable="false" />
+    <Property Name="MonthlyBasis" Type="bit" Nullable="false" />
+    <Property Name="YearlyBasis" Type="bit" Nullable="false" />
+    <Property Name="SpecificDates" Type="nvarchar(max)" />
+    <Property Name="QueryBasis" Type="bit" Nullable="false" />
+    <Property Name="QueryID" Type="int" />
+  </EntityType>
   <EntityType Name="Suppliers">
     <Key>
       <PropertyRef Name="Id" />
@@ -225,6 +253,8 @@
     <EntitySet Name="ItemsSearchValues" EntityType="Self.ItemsSearchValues" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ItemStatus" EntityType="Self.ItemStatus" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PageManagement" EntityType="Self.PageManagement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReportQueries" EntityType="Self.ReportQueries" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReportSettings" EntityType="Self.ReportSettings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />

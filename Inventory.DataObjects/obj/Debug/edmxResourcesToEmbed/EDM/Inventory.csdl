@@ -27,6 +27,8 @@
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
     </AssociationSet>
     <EntitySet Name="PageManagements" EntityType="InventoryModel.PageManagement" />
+    <EntitySet Name="ReportQueries" EntityType="InventoryModel.ReportQuery" />
+    <EntitySet Name="ReportSettings" EntityType="InventoryModel.ReportSetting" />
   </EntityContainer>
   <EntityType Name="C__MigrationHistory">
     <Key>
@@ -213,5 +215,33 @@
     <Property Name="PageName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="RoleName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="Allowed" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReportQuery">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="MinimumQuantity" Type="Int32" />
+    <Property Name="MaximumQuantity" Type="Int32" />
+    <Property Name="MinimumPrice" Type="Int32" />
+    <Property Name="MaximumPrice" Type="Int32" />
+    <Property Name="AvailabilityStatusID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ReportSetting">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ReportID" Type="Int32" Nullable="false" />
+    <Property Name="ReportName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ReceivedByUsers" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="DailyBasis" Type="Boolean" Nullable="false" />
+    <Property Name="WeeklyBasis" Type="Boolean" Nullable="false" />
+    <Property Name="MonthlyBasis" Type="Boolean" Nullable="false" />
+    <Property Name="YearlyBasis" Type="Boolean" Nullable="false" />
+    <Property Name="SpecificDates" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="QueryBasis" Type="Boolean" Nullable="false" />
+    <Property Name="QueryID" Type="Int32" />
   </EntityType>
 </Schema>

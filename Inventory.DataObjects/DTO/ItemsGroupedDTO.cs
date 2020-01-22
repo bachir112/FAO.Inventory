@@ -8,6 +8,7 @@ namespace Inventory.DataObjects.DTO
 {
     public class ItemsGroupedDTO
     {
+        public Nullable<int> GroupedId { get; set; }
         public string Name { get; set; }
         public int AvailabilityStatusID { get; set; }
         public string AvailabilityStatus { get; set; }

@@ -22,6 +22,8 @@
         <AssociationConnector Association="InventoryModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="InventoryModel.AspNetUserRoles" />
         <EntityTypeShape EntityType="InventoryModel.PageManagement" Width="1.5" PointX="3.375" PointY="9.75" />
+        <EntityTypeShape EntityType="InventoryModel.ReportQuery" Width="1.5" PointX="9.375" PointY="9.75" />
+        <EntityTypeShape EntityType="InventoryModel.ReportSetting" Width="1.5" PointX="11.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

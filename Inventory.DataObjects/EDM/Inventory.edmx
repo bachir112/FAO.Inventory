@@ -130,6 +130,34 @@
           <Property Name="RoleName" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Allowed" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="ReportQueries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="250" />
+          <Property Name="MinimumQuantity" Type="int" />
+          <Property Name="MaximumQuantity" Type="int" />
+          <Property Name="MinimumPrice" Type="int" />
+          <Property Name="MaximumPrice" Type="int" />
+          <Property Name="AvailabilityStatusID" Type="int" />
+        </EntityType>
+        <EntityType Name="ReportSettings">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReportID" Type="int" Nullable="false" />
+          <Property Name="ReportName" Type="nvarchar" MaxLength="250" />
+          <Property Name="ReceivedByUsers" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="DailyBasis" Type="bit" Nullable="false" />
+          <Property Name="WeeklyBasis" Type="bit" Nullable="false" />
+          <Property Name="MonthlyBasis" Type="bit" Nullable="false" />
+          <Property Name="YearlyBasis" Type="bit" Nullable="false" />
+          <Property Name="SpecificDates" Type="nvarchar(max)" />
+          <Property Name="QueryBasis" Type="bit" Nullable="false" />
+          <Property Name="QueryID" Type="int" />
+        </EntityType>
         <EntityType Name="Suppliers">
           <Key>
             <PropertyRef Name="Id" />
@@ -230,6 +258,8 @@
           <EntitySet Name="ItemsSearchValues" EntityType="Self.ItemsSearchValues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemStatus" EntityType="Self.ItemStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PageManagement" EntityType="Self.PageManagement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportQueries" EntityType="Self.ReportQueries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportSettings" EntityType="Self.ReportSettings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
@@ -281,6 +311,8 @@
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
           <EntitySet Name="PageManagements" EntityType="InventoryModel.PageManagement" />
+          <EntitySet Name="ReportQueries" EntityType="InventoryModel.ReportQuery" />
+          <EntitySet Name="ReportSettings" EntityType="InventoryModel.ReportSetting" />
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -468,6 +500,34 @@
           <Property Name="RoleName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Allowed" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="ReportQuery">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MinimumQuantity" Type="Int32" />
+          <Property Name="MaximumQuantity" Type="Int32" />
+          <Property Name="MinimumPrice" Type="Int32" />
+          <Property Name="MaximumPrice" Type="Int32" />
+          <Property Name="AvailabilityStatusID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ReportSetting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReportID" Type="Int32" Nullable="false" />
+          <Property Name="ReportName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ReceivedByUsers" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DailyBasis" Type="Boolean" Nullable="false" />
+          <Property Name="WeeklyBasis" Type="Boolean" Nullable="false" />
+          <Property Name="MonthlyBasis" Type="Boolean" Nullable="false" />
+          <Property Name="YearlyBasis" Type="Boolean" Nullable="false" />
+          <Property Name="SpecificDates" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="QueryBasis" Type="Boolean" Nullable="false" />
+          <Property Name="QueryID" Type="Int32" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -637,6 +697,36 @@
                 <ScalarProperty Name="Allowed" ColumnName="Allowed" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportQueries">
+            <EntityTypeMapping TypeName="InventoryModel.ReportQuery">
+              <MappingFragment StoreEntitySet="ReportQueries">
+                <ScalarProperty Name="AvailabilityStatusID" ColumnName="AvailabilityStatusID" />
+                <ScalarProperty Name="MaximumPrice" ColumnName="MaximumPrice" />
+                <ScalarProperty Name="MinimumPrice" ColumnName="MinimumPrice" />
+                <ScalarProperty Name="MaximumQuantity" ColumnName="MaximumQuantity" />
+                <ScalarProperty Name="MinimumQuantity" ColumnName="MinimumQuantity" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportSettings">
+            <EntityTypeMapping TypeName="InventoryModel.ReportSetting">
+              <MappingFragment StoreEntitySet="ReportSettings">
+                <ScalarProperty Name="QueryID" ColumnName="QueryID" />
+                <ScalarProperty Name="QueryBasis" ColumnName="QueryBasis" />
+                <ScalarProperty Name="SpecificDates" ColumnName="SpecificDates" />
+                <ScalarProperty Name="YearlyBasis" ColumnName="YearlyBasis" />
+                <ScalarProperty Name="MonthlyBasis" ColumnName="MonthlyBasis" />
+                <ScalarProperty Name="WeeklyBasis" ColumnName="WeeklyBasis" />
+                <ScalarProperty Name="DailyBasis" ColumnName="DailyBasis" />
+                <ScalarProperty Name="ReceivedByUsers" ColumnName="ReceivedByUsers" />
+                <ScalarProperty Name="ReportName" ColumnName="ReportName" />
+                <ScalarProperty Name="ReportID" ColumnName="ReportID" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

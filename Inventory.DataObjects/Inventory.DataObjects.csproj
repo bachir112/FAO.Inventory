@@ -102,6 +102,12 @@
     <Compile Include="EDM\PageManagement.cs">
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>
+    <Compile Include="EDM\ReportQuery.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\ReportSetting.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
     <Compile Include="EDM\Supplier.cs">
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>

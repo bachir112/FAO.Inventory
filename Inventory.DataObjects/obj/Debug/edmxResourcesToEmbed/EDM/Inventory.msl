@@ -168,5 +168,35 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ReportQueries">
+      <EntityTypeMapping TypeName="InventoryModel.ReportQuery">
+        <MappingFragment StoreEntitySet="ReportQueries">
+          <ScalarProperty Name="AvailabilityStatusID" ColumnName="AvailabilityStatusID" />
+          <ScalarProperty Name="MaximumPrice" ColumnName="MaximumPrice" />
+          <ScalarProperty Name="MinimumPrice" ColumnName="MinimumPrice" />
+          <ScalarProperty Name="MaximumQuantity" ColumnName="MaximumQuantity" />
+          <ScalarProperty Name="MinimumQuantity" ColumnName="MinimumQuantity" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReportSettings">
+      <EntityTypeMapping TypeName="InventoryModel.ReportSetting">
+        <MappingFragment StoreEntitySet="ReportSettings">
+          <ScalarProperty Name="QueryID" ColumnName="QueryID" />
+          <ScalarProperty Name="QueryBasis" ColumnName="QueryBasis" />
+          <ScalarProperty Name="SpecificDates" ColumnName="SpecificDates" />
+          <ScalarProperty Name="YearlyBasis" ColumnName="YearlyBasis" />
+          <ScalarProperty Name="MonthlyBasis" ColumnName="MonthlyBasis" />
+          <ScalarProperty Name="WeeklyBasis" ColumnName="WeeklyBasis" />
+          <ScalarProperty Name="DailyBasis" ColumnName="DailyBasis" />
+          <ScalarProperty Name="ReceivedByUsers" ColumnName="ReceivedByUsers" />
+          <ScalarProperty Name="ReportName" ColumnName="ReportName" />
+          <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
