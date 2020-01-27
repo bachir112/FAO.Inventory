@@ -53,6 +53,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="DTO\CategoryDTO.cs" />
     <Compile Include="DTO\ItemsGroupedDTO.cs" />
+    <Compile Include="DTO\ItemsInReportQuery.cs" />
     <Compile Include="DTO\TransactionDTO.cs" />
     <Compile Include="EDM\AspNetRole.cs">
       <DependentUpon>Inventory.tt</DependentUpon>
@@ -112,6 +113,9 @@
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>
     <Compile Include="EDM\Transaction.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\TransactionsReminder.cs">
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>
     <Compile Include="EDM\Unit.cs">

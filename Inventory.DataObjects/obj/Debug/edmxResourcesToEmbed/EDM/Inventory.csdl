@@ -29,6 +29,7 @@
     <EntitySet Name="PageManagements" EntityType="InventoryModel.PageManagement" />
     <EntitySet Name="ReportQueries" EntityType="InventoryModel.ReportQuery" />
     <EntitySet Name="ReportSettings" EntityType="InventoryModel.ReportSetting" />
+    <EntitySet Name="TransactionsReminders" EntityType="InventoryModel.TransactionsReminder" />
   </EntityContainer>
   <EntityType Name="C__MigrationHistory">
     <Key>
@@ -127,6 +128,7 @@
     <Property Name="SupplierID" Type="Int32" Nullable="false" />
     <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
+    <Property Name="Consumable" Type="Boolean" />
   </EntityType>
   <EntityType Name="ItemsSearchValue">
     <Key>
@@ -166,6 +168,8 @@
     <Property Name="UnitAmount" Type="Int32" />
     <Property Name="Quantity" Type="Int32" Nullable="false" />
     <Property Name="ToWhom" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ShouldReturn" Type="Boolean" />
+    <Property Name="ChildOfTransaction" Type="Int32" />
   </EntityType>
   <EntityType Name="Unit">
     <Key>
@@ -243,5 +247,16 @@
     <Property Name="SpecificDates" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="QueryBasis" Type="Boolean" Nullable="false" />
     <Property Name="QueryID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="TransactionsReminder">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Location" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="DateOut" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateIn" Type="DateTime" Nullable="false" Precision="3" />
   </EntityType>
 </Schema>

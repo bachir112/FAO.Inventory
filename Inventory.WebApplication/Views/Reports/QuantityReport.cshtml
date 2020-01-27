@@ -2,7 +2,7 @@
 @model List<ItemsGroupedDTO>
 
 @{
-    ViewBag.Title = "Inventory General Report";
+    ViewBag.Title = "Quantity Report";
 }
 
 <style type="text/css">
@@ -25,7 +25,7 @@
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>Inventory General Report</span>
+                    <span>Quantity Report</span>
                 </li>
             </ul>
         </div>
@@ -36,26 +36,20 @@
                     <div class="portlet-title tabbable-line">
                         <div class="caption">
                             <i class="icon-bubbles font-dark hide"></i>
-                            <span class="caption-subject font-dark bold uppercase">Inventory General Report</span>
+                            <span class="caption-subject font-dark bold uppercase">Quantity Report</span>
                         </div>
                     </div>
                     <div class="portlet-body">
                         <div class="tab-content">
                             <div class="tab-pane active" id="portlet_comments_1">
                                 <div class="mt-comments">
-                                    <table id="inventoryGeneralReportTable">
+                                    <table id="quantityReportTable">
                                         <thead>
                                             <tr>
                                                 <th>Item</th>
-                                                <th>Date In</th>
-                                                <th>Code</th>
                                                 <th>Category</th>
-                                                <th>Source</th>
-                                                <th>Consumable/Non-Consumable</th>
-                                                <th>Storage Location</th>
-                                                <th>Date Out</th>
-                                                <th>Value (LBP)</th>
-                                                <th>Quantity</th>
+                                                <th>Quantity In</th>
+                                                <th>Quantity Out</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -67,31 +61,13 @@
                                                             @item.Name  @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
                                                         </td>
                                                         <td>
-                                                            @item.ReceivedOn
-                                                        </td>
-                                                        <td>
-                                                            @(item.Category?.Substring(0,2))@(item.GroupedId)
-                                                        </td>
-                                                        <td>
                                                             @item.Category
                                                         </td>
                                                         <td>
-                                                            @item.Supplier
+                                                            @item.QuantityIn
                                                         </td>
                                                         <td>
-
-                                                        </td>
-                                                        <td>
-                                                            @item.LocationInStock
-                                                        </td>
-                                                        <td>
-
-                                                        </td>
-                                                        <td>
-                                                            @item.Price
-                                                        </td>
-                                                        <td>
-                                                            @item.Quantity
+                                                            @item.QuantityOut
                                                         </td>
                                                     </tr>
                                                 }
@@ -113,7 +89,7 @@
 
     $(document).ready(function () {
 
-        var table = $('#inventoryGeneralReportTable');
+        var table = $('#quantityReportTable');
 
         var oTable = table.dataTable({
             "language": {

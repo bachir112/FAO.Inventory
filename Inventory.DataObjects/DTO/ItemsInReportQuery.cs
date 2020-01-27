@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Inventory.DataObjects.DTO
 {
-    public class ItemsGroupedDTO
+    public class ItemsInReportQuery
     {
         public Nullable<int> GroupedId { get; set; }
         public string Name { get; set; }
@@ -20,15 +20,18 @@ namespace Inventory.DataObjects.DTO
         public string Unit { get; set; }
         public Nullable<int> UnitAmount { get; set; }
         public Nullable<decimal> Price { get; set; }
-        public Nullable<decimal> TotalPrice { get; set; }
         public string Description { get; set; }
         public int CategoryID { get; set; }
         public string Category { get; set; }
         public int SupplierID { get; set; }
         public string Supplier { get; set; }
         public Nullable<int> Quantity { get; set; }
-        public Nullable<int> QuantityIn { get; set; }
-        public Nullable<int> QuantityOut { get; set; }
         public Nullable<System.DateTime> ReceivedOn { get; set; }
+        public int QueryId { get; set; }
+        public string ItemName { get; set; }
+        public Nullable<int> MinimumQuantity { get; set; }
+        public Nullable<int> MaximumQuantity { get; set; }
+        public Nullable<int> MinimumPrice { get; set; }
+        public Nullable<int> MaximumPrice { get; set; }
     }
 }

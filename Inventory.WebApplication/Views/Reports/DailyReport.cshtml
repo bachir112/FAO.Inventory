@@ -1,8 +1,8 @@
-﻿@using Inventory.DataObjects.DTO
-@model List<ItemsGroupedDTO>
+﻿@using Inventory.DataObjects.EDM
+@model List<TransactionsReminder>
 
 @{
-    ViewBag.Title = "Inventory General Report";
+    ViewBag.Title = "Daily Report";
 }
 
 <style type="text/css">
@@ -25,7 +25,7 @@
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>Inventory General Report</span>
+                    <span>Daily Report</span>
                 </li>
             </ul>
         </div>
@@ -36,62 +36,42 @@
                     <div class="portlet-title tabbable-line">
                         <div class="caption">
                             <i class="icon-bubbles font-dark hide"></i>
-                            <span class="caption-subject font-dark bold uppercase">Inventory General Report</span>
+                            <span class="caption-subject font-dark bold uppercase">Daily Report</span>
                         </div>
                     </div>
                     <div class="portlet-body">
                         <div class="tab-content">
                             <div class="tab-pane active" id="portlet_comments_1">
                                 <div class="mt-comments">
-                                    <table id="inventoryGeneralReportTable">
+                                    <table id="dailyReportTable">
                                         <thead>
                                             <tr>
                                                 <th>Item</th>
-                                                <th>Date In</th>
-                                                <th>Code</th>
-                                                <th>Category</th>
-                                                <th>Source</th>
-                                                <th>Consumable/Non-Consumable</th>
-                                                <th>Storage Location</th>
+                                                <th>Location</th>
+                                                <th>Description</th>
                                                 <th>Date Out</th>
-                                                <th>Value (LBP)</th>
-                                                <th>Quantity</th>
+                                                <th>Should Return On</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @{
-                                                foreach (ItemsGroupedDTO item in Model)
+                                                foreach (TransactionsReminder reminder in Model)
                                                 {
                                                     <tr class="odd gradeX">
                                                         <td>
-                                                            @item.Name  @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
+                                                            @reminder.ItemName
                                                         </td>
                                                         <td>
-                                                            @item.ReceivedOn
+                                                            @reminder.Location
                                                         </td>
                                                         <td>
-                                                            @(item.Category?.Substring(0,2))@(item.GroupedId)
+                                                            @reminder.Description
                                                         </td>
                                                         <td>
-                                                            @item.Category
+                                                            @reminder.DateOut
                                                         </td>
                                                         <td>
-                                                            @item.Supplier
-                                                        </td>
-                                                        <td>
-
-                                                        </td>
-                                                        <td>
-                                                            @item.LocationInStock
-                                                        </td>
-                                                        <td>
-
-                                                        </td>
-                                                        <td>
-                                                            @item.Price
-                                                        </td>
-                                                        <td>
-                                                            @item.Quantity
+                                                            @reminder.DateIn
                                                         </td>
                                                     </tr>
                                                 }
@@ -113,7 +93,7 @@
 
     $(document).ready(function () {
 
-        var table = $('#inventoryGeneralReportTable');
+        var table = $('#dailyReportTable');
 
         var oTable = table.dataTable({
             "language": {

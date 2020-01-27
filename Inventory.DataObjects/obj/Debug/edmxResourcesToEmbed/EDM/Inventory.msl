@@ -80,6 +80,7 @@
     <EntitySetMapping Name="Items">
       <EntityTypeMapping TypeName="InventoryModel.Item">
         <MappingFragment StoreEntitySet="Items">
+          <ScalarProperty Name="Consumable" ColumnName="Consumable" />
           <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
           <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
@@ -127,6 +128,8 @@
     <EntitySetMapping Name="Transactions">
       <EntityTypeMapping TypeName="InventoryModel.Transaction">
         <MappingFragment StoreEntitySet="Transaction">
+          <ScalarProperty Name="ChildOfTransaction" ColumnName="ChildOfTransaction" />
+          <ScalarProperty Name="ShouldReturn" ColumnName="ShouldReturn" />
           <ScalarProperty Name="ToWhom" ColumnName="ToWhom" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="UnitAmount" ColumnName="UnitAmount" />
@@ -194,6 +197,18 @@
           <ScalarProperty Name="ReceivedByUsers" ColumnName="ReceivedByUsers" />
           <ScalarProperty Name="ReportName" ColumnName="ReportName" />
           <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TransactionsReminders">
+      <EntityTypeMapping TypeName="InventoryModel.TransactionsReminder">
+        <MappingFragment StoreEntitySet="TransactionsReminder">
+          <ScalarProperty Name="DateIn" ColumnName="DateIn" />
+          <ScalarProperty Name="DateOut" ColumnName="DateOut" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

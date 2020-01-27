@@ -41,5 +41,6 @@ namespace Inventory.DataObjects.EDM
         public virtual DbSet<PageManagement> PageManagements { get; set; }
         public virtual DbSet<ReportQuery> ReportQueries { get; set; }
         public virtual DbSet<ReportSetting> ReportSettings { get; set; }
+        public virtual DbSet<TransactionsReminder> TransactionsReminders { get; set; }
     }
 }

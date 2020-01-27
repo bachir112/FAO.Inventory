@@ -30,5 +30,6 @@ namespace Inventory.DataObjects.EDM
         public int SupplierID { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public Nullable<bool> Consumable { get; set; }
     }
 }

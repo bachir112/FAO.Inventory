@@ -5988,6 +5988,16 @@
     <Content Include="Views\PageManagement\Index.cshtml" />
     <Content Include="Views\Reports\Index.cshtml" />
     <Content Include="Views\Reports\InventoryGeneralReport.cshtml" />
+    <Content Include="Views\Reports\ItemsInReport.cshtml" />
+    <Content Include="Views\Reports\SearchForNonConsumableReport.cshtml" />
+    <Content Include="Views\Reports\DailyReport.cshtml" />
+    <Content Include="Views\Reports\ConsumableItemsReport.cshtml" />
+    <Content Include="Views\Reports\NonConsumableItemsReport.cshtml" />
+    <Content Include="Views\Reports\FullInventoryGeneralReport.cshtml" />
+    <Content Include="Views\Reports\BudgetLineStatementOfAccountReport.cshtml" />
+    <Content Include="Views\Reports\QuantityReport.cshtml" />
+    <Content Include="Views\Reports\SchoolTransferReport.cshtml" />
+    <Content Include="Views\Reports\ABCAnalysisReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

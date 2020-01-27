@@ -5,25 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="4a65590fae8b4fa7bf3f6eb641fac010" Name="Diagram1" >
-        <EntityTypeShape EntityType="InventoryModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="6.75" />
-        <EntityTypeShape EntityType="InventoryModel.AspNetRole" Width="1.5" PointX="0.75" PointY="2.5" />
-        <EntityTypeShape EntityType="InventoryModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1" />
-        <EntityTypeShape EntityType="InventoryModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="3.75" />
-        <EntityTypeShape EntityType="InventoryModel.AspNetUser" Width="1.5" PointX="3" PointY="1.125" />
-        <EntityTypeShape EntityType="InventoryModel.AvailabilityStatu" Width="1.5" PointX="2.75" PointY="6.75" />
-        <EntityTypeShape EntityType="InventoryModel.Category" Width="1.5" PointX="4.75" PointY="6.75" />
-        <EntityTypeShape EntityType="InventoryModel.Item" Width="1.5" PointX="6.75" PointY="6.75" />
-        <EntityTypeShape EntityType="InventoryModel.ItemsSearchValue" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="InventoryModel.ItemStatu" Width="1.5" PointX="7.75" PointY="3.75" />
-        <EntityTypeShape EntityType="InventoryModel.Supplier" Width="1.5" PointX="8.75" PointY="6.75" />
-        <EntityTypeShape EntityType="InventoryModel.Transaction" Width="1.5" PointX="9.75" PointY="0.75" />
-        <EntityTypeShape EntityType="InventoryModel.Unit" Width="1.5" PointX="0.75" PointY="9.75" />
-        <AssociationConnector Association="InventoryModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="InventoryModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
-        <AssociationConnector Association="InventoryModel.AspNetUserRoles" />
-        <EntityTypeShape EntityType="InventoryModel.PageManagement" Width="1.5" PointX="3.375" PointY="9.75" />
-        <EntityTypeShape EntityType="InventoryModel.ReportQuery" Width="1.5" PointX="9.375" PointY="9.75" />
-        <EntityTypeShape EntityType="InventoryModel.ReportSetting" Width="1.5" PointX="11.375" PointY="4.75" />
+        <EntityTypeShape EntityType="InventoryModel.TransactionsReminder" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,20 +12,13 @@ namespace Inventory.DataObjects.EDM
     using System;
     using System.Collections.Generic;
     
-    public partial class Transaction
+    public partial class TransactionsReminder
     {
         public int Id { get; set; }
         public string ItemName { get; set; }
-        public Nullable<int> OldAvailabilityStatus { get; set; }
-        public Nullable<int> NewAvailabilityStatus { get; set; }
+        public string Location { get; set; }
         public string Description { get; set; }
-        public string StockKeeper { get; set; }
-        public System.DateTime TransactionDate { get; set; }
-        public Nullable<int> UnitID { get; set; }
-        public Nullable<int> UnitAmount { get; set; }
-        public int Quantity { get; set; }
-        public string ToWhom { get; set; }
-        public Nullable<bool> ShouldReturn { get; set; }
-        public Nullable<int> ChildOfTransaction { get; set; }
+        public System.DateTime DateOut { get; set; }
+        public System.DateTime DateIn { get; set; }
     }
 }
