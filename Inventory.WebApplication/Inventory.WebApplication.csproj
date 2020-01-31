@@ -5565,10 +5565,12 @@
     <Content Include="Images\generator.jpg" />
     <Content Include="Images\health.jpg" />
     <Content Include="Images\heating.png" />
+    <Content Include="Images\in_stock.png" />
     <Content Include="Images\laboratory-tools.png" />
     <Content Include="Images\miscellanious.png" />
     <Content Include="Images\new-items.png" />
     <Content Include="Images\office-supplies.png" />
+    <Content Include="Images\out_of_stock.png" />
     <Content Include="Images\teaching-material.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -5998,6 +6000,9 @@
     <Content Include="Views\Reports\QuantityReport.cshtml" />
     <Content Include="Views\Reports\SchoolTransferReport.cshtml" />
     <Content Include="Views\Reports\ABCAnalysisReport.cshtml" />
+    <Content Include="Views\Home\TransactionsIntoStock.cshtml" />
+    <Content Include="Views\Home\TransactionsOutOfStock.cshtml" />
+    <Content Include="Views\Home\Deteriorated.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

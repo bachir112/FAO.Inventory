@@ -120,6 +120,7 @@
     <EntitySetMapping Name="Suppliers">
       <EntityTypeMapping TypeName="InventoryModel.Supplier">
         <MappingFragment StoreEntitySet="Suppliers">
+          <ScalarProperty Name="IsSchool" ColumnName="IsSchool" />
           <ScalarProperty Name="Supplier1" ColumnName="Supplier" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>

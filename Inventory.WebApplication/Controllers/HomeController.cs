@@ -24,9 +24,11 @@ namespace Inventory.WebApplication.Controllers
         }
 
 
-        public ActionResult CategoriesPartial()
+        public ActionResult CategoriesPartial(string query)
         {
             List<CategoryDTO> categoriesList = new List<CategoryDTO>();
+
+            int queryID = (query == "IN" ? 1 : query == "OUT" ? 2 : query == "TRASH" ? 3 : -1);
 
             using (var db = new InventoryEntities())
             {
@@ -43,9 +45,9 @@ namespace Inventory.WebApplication.Controllers
                                 group items by items.CategoryID into itemsGroup
                                 select new { 
                                     GroupID = itemsGroup.Key,
-                                    ItemsNames = itemsGroup.Select(x => x.Name).Distinct().ToList(),
-                                    TotalQuantityInGroup = itemsGroup.Count(),
-                                    Items = itemsGroup.ToList()
+                                    ItemsNames = itemsGroup.Where(x => x.AvailabilityStatusID == (queryID == -1 ? x.AvailabilityStatusID : queryID)).Select(x => x.Name).Distinct().ToList(),
+                                    TotalQuantityInGroup = itemsGroup.Where(x => x.AvailabilityStatusID == (queryID == -1 ? x.AvailabilityStatusID : queryID)).Count(),
+                                    Items = itemsGroup.Where(x => x.AvailabilityStatusID == (queryID == -1 ? x.AvailabilityStatusID : queryID)).ToList()
                                 }).ToList();
 
                 foreach(var category in categoriesList)
@@ -56,12 +58,16 @@ namespace Inventory.WebApplication.Controllers
                 }
             }
 
+            ViewBag.Query = query;
+
             return View(categoriesList);
         }
 
-        public ActionResult ItemsPartialDefault(Nullable<int> categoryID = null)
+        public ActionResult ItemsPartialDefault(Nullable<int> categoryID = null, string query = null)
         {
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
+
+            int queryID = (query == "IN" ? 1 : query == "OUT" ? 2 : query == "TRASH" ? 3 : -1);
 
             using (var db = new InventoryEntities())
             {
@@ -71,6 +77,7 @@ namespace Inventory.WebApplication.Controllers
 
                 itemsInStock = (from item in db.Items
                                 where item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
+                                && item.AvailabilityStatusID == (queryID == -1 ? item.AvailabilityStatusID : queryID)
                                 group item by new { item.Name, item.AvailabilityStatusID, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
@@ -91,10 +98,28 @@ namespace Inventory.WebApplication.Controllers
                 ViewBag.CategoryName = categoryID == null ? null : db.Categories.First(x => x.Id == categoryID).Name;
             }
 
+            ViewBag.CategoryID = categoryID;
+            ViewBag.Query = query;
+
             return View(itemsInStock);
         }
 
         public ActionResult Transactions()
+        {
+            return View();
+        }
+
+        public ActionResult TransactionsIntoStock()
+        {
+            return View();
+        }
+
+        public ActionResult TransactionsOutOfStock()
+        {
+            return View();
+        }
+
+        public ActionResult Deteriorated()
         {
             return View();
         }

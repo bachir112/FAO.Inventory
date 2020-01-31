@@ -152,6 +152,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Supplier1" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="IsSchool" Type="Boolean" />
   </EntityType>
   <EntityType Name="Transaction">
     <Key>

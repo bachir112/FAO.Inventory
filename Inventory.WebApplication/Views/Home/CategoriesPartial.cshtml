@@ -3,6 +3,7 @@
 
 @{
     Layout = null;
+    string searchByStatus = ViewBag.Query != null ? ViewBag.Query : string.Empty;
 }
 
 <div class="row">
@@ -59,9 +60,16 @@
 
     function getItemsInCategory(categoryID) {
         console.log('reloading Partial Items for category: ' + categoryID);
+
+        var searchByStatus = null;
+        if (@searchByStatus.Count() > 0)
+        {
+            searchByStatus = '@ViewBag.Query';
+        }
+
         $.ajax({
             url: '@Url.Action("ItemsPartialDefault", "Home")',
-            data: { categoryID: categoryID },
+            data: { categoryID: categoryID, query: searchByStatus },
             type: "POST",
             success: function (data) {
                 $('#itemsPartialView').show();

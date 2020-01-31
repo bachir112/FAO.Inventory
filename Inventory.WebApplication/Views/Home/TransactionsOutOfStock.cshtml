@@ -1,0 +1,171 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+
+<div class="modal fade" id="assignItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Assign item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 id="assignItem" style="color:red;">Assigning Router</h4>
+                <hr />
+                <div class="form-group">
+                    <div class="input-icon">
+                        <i class="fa fa-tasks font-green" aria-hidden="true"></i>
+                        <input id="assignQuantity" type="number" class="form-control" placeholder="Quantity">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="assignStatus" class="form-control">
+                        <option value="1">In Stock</option>
+                        <option value="2">Out of Stock</option>
+                        <option value="3">Out of Service</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>location In Stock</label>
+                    <select id="locationInStock" class="form-control">
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>ToWhom</label>
+                    <input id="toWhom" type="text" class="form-control" placeholder="To Whom" />
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="assignDescription" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button id="assignItem" type="button" class="btn btn-primary">Assign</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        @Html.Partial("_ThemeColors")
+
+        <h1 class="page-title"> Transaction </h1>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="@Url.Action("Transactions","Home")">Items</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <span>Check Items Out of Stock</span>
+                </li>
+            </ul>
+        </div>
+
+        @{ Html.RenderAction("CategoriesPartial", "Home", new { query = "IN"} ); }
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    var selectedItems = [];
+
+    $(document).ready(function () {
+        transactionsActive();
+        $('#assignActionContainer').show();
+    });
+
+    $(document).on('click', '#assignActionSelector', function () {
+        console.log('open box');
+        selectedItems = [];
+
+        $('#itemsTable tbody label input:checked').each(function () {
+            var item = {
+                Name: $(this).attr('data-Name'),
+                AvailabilityStatusID: $(this).attr('data-AvailabilityStatusID'),
+                ItemStatusID: $(this).attr('data-ItemStatusID'),
+                ExpiryDate: $(this).attr('data-ExpiryDate'),
+                LocationInStock: $(this).attr('data-LocationInStock'),
+                ReceivedOn: $(this).attr('data-ReceivedOn'),
+                Description: $(this).attr('data-Description'),
+                UnitID: $(this).attr('data-UnitID'),
+                UnitAmount: $(this).attr('data-UnitAmount')
+            };
+
+            selectedItems.push(item);
+
+            var html = '';
+            var locationInStock = $(this).attr('data-LocationInStock').split(',');
+            $.each(locationInStock, function (index, value) {
+                console.log(value);
+                console.log(value.replace(/\(.*?\)/, '').replace('(', '').replace(')', ''));
+                var itemLocation = value.replace(/\(.*?\)/, '').replace('(', '').replace(')', '');
+                html += '<option value="' + itemLocation + '">' + itemLocation + '</option>';
+            });
+
+            $('#locationInStock').html('');
+            $('#locationInStock').append(html);
+        });
+
+
+
+        if (selectedItems.length > 1) {
+            $('#assignQuantity').val('1');
+            $('#assignQuantity').prop('disabled', true);
+        } else
+        {
+            $('#assignQuantity').val('');
+            $('#assignQuantity').prop('disabled', false);
+        }
+    });
+
+    $(document).on('click', '#assignItem', function () {
+        console.log('assign item');
+        selectedItems = JSON.stringify(selectedItems);
+        console.log(selectedItems);
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: "@Url.Action("AssignItems","Home")?quantity=" + $('#assignQuantity').val()
+                + '&AvailabilityStatusID=' + $('#assignStatus').val()
+                + '&LocationInStock=' + $('#locationInStock').val()
+                + '&Description=' + $('#assignDescription').val()
+                + '&ToWhom=' + $('#toWhom').val(),
+            data: selectedItems,
+            success: function (response) {
+                $('#assignItemModal').modal('hide');
+                refreshItemsTable();
+            }
+        });
+
+    });
+
+    function refreshItemsTable() {
+        $.ajax({
+            url: '@Url.Action("ItemsPartialDefault", "Home")?query=IN',
+            type: "POST",
+            success: function (data) {
+                $('#itemsPartialView').show();
+                $('#itemsPartialView').html(data);
+                $('html, body').animate({
+                    scrollTop: $("#itemsPartialView").offset().top
+                }, 2000);
+                $('#assignActionContainer').show();
+            }
+        });
+    }
+
+</script>

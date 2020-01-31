@@ -16,5 +16,6 @@ namespace Inventory.DataObjects.EDM
     {
         public int Id { get; set; }
         public string Supplier1 { get; set; }
+        public Nullable<bool> IsSchool { get; set; }
     }
 }

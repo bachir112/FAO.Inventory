@@ -160,6 +160,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Supplier" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="IsSchool" Type="bit" />
   </EntityType>
   <EntityType Name="Transaction">
     <Key>

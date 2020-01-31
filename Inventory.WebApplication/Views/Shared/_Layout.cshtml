@@ -32,9 +32,9 @@
 
     <style type="text/css">
 
-        .portlet.light .dataTables_wrapper .dt-buttons{
+        /*.portlet.light .dataTables_wrapper .dt-buttons{
             margin-top:-86px;
-        }
+        }*/
 
         .widget-thumb.bordered {
             min-height: 200px;
@@ -63,6 +63,16 @@
         }
 
         .editItemsSection:hover {
+            cursor: pointer;
+            background-color: #f1f4f7;
+        }
+
+        .intoStock:hover {
+            cursor: pointer;
+            background-color: #f1f4f7;
+        }
+
+        .outOfStock:hover {
             cursor: pointer;
             background-color: #f1f4f7;
         }
@@ -334,8 +344,8 @@
                                     </a>
                                 </li>
                                 <li id="categoriesTab" class="nav-item">
-                                    <a href="ui_colors.html" class="nav-link ">
-                                        <span class="title">Categories</span>
+                                    <a href="@Url.Action("Deteriorated","Home")" class="nav-link ">
+                                        <span class="title">Deteriorated</span>
                                     </a>
                                 </li>
                             </ul>

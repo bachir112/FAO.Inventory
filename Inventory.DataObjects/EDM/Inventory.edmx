@@ -165,6 +165,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Supplier" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="IsSchool" Type="bit" />
         </EntityType>
         <EntityType Name="Transaction">
           <Key>
@@ -451,6 +452,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Supplier1" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsSchool" Type="Boolean" />
         </EntityType>
         <EntityType Name="Transaction">
           <Key>
@@ -683,6 +685,7 @@
           <EntitySetMapping Name="Suppliers">
             <EntityTypeMapping TypeName="InventoryModel.Supplier">
               <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="IsSchool" ColumnName="IsSchool" />
                 <ScalarProperty Name="Supplier1" ColumnName="Supplier" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
