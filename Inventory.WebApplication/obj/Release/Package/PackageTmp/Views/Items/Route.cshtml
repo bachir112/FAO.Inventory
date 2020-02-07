@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Route";
+}
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        @Html.Partial("_ThemeColors")
+
+        <h1 class="page-title"> Items </h1>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="index.html">Items</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <span> What would you like to do? </span>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-xs-12 col-sm-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-bubble font-dark hide"></i>
+                            <span class="caption-subject font-hide bold uppercase">Add or Edit items</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mt-widget-1 addNewItemsSection">
+                                    <div class="mt-img">
+                                        <img src="../images/new-items.png" style="width:100px;">
+                                    </div>
+                                    <div class="mt-body">
+                                        <h3 class="mt-username">Add new items to stock</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mt-widget-1 editItemsSection">
+                                    <div class="mt-img">
+                                        <img src="../images/edit-items.png" style="width:100px;">
+                                    </div>
+                                    <div class="mt-body">
+                                        <h3 class="mt-username">Edit items in stock</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        itemsActive();
+
+        $('.addNewItemsSection').click(function () {
+            var url = '@Url.Action("Create","Items")';
+            window.location = url;
+        });
+        
+        $('.editItemsSection').click(function () {
+            var url = '@Url.Action("EditSection","Items")';
+            window.location = url;
+        });
+    });
+
+</script>

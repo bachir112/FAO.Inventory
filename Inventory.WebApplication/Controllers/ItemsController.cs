@@ -59,6 +59,16 @@ namespace Inventory.WebApplication.Controllers
             List<ItemStatu> itemStatusList = db.ItemStatus.ToList();
             List<Unit> unitList = db.Units.ToList();
 
+            ViewBag.LocationInStock = db.Items.Where(x => x.LocationInStock != null && x.LocationInStock.Trim() != string.Empty)
+                                              .Select(x => x.LocationInStock)
+                                              .Distinct()
+                                              .ToList();
+
+            ViewBag.ItemDescription = db.Items.Where(x => x.Description != null && x.Description.Trim() != string.Empty)
+                                              .Select(x => x.Description)
+                                              .Distinct()
+                                              .ToList();
+
             ViewBag.CategoriesList = categoriesList;
             ViewBag.SuppliersList = suppliersList;
             ViewBag.AvailabilityStatusList = availabilityStatusList;
@@ -125,6 +135,16 @@ namespace Inventory.WebApplication.Controllers
             List<AvailabilityStatu> availabilityStatusList = db.AvailabilityStatus.ToList();
             List<ItemStatu> itemStatusList = db.ItemStatus.ToList();
             List<Unit> unitList = db.Units.ToList();
+
+            ViewBag.LocationInStock = db.Items.Where(x => x.LocationInStock != null && x.LocationInStock.Trim() != string.Empty)
+                                              .Select(x => x.LocationInStock)
+                                              .Distinct()
+                                              .ToList();
+
+            ViewBag.ItemDescription = db.Items.Where(x => x.Description != null && x.Description.Trim() != string.Empty)
+                                              .Select(x => x.Description)
+                                              .Distinct()
+                                              .ToList();
 
             ViewBag.CategoriesList = categoriesList;
             ViewBag.SuppliersList = suppliersList;

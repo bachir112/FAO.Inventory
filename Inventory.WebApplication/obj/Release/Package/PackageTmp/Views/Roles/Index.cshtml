@@ -1,0 +1,207 @@
+﻿@using Inventory.DataObjects.EDM
+@model List<AspNetRole>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div id="addRoleModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="float:left;" class="modal-title"> New Role </h5>
+                <button style="float:right;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="newRoleName" type="text" class="form-control" placeholder="The new role name">
+            </div>
+            <div class="modal-footer">
+                <a id="addRole" href="javascript:addRole()" class="btn btn-success">Add</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="editRoleModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="float:left;" class="modal-title"> Edit Role </h5>
+                <button style="float:right;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="roleName" type="text" class="form-control" placeholder="The new role name">
+            </div>
+            <div class="modal-footer">
+                <a id="editRole" href="javascript:editRole()" class="btn btn-success">Edit</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="deleteRoleModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="float:left;" class="modal-title"> Delete Role </h5>
+                <button style="float:right;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5>Are you sure you want to delete this role?</h5>
+            </div>
+            <div class="modal-footer">
+                <a id="deleteRole" href="javascript:deleteRole()" class="btn btn-success">Delete</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        @Html.Partial("_ThemeColors")
+
+        <h1 class="page-title"> Management </h1>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="index.html">Roles</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <span>List</span>
+                </li>
+            </ul>
+        </div>
+        @*Content starts here*@
+        <div class="row">
+            <div class="col-lg-12 col-xs-12 col-sm-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-title tabbable-line">
+                        <div class="caption">
+                            <i class="icon-bubbles font-dark hide"></i>
+                            <span class="caption-subject font-dark bold uppercase">Roles</span>
+                        </div>
+                        <div class="caption" style="float:right;">
+                            <a data-toggle="modal" data-target="#addRoleModal">
+                                Create New
+                            </a>
+                            @*@Html.ActionLink("Create New", "Create")*@
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="portlet_comments_1">
+                                <div class="mt-comments">
+                                    @foreach (var role in Model)
+                                    {
+                                        string roleName = role.Name == null ? "No Role Assigned" : role.Name;
+                                        <div class="mt-comment">
+                                            <div class="mt-comment-body">
+                                                <div class="mt-comment-info">
+                                                    <span class="mt-comment-author">@roleName</span>
+                                                    <span class="mt-comment-date">
+                                                        <a class="roleEdit" data-RoleName="@roleName" data-toggle="modal" data-target="#editRoleModal">
+                                                            Edit
+                                                        </a>
+                                                        |
+                                                        <a class="roleDelete" data-RoleName="@roleName" data-toggle="modal" data-target="#deleteRoleModal">
+                                                            Delete
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                                <div class="mt-comment-text">
+                                                    @{
+                                                        foreach (var user in role.AspNetUsers)
+                                                        {
+                                                            <h5>User: @user.UserName</h5>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Content ends here*@
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    var selectedRole = '';
+
+    $(document).ready(function () {
+        rolesActive();
+    });
+
+    function resetPasswordOpenModal(userID) {
+        $('#resetPasswordModal #resetPassword').attr('data-userID', userID);
+        $('#resetPasswordModal').modal('show');
+    };
+
+    function addRole() {
+
+        var newRoleName = $('#newRoleName').val();
+
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("AddRole", "Users")' + '?roleName=' + newRoleName,
+            dataType: 'text',
+            success: function (data) {
+                location.reload();
+            }
+        });
+
+    }
+
+    function editRole() {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("EditRole", "Users")' + '?oldRoleName=' + selectedRole + '&newRoleName=' + selectedRole,
+            dataType: 'text',
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
+
+    function deleteRole() {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("DeleteRole", "Users")' + '?roleName=' + selectedRole,
+            dataType: 'text',
+            success: function (data) {
+                location.reload();
+            }
+        });
+    }
+
+    $(document).on('click', '.roleEdit', function () {
+        selectedRole = $(this).attr('data-RoleName');
+        console.log('selectedRole = ' + selectedRole);
+    });
+
+
+    $(document).on('click', '.roleDelete', function () {
+        selectedRole = $(this).attr('data-RoleName');
+    });
+
+
+</script>

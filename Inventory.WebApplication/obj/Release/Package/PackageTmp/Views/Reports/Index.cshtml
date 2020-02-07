@@ -1,0 +1,365 @@
+﻿
+@{
+    ViewBag.Title = "Reports";
+}
+
+<style type="text/css">
+
+    .form-group.form-md-line-input {
+        position: relative;
+        margin: 0;
+        padding-top: 20px;
+        border-bottom: 1px solid #eef1f5;
+    }
+</style>
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        @Html.Partial("_ThemeColors")
+
+        <h1 class="page-title"> Reports </h1>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="index.html">Dashboard</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <span>Reports</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet light bordered" style="padding-top:0px;padding-bottom:0px;">
+                    <div class="portlet-body">
+                        <div class="row widget-row">
+                            <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
+                                <div class="input-group">
+                                    <div class="input-group-control">
+                                        <label style="font-weight:bold;font-size:16px;">Inventory General Report / Store Data Report</label>
+                                        <br />
+                                        <label style="color:darkgrey">This report does bla bla bla</label>
+                                    </div>
+                                    <span class="input-group-btn btn-right">
+                                        <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Action
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                <a href="@Url.Action("InventoryGeneralReport","Reports")">Generate</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">Send as email</a>
+                                            </li>
+                                            <li class="divider"> </li>
+                                            <li>
+                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "1" })">Report Settings</a>
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
+                                <div class="input-group">
+                                    <div class="input-group-control">
+                                        <label style="font-weight:bold;font-size:16px;">Items In Report</label>
+                                        <br />
+                                        <label style="color:darkgrey">This report does bla bla bla</label>
+                                    </div>
+                                    <span class="input-group-btn btn-right">
+                                        <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Action
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                <a href="@Url.Action("ItemsInReport","Reports")">Generate</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">Send as email</a>
+                                            </li>
+                                            <li class="divider"> </li>
+                                            <li>
+                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "2" })">Report Settings</a>
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
+                                <div class="input-group">
+                                    <div class="input-group-control">
+                                        <label style="font-weight:bold;font-size:16px;">Search for Non-Consumable Report</label>
+                                        <br />
+                                        <label style="color:darkgrey">This report does bla bla bla</label>
+                                    </div>
+                                    <span class="input-group-btn btn-right">
+                                        <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Action
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                <a href="@Url.Action("SearchForNonConsumableReport","Reports")">Generate</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">Send as email</a>
+                                            </li>
+                                            <li class="divider"> </li>
+                                            <li>
+                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "3" })">Report Settings</a>
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
+                                <div class="input-group">
+                                    <div class="input-group-control">
+                                        <label style="font-weight:bold;font-size:16px;">Daily Report </label>
+                                        <br />
+                                        <label style="color:darkgrey">This report does bla bla bla</label>
+                                    </div>
+                                    <span class="input-group-btn btn-right">
+                                        <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Action
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                <a href="@Url.Action("DailyReport","Reports")">Generate</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">Send as email</a>
+                                            </li>
+                                            <li class="divider"> </li>
+                                            <li>
+                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "4" })">Report Settings</a>
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
+                                <div class="input-group">
+                                    <div class="input-group-control">
+                                        <label style="font-weight:bold;font-size:16px;">Consumable Item Report</label>
+                                        <br />
+                                        <label style="color:darkgrey">This report does bla bla bla</label>
+                                    </div>
+                                    <span class="input-group-btn btn-right">
+                                        <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Action
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                <a href="@Url.Action("ConsumableItemsReport","Reports")">Generate</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">Send as email</a>
+                                            </li>
+                                            <li class="divider"> </li>
+                                            <li>
+                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "5" })">Report Settings</a>
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
+                                <div class="input-group">
+                                    <div class="input-group-control">
+                                        <label style="font-weight:bold;font-size:16px;">Non-Consumable Item Report</label>
+                                        <br />
+                                        <label style="color:darkgrey">This report does bla bla bla</label>
+                                    </div>
+                                    <span class="input-group-btn btn-right">
+                                        <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Action
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                <a href="@Url.Action("NonConsumableItemsReport","Reports")">Generate</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">Send as email</a>
+                                            </li>
+                                            <li class="divider"> </li>
+                                            <li>
+                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "6" })">Report Settings</a>
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
+                                <div class="input-group">
+                                    <div class="input-group-control">
+                                        <label style="font-weight:bold;font-size:16px;">Inventory General Report </label>
+                                        <br />
+                                        <label style="color:darkgrey">This report does bla bla bla</label>
+                                    </div>
+                                    <span class="input-group-btn btn-right">
+                                        <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Action
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                <a href="@Url.Action("FullInventoryGeneralReport","Reports")">Generate</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">Send as email</a>
+                                            </li>
+                                            <li class="divider"> </li>
+                                            <li>
+                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "7" })">Report Settings</a>
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
+                                <div class="input-group">
+                                    <div class="input-group-control">
+                                        <label style="font-weight:bold;font-size:16px;">Budget Line / Statement of Account</label>
+                                        <br />
+                                        <label style="color:darkgrey">This report does bla bla bla</label>
+                                    </div>
+                                    <span class="input-group-btn btn-right">
+                                        <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Action
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                <a href="@Url.Action("BudgetLineStatementOfAccountReport","Reports")">Generate</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">Send as email</a>
+                                            </li>
+                                            <li class="divider"> </li>
+                                            <li>
+                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "8" })">Report Settings</a>
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
+                                <div class="input-group">
+                                    <div class="input-group-control">
+                                        <label style="font-weight:bold;font-size:16px;">Quantity Report</label>
+                                        <br />
+                                        <label style="color:darkgrey">This report does bla bla bla</label>
+                                    </div>
+                                    <span class="input-group-btn btn-right">
+                                        <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Action
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                <a href="@Url.Action("QuantityReport","Reports")">Generate</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">Send as email</a>
+                                            </li>
+                                            <li class="divider"> </li>
+                                            <li>
+                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "9" })">Report Settings</a>
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
+                                <div class="input-group">
+                                    <div class="input-group-control">
+                                        <label style="font-weight:bold;font-size:16px;">Transfer Report from a school to another</label>
+                                        <br />
+                                        <label style="color:darkgrey">This report does bla bla bla</label>
+                                    </div>
+                                    <span class="input-group-btn btn-right">
+                                        <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Action
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                <a href="@Url.Action("SchoolTransferReport","Reports")">Generate</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">Send as email</a>
+                                            </li>
+                                            <li class="divider"> </li>
+                                            <li>
+                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "10" })">Report Settings</a>
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
+                                <div class="input-group">
+                                    <div class="input-group-control">
+                                        <label style="font-weight:bold;font-size:16px;">ABC Analysis</label>
+                                        <br />
+                                        <label style="color:darkgrey">This report does bla bla bla</label>
+                                    </div>
+                                    <span class="input-group-btn btn-right">
+                                        <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Action
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                <a href="@Url.Action("ABCAnalysisReport","Reports")">Generate</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:;">Send as email</a>
+                                            </li>
+                                            <li class="divider"> </li>
+                                            <li>
+                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "11" });">Report Settings</a>
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        reportActive();
+
+    });
+
+</script>

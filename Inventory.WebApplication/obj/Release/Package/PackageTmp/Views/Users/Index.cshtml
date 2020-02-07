@@ -1,0 +1,132 @@
+﻿@model IEnumerable<Inventory.DataObjects.EDM.AspNetUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div id="resetPasswordModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="float:left;" class="modal-title"> Reset Password </h5>
+                <button style="float:right;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input id="userPassword" type="password" class="form-control" placeholder="The new password">
+                @*<input id="userPassword" style="width:100%;" type="text" class="k-input k-textbox" placeholder="Your new password">*@
+                <p style="color:red; padding-top:10px;">You will receive an email with the new password.</p>
+                <p style="color:red;">Please check your inbox as well.</p>
+            </div>
+            <div class="modal-footer">
+                <a id="resetPassword" href="javascript:resetPassword()" class="btn btn-success">Reset</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        @Html.Partial("_ThemeColors")
+
+        <h1 class="page-title"> Management </h1>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="index.html">Users</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <span>List</span>
+                </li>
+            </ul>
+        </div>
+        @*Content starts here*@
+        <div class="row">
+            <div class="col-lg-12 col-xs-12 col-sm-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-title tabbable-line">
+                        <div class="caption">
+                            <i class="icon-bubbles font-dark hide"></i>
+                            <span class="caption-subject font-dark bold uppercase">Users</span>
+                        </div>
+                        <div class="caption" style="float:right;">
+                            @Html.ActionLink("Create New", "Create")
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="portlet_comments_1">
+                                <div class="mt-comments">
+                                    @foreach (var user in Model)
+                                    {
+                                        <div class="mt-comment">
+                                            <div class="mt-comment-img">
+                                                <img src="../assets/pages/media/users/avatar6.jpg" />
+                                            </div>
+                                            <div class="mt-comment-body">
+                                                <div class="mt-comment-info">
+                                                    <span class="mt-comment-author">@Html.DisplayFor(modelUser => user.UserName)</span>
+                                                    <span class="mt-comment-date">Last login: 12 Feb, 08:30AM</span>
+                                                </div>
+                                                <div class="mt-comment-text">
+                                                    <h5>Role: @user.UserRole.</h5>
+                                                    <h5>Phone: @Html.DisplayFor(modelUser => user.PhoneNumber)</h5>
+                                                </div>
+                                                <div class="mt-comment-details">
+                                                    <span class="mt-comment-status mt-comment-status-pending">
+                                                        @Html.ActionLink("Edit", "Edit", new { id = user.Id })
+                                                        |
+                                                        @Html.ActionLink("Delete", "Delete", new { id = user.Id })
+                                                        |
+                                                        <a href="javascript:resetPasswordOpenModal('@user.Id')">Change Password</a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Content ends here*@
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        usersActive();
+    });
+        
+    function resetPasswordOpenModal(userID) {
+        $('#resetPasswordModal #resetPassword').attr('data-userID', userID);
+        $('#resetPasswordModal').modal('show');
+    };
+
+
+    function resetPassword() {
+        
+        var userID = $('#resetPasswordModal #resetPassword').attr('data-userID');
+        var newPassword = $('#userPassword').val();
+
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("ResetPassword", "Users")' + '?newPassword=' + newPassword + '&userID=' + userID,
+            dataType: 'text',
+            success: function (data) {
+                //NProgress.done();
+            }
+        });
+
+    };
+
+</script>

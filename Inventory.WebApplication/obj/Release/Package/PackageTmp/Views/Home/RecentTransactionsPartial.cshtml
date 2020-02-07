@@ -1,0 +1,156 @@
+﻿@using Inventory.DataObjects.DTO
+@model List<TransactionDTO>
+
+@{
+    Layout = null;
+}
+
+<style type="text/css">
+
+    .feeds li .col2 {
+        width: 200px;
+        margin-left: -200px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12 col-xs-12 col-sm-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-share font-dark hide"></i>
+                    <span class="caption-subject font-dark bold uppercase">Recent Activities</span>
+                </div>
+                <div class="actions">
+                    <div class="btn-group">
+                        <a class="btn btn-sm blue btn-outline btn-circle" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            Filter By
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <div class="dropdown-menu hold-on-click dropdown-checkboxes pull-right">
+                            <label class="mt-checkbox mt-checkbox-outline">
+                                <input type="checkbox" /> In
+                                <span></span>
+                            </label>
+                            <label class="mt-checkbox mt-checkbox-outline">
+                                <input type="checkbox" checked="" /> Out
+                                <span></span>
+                            </label>
+                            <label class="mt-checkbox mt-checkbox-outline">
+                                <input type="checkbox" /> Out of Service
+                                <span></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="scroller" style="height: 300px;" data-always-visible="1" data-rail-visible="0">
+                    <ul class="feeds">
+                        @{
+                            foreach (TransactionDTO transaction in Model)
+                            {
+                                string availabilityColor = string.Empty;
+                                string newvailabilityStatus = string.Empty;
+                                switch (transaction.NewAvailabilityStatus)
+                                {
+                                    case "In Stock":
+                                        availabilityColor = "success";
+                                        newvailabilityStatus = "In";
+                                        break;
+                                    case "Out of Stock":
+                                        availabilityColor = "danger";
+                                        newvailabilityStatus = "Out";
+                                        break;
+                                    case "Not Used":
+                                        availabilityColor = "info";
+                                        newvailabilityStatus = "Thrown";
+                                        break;
+                                    default:
+                                        availabilityColor = "default";
+                                        newvailabilityStatus = "N/A";
+                                        break;
+                                }
+
+                                TimeSpan timeDiff = (DateTime.Now - transaction.TransactionDate);
+
+                                string unitAmout = transaction.UnitAmount == null ? string.Empty : transaction.UnitAmount.ToString();
+
+                                string unit = string.Empty;
+                                switch (transaction.Unit)
+                                {
+                                    case "Unit":
+                                        unitAmout = string.Empty;
+                                        break;
+                                    case "Kilogram":
+                                        unit = "Kg";
+                                        break;
+                                    case "Litre":
+                                        unit = "L";
+                                        break;
+                                    case "Milliliter":
+                                        unit = "ml";
+                                        break;
+                                    default:
+                                        break;
+                                }
+
+                                <li>
+                                    <div class="col1">
+                                        <div class="cont">
+                                            <div class="cont-col1">
+                                                <div class="label label-sm label-@availabilityColor">
+                                                    @newvailabilityStatus
+                                                </div>
+                                            </div>
+                                            <div class="cont-col2">
+                                                <div class="desc"> @transaction.StockKeeper Checked out @transaction.Quantity @transaction.ItemName @unitAmout@unit to @transaction.ToWhom. </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col2">
+                                        <div class="date">
+                                            @(dateFormat(timeDiff.Days, timeDiff.Hours, timeDiff.Minutes, timeDiff.Seconds)) ago
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="scroller-footer">
+                    <div class="btn-arrow-link pull-right">
+                        <a href="javascript:;">See All Records</a>
+                        <i class="icon-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions{
+    public string dateFormat(int days, int hours, int minutes, int seconds)
+    {
+        if(days > 0)
+        {
+            return String.Format("{0} d, {1} h, {2} m, {3} s", days, hours, minutes, seconds).ToString();
+        }
+        else if(hours > 0)
+        {
+            return String.Format("{0} h, {1} m, {2} s", hours, minutes, seconds).ToString();
+        }
+        else if(minutes > 0)
+        {
+            return String.Format("{0} m, {1} s", minutes, seconds).ToString();
+        }
+        else if(seconds > 0)
+        {
+            return String.Format("{0} s", seconds).ToString();
+        }
+        else
+        {
+            return String.Format("{0} d, {1} h, {2} m, {3} s", days, hours, minutes, seconds).ToString();
+        }
+    }
+}

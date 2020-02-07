@@ -1,0 +1,146 @@
+﻿@using Inventory.WebApplication.Models
+@model List<ApplicationUser>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        @Html.Partial("_ThemeColors")
+
+        <h1 class="page-title"> Dashboard </h1>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="index.html">Home</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <span>Dashboard</span>
+                </li>
+            </ul>
+        </div>
+        @*Content starts here*@
+        <div class="row">
+            <div class="col-lg-12 col-xs-12 col-sm-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-title tabbable-line">
+                        <div class="caption">
+                            <i class="icon-bubbles font-dark hide"></i>
+                            <span class="caption-subject font-dark bold uppercase">Users</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="portlet_comments_1">
+                                <div class="mt-comments">
+                                    @{
+                                        foreach (var user in Model)
+                                        {
+                                            <div class="mt-comment">
+                                                <div class="mt-comment-img">
+                                                    <img src="../assets/pages/media/users/avatar1.jpg" />
+                                                </div>
+                                                <div class="mt-comment-body">
+                                                    <div class="mt-comment-info">
+                                                        <span class="mt-comment-author">@user.UserName</span>
+                                                        <span class="mt-comment-date">Last login: 26 Feb, 10:30AM</span>
+                                                    </div>
+                                                    <div class="mt-comment-text">
+                                                        <span>Role: StockKeeper</span>
+                                                    </div>
+                                                    <div class="mt-comment-details">
+                                                        <span class="mt-comment-status mt-comment-status-pending">
+                                                            <a href="#">Edit</a>
+                                                            |
+                                                            <a href="#">Delete</a>
+                                                            |
+                                                            <a href="#">Change Password</a>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    @*<div class="mt-comment">
+                                        <div class="mt-comment-img">
+                                            <img src="../assets/pages/media/users/avatar6.jpg" />
+                                        </div>
+                                        <div class="mt-comment-body">
+                                            <div class="mt-comment-info">
+                                                <span class="mt-comment-author">Larisa Maskalyova</span>
+                                                <span class="mt-comment-date">Last login: 12 Feb, 08:30AM</span>
+                                            </div>
+                                            <div class="mt-comment-text">
+                                                <span>Role: StockKeeper</span>
+                                            </div>
+                                            <div class="mt-comment-details">
+                                                <span class="mt-comment-status mt-comment-status-pending">
+                                                    <a href="#">Edit</a>
+                                                    |
+                                                    <a href="#">Delete</a>
+                                                    |
+                                                    <a href="#">Change Password</a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-comment">
+                                        <div class="mt-comment-img">
+                                            <img src="../assets/pages/media/users/avatar8.jpg" />
+                                        </div>
+                                        <div class="mt-comment-body">
+                                            <div class="mt-comment-info">
+                                                <span class="mt-comment-author">Natasha Kim</span>
+                                                <span class="mt-comment-date">Last login: 19 Dec,09:50 AM</span>
+                                            </div>
+                                            <div class="mt-comment-text">
+                                                <span>Role: StockKeeper</span>
+                                            </div>
+                                            <div class="mt-comment-details">
+                                                <span class="mt-comment-status mt-comment-status-pending">
+                                                    <a href="#">Edit</a>
+                                                    |
+                                                    <a href="#">Delete</a>
+                                                    |
+                                                    <a href="#">Change Password</a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-comment">
+                                        <div class="mt-comment-img">
+                                            <img src="../assets/pages/media/users/avatar4.jpg" />
+                                        </div>
+                                        <div class="mt-comment-body">
+                                            <div class="mt-comment-info">
+                                                <span class="mt-comment-author">Sebastian Davidson</span>
+                                                <span class="mt-comment-date">Last login: 10 Dec, 09:20 AM</span>
+                                            </div>
+                                            <div class="mt-comment-text">
+                                                <span>Role: StockKeeper</span>
+                                            </div>
+                                            <div class="mt-comment-details">
+                                                <span class="mt-comment-status mt-comment-status-pending">
+                                                    <a href="#">Edit</a>
+                                                    |
+                                                    <a href="#">Delete</a>
+                                                    |
+                                                    <a href="#">Change Password</a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Content ends here*@
+    </div>
+</div>

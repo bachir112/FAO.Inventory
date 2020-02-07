@@ -111,11 +111,37 @@ namespace Inventory.WebApplication.Controllers
 
         public ActionResult TransactionsIntoStock()
         {
+            using (var db = new InventoryEntities())
+            {
+                ViewBag.ToWhom = db.Transactions.Where(x => x.ToWhom != null && x.ToWhom.Trim() != string.Empty)
+                                                .Select(x => x.ToWhom)
+                                                .Distinct()
+                                                .ToList();
+
+                ViewBag.Description = db.Transactions.Where(x => x.Description != null && x.Description.Trim() != string.Empty)
+                                                .Select(x => x.Description)
+                                                .Distinct()
+                                                .ToList();
+            }
+
             return View();
         }
 
         public ActionResult TransactionsOutOfStock()
         {
+            using (var db = new InventoryEntities())
+            {
+                ViewBag.ToWhom = db.Transactions.Where(x => x.ToWhom != null && x.ToWhom.Trim() != string.Empty)
+                                                .Select(x => x.ToWhom)
+                                                .Distinct()
+                                                .ToList();
+
+                ViewBag.Description = db.Transactions.Where(x => x.Description != null && x.Description.Trim() != string.Empty)
+                                                .Select(x => x.Description)
+                                                .Distinct()
+                                                .ToList();
+            }
+
             return View();
         }
 

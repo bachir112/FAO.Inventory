@@ -1,0 +1,11 @@
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Release\Inventory.DataObjects.dll.config
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Release\Inventory.DataObjects.dll
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Release\Inventory.DataObjects.pdb
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Release\EntityFramework.dll
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Release\EntityFramework.xml
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\obj\Release\Inventory.DataObjects.csprojAssemblyReference.cache
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\obj\Release\Inventory.DataObjects.csproj.CopyComplete
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\obj\Release\Inventory.DataObjects.dll
+C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\obj\Release\Inventory.DataObjects.pdb
