@@ -1,65 +1,24 @@
 ﻿@using Inventory.DataObjects.DTO
 @model List<ItemsGroupedDTO>
 
-@{ 
+@{
     Layout = null;
-    string categoryName = ViewBag.CategoryName;
-    categoryName = categoryName == null ? "All Stock" : categoryName;
 }
 
 <div class="col-md-12">
     <div class="portlet light bordered">
-        <div class="portlet-title">
-            <div class="caption font-dark pull-right">
-                <button type="button" class="btn btn-circle red btn-outline">View all Items</button>
-            </div>
-        </div>
-        <div class="portlet-title">
-            <div class="caption font-dark">
-                <img src="../images/all-items.png" style="width:50px;">
-                <span class="caption-subject bold uppercase"> Items in <span style="color: red;">@categoryName.ToUpper()</span></span>
-            </div>
-        </div>
         <div class="portlet-body">
-            <div class="table-toolbar">
-                <div id="editActionContainer" class="row" style="display:none;">
-                    <div class="col-md-6">
-                        <div class="btn-group">
-                            <button id="editItemActionSelector" class="btn sbold green" data-toggle="modal" data-target="#editItemModal">
-                                Edit
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </button>
-
-                            <button id="batchEditItemActionSelector" class="btn sbold green" style="margin-left:15px;" data-toggle="modal" data-target="#editItemModal">
-                                Edit Batch
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div id="assignActionContainer" class="row" style="display:none;">
-                    <div class="col-md-6">
-                        <div class="btn-group">
-                            <button id="assignActionSelector" class="btn sbold green" data-toggle="modal" data-target="#assignItemModal">
-                                Assign
-                                <i class="fa fa-archive" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <table id="itemsTable" class="table table-striped table-bordered table-hover table-checkable order-column">
                 <thead>
                     <tr>
                         <th>
                         </th>
                         <th> Item Name </th>
-                        <th> Availability </th>
+                        <th> Supplier </th>
+                        <th> Price </th>
                         <th> Expiry Date </th>
                         <th> Quantity </th>
                         <th> Amount </th>
-                        <th> Location in Stock </th>
-                        <th> Description </th>
                         <th> Received On </th>
                     </tr>
                 </thead>
@@ -85,27 +44,20 @@
                             }
 
                             <tr class="odd gradeX">
-                                <td>
-                                    <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-                                        <input type="checkbox" class="checkboxes" 
-                                               data-Name="@item.Name" 
-                                               data-AvailabilityStatusID="@item.AvailabilityStatusID"
-                                               data-ItemStatusID = "@item.ItemStatusID"
-                                               data-ExpiryDate="@item.ExpiryDate" 
-                                               data-LocationInStock="@item.LocationInStock" 
-                                               data-ReceivedOn="@item.ReceivedOn" 
-                                               data-Description="@item.Description" 
-                                               data-UnitID="@item.UnitID" 
-                                               data-UnitAmount="@item.UnitAmount" 
-                                               />
-                                        <span></span>
-                                    </label>
+                                <td style="text-align:center;">
+                                    <span class="setPriceForItem"
+                                          style="cursor:pointer; color:#36c6d3; font-weight:bold" 
+                                          data-ItemName="@item.Name"
+                                          data-itemsIDs="@item.ItemsIDs">Set</span>
                                 </td>
                                 <td>
                                     @item.Name
                                 </td>
                                 <td>
-                                    <span class="label label-sm label-@AvailabilityStatusColor"> @item.AvailabilityStatus </span>                                    
+                                    @item.Supplier
+                                </td>
+                                <td>
+                                    @(item.Price == null ? "Not set" : (item.Price.ToString() + " L.L."))
                                 </td>
                                 <td>
                                     @item.ExpiryDate
@@ -115,12 +67,6 @@
                                 </td>
                                 <td>
                                     @item.UnitAmount @item.Unit
-                                </td>
-                                <td class="center">
-                                    @item.LocationInStock
-                                </td>
-                                <td>
-                                    @item.Description
                                 </td>
                                 <td>
                                     @item.ReceivedOn
@@ -173,4 +119,27 @@
         });
     });
 
+</script>
+
+
+<script>
+
+    function searchItems() {
+        var categoryID = $('#categories').val(); 
+        var fromDate = $('#fromDate').val(); 
+        var toDate = $('#toDate').val(); 
+
+        $.ajax({
+            url: '@Url.Action("ItemsPartialPricing", "Home")',
+            data: { categoryID: categoryID, fromDate: fromDate, toDate: toDate },
+            type: "POST",
+            success: function (data) {
+                $('#itemsPartialView').show();
+                $('#itemsPartialView').html(data);
+                $('html, body').animate({
+                    scrollTop: $("#itemsPartialView").offset().top
+                }, 2000);
+            }
+        });
+    }
 </script>

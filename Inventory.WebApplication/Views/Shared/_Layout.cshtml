@@ -379,6 +379,11 @@
                                         <span class="title">Items</span>
                                     </a>
                                 </li>
+                                <li id="itemsPricingTab" class="nav-item">
+                                    <a href="@Url.Action("Pricing","Items")" class="nav-link ">
+                                        <span class="title">Pricing</span>
+                                    </a>
+                                </li>
                                 <li id="categoriesTab" class="nav-item">
                                     <a href="@Url.Action("Deteriorated","Home")" class="nav-link ">
                                         <span class="title">Deteriorated</span>
@@ -519,6 +524,14 @@
             $('#itemsParentTab .arrow').addClass('open');
             $('#itemsParentTab .sub-menu').css('display', 'block');            
             $('#itemsTab').addClass('active');
+        }
+
+        function pricingActive() {
+            $('#itemsParentTab').addClass('active');
+            $('#itemsParentTab').addClass('open');
+            $('#itemsParentTab .arrow').addClass('open');
+            $('#itemsParentTab .sub-menu').css('display', 'block');            
+            $('#itemsPricingTab').addClass('active');
         }
 
         function usersActive() {

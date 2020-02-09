@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Inventory.DataObjects.DTO;
 using Inventory.DataObjects.EDM;
+using Microsoft.AspNet.Identity;
 
 namespace Inventory.WebApplication.Controllers
 {
@@ -18,6 +19,20 @@ namespace Inventory.WebApplication.Controllers
 
         public ActionResult Route()
         {
+            return View();
+        }
+
+        public ActionResult Pricing()
+        {
+            ViewBag.Categories = db.Categories
+                    .Select(x => new CategoryDTO
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        Picture = x.Picture,
+                        ParentCategory = x.ParentCategory
+                    }).ToList();
+
             return View();
         }
 
@@ -40,6 +55,33 @@ namespace Inventory.WebApplication.Controllers
                 return HttpNotFound();
             }
             return View(item);
+        }
+
+        public JsonResult EditPrice(decimal itemPrice, string listOfIDs)
+        {
+            string result = "Error";
+
+            try
+            {
+                List<int> listOfItemsIDs = listOfIDs.Split(',').Select(Int32.Parse).ToList();
+                foreach (var ID in listOfItemsIDs)
+                {
+                    Item item = db.Items.FirstOrDefault(x => x.Id == ID);
+                    if(item != null)
+                    {
+                        item.Price = itemPrice;
+                    }
+                    db.SaveChanges();
+
+                    result = "Success";
+                }
+            }
+            catch(Exception ex)
+            {
+                result = "Error";
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Items/Create
@@ -106,6 +148,8 @@ namespace Inventory.WebApplication.Controllers
                     newItem.SupplierID = item.SupplierID;
                     newItem.UnitAmount = item.UnitAmount;
                     newItem.UnitID = item.UnitID;
+                    newItem.ReceivedOn = DateTime.Now;
+                    newItem.ModifiedBy = User.Identity.GetUserId();
 
                     item.Id = maxID + i;
                     addedItems.Add(newItem);

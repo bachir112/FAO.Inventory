@@ -5774,6 +5774,8 @@
     <Content Include="Views\Home\TransactionsIntoStock.cshtml" />
     <Content Include="Views\Home\TransactionsOutOfStock.cshtml" />
     <Content Include="Views\Home\Deteriorated.cshtml" />
+    <Content Include="Views\Items\Pricing.cshtml" />
+    <Content Include="Views\Home\ItemsPartialPricing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

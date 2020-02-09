@@ -104,6 +104,40 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
 
+        public ActionResult ItemsPartialPricing(Nullable<int> categoryID = null, Nullable<DateTime> fromDate = null, Nullable<DateTime> toDate = null)
+        {
+            List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
+
+            using (var db = new InventoryEntities())
+            {
+                List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
+                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Unit> units = db.Units.ToList();
+
+                itemsInStock = (from item in db.Items
+                                where item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
+                                && (fromDate == null ? true : item.ReceivedOn >= fromDate)
+                                && (toDate == null ? true : item.ReceivedOn <= toDate)
+                                group item by new { item.Name, item.ExpiryDate, item.UnitID, item.UnitAmount, item.SupplierID, item.ReceivedOn, item.Price } into items
+                                select items).AsEnumerable().Select(
+                                items => new ItemsGroupedDTO()
+                                {
+                                    ItemsIDs = string.Join(",", items.Select(x => x.Id).ToList()),
+                                    Name = items.Key.Name,
+                                    Price = items.Key.Price,
+                                    Supplier = suppliers.FirstOrDefault(x => x.Id == items.Key.SupplierID)?.Supplier1,
+                                    Quantity = items.Count(),
+                                    ExpiryDate = items.Key.ExpiryDate,
+                                    UnitID = items.Key.UnitID,
+                                    UnitAmount = items.Key.UnitAmount,
+                                    ReceivedOn = items.Key.ReceivedOn,
+                                    Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID)?.Name
+                                }).ToList();
+            }
+            
+            return View(itemsInStock);
+        }
+
         public ActionResult Transactions()
         {
             return View();
