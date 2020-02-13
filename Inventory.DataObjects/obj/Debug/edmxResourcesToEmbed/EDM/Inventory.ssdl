@@ -86,6 +86,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Name_Arabic" Type="nvarchar" MaxLength="250" />
     <Property Name="AvailabilityStatusID" Type="int" Nullable="false" />
     <Property Name="ItemStatusID" Type="int" Nullable="false" />
     <Property Name="LocationInStock" Type="nvarchar" MaxLength="250" />
@@ -106,7 +107,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ItemName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ItemName" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="ItemName_Arabic" Type="nvarchar" MaxLength="250" />
     <Property Name="CategoryID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="ItemStatus">

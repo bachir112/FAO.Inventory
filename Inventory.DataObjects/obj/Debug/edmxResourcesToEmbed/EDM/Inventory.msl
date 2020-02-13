@@ -80,6 +80,7 @@
     <EntitySetMapping Name="Items">
       <EntityTypeMapping TypeName="InventoryModel.Item">
         <MappingFragment StoreEntitySet="Items">
+          <ScalarProperty Name="Name_Arabic" ColumnName="Name_Arabic" />
           <ScalarProperty Name="Consumable" ColumnName="Consumable" />
           <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -102,6 +103,7 @@
     <EntitySetMapping Name="ItemsSearchValues">
       <EntityTypeMapping TypeName="InventoryModel.ItemsSearchValue">
         <MappingFragment StoreEntitySet="ItemsSearchValues">
+          <ScalarProperty Name="ItemName_Arabic" ColumnName="ItemName_Arabic" />
           <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
           <ScalarProperty Name="ItemName" ColumnName="ItemName" />
           <ScalarProperty Name="Id" ColumnName="Id" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Inventory.DataObjects.EDM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -42,6 +43,23 @@ namespace Inventory.WebApplication.Global
                 result = false;
             }
 
+            return result;
+        }
+
+        public bool isAllowed(string roleName, string pageName)
+        {
+            bool result = false;
+
+            using (var db = new InventoryEntities())
+            {
+                result = db.PageManagements.Where(x => x.RoleName == roleName && 
+                                                       x.PageName == pageName && 
+                                                       x.Allowed
+                                                 )
+                                            .Select(x => x)
+                                            .Count() > 0;
+            }
+            
             return result;
         }
 

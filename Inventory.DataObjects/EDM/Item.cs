@@ -23,13 +23,14 @@ namespace Inventory.DataObjects.EDM
         public int UnitID { get; set; }
         public Nullable<int> UnitAmount { get; set; }
         public Nullable<decimal> Price { get; set; }
+        public Nullable<decimal> Quantity { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> ReceivedOn { get; set; }
         public int CategoryID { get; set; }
         public int SupplierID { get; set; }
-        public Nullable<int> Quantity { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public Nullable<bool> Consumable { get; set; }
+        public string Name_Arabic { get; set; }
     }
 }

@@ -125,7 +125,7 @@ namespace Inventory.WebApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,AvailabilityStatusID,ItemStatusID,LocationInStock,UnitID,UnitAmount,ExpiryDate,Description,SupplierID,CategoryID,Quantity")] Item item)
+        public ActionResult Create([Bind(Include = "Id,Name,Name_Arabic,AvailabilityStatusID,ItemStatusID,LocationInStock,UnitID,UnitAmount,ExpiryDate,Description,SupplierID,CategoryID,Quantity")] Item item)
         {
             if (ModelState.IsValid)
             {
@@ -138,6 +138,7 @@ namespace Inventory.WebApplication.Controllers
                 {
                     Item newItem = new Item();
                     newItem.Name = item.Name;
+                    newItem.Name_Arabic = item.Name_Arabic;
                     newItem.AvailabilityStatusID = item.AvailabilityStatusID;
                     newItem.CategoryID = item.CategoryID;
                     newItem.Description = item.Description;
@@ -219,7 +220,7 @@ namespace Inventory.WebApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,AvailabilityStatusID,ItemStatusID,LocationInStock,UnitID,UnitAmount,ExpiryDate,Description,SupplierID,CategoryID")] Item item)
+        public ActionResult Edit([Bind(Include = "Id,Name,Name_Arabic,AvailabilityStatusID,ItemStatusID,LocationInStock,UnitID,UnitAmount,ExpiryDate,Description,SupplierID,CategoryID")] Item item)
         {
             if (ModelState.IsValid)
             {

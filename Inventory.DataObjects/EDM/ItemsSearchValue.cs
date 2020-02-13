@@ -17,5 +17,6 @@ namespace Inventory.DataObjects.EDM
         public int Id { get; set; }
         public string ItemName { get; set; }
         public int CategoryID { get; set; }
+        public string ItemName_Arabic { get; set; }
     }
 }

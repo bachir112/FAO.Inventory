@@ -296,19 +296,49 @@ namespace Inventory.WebApplication.Controllers
 
         public JsonResult ItemsInCategory(Nullable<int> categoryID = null)
         {
-            List<string> result = new List<string>();
+            //List<string> result = new List<string>();
+            List<SearchItemsDTO> result = new List<SearchItemsDTO>();
 
             using (var db = new InventoryEntities())
             {
-                result = db.Items.Where(x => (categoryID == null) ? true : x.CategoryID == categoryID).Select(x => x.Name).ToList();
-                List<string> searchableItems = db.ItemsSearchValues.Where(x => (categoryID == null) ? true : x.CategoryID == categoryID).Select(x => x.ItemName).Distinct().ToList();
+                //result = db.Items
+                //           .Where(x => (categoryID == null) ? true : x.CategoryID == categoryID)
+                //           .Select(x => x.Name)
+                //           .Distinct()
+                //           .ToList();
+
+                //List<string> searchableItems = db.ItemsSearchValues
+                //                                 .Where(x => (categoryID == null) ? true : x.CategoryID == categoryID)
+                //                                 .Select(x => x.ItemName)
+                //                                 .Distinct()
+                //                                 .ToList();
+                //result.AddRange(searchableItems);                
+
+                List<SearchItemsDTO>  items = db.Items
+                                                .Where(x => (categoryID == null) ? true : x.CategoryID == categoryID)
+                                                .Select(x => new SearchItemsDTO
+                                                {
+                                                    EnglishName = x.Name == null ? string.Empty : x.Name,
+                                                    ArabicName = x.Name_Arabic == null ? string.Empty : x.Name_Arabic
+                                                }).ToList();
+
+                List<SearchItemsDTO> searchableItems = db.ItemsSearchValues
+                                                         .Where(x => (categoryID == null) ? true : x.CategoryID == categoryID)
+                                                         .Select(x => new SearchItemsDTO
+                                                         {
+                                                             EnglishName = x.ItemName == null ? string.Empty : x.ItemName,
+                                                             ArabicName = x.ItemName_Arabic == null ? string.Empty : x.ItemName_Arabic
+                                                         }).ToList();
+
                 result.AddRange(searchableItems);
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            List<SearchItemsDTO>  distinctResult = result.Distinct().Select(x => x).ToList();
+
+            return Json(distinctResult, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult AddItemToSearchble(string itemName, int categoryID)
+        public JsonResult AddItemToSearchble(string itemName, string itemName_Arabic, int categoryID)
         {
             string result = "error";
 
@@ -316,6 +346,7 @@ namespace Inventory.WebApplication.Controllers
             {
                 ItemsSearchValue newItem = new ItemsSearchValue();
                 newItem.ItemName = itemName;
+                newItem.ItemName_Arabic = itemName_Arabic;
                 newItem.CategoryID = categoryID;
 
                 db.ItemsSearchValues.Add(newItem);

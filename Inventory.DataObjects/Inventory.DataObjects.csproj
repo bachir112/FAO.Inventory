@@ -54,6 +54,7 @@
     <Compile Include="DTO\CategoryDTO.cs" />
     <Compile Include="DTO\ItemsGroupedDTO.cs" />
     <Compile Include="DTO\ItemsInReportQuery.cs" />
+    <Compile Include="DTO\SearchItemsDTO.cs" />
     <Compile Include="DTO\TransactionDTO.cs" />
     <Compile Include="EDM\AspNetRole.cs">
       <DependentUpon>Inventory.tt</DependentUpon>

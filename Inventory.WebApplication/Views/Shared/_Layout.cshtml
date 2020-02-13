@@ -394,7 +394,7 @@
                         <li id="usersParentTab" class="nav-item">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-user"></i>
-                                <span class="title">User Management</span>
+                                <span class="title">Management</span>
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu" style="display: none;">
@@ -411,6 +411,11 @@
                                 <li id="pageManagementTab" class="nav-item">
                                     <a href="@Url.Action("Index","PageManagement")" class="nav-link ">
                                         <span class="title">Page Management</span>
+                                    </a>
+                                </li>
+                                <li id="suppliersTab" class="nav-item">
+                                    <a href="@Url.Action("Index","Suppliers")" class="nav-link ">
+                                        <span class="title">Suppliers</span>
                                     </a>
                                 </li>
                             </ul>
@@ -550,6 +555,14 @@
             $('#pageManagementTab').addClass('active');
         }
         
+        function pageManagementActive() {
+            $('#usersParentTab').addClass('active');
+            $('#usersParentTab').addClass('open');
+            $('#usersParentTab .arrow').addClass('open');
+            $('#usersParentTab .sub-menu').css('display', 'block');
+            $('#suppliersTab').addClass('active');
+        }
+
         function rolesActive() {
             $('#usersParentTab').addClass('active');
             $('#usersParentTab').addClass('open');

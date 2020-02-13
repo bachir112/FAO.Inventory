@@ -129,14 +129,16 @@
     <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
     <Property Name="Consumable" Type="Boolean" />
+    <Property Name="Name_Arabic" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="ItemsSearchValue">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ItemName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="ItemName_Arabic" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="ItemStatu">
     <Key>

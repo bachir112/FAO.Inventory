@@ -91,6 +91,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Name_Arabic" Type="nvarchar" MaxLength="250" />
           <Property Name="AvailabilityStatusID" Type="int" Nullable="false" />
           <Property Name="ItemStatusID" Type="int" Nullable="false" />
           <Property Name="LocationInStock" Type="nvarchar" MaxLength="250" />
@@ -111,7 +112,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ItemName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="ItemName_Arabic" Type="nvarchar" MaxLength="250" />
           <Property Name="CategoryID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ItemStatus">
@@ -429,14 +431,16 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
           <Property Name="Consumable" Type="Boolean" />
+          <Property Name="Name_Arabic" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ItemsSearchValue">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="ItemName_Arabic" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ItemStatu">
           <Key>
@@ -645,6 +649,7 @@
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="InventoryModel.Item">
               <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="Name_Arabic" ColumnName="Name_Arabic" />
                 <ScalarProperty Name="Consumable" ColumnName="Consumable" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -667,6 +672,7 @@
           <EntitySetMapping Name="ItemsSearchValues">
             <EntityTypeMapping TypeName="InventoryModel.ItemsSearchValue">
               <MappingFragment StoreEntitySet="ItemsSearchValues">
+                <ScalarProperty Name="ItemName_Arabic" ColumnName="ItemName_Arabic" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="ItemName" ColumnName="ItemName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

@@ -16,7 +16,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                pageManagement = db.PageManagements.ToList();
+                pageManagement = db.PageManagements.OrderBy(x => x.RoleName).ToList();
 
                 ViewBag.AspNetRoles = db.AspNetRoles.ToList();
             }
