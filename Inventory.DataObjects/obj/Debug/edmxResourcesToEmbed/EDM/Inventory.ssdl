@@ -62,6 +62,7 @@
     <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
     <Property Name="AccessFailedCount" Type="int" Nullable="false" />
     <Property Name="Verified" Type="bit" Nullable="false" />
+    <Property Name="LastLogin" Type="datetime" />
   </EntityType>
   <EntityType Name="AvailabilityStatus">
     <Key>
@@ -94,7 +95,7 @@
     <Property Name="UnitID" Type="int" Nullable="false" />
     <Property Name="UnitAmount" Type="int" />
     <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
-    <Property Name="Consumable" Type="bit" />
+    <Property Name="Expandable" Type="bit" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
     <Property Name="ReceivedOn" Type="date" />
     <Property Name="CategoryID" Type="int" Nullable="false" />
@@ -110,6 +111,7 @@
     <Property Name="ItemName" Type="nvarchar" MaxLength="250" Nullable="false" />
     <Property Name="ItemName_Arabic" Type="nvarchar" MaxLength="250" />
     <Property Name="CategoryID" Type="int" Nullable="false" />
+    <Property Name="Expandable" Type="bit" />
   </EntityType>
   <EntityType Name="ItemStatus">
     <Key>

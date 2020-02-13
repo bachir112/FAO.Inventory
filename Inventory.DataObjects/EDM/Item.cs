@@ -16,6 +16,7 @@ namespace Inventory.DataObjects.EDM
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Name_Arabic { get; set; }
         public int AvailabilityStatusID { get; set; }
         public int ItemStatusID { get; set; }
         public string LocationInStock { get; set; }
@@ -24,13 +25,12 @@ namespace Inventory.DataObjects.EDM
         public Nullable<int> UnitAmount { get; set; }
         public Nullable<decimal> Price { get; set; }
         public Nullable<decimal> Quantity { get; set; }
+        public Nullable<bool> Expandable { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> ReceivedOn { get; set; }
         public int CategoryID { get; set; }
         public int SupplierID { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-        public Nullable<bool> Consumable { get; set; }
-        public string Name_Arabic { get; set; }
     }
 }

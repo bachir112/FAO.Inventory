@@ -127,7 +127,7 @@ namespace Inventory.WebApplication.Controllers
 
 
                 List<ItemsGroupedDTO> itemsInStock = (from item in db.Items
-                                                      where (item.Consumable == true) && (item.AvailabilityStatusID == 1 || item.AvailabilityStatusID == 2)
+                                                      where (item.Expandable == true) && (item.AvailabilityStatusID == 1 || item.AvailabilityStatusID == 2)
                                                       group item by new { item.Name, item.UnitID, item.UnitAmount } into items
                                                       select items).AsEnumerable().Select(
                                                       items => new ItemsGroupedDTO()
@@ -174,7 +174,7 @@ namespace Inventory.WebApplication.Controllers
 
 
                 List<ItemsGroupedDTO> itemsInStock = (from item in db.Items
-                                                      where (item.Consumable != true) && (item.AvailabilityStatusID == 1 || item.AvailabilityStatusID == 2)
+                                                      where (item.Expandable != true) && (item.AvailabilityStatusID == 1 || item.AvailabilityStatusID == 2)
                                                       group item by new { item.Name, item.UnitID, item.UnitAmount } into items
                                                       select items).AsEnumerable().Select(
                                                       items => new ItemsGroupedDTO()

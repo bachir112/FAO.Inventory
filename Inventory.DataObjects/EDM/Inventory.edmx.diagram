@@ -4,8 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4a65590fae8b4fa7bf3f6eb641fac010" Name="Diagram1" >
-        <EntityTypeShape EntityType="InventoryModel.TransactionsReminder" Width="1.5" PointX="0.75" PointY="0.75" />
+      <Diagram DiagramId="4a65590fae8b4fa7bf3f6eb641fac010" Name="Diagram1" ZoomLevel="86" >
+        <EntityTypeShape EntityType="InventoryModel.Item" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="InventoryModel.TransactionsReminder" Width="1.5" PointX="2.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

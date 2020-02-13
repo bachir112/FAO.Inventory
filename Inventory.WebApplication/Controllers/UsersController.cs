@@ -37,6 +37,23 @@ namespace Inventory.WebApplication.Controllers
             return View(listAspNetUser);
         }
 
+        // GET: AspNetUsers
+        public async Task<ActionResult> Profile()
+        {
+            List<AspNetUser> listAspNetUser = db.AspNetUsers.ToList();
+
+            using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            {
+                foreach (var user in listAspNetUser)
+                {
+                    var userRole = await userManager.GetRolesAsync(user.Id);
+                    user.UserRole = userRole.FirstOrDefault();
+                }
+            }
+
+            return View(listAspNetUser);
+        }
+
         // GET: AspNetUsers/Details/5
         public ActionResult Details(string id)
         {

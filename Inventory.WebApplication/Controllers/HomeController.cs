@@ -78,7 +78,7 @@ namespace Inventory.WebApplication.Controllers
                 itemsInStock = (from item in db.Items
                                 where item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
                                 && item.AvailabilityStatusID == (queryID == -1 ? item.AvailabilityStatusID : queryID)
-                                group item by new { item.Name, item.AvailabilityStatusID, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID } into items
+                                group item by new { item.Name, item.AvailabilityStatusID, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.Description } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
                                 {
@@ -87,7 +87,8 @@ namespace Inventory.WebApplication.Controllers
                                     AvailabilityStatusID = items.Key.AvailabilityStatusID,
                                     Quantity = items.Count(),
                                     LocationInStock = string.Join(", ", items.Where(x => !string.IsNullOrEmpty(x.LocationInStock)).Select(x => x.LocationInStock + " (" + items.Where(y => y.LocationInStock == x.LocationInStock).Select(y => y).Count().ToString() + ")").Distinct()),
-                                    Description = string.Join(",", items.Where(x => !string.IsNullOrEmpty(x.Description)).Select(x => x.Description)),
+                                    Description = string.Join(", ", items.Where(x => !string.IsNullOrEmpty(x.Description)).Select(x => x.Description + " (" + items.Where(y => y.Description == x.Description).Select(y => y).Count().ToString() + ")").Distinct()),
+                                    //Description = string.Join(",", items.Where(x => !string.IsNullOrEmpty(x.Description)).Select(x => x.Description)),
                                     ExpiryDate = items.Key.ExpiryDate,
                                     UnitID = items.Key.UnitID,
                                     UnitAmount = items.Key.UnitAmount,
@@ -250,28 +251,39 @@ namespace Inventory.WebApplication.Controllers
             {
                 foreach(var item in selectedItemsList)
                 {
+                    string removeSection = item.Description
+                                           .Substring(item.Description.LastIndexOf("("), 
+                                                      item.Description.LastIndexOf(")") - item.Description.LastIndexOf("(") + 1
+                                                     );
+
+                    item.Description = item.Description.Replace(removeSection, string.Empty);
+
                     var itemInDB = db.Items.Where(x => x.Name == item.Name && 
                                                     x.AvailabilityStatusID == item.AvailabilityStatusID && 
                                                     x.ItemStatusID == item.ItemStatusID &&
                                                     x.ExpiryDate == item.ExpiryDate && 
-                                                    x.ReceivedOn == item.ReceivedOn &&
+                                                    //x.ReceivedOn == item.ReceivedOn &&
                                                     x.UnitID == item.UnitID &&
                                                     x.UnitAmount == item.UnitAmount &&
                                                     (
-                                                        x.LocationInStock == LocationInStock
+                                                        x.LocationInStock.Trim() == LocationInStock.Trim()
                                                         ||
                                                         x.LocationInStock == (LocationInStock == string.Empty ? null : string.Empty)
-                                                    ) &&
+                                                    )
+                                                    &&
                                                     (
-                                                        x.Description == (item.Description == string.Empty ? null : item.Description)
+                                                        x.Description.Trim() == (item.Description == string.Empty ? null : item.Description.Trim())
                                                         ||
-                                                        x.Description == (item.Description == null ? string.Empty : item.Description)
+                                                        x.Description.Trim() == (item.Description == null ? string.Empty : item.Description.Trim())
                                                         ||
-                                                        x.Description == item.Description
+                                                        x.Description.Trim() == item.Description.Trim()
                                                     )
                                                     ).Select(x => x).Take(quantity).ToList();
 
+                    itemInDB = itemInDB.Take(quantity).ToList();
+
                     itemInDB.ForEach(x => x.AvailabilityStatusID = AvailabilityStatusID);
+                    itemInDB.ForEach(x => x.Description = Description);
 
                     Transaction newTransaction = new Transaction();
                     newTransaction.ItemName = item.Name;

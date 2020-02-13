@@ -8,7 +8,6 @@
     <EntitySet Name="AspNetUsers" EntityType="InventoryModel.AspNetUser" />
     <EntitySet Name="AvailabilityStatus" EntityType="InventoryModel.AvailabilityStatu" />
     <EntitySet Name="Categories" EntityType="InventoryModel.Category" />
-    <EntitySet Name="Items" EntityType="InventoryModel.Item" />
     <EntitySet Name="ItemsSearchValues" EntityType="InventoryModel.ItemsSearchValue" />
     <EntitySet Name="ItemStatus" EntityType="InventoryModel.ItemStatu" />
     <EntitySet Name="Suppliers" EntityType="InventoryModel.Supplier" />
@@ -29,6 +28,7 @@
     <EntitySet Name="PageManagements" EntityType="InventoryModel.PageManagement" />
     <EntitySet Name="ReportQueries" EntityType="InventoryModel.ReportQuery" />
     <EntitySet Name="ReportSettings" EntityType="InventoryModel.ReportSetting" />
+    <EntitySet Name="Items" EntityType="InventoryModel.Item" />
     <EntitySet Name="TransactionsReminders" EntityType="InventoryModel.TransactionsReminder" />
   </EntityContainer>
   <EntityType Name="C__MigrationHistory">
@@ -91,6 +91,7 @@
     <NavigationProperty Name="AspNetUserClaims" Relationship="InventoryModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
     <NavigationProperty Name="AspNetUserLogins" Relationship="InventoryModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
     <NavigationProperty Name="AspNetRoles" Relationship="InventoryModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+    <Property Name="LastLogin" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="AvailabilityStatu">
     <Key>
@@ -109,28 +110,6 @@
     <Property Name="Picture" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="ParentCategory" Type="Int32" Nullable="false" />
   </EntityType>
-  <EntityType Name="Item">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="AvailabilityStatusID" Type="Int32" Nullable="false" />
-    <Property Name="ItemStatusID" Type="Int32" Nullable="false" />
-    <Property Name="LocationInStock" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="ExpiryDate" Type="DateTime" Precision="0" />
-    <Property Name="UnitID" Type="Int32" Nullable="false" />
-    <Property Name="UnitAmount" Type="Int32" />
-    <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
-    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="ReceivedOn" Type="DateTime" Precision="0" />
-    <Property Name="CategoryID" Type="Int32" Nullable="false" />
-    <Property Name="SupplierID" Type="Int32" Nullable="false" />
-    <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
-    <Property Name="Consumable" Type="Boolean" />
-    <Property Name="Name_Arabic" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-  </EntityType>
   <EntityType Name="ItemsSearchValue">
     <Key>
       <PropertyRef Name="Id" />
@@ -139,6 +118,7 @@
     <Property Name="ItemName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="CategoryID" Type="Int32" Nullable="false" />
     <Property Name="ItemName_Arabic" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Expandable" Type="Boolean" />
   </EntityType>
   <EntityType Name="ItemStatu">
     <Key>
@@ -250,6 +230,28 @@
     <Property Name="SpecificDates" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="QueryBasis" Type="Boolean" Nullable="false" />
     <Property Name="QueryID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Name_Arabic" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="AvailabilityStatusID" Type="Int32" Nullable="false" />
+    <Property Name="ItemStatusID" Type="Int32" Nullable="false" />
+    <Property Name="LocationInStock" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ExpiryDate" Type="DateTime" Precision="0" />
+    <Property Name="UnitID" Type="Int32" Nullable="false" />
+    <Property Name="UnitAmount" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Expandable" Type="Boolean" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ReceivedOn" Type="DateTime" Precision="0" />
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="SupplierID" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
   </EntityType>
   <EntityType Name="TransactionsReminder">
     <Key>

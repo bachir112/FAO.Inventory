@@ -19,19 +19,19 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit item</h5>
+                <h4 class="modal-title" style="color:red;" id="exampleModalLabel">Edit item</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <h4 id="assignItem" style="color:red;">Editing Router</h4>
-                <hr />
+                @*<h4 id="assignItem" style="color:red;">Editing Router</h4>
+                <hr />*@
                 <div class="form-group">
                     <label>Name</label>
                     <div class="input-icon">
                         <i class="fa fa-tasks font-green" aria-hidden="true"></i>
-                        <input id="editName" type="number" class="form-control" placeholder="Name" name="Name">
+                        <input id="editName" type="text" class="form-control" placeholder="Name" name="Name">
                     </div>
                 </div>
                 <div class="form-group">
@@ -51,12 +51,12 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                @*<div class="form-group">
                     <label>Amount</label>
                     <div class="">
                         @Html.EditorFor(model => model.UnitAmount, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
-                </div>
+                </div>*@
 
                 <div id="quantityContainer" style="display:none;" class="form-group">
                     <label>How many?</label>

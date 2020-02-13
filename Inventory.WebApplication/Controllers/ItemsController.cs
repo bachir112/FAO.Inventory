@@ -129,11 +129,11 @@ namespace Inventory.WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                List<Item> addedItems = new List<Item>();
-
                 int quantity = item.Quantity == null ? Convert.ToInt32(item.UnitAmount): Convert.ToInt32(item.Quantity);
                 item.UnitAmount = item.UnitID == 1 ? null : item.UnitAmount;
-                int maxID = db.Items.Max(x => x.Id);
+
+                Nullable<bool> expandable = db.ItemsSearchValues.FirstOrDefault(x => x.ItemName == item.Name && x.ItemName_Arabic == item.Name_Arabic)?.Expandable;
+
                 for (int i=0; i < quantity; i++)
                 {
                     Item newItem = new Item();
@@ -149,15 +149,14 @@ namespace Inventory.WebApplication.Controllers
                     newItem.SupplierID = item.SupplierID;
                     newItem.UnitAmount = item.UnitAmount;
                     newItem.UnitID = item.UnitID;
+                    newItem.Expandable = expandable;
                     newItem.ReceivedOn = DateTime.Now;
                     newItem.ModifiedBy = User.Identity.GetUserId();
 
-                    item.Id = maxID + i;
-                    addedItems.Add(newItem);
+                    db.Items.Add(newItem);
+                    db.SaveChanges();
                 }
 
-                db.Items.AddRange(addedItems);
-                db.SaveChanges();
                 return RedirectToAction("Create");
             }
 

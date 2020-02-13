@@ -18,5 +18,6 @@ namespace Inventory.DataObjects.EDM
         public string ItemName { get; set; }
         public int CategoryID { get; set; }
         public string ItemName_Arabic { get; set; }
+        public Nullable<bool> Expandable { get; set; }
     }
 }

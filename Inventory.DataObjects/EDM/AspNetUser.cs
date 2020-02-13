@@ -22,8 +22,8 @@ namespace Inventory.DataObjects.EDM
             this.AspNetRoles = new HashSet<AspNetRole>();
         }
     
-        public string UserRole { get; set; }
         public string Id { get; set; }
+        public string UserRole { get; set; }
         public string UserName { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
@@ -37,6 +37,7 @@ namespace Inventory.DataObjects.EDM
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
         public bool Verified { get; set; }
+        public Nullable<System.DateTime> LastLogin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetUserClaim> AspNetUserClaims { get; set; }

@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Inventory.WebApplication.Models;
 using System.Collections.Generic;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Inventory.WebApplication.Controllers
 {
@@ -426,6 +427,24 @@ namespace Inventory.WebApplication.Controllers
             return View(usersList);
         }
 
+        public async Task<JsonResult> ResetUserPassword(string userId, string newPassword)
+        {
+            string response = string.Empty;
+
+            using (var context = new ApplicationDbContext())
+            {
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+
+                String hashedNewPassword = userManager.PasswordHasher.HashPassword(newPassword);
+
+                ApplicationUser cUser = await userStore.FindByIdAsync(userId);
+                await userStore.SetPasswordHashAsync(cUser, hashedNewPassword);
+                await userStore.UpdateAsync(cUser);
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
 
         //
         // POST: /Account/LogOff
