@@ -5334,6 +5334,7 @@
     <Content Include="Images\all-items.png" />
     <Content Include="Images\books.jpg" />
     <Content Include="Images\cleaning.png" />
+    <Content Include="Images\delete-items.png" />
     <Content Include="Images\edit-items.png" />
     <Content Include="Images\furniture.jpg" />
     <Content Include="Images\generator.jpg" />

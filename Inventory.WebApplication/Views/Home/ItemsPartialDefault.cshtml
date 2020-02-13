@@ -25,14 +25,14 @@
                 <div id="editActionContainer" class="row" style="display:none;">
                     <div class="col-md-6">
                         <div class="btn-group">
-                            <button id="editItemActionSelector" class="btn sbold green" data-toggle="modal" data-target="#editItemModal">
-                                Edit
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            <button id="deleteActionSelector" class="btn sbold red" data-toggle="modal" data-target="#deleteItemModal">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                Delete One
                             </button>
 
-                            <button id="batchEditItemActionSelector" class="btn sbold green" style="margin-left:15px;" data-toggle="modal" data-target="#editItemModal">
-                                Edit Batch
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            <button id="batchDeletedItemActionSelector" class="btn sbold red" style="margin-left:15px;" data-toggle="modal" data-target="#deleteItemModal">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                Delete All
                             </button>
                         </div>
                     </div>
@@ -88,6 +88,7 @@
                                 <td>
                                     <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
                                         <input type="checkbox" class="checkboxes" 
+                                               data-itemsIDs="@item.ItemsIDs"
                                                data-Name="@item.Name" 
                                                data-AvailabilityStatusID="@item.AvailabilityStatusID"
                                                data-ItemStatusID = "@item.ItemStatusID"

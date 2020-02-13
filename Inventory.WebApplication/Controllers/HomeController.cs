@@ -82,6 +82,7 @@ namespace Inventory.WebApplication.Controllers
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
                                 {
+                                    ItemsIDs = string.Join(",", items.Select(x => x.Id).ToList()),
                                     Name = items.Key.Name,
                                     AvailabilityStatus = availabilityStatuses.FirstOrDefault(x => x.Id == items.Key.AvailabilityStatusID).Status,
                                     AvailabilityStatusID = items.Key.AvailabilityStatusID,

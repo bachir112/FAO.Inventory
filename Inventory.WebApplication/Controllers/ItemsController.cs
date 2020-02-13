@@ -230,6 +230,31 @@ namespace Inventory.WebApplication.Controllers
             return View(item);
         }
 
+        public JsonResult DeleteItems(string listOfIDs)
+        {
+            string result = "Error";
+
+            try
+            {
+                List<int> listOfItemsIDs = listOfIDs.Split(',').Select(Int32.Parse).ToList();
+                foreach (var ID in listOfItemsIDs)
+                {
+                    Item item = db.Items.FirstOrDefault(x => x.Id == ID);
+                    db.Items.Remove(item);
+                    db.SaveChanges();
+                }
+
+                result = "Success";
+            }
+            catch (Exception ex)
+            {
+                result = "Error";
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
         // GET: Items/Delete/5
         public ActionResult Delete(int? id)
         {
