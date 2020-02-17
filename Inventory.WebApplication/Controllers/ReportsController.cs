@@ -371,18 +371,34 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ABCItemsDTO> abcReportItems = new List<ABCItemsDTO>();
 
+            ABCItemsDTO emptyItem = new ABCItemsDTO();
+            emptyItem.percentageRevenue = 0;
+            emptyItem.percentageQuantity = 0;
+            emptyItem.itemName = "";
+            abcReportItems.Add(emptyItem);
+
             using (var db = new InventoryEntities())
             {
-                decimal? totalAmount = db.Items.Sum(x => x.Price);
-                int totalAmountOfItems = db.Items.Count();
                 List<Item> items = db.Items.OrderByDescending(x => x.Price).ToList();
 
-                foreach(var item in items)
+                double itemsCount = 0;
+                int totalItemsCount = db.Items.Count();
+                decimal itemsPrice = 0;
+                decimal totalItemsPrice = Convert.ToDecimal(db.Items.Sum(x => x.Price));
+                foreach (var item in items)
                 {
+                    itemsCount++;
+                    itemsPrice += Convert.ToDecimal(item.Price);
                     ABCItemsDTO initiatingItem = new ABCItemsDTO();
-                    initiatingItem.percentageRevenue = item.Price + initiatingItem.percentageRevenue;
-                    //initiatingItem.percentageQuantity = item.
+                    initiatingItem.percentageRevenue = Math.Round((itemsPrice * 100)/ totalItemsPrice);
+                    initiatingItem.percentageQuantity = Math.Round((itemsCount * 100) / totalItemsCount);
+                    initiatingItem.itemName = item.Name;
+
+                    abcReportItems.Add(initiatingItem);
                 }
+
+                abcReportItems.Where(x => x.percentageQuantity >= 20).Select(x => x).ToList().ForEach(x => x.lineColor = "red");
+                abcReportItems.Where(x => x.percentageQuantity >= 50).Select(x => x).ToList().ForEach(x => x.lineColor = "yellow");
 
                 //ABCItemsDTO initiatingItem = new ABCItemsDTO();
                 //initiatingItem.itemName = "";

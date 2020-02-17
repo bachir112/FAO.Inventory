@@ -134,19 +134,28 @@
         lineSeries.propertyFields.stroke = "lineColor";
         lineSeries.propertyFields.fill = "lineColor";
 
-        var bullet = lineSeries.bullets.push(new am4charts.CircleBullet());
-        bullet.circle.radius = 6;
-        bullet.circle.fill = am4core.color("#fff");
-        bullet.circle.strokeWidth = 3;
+        //var bullet = lineSeries.bullets.push(new am4charts.CircleBullet());
+        //bullet.circle.radius = 6;
+        //bullet.circle.fill = am4core.color("#fff");
+        //bullet.circle.strokeWidth = 3;
 
         chart.cursor = new am4charts.XYCursor();
         chart.cursor.behavior = "panX";
         chart.cursor.lineX.opacity = 0;
         chart.cursor.lineY.opacity = 0;
 
+
         chart.scrollbarX = new am4core.Scrollbar();
         chart.scrollbarX.parent = chart.bottomAxesContainer;
 
     });
+
+</script>
+
+<script>
+
+    $(window).load(function () {
+        $("body").find("[aria-labelledby='id-66-title']").remove();
+    })
 
 </script>
