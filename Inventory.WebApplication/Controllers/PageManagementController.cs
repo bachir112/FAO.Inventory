@@ -1,4 +1,5 @@
 ﻿using Inventory.DataObjects.EDM;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +13,24 @@ namespace Inventory.WebApplication.Controllers
         // GET: PageManagement
         public ActionResult Index()
         {
-            List<PageManagement> pageManagement = new List<PageManagement>();
-
-            using (var db = new InventoryEntities())
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            if (Global.Global.isAllowed(User.Identity.GetUserId(), "PageManagement"))
             {
-                pageManagement = db.PageManagements.OrderBy(x => x.RoleName).ToList();
+                List<PageManagement> pageManagement = new List<PageManagement>();
 
-                ViewBag.AspNetRoles = db.AspNetRoles.ToList();
+                using (var db = new InventoryEntities())
+                {
+                    pageManagement = db.PageManagements.OrderBy(x => x.RoleName).ToList();
+
+                    ViewBag.AspNetRoles = db.AspNetRoles.ToList();
+                }
+
+                return View(pageManagement);
             }
-            
-            return View(pageManagement);
+            else
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
         }
 
 

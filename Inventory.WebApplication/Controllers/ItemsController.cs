@@ -19,21 +19,30 @@ namespace Inventory.WebApplication.Controllers
 
         public ActionResult Route()
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             return View();
         }
 
         public ActionResult Pricing()
         {
-            ViewBag.Categories = db.Categories
-                    .Select(x => new CategoryDTO
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        Picture = x.Picture,
-                        ParentCategory = x.ParentCategory
-                    }).ToList();
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            if (Global.Global.isAllowed(User.Identity.GetUserId(), "Pricing"))
+            {
+                ViewBag.Categories = db.Categories
+                        .Select(x => new CategoryDTO
+                        {
+                            Id = x.Id,
+                            Name = x.Name,
+                            Picture = x.Picture,
+                            ParentCategory = x.ParentCategory
+                        }).ToList();
 
-            return View();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
         }
 
         // GET: Items
@@ -87,37 +96,45 @@ namespace Inventory.WebApplication.Controllers
         // GET: Items/Create
         public ActionResult Create()
         {
-            List<CategoryDTO> categoriesList = db.Categories
-                                .Select(x => new CategoryDTO
-                                {
-                                    Id = x.Id,
-                                    Name = x.Name,
-                                    Picture = x.Picture,
-                                    ParentCategory = x.ParentCategory
-                                }).ToList();
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            if (Global.Global.isAllowed(User.Identity.GetUserId(), "AddItems"))
+            {
+                List<CategoryDTO> categoriesList = db.Categories
+                                    .Select(x => new CategoryDTO
+                                    {
+                                        Id = x.Id,
+                                        Name = x.Name,
+                                        Picture = x.Picture,
+                                        ParentCategory = x.ParentCategory
+                                    }).ToList();
 
-            List<Supplier> suppliersList = db.Suppliers.ToList();
-            List<AvailabilityStatu> availabilityStatusList = db.AvailabilityStatus.ToList();
-            List<ItemStatu> itemStatusList = db.ItemStatus.ToList();
-            List<Unit> unitList = db.Units.ToList();
+                List<Supplier> suppliersList = db.Suppliers.ToList();
+                List<AvailabilityStatu> availabilityStatusList = db.AvailabilityStatus.ToList();
+                List<ItemStatu> itemStatusList = db.ItemStatus.ToList();
+                List<Unit> unitList = db.Units.ToList();
 
-            ViewBag.LocationInStock = db.Items.Where(x => x.LocationInStock != null && x.LocationInStock.Trim() != string.Empty)
-                                              .Select(x => x.LocationInStock)
-                                              .Distinct()
-                                              .ToList();
+                ViewBag.LocationInStock = db.Items.Where(x => x.LocationInStock != null && x.LocationInStock.Trim() != string.Empty)
+                                                  .Select(x => x.LocationInStock)
+                                                  .Distinct()
+                                                  .ToList();
 
-            ViewBag.ItemDescription = db.Items.Where(x => x.Description != null && x.Description.Trim() != string.Empty)
-                                              .Select(x => x.Description)
-                                              .Distinct()
-                                              .ToList();
+                ViewBag.ItemDescription = db.Items.Where(x => x.Description != null && x.Description.Trim() != string.Empty)
+                                                  .Select(x => x.Description)
+                                                  .Distinct()
+                                                  .ToList();
 
-            ViewBag.CategoriesList = categoriesList;
-            ViewBag.SuppliersList = suppliersList;
-            ViewBag.AvailabilityStatusList = availabilityStatusList;
-            ViewBag.ItemStatusList = itemStatusList;
-            ViewBag.UnitList = unitList;
+                ViewBag.CategoriesList = categoriesList;
+                ViewBag.SuppliersList = suppliersList;
+                ViewBag.AvailabilityStatusList = availabilityStatusList;
+                ViewBag.ItemStatusList = itemStatusList;
+                ViewBag.UnitList = unitList;
 
-            return View();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
         }
 
         // POST: Items/Create
@@ -166,42 +183,51 @@ namespace Inventory.WebApplication.Controllers
         // GET: Items/Edit/5
         public ActionResult EditSection()
         {
-            List<CategoryDTO> categoriesList = db.Categories
-                                .Select(x => new CategoryDTO
-                                {
-                                    Id = x.Id,
-                                    Name = x.Name,
-                                    Picture = x.Picture,
-                                    ParentCategory = x.ParentCategory
-                                }).ToList();
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            if (Global.Global.isAllowed(User.Identity.GetUserId(), "DeleteItems"))
+            {
+                List<CategoryDTO> categoriesList = db.Categories
+                                    .Select(x => new CategoryDTO
+                                    {
+                                        Id = x.Id,
+                                        Name = x.Name,
+                                        Picture = x.Picture,
+                                        ParentCategory = x.ParentCategory
+                                    }).ToList();
 
-            List<Supplier> suppliersList = db.Suppliers.ToList();
-            List<AvailabilityStatu> availabilityStatusList = db.AvailabilityStatus.ToList();
-            List<ItemStatu> itemStatusList = db.ItemStatus.ToList();
-            List<Unit> unitList = db.Units.ToList();
+                List<Supplier> suppliersList = db.Suppliers.ToList();
+                List<AvailabilityStatu> availabilityStatusList = db.AvailabilityStatus.ToList();
+                List<ItemStatu> itemStatusList = db.ItemStatus.ToList();
+                List<Unit> unitList = db.Units.ToList();
 
-            ViewBag.LocationInStock = db.Items.Where(x => x.LocationInStock != null && x.LocationInStock.Trim() != string.Empty)
-                                              .Select(x => x.LocationInStock)
-                                              .Distinct()
-                                              .ToList();
+                ViewBag.LocationInStock = db.Items.Where(x => x.LocationInStock != null && x.LocationInStock.Trim() != string.Empty)
+                                                  .Select(x => x.LocationInStock)
+                                                  .Distinct()
+                                                  .ToList();
 
-            ViewBag.ItemDescription = db.Items.Where(x => x.Description != null && x.Description.Trim() != string.Empty)
-                                              .Select(x => x.Description)
-                                              .Distinct()
-                                              .ToList();
+                ViewBag.ItemDescription = db.Items.Where(x => x.Description != null && x.Description.Trim() != string.Empty)
+                                                  .Select(x => x.Description)
+                                                  .Distinct()
+                                                  .ToList();
 
-            ViewBag.CategoriesList = categoriesList;
-            ViewBag.SuppliersList = suppliersList;
-            ViewBag.AvailabilityStatusList = availabilityStatusList;
-            ViewBag.ItemStatusList = itemStatusList;
-            ViewBag.UnitList = unitList;
+                ViewBag.CategoriesList = categoriesList;
+                ViewBag.SuppliersList = suppliersList;
+                ViewBag.AvailabilityStatusList = availabilityStatusList;
+                ViewBag.ItemStatusList = itemStatusList;
+                ViewBag.UnitList = unitList;
 
-            return View();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
         }
 
         // GET: Items/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -258,6 +284,7 @@ namespace Inventory.WebApplication.Controllers
         // GET: Items/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

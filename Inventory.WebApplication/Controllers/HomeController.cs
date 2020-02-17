@@ -15,11 +15,33 @@ namespace Inventory.WebApplication.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            if (Global.Global.isAllowed(User.Identity.GetUserId(), "Home"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("NotAuthorized","Home");
+            }
         }
 
         public ActionResult Reports()
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            if (Global.Global.isAllowed(User.Identity.GetUserId(), "Reports"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+        }
+
+        public ActionResult NotAuthorized()
+        {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             return View();
         }
 
@@ -142,11 +164,20 @@ namespace Inventory.WebApplication.Controllers
 
         public ActionResult Transactions()
         {
-            return View();
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            if (Global.Global.isAllowed(User.Identity.GetUserId(), "Transactions"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
         }
 
         public ActionResult TransactionsIntoStock()
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             using (var db = new InventoryEntities())
             {
                 ViewBag.ToWhom = db.Transactions.Where(x => x.ToWhom != null && x.ToWhom.Trim() != string.Empty)
@@ -158,6 +189,8 @@ namespace Inventory.WebApplication.Controllers
                                                 .Select(x => x.Description)
                                                 .Distinct()
                                                 .ToList();
+
+                ViewBag.AvailabilityStatus = db.AvailabilityStatus.ToList();
             }
 
             return View();
@@ -165,25 +198,44 @@ namespace Inventory.WebApplication.Controllers
 
         public ActionResult TransactionsOutOfStock()
         {
-            using (var db = new InventoryEntities())
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            if (Global.Global.isAllowed(User.Identity.GetUserId(), "Reports"))
             {
-                ViewBag.ToWhom = db.Transactions.Where(x => x.ToWhom != null && x.ToWhom.Trim() != string.Empty)
-                                                .Select(x => x.ToWhom)
-                                                .Distinct()
-                                                .ToList();
+                using (var db = new InventoryEntities())
+                {
+                    ViewBag.ToWhom = db.Transactions.Where(x => x.ToWhom != null && x.ToWhom.Trim() != string.Empty)
+                                                    .Select(x => x.ToWhom)
+                                                    .Distinct()
+                                                    .ToList();
 
-                ViewBag.Description = db.Transactions.Where(x => x.Description != null && x.Description.Trim() != string.Empty)
-                                                .Select(x => x.Description)
-                                                .Distinct()
-                                                .ToList();
+                    ViewBag.Description = db.Transactions.Where(x => x.Description != null && x.Description.Trim() != string.Empty)
+                                                    .Select(x => x.Description)
+                                                    .Distinct()
+                                                    .ToList();
+
+                    ViewBag.AvailabilityStatus = db.AvailabilityStatus.ToList();
+                }
+
+                return View();
             }
-
-            return View();
+            else
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
         }
 
         public ActionResult Deteriorated()
         {
-            return View();
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            if (Global.Global.isAllowed(User.Identity.GetUserId(), "Deteriorated"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+            //return View();
         }
 
         public ActionResult RecentTransactionsPartial()
@@ -214,26 +266,35 @@ namespace Inventory.WebApplication.Controllers
         
         public ActionResult TransactionsHistory()
         {
-            List<TransactionDTO> result = new List<TransactionDTO>();
-
-            using (var db = new InventoryEntities())
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            if (Global.Global.isAllowed(User.Identity.GetUserId(), "TransactionsHistory"))
             {
-                List<Transaction> transactions = db.Transactions.ToList();
-                result = transactions.Select(x => new TransactionDTO
+                List<TransactionDTO> result = new List<TransactionDTO>();
+
+                using (var db = new InventoryEntities())
                 {
-                    Id = x.Id,
-                    ItemName = x.ItemName,
-                    Quantity = x.Quantity,
-                    NewAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus).Status : string.Empty,
-                    OldAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus).Status : string.Empty,
-                    StockKeeper = db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper) != null ? db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper).FullName : string.Empty,
-                    Description = x.Description,
-                    ToWhom = x.ToWhom,
-                    TransactionDate = x.TransactionDate
-                }).ToList();
+                    List<Transaction> transactions = db.Transactions.ToList();
+                    result = transactions.Select(x => new TransactionDTO
+                    {
+                        Id = x.Id,
+                        ItemName = x.ItemName,
+                        Quantity = x.Quantity,
+                        NewAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus).Status : string.Empty,
+                        OldAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus).Status : string.Empty,
+                        StockKeeper = db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper) != null ? db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper).FullName : string.Empty,
+                        Description = x.Description,
+                        ToWhom = x.ToWhom,
+                        TransactionDate = x.TransactionDate
+                    }).ToList();
+                }
+
+                return View(result);
             }
-            
-            return View(result);
+            else
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+
         }
 
         public JsonResult AssignItems(int quantity, 
@@ -252,12 +313,19 @@ namespace Inventory.WebApplication.Controllers
             {
                 foreach(var item in selectedItemsList)
                 {
-                    string removeSection = item.Description
-                                           .Substring(item.Description.LastIndexOf("("), 
-                                                      item.Description.LastIndexOf(")") - item.Description.LastIndexOf("(") + 1
-                                                     );
+                    try
+                    {
+                        string removeSection = item.Description
+                                               .Substring(item.Description.LastIndexOf("("),
+                                                          item.Description.LastIndexOf(")") - item.Description.LastIndexOf("(") + 1
+                                                         );
 
-                    item.Description = item.Description.Replace(removeSection, string.Empty);
+                        item.Description = item.Description.Replace(removeSection, string.Empty);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
 
                     var itemInDB = db.Items.Where(x => x.Name == item.Name && 
                                                     x.AvailabilityStatusID == item.AvailabilityStatusID && 
@@ -309,24 +377,10 @@ namespace Inventory.WebApplication.Controllers
 
         public JsonResult ItemsInCategory(Nullable<int> categoryID = null)
         {
-            //List<string> result = new List<string>();
             List<SearchItemsDTO> result = new List<SearchItemsDTO>();
 
             using (var db = new InventoryEntities())
             {
-                //result = db.Items
-                //           .Where(x => (categoryID == null) ? true : x.CategoryID == categoryID)
-                //           .Select(x => x.Name)
-                //           .Distinct()
-                //           .ToList();
-
-                //List<string> searchableItems = db.ItemsSearchValues
-                //                                 .Where(x => (categoryID == null) ? true : x.CategoryID == categoryID)
-                //                                 .Select(x => x.ItemName)
-                //                                 .Distinct()
-                //                                 .ToList();
-                //result.AddRange(searchableItems);                
-
                 List<SearchItemsDTO>  items = db.Items
                                                 .Where(x => (categoryID == null) ? true : x.CategoryID == categoryID)
                                                 .Select(x => new SearchItemsDTO

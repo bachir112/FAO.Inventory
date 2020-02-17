@@ -1,7 +1,152 @@
-﻿
+﻿@using Inventory.DataObjects.DTO
+
+@model List<ABCItemsDTO>
+
 @{
-    ViewBag.Title = "ABCAnalysisReport";
+    ViewBag.Title = "Quantity Report";
 }
 
-<h2>ABCAnalysisReport</h2>
+<style>
 
+    #chartdiv {
+        width: 100%;
+        height: 500px;
+    }
+
+</style>
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        @Html.Partial("_ThemeColors")
+
+        <h1 class="page-title"> Generated Reports </h1>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index","Home")">Reports</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <span> ABC Analysis </span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-xs-12 col-sm-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-title tabbable-line">
+                        <div class="caption">
+                            <i class="icon-bubbles font-dark hide"></i>
+                            <span class="caption-subject font-dark bold uppercase"> ABC Analysis </span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="portlet_comments_1">
+                                <div class="mt-comments">
+                                    <div id="chartdiv"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Resources -->
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+
+<script>
+    am4core.ready(function () {
+
+        am4core.useTheme(am4themes_animated);
+
+        var chart = am4core.create("chartdiv", am4charts.XYChart);
+
+        var data = [];
+
+        chart.data = @Html.Raw(Json.Encode(Model));
+        //chart.data = [{
+        //    "year": "0",
+        //    "income": 23.5,
+        //    "lineColor": chart.colors.next()
+        //}, {
+        //    "year": "20",
+        //    "income": 26.2,
+        //}, {
+        //    "year": "30",
+        //    "income": 30.1,
+        //}, {
+        //    "year": "40",
+        //    "income": 20.5,
+        //}, {
+        //    "year": "50",
+        //    "income": 30.6,
+        //    "lineColor": chart.colors.next()
+        //}, {
+        //    "year": "60",
+        //    "income": 34.1,
+        //}, {
+        //    "year": "70",
+        //    "income": 34.1,
+        //}, {
+        //    "year": "80",
+        //    "income": 34.1,
+        //    "lineColor": chart.colors.next()
+        //}, {
+        //    "year": "85",
+        //    "income": 34.1,
+        //}, {
+        //    "year": "90",
+        //    "income": 34.1,
+        //}, {
+        //    "year": "100",
+        //    "income": 34.1,
+        //}];
+
+        var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+        categoryAxis.renderer.grid.template.location = 0;
+        categoryAxis.renderer.ticks.template.disabled = true;
+        categoryAxis.renderer.line.opacity = 0;
+        categoryAxis.renderer.grid.template.disabled = true;
+        categoryAxis.renderer.minGridDistance = 40;
+        categoryAxis.dataFields.category = "percentageQuantity";
+
+        var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+        valueAxis.tooltip.disabled = true;
+        valueAxis.renderer.line.opacity = 0;
+        valueAxis.renderer.ticks.template.disabled = true;
+        valueAxis.min = 0;
+
+        var lineSeries = chart.series.push(new am4charts.LineSeries());
+        lineSeries.dataFields.categoryX = "percentageQuantity";
+        lineSeries.dataFields.valueY = "percentageRevenue";
+        lineSeries.tooltipText = "percentageRevenue: {valueY.value}";
+        lineSeries.fillOpacity = 0.5;
+        lineSeries.strokeWidth = 3;
+        lineSeries.propertyFields.stroke = "lineColor";
+        lineSeries.propertyFields.fill = "lineColor";
+
+        var bullet = lineSeries.bullets.push(new am4charts.CircleBullet());
+        bullet.circle.radius = 6;
+        bullet.circle.fill = am4core.color("#fff");
+        bullet.circle.strokeWidth = 3;
+
+        chart.cursor = new am4charts.XYCursor();
+        chart.cursor.behavior = "panX";
+        chart.cursor.lineX.opacity = 0;
+        chart.cursor.lineY.opacity = 0;
+
+        chart.scrollbarX = new am4core.Scrollbar();
+        chart.scrollbarX.parent = chart.bottomAxesContainer;
+
+    });
+
+</script>

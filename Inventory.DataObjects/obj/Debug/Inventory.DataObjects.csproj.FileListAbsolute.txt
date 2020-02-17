@@ -8,3 +8,14 @@ C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\bin\Debu
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.csproj.CopyComplete
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.dll
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.pdb
+C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.DataObjects\bin\Debug\Inventory.DataObjects.dll.config
+C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.DataObjects\bin\Debug\Inventory.DataObjects.dll
+C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.DataObjects\bin\Debug\Inventory.DataObjects.pdb
+C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.DataObjects\bin\Debug\EntityFramework.dll
+C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.DataObjects\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.DataObjects\bin\Debug\EntityFramework.xml
+C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.DataObjects\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.csprojAssemblyReference.cache
+C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.csproj.CopyComplete
+C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.dll
+C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.pdb

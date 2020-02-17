@@ -1,5 +1,6 @@
 ﻿using Inventory.DataObjects.DTO;
 using Inventory.DataObjects.EDM;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,20 @@ namespace Inventory.WebApplication.Controllers
         // GET: Reports
         public ActionResult Index()
         {
-            return View();
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            if (Global.Global.isAllowed(User.Identity.GetUserId(), "Reports"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
         }
 
         public ActionResult InventoryGeneralReport()
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
             using (var db = new InventoryEntities())
@@ -51,6 +61,7 @@ namespace Inventory.WebApplication.Controllers
 
         public ActionResult ItemsInReport()
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
             using (var db = new InventoryEntities())
@@ -82,6 +93,7 @@ namespace Inventory.WebApplication.Controllers
 
         public ActionResult SearchForNonConsumableReport()
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<TransactionDTO> result = new List<TransactionDTO>();
 
             using (var db = new InventoryEntities())
@@ -106,6 +118,7 @@ namespace Inventory.WebApplication.Controllers
 
         public ActionResult DailyReport()
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<TransactionsReminder> transactionsReminders = new List<TransactionsReminder>();
 
             using (var db = new InventoryEntities())
@@ -118,6 +131,7 @@ namespace Inventory.WebApplication.Controllers
 
         public ActionResult ConsumableItemsReport()
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsInReportQuery> itemsInReportQuery = new List<ItemsInReportQuery>();
 
             using (var db = new InventoryEntities())
@@ -165,6 +179,7 @@ namespace Inventory.WebApplication.Controllers
 
         public ActionResult NonConsumableItemsReport()
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsInReportQuery> itemsInReportQuery = new List<ItemsInReportQuery>();
 
             using (var db = new InventoryEntities())
@@ -212,6 +227,7 @@ namespace Inventory.WebApplication.Controllers
 
         public ActionResult FullInventoryGeneralReport()
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
             using (var db = new InventoryEntities())
@@ -249,6 +265,7 @@ namespace Inventory.WebApplication.Controllers
 
         public ActionResult BudgetLineStatementOfAccountReport()
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
             using (var db = new InventoryEntities())
@@ -284,6 +301,7 @@ namespace Inventory.WebApplication.Controllers
 
         public ActionResult QuantityReport()
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
             using (var db = new InventoryEntities())
@@ -318,14 +336,76 @@ namespace Inventory.WebApplication.Controllers
 
         public ActionResult SchoolTransferReport()
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            List<TransactionDTO> itemsInStock = new List<TransactionDTO>();
 
-            return View();
+            using (var db = new InventoryEntities())
+            {
+                List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
+                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Unit> units = db.Units.ToList();
+                List<Category> categories = db.Categories.ToList();
+
+                itemsInStock = db.Transactions.Where(x => x.NewAvailabilityStatus == 1002).Select(
+                                items => new TransactionDTO()
+                                {
+                                    Id = items.Id,
+                                    Description = items.Description,
+                                    ItemName = items.ItemName,
+                                    //NewAvailabilityStatus = availabilityStatuses.FirstOrDefault(x => x.Id == items.NewAvailabilityStatus).Status,
+                                    //OldAvailabilityStatus = availabilityStatuses.FirstOrDefault(x => x.Id == items.OldAvailabilityStatus).Status,
+                                    Quantity = items.Quantity,
+                                    StockKeeper = items.StockKeeper,
+                                    ToWhom = items.ToWhom,
+                                    TransactionDate = items.TransactionDate,
+                                    //Unit = units.FirstOrDefault(x => x.Id == items.UnitID).Name,
+                                    UnitAmount = items.UnitAmount
+                                }).ToList();
+            }
+
+            return View(itemsInStock);
         }
 
         public ActionResult ABCAnalysisReport()
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            List<ABCItemsDTO> abcReportItems = new List<ABCItemsDTO>();
 
-            return View();
+            using (var db = new InventoryEntities())
+            {
+                decimal? totalAmount = db.Items.Sum(x => x.Price);
+                int totalAmountOfItems = db.Items.Count();
+                List<Item> items = db.Items.OrderByDescending(x => x.Price).ToList();
+
+                foreach(var item in items)
+                {
+                    ABCItemsDTO initiatingItem = new ABCItemsDTO();
+                    initiatingItem.percentageRevenue = item.Price + initiatingItem.percentageRevenue;
+                    //initiatingItem.percentageQuantity = item.
+                }
+
+                //ABCItemsDTO initiatingItem = new ABCItemsDTO();
+                //initiatingItem.itemName = "";
+                //initiatingItem.percentageQuantity = 0;
+                //initiatingItem.percentageRevenue = 0;
+                //initiatingItem.lineColor = "red";
+
+                //abcReportItems.Add(initiatingItem);
+
+                //List<ABCItemsDTO> abcReportItemsList = (from item in db.Items
+                //                                         group item by new { item.Name } into itemsList
+                //                                         select new ABCItemsDTO()
+                //                                         {
+                //                                             itemName = itemsList.Key.Name,
+                //                                             percentageQuantity = itemsList.Count(),
+                //                                             percentageRevenue = ((itemsList.Sum(x => x.Price) / totalAmount) * 100) == null ? 0 : ((itemsList.Sum(x => x.Price) / totalAmount) * 100),
+                //                                             lineColor = "red"
+                //                                         }).OrderBy(x => x.percentageQuantity).ToList();
+
+                //abcReportItems.AddRange(abcReportItemsList);
+            }
+
+            return View(abcReportItems);
         }
 
     }

@@ -23,23 +23,32 @@ namespace Inventory.WebApplication.Controllers
         // GET: AspNetUsers
         public async Task<ActionResult> Index()
         {
-            List<AspNetUser> listAspNetUser = db.AspNetUsers.ToList();
-
-            using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            if (Global.Global.isAllowed(User.Identity.GetUserId(), "Users"))
             {
-                foreach(var user in listAspNetUser)
-                {
-                    var userRole = await userManager.GetRolesAsync(user.Id);
-                    user.UserRole = userRole.FirstOrDefault();
-                }
-            }
+                List<AspNetUser> listAspNetUser = db.AspNetUsers.ToList();
 
-            return View(listAspNetUser);
+                using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+                {
+                    foreach (var user in listAspNetUser)
+                    {
+                        var userRole = await userManager.GetRolesAsync(user.Id);
+                        user.UserRole = userRole.FirstOrDefault();
+                    }
+                }
+
+                return View(listAspNetUser);
+            }
+            else
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
         }
 
         // GET: AspNetUsers
         public async Task<ActionResult> Profile()
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<AspNetUser> listAspNetUser = db.AspNetUsers.ToList();
 
             using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
@@ -72,6 +81,7 @@ namespace Inventory.WebApplication.Controllers
         // GET: AspNetUsers/Create
         public ActionResult Create()
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             return View();
         }
 
@@ -95,6 +105,7 @@ namespace Inventory.WebApplication.Controllers
         // GET: AspNetUsers/Edit/5
         public ActionResult Edit(string id)
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -151,6 +162,7 @@ namespace Inventory.WebApplication.Controllers
         // GET: AspNetUsers/Delete/5
         public ActionResult Delete(string id)
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -176,6 +188,7 @@ namespace Inventory.WebApplication.Controllers
 
         public async Task<JsonResult> ResetPassword(string newPassword, string userID = null)
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             string response = Global.Global.EnumsError;
 
             using (var context = new ApplicationDbContext())
@@ -237,6 +250,7 @@ namespace Inventory.WebApplication.Controllers
 
         public async Task<JsonResult> editRole(string oldRoleName, string newRoleName)
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             string response = Global.Global.EnumsError;
 
             try

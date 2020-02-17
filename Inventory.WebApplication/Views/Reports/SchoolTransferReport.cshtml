@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Inventory.DataObjects.DTO
+@model List<TransactionDTO>
+
+@{
     ViewBag.Title = "School Transfer Report";
 }
 
@@ -18,7 +21,7 @@
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="index.html">Reports</a>
+                    <a href="@Url.Action("Index","Reports")">Reports</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
@@ -40,9 +43,46 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="portlet_comments_1">
                                 <div class="mt-comments">
+                                    <table id="inventoryGeneralReportTable">
+                                        <thead>
+                                            <tr>
+                                                <th>From</th>
+                                                <th>To</th>
+                                                <th>Item Code</th>
+                                                <th>Date Transfered</th>
+                                                <th>Quantity</th>
+                                                <th>Reason of Transfer</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                foreach (TransactionDTO item in Model)
+                                                {
+                                                    <tr class="odd gradeX">
+                                                        <td>
+                                                            This School Name
+                                                        </td>
+                                                        <td>
+                                                            To School Name
+                                                        </td>
+                                                        <td>
+                                                            @item.ItemName
+                                                        </td>
+                                                        <td>
+                                                            @item.TransactionDate
+                                                        </td>
+                                                        <td>
+                                                            @item.Quantity
+                                                        </td>
+                                                        <td>
+                                                            @item.Description
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
 
-                                    @*table goes here*@
-
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

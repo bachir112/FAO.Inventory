@@ -1,8 +1,12 @@
-﻿@{
+﻿@using Inventory.DataObjects.EDM
+
+@{
     ViewBag.Title = "About";
     
     List<string> toWhom = ViewBag.ToWhom as List<string>;
     List<string> description = ViewBag.Description as List<string>;
+
+    List<AvailabilityStatu> AvailabilityStatus = ViewBag.AvailabilityStatus as List<AvailabilityStatu>;
 }
 
 
@@ -16,8 +20,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <h4 id="assignItem" style="color:red;">Assigning Router</h4>
-                <hr />
+                @*<h4 id="assignItem" style="color:red;">Assigning Router</h4>
+                <hr />*@
                 <div class="form-group">
                     <div class="input-icon">
                         <i class="fa fa-tasks font-green" aria-hidden="true"></i>
@@ -27,9 +31,14 @@
                 <div class="form-group">
                     <label>Status</label>
                     <select id="assignStatus" class="form-control">
-                        <option value="1">In Stock</option>
-                        <option value="2">Out of Stock</option>
-                        <option value="3">Out of Service</option>
+                        @{
+                            foreach (var availability in AvailabilityStatus)
+                            {
+                                <option value="@availability.Id">@availability.Status</option>
+                            }
+                        }
+                        @*<option value="2">Out of Stock</option>
+                        <option value="3">Out of Service</option>*@
                     </select>
                 </div>
                 <div class="form-group">
@@ -91,6 +100,34 @@
 
     $(document).on('click', '#assignActionSelector', function () {
         console.log('open box');
+        //selectedItems = [];
+
+        $('#itemsTable tbody label input:checked').each(function () {
+            var html = '';
+            var locationInStock = $(this).attr('data-LocationInStock').split(',');
+            $.each(locationInStock, function (index, value) {
+                console.log(value);
+                console.log(value.replace(/\(.*?\)/, '').replace('(', '').replace(')', ''));
+                var itemLocation = value.replace(/\(.*?\)/, '').replace('(', '').replace(')', '');
+                html += '<option value="' + itemLocation + '">' + itemLocation + '</option>';
+            });
+
+            $('#locationInStock').html('');
+            $('#locationInStock').append(html);
+        });
+
+        if (selectedItems.length > 1) {
+            $('#assignQuantity').val('1');
+            $('#assignQuantity').prop('disabled', true);
+        } else
+        {
+            $('#assignQuantity').val('');
+            $('#assignQuantity').prop('disabled', false);
+        }
+    });
+
+    $(document).on('click', '#assignItem', function () {
+        console.log('assign item');
         selectedItems = [];
 
         $('#itemsTable tbody label input:checked').each(function () {
@@ -107,35 +144,10 @@
             };
 
             selectedItems.push(item);
-
-            var html = '';
-            var locationInStock = $(this).attr('data-LocationInStock').split(',');
-            $.each(locationInStock, function (index, value) {
-                console.log(value);
-                console.log(value.replace(/\(.*?\)/, '').replace('(', '').replace(')', ''));
-                var itemLocation = value.replace(/\(.*?\)/, '').replace('(', '').replace(')', '');
-                html += '<option value="' + itemLocation + '">' + itemLocation + '</option>';
-            });
-
-            $('#locationInStock').html('');
-            $('#locationInStock').append(html);
         });
 
-
-
-        if (selectedItems.length > 1) {
-            $('#assignQuantity').val('1');
-            $('#assignQuantity').prop('disabled', true);
-        } else
-        {
-            $('#assignQuantity').val('');
-            $('#assignQuantity').prop('disabled', false);
-        }
-    });
-
-    $(document).on('click', '#assignItem', function () {
-        console.log('assign item');
         selectedItems = JSON.stringify(selectedItems);
+
         console.log(selectedItems);
 
         $.ajax({

@@ -39,7 +39,8 @@
                             <option value="TransactionsHistory">Transactions History</option>
                         </optgroup>
                         <optgroup label="Items">
-                            <option value="Items">Items(Create or Edit)</option>
+                            <option value="AddItems">Add Items</option>
+                            <option value="DeleteItems">Delete Items</option>
                             <option value="Pricing">Pricing</option>
                             <option value="Deteriorated">Deteriorated</option>
                         </optgroup>
@@ -90,7 +91,7 @@
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="index.html">Allowed Pages</a>
+                    <a href="@Url.Action("Index","Home")">Allowed Pages</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
@@ -138,25 +139,35 @@
                                         </thead>
                                         <tbody>
                                             @{
-                                                foreach (var page in Model)
+                                                foreach (var role in aspNetRoles)
                                                 {
-                                                    <tr class="odd gradeX">
-                                                        @*<td>
-                                                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-                                                                <input type="checkbox" class="checkboxes" value="@page.Id" />
-                                                                <span></span>
-                                                            </label>
-                                                        </td>*@
-                                                        <td>
-                                                            @page.PageName
-                                                        </td>
-                                                        <td>
-                                                            @page.RoleName
-                                                        </td>
-                                                        <td>
-                                                            @page.Allowed
-                                                        </td>
+                                                    List<PageManagement> pagesInRole = Model.Where(x => x.RoleName == role.Name).Select(x => x).ToList();
+
+                                                    <tr style="background:#f3f4f6!important;">
+                                                        <td colspan="3" style="font-weight:bold;font-size:16px;">@role.Name</td>
                                                     </tr>
+
+                                                    if (pagesInRole.Count() == 0)
+                                                    {
+                                                        <tr style="background:#f3f4f6!important;">
+                                                            <td colspan="3" style="font-size:16px;background:#fbfcfd;">No Settings Assigned</td>
+                                                        </tr>
+                                                    }
+
+                                                    foreach (var page in pagesInRole)
+                                                    {
+                                                        <tr class="odd gradeX">
+                                                            <td>
+                                                                @page.PageName
+                                                            </td>
+                                                            <td>
+                                                                @page.RoleName
+                                                            </td>
+                                                            <td>
+                                                                @page.Allowed
+                                                            </td>
+                                                        </tr>
+                                                    }
                                                 }
                                             }
                                         </tbody>

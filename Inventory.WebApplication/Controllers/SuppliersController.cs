@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Inventory.DataObjects.EDM;
+using Microsoft.AspNet.Identity;
 
 namespace Inventory.WebApplication.Controllers
 {
@@ -17,7 +18,15 @@ namespace Inventory.WebApplication.Controllers
         // GET: Suppliers
         public ActionResult Index()
         {
-            return View(db.Suppliers.ToList());
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            if (Global.Global.isAllowed(User.Identity.GetUserId(), "Suppliers"))
+            {
+                return View(db.Suppliers.ToList());
+            }
+            else
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
         }
 
         // GET: Suppliers/Details/5
@@ -38,6 +47,7 @@ namespace Inventory.WebApplication.Controllers
         // GET: Suppliers/Create
         public ActionResult Create()
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             return View();
         }
 
@@ -61,6 +71,7 @@ namespace Inventory.WebApplication.Controllers
         // GET: Suppliers/Edit/5
         public ActionResult Edit(int? id)
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -92,6 +103,7 @@ namespace Inventory.WebApplication.Controllers
         // GET: Suppliers/Delete/5
         public ActionResult Delete(int? id)
         {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

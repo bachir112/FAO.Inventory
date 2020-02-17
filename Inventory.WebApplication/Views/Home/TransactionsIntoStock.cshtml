@@ -1,8 +1,12 @@
-﻿@{
+﻿@using Inventory.DataObjects.EDM
+
+@{
     ViewBag.Title = "About";
-    
+
     List<string> toWhom = ViewBag.ToWhom as List<string>;
     List<string> description = ViewBag.Description as List<string>;
+
+    List<AvailabilityStatu> AvailabilityStatus = ViewBag.AvailabilityStatus as List<AvailabilityStatu>;
 }
 
 
@@ -16,8 +20,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <h4 id="assignItem" style="color:red;">Assigning Router</h4>
-                <hr />
+                @*<h4 id="assignItem" style="color:red;">Assigning Router</h4>
+                    <hr />*@
                 <div class="form-group">
                     <div class="input-icon">
                         <i class="fa fa-tasks font-green" aria-hidden="true"></i>
@@ -27,9 +31,15 @@
                 <div class="form-group">
                     <label>Status</label>
                     <select id="assignStatus" class="form-control">
-                        <option value="1">In Stock</option>
-                        <option value="2">Out of Stock</option>
-                        <option value="3">Out of Service</option>
+                        @{
+                            foreach (var availability in AvailabilityStatus)
+                            {
+                                <option value="@availability.Id">@availability.Status</option>
+                            }
+                        }
+                        @*<option value="1">In Stock</option>
+                            <option value="2">Out of Stock</option>
+                            <option value="3">Out of Service</option>*@
                     </select>
                 </div>
                 <div class="form-group">
@@ -74,7 +84,7 @@
             </ul>
         </div>
 
-        @{ Html.RenderAction("CategoriesPartial", "Home", new { query = "OUT"} ); }
+        @{ Html.RenderAction("CategoriesPartial", "Home", new { query = "OUT" }); }
 
     </div>
 </div>
@@ -94,19 +104,19 @@
         selectedItems = [];
 
         $('#itemsTable tbody label input:checked').each(function () {
-            var item = {
-                Name: $(this).attr('data-Name'),
-                AvailabilityStatusID: $(this).attr('data-AvailabilityStatusID'),
-                ItemStatusID: $(this).attr('data-ItemStatusID'),
-                ExpiryDate: $(this).attr('data-ExpiryDate'),
-                LocationInStock: $(this).attr('data-LocationInStock'),
-                ReceivedOn: $(this).attr('data-ReceivedOn'),
-                Description: $(this).attr('data-Description'),
-                UnitID: $(this).attr('data-UnitID'),
-                UnitAmount: $(this).attr('data-UnitAmount')
-            };
+            //var item = {
+            //    Name: $(this).attr('data-Name'),
+            //    AvailabilityStatusID: $(this).attr('data-AvailabilityStatusID'),
+            //    ItemStatusID: $(this).attr('data-ItemStatusID'),
+            //    ExpiryDate: $(this).attr('data-ExpiryDate'),
+            //    LocationInStock: $(this).attr('data-LocationInStock'),
+            //    ReceivedOn: $(this).attr('data-ReceivedOn'),
+            //    Description: $(this).attr('data-Description'),
+            //    UnitID: $(this).attr('data-UnitID'),
+            //    UnitAmount: $(this).attr('data-UnitAmount')
+            //};
 
-            selectedItems.push(item);
+            //selectedItems.push(item);
 
             var html = '';
             var locationInStock = $(this).attr('data-LocationInStock').split(',');
@@ -133,6 +143,24 @@
 
     $(document).on('click', '#assignItem', function () {
         console.log('assign item');
+        selectedItems = [];
+
+        $('#itemsTable tbody label input:checked').each(function () {
+            var item = {
+                Name: $(this).attr('data-Name'),
+                AvailabilityStatusID: $(this).attr('data-AvailabilityStatusID'),
+                ItemStatusID: $(this).attr('data-ItemStatusID'),
+                ExpiryDate: $(this).attr('data-ExpiryDate'),
+                LocationInStock: $(this).attr('data-LocationInStock'),
+                ReceivedOn: $(this).attr('data-ReceivedOn'),
+                Description: $(this).attr('data-Description'),
+                UnitID: $(this).attr('data-UnitID'),
+                UnitAmount: $(this).attr('data-UnitAmount')
+            };
+
+            selectedItems.push(item);
+        });
+
         selectedItems = JSON.stringify(selectedItems);
         console.log(selectedItems);
 

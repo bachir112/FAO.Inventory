@@ -12,7 +12,7 @@
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="index.html">Transaction</a>
+                    <a href="@Url.Action("Index","Home")">Transaction</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
@@ -62,7 +62,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        itemsActive();
+        transactionsActive();
 
         $('.intoStock').click(function () {
             var url = '@Url.Action("TransactionsIntoStock","Home")';

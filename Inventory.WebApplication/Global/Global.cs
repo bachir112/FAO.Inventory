@@ -1,4 +1,7 @@
 ﻿using Inventory.DataObjects.EDM;
+using Inventory.WebApplication.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,9 +49,19 @@ namespace Inventory.WebApplication.Global
             return result;
         }
 
-        public bool isAllowed(string roleName, string pageName)
+        static public bool isAllowed(string userID, string pageName)
         {
             bool result = false;
+
+            string roleName = "";
+            using (var context = new ApplicationDbContext())
+            {
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+
+                var user = userManager.FindById(userID);
+                roleName = userManager.GetRoles(user.Id).FirstOrDefault();
+            }
 
             using (var db = new InventoryEntities())
             {
@@ -62,6 +75,29 @@ namespace Inventory.WebApplication.Global
             
             return result;
         }
+
+        static public List<PageManagement> AllowedPages(string userID)
+        {
+            List<PageManagement> result = new List<PageManagement>();
+
+            string roleName = "";
+            using (var context = new ApplicationDbContext())
+            {
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+
+                var user = userManager.FindById(userID);
+                roleName = userManager.GetRoles(user.Id).FirstOrDefault();
+            }
+
+            using (var db = new InventoryEntities())
+            {
+                result = db.PageManagements.Where(x => x.RoleName == roleName && x.Allowed).Select(x => x).ToList();
+            }
+
+            return result;
+        }
+
 
         //static async public Task<bool> createNotification(string action, string message)
         //{

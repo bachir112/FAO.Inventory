@@ -18,20 +18,16 @@ namespace Inventory.WebApplication.Controllers
         // GET: Roles
         public ActionResult Index()
         {
-            //List<AspNetUser> listAspNetUser = db.AspNetUsers.ToList();
-
-            //using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
-            //{
-            //    foreach (var user in listAspNetUser)
-            //    {
-            //        var userRole = await userManager.GetRolesAsync(user.Id);
-            //        user.UserRole = userRole.FirstOrDefault();
-            //    }
-            //}
-
-            List<AspNetRole> roles = db.AspNetRoles.ToList();
-
-            return View(roles);
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            if (Global.Global.isAllowed(User.Identity.GetUserId(), "Roles"))
+            {
+                List<AspNetRole> roles = db.AspNetRoles.ToList();
+                return View(roles);
+            }
+            else
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
         }
     }
 }
