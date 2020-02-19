@@ -53,6 +53,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="DTO\ABCItemsDTO.cs" />
     <Compile Include="DTO\CategoryDTO.cs" />
+    <Compile Include="DTO\ItemNames.cs" />
     <Compile Include="DTO\ItemsGroupedDTO.cs" />
     <Compile Include="DTO\ItemsInReportQuery.cs" />
     <Compile Include="DTO\SearchItemsDTO.cs" />

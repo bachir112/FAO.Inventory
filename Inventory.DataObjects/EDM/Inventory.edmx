@@ -73,7 +73,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Status" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
         </EntityType>
@@ -146,6 +146,7 @@
           <Property Name="MinimumPrice" Type="int" />
           <Property Name="MaximumPrice" Type="int" />
           <Property Name="AvailabilityStatusID" Type="int" />
+          <Property Name="ReportID" Type="int" />
         </EntityType>
         <EntityType Name="ReportSettings">
           <Key>
@@ -518,6 +519,7 @@
           <Property Name="MinimumPrice" Type="Int32" />
           <Property Name="MaximumPrice" Type="Int32" />
           <Property Name="AvailabilityStatusID" Type="Int32" />
+          <Property Name="ReportID" Type="Int32" />
         </EntityType>
         <EntityType Name="ReportSetting">
           <Key>
@@ -729,6 +731,7 @@
           <EntitySetMapping Name="ReportQueries">
             <EntityTypeMapping TypeName="InventoryModel.ReportQuery">
               <MappingFragment StoreEntitySet="ReportQueries">
+                <ScalarProperty Name="ReportID" ColumnName="ReportID" />
                 <ScalarProperty Name="AvailabilityStatusID" ColumnName="AvailabilityStatusID" />
                 <ScalarProperty Name="MaximumPrice" ColumnName="MaximumPrice" />
                 <ScalarProperty Name="MinimumPrice" ColumnName="MinimumPrice" />

@@ -156,6 +156,7 @@
     <EntitySetMapping Name="ReportQueries">
       <EntityTypeMapping TypeName="InventoryModel.ReportQuery">
         <MappingFragment StoreEntitySet="ReportQueries">
+          <ScalarProperty Name="ReportID" ColumnName="ReportID" />
           <ScalarProperty Name="AvailabilityStatusID" ColumnName="AvailabilityStatusID" />
           <ScalarProperty Name="MaximumPrice" ColumnName="MaximumPrice" />
           <ScalarProperty Name="MinimumPrice" ColumnName="MinimumPrice" />

@@ -214,6 +214,7 @@
     <Property Name="MinimumPrice" Type="Int32" />
     <Property Name="MaximumPrice" Type="Int32" />
     <Property Name="AvailabilityStatusID" Type="Int32" />
+    <Property Name="ReportID" Type="Int32" />
   </EntityType>
   <EntityType Name="ReportSetting">
     <Key>

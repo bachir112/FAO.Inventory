@@ -68,7 +68,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Status" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
   </EntityType>
@@ -141,6 +141,7 @@
     <Property Name="MinimumPrice" Type="int" />
     <Property Name="MaximumPrice" Type="int" />
     <Property Name="AvailabilityStatusID" Type="int" />
+    <Property Name="ReportID" Type="int" />
   </EntityType>
   <EntityType Name="ReportSettings">
     <Key>

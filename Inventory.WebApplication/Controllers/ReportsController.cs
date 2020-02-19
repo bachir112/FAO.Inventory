@@ -20,12 +20,70 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (Global.Global.isAllowed(User.Identity.GetUserId(), "Reports"))
             {
+                using (var db = new InventoryEntities())
+                {
+                    ViewBag.ItemsNames = db.Items.Select(x => new ItemNames
+                                                              {
+                                                                  ItemName = x.Name,
+                                                                  ItemName_Arabic = x.Name_Arabic
+                                                              }).Distinct().ToList();
+
+                    ViewBag.AvailabilityStatus = db.AvailabilityStatus.ToList();
+                    ViewBag.Users = db.AspNetUsers.ToList();
+                }
+                
                 return View();
             }
             else
             {
                 return RedirectToAction("NotAuthorized", "Home");
             }
+        }
+
+        public JsonResult CreateQuery(string itemName, int reportID,
+            Nullable<int> itemAvailability,
+            Nullable<int> minQuantity, Nullable<int> maxQuantity,
+            Nullable<int> minPrice, Nullable<int> maxPrice)
+        {
+            string result = "error";
+
+            using (var db = new InventoryEntities())
+            {
+                ReportQuery newReportQuery = new ReportQuery();
+                newReportQuery.ReportID = reportID;
+                newReportQuery.ItemName = itemName;
+                newReportQuery.AvailabilityStatusID = itemAvailability;
+                newReportQuery.MinimumPrice = minPrice;
+                newReportQuery.MaximumPrice = maxPrice;
+                newReportQuery.MinimumQuantity = minQuantity;
+                newReportQuery.MaximumQuantity = maxQuantity;
+
+                db.ReportQueries.Add(newReportQuery);
+                db.SaveChanges();
+
+                result = "success";
+            }
+            
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetReportSettings(int reportID)
+        {
+            Dictionary<string, object> reportSettingsDict = new Dictionary<string, object>();
+
+            ReportSetting reportSettings = new ReportSetting();
+            List<ReportQuery> listOfReportQuery = new List<ReportQuery>();
+
+            using (var db = new InventoryEntities())
+            {
+                reportSettings = db.ReportSettings.FirstOrDefault(x => x.ReportID == reportID);
+                listOfReportQuery = db.ReportQueries.Where(x => x.ReportID == reportID).ToList();
+
+                reportSettingsDict.Add("reportSettings", reportSettings);
+                reportSettingsDict.Add("listOfReportQuery", listOfReportQuery);
+            }
+
+            return Json(reportSettingsDict, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult InventoryGeneralReport()
