@@ -1,0 +1,183 @@
+﻿@model IEnumerable<Inventory.DataObjects.EDM.Supplier>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style type="text/css">
+
+    .dt-buttons{
+        display:none!important;
+    }
+
+</style>
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        @Html.Partial("_ThemeColors")
+
+        <h1 class="page-title"> Management </h1>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index","Home")">Users</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <span>List</span>
+                </li>
+            </ul>
+        </div>
+        @*Content starts here*@
+        <div class="row">
+            <div class="col-lg-12 col-xs-12 col-sm-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-title tabbable-line">
+                        <div class="caption">
+                            <i class="icon-bubbles font-dark hide"></i>
+                            <span class="caption-subject font-dark bold uppercase">Users</span>
+                        </div>
+                        <div class="caption" style="float:right;">
+                            @Html.ActionLink("Create New", "Create")
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="portlet_comments_1">
+                                <div class="mt-comments">
+                                    <table id="suppliersTable">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Supplier</th>
+                                                <th>Is a School</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach(var supplier in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.ActionLink("Edit", "Edit", new { id = supplier.Id })
+                                                        |
+                                                        @Html.ActionLink("Delete", "Delete", new { id = supplier.Id })
+                                                    </td>
+                                                    <td>
+                                                        @supplier.Supplier1
+                                                    </td>
+                                                    <td>
+                                                        @supplier.IsSchool
+                                                    </td>
+                                            </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    @*@foreach (var supplier in Model)
+                                    {
+                                        <div class="mt-comment">
+                                            <div class="mt-comment-img">
+                                                <img src="../assets/pages/media/users/avatar6.jpg" />
+                                            </div>
+                                            <div class="mt-comment-body">
+                                                <div class="mt-comment-info">
+                                                    <span class="mt-comment-author">@Html.DisplayFor(modelUser => supplier.Supplier1)</span>
+                                                </div>
+                                                <div class="mt-comment-text">
+                                                    <h5>Is School: @supplier.IsSchool</h5>
+                                                </div>
+                                                <div class="mt-comment-details">
+                                                    <span class="mt-comment-status mt-comment-status-pending">
+                                                        @Html.ActionLink("Edit", "Edit", new { id = supplier.Id })
+                                                        |
+                                                        @Html.ActionLink("Delete", "Delete", new { id = supplier.Id })
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Content ends here*@
+    </div>
+</div>
+
+<script type="text/javascript">
+    
+    $(document).ready(function () {
+
+        pageManagementActive();
+
+        var table = $('#suppliersTable');
+        var oTable = table.dataTable({
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "_MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+            "order": [
+                [0, 'asc']
+            ],
+            "lengthMenu": [
+                [5, 10, 15, 20, -1],
+                [5, 10, 15, 20, "All"] // change per page values here
+            ],
+            "pageLength": 10,
+            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+            buttons: [
+                { extend: 'print', className: 'btn dark btn-outline' },
+                { extend: 'pdf', className: 'btn green btn-outline' },
+                { extend: 'excel', className: 'btn yellow btn-outline ' }
+            ]
+            //,
+            //responsive: true
+        });
+    });
+
+</script>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Supplier1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsSchool)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Supplier1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSchool)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>*@

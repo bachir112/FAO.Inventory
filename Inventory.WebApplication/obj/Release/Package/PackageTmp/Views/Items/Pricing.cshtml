@@ -1,0 +1,191 @@
+﻿@using Inventory.DataObjects.DTO
+
+@{
+    ViewBag.Title = "About";
+    List<CategoryDTO> categories = ViewBag.Categories as List<CategoryDTO>;
+}
+
+<style type="text/css">
+
+    .select2-selection.select2-selection--single {
+        height: 35px !important;
+    }
+</style>
+
+
+<div class="modal fade" id="itemPriceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Assign Price</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 id="assignItemName" style="color:red;">Item Name</h4>
+                <hr />
+                <div class="form-group">
+                    <div class="input-icon">
+                        <i class="fa fa-tasks font-green" aria-hidden="true"></i>
+                        <input id="itemPrice" type="number" class="form-control" placeholder="Price per item">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button id="assignItemPrice" type="button" class="btn btn-primary">Assign</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        @Html.Partial("_ThemeColors")
+
+        <h1 class="page-title"> Items </h1>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="@Url.Action("Transactions","Home")">Items</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <span>Pricing</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-title">
+                        <div class="caption font-dark">
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                            <span class="caption-subject bold uppercase">
+                                Items Prices
+                            </span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+
+                        <div class="form-horizontal form-bordered">
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Item in GROUP</label>
+                                    <div class="col-md-4">
+                                        <select id="categories" style="width:100%!important;">
+                                            <option value="">All</option>
+                                            @{
+                                                foreach (CategoryDTO cat in categories)
+                                                {
+                                                    <option value="@cat.Id" data-image="@Url.Content("~/Images/" + cat.Picture)">@cat.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">Checked in stock</label>
+                                    <div class="col-md-4">
+                                        <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy">
+                                            <input id="fromDate" type="text" class="form-control" name="from" placeholder="From Date">
+                                            <span class="input-group-addon"> to </span>
+                                            <input id="toDate" type="text" class="form-control" name="to" placeholder="To Date">
+                                        </div>
+                                        <!-- /input-group -->
+                                        <span class="help-block"> Select date range </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3"></label>
+                                    <div class="col-md-4">
+                                        <button id="searchItems" type="button" class="btn btn-circle btn-success pull-right">Search</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-horizontal form-bordered">
+
+                            <div id="itemsPartialView" class="row">
+                                @{ Html.RenderAction("ItemsPartialPricing", "Home"); }
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    var selectedItems = [];
+
+    $(document).ready(function () {
+        pricingActive();
+
+        $('#categories').select2({
+            templateResult: formatState,
+            templateSelection: formatState
+        });
+
+        $('#searchItems').click(function () {
+            searchItems();
+        });
+    });
+
+    $(document).on('click', '.setPriceForItem', function () {
+        var itemName = $(this).attr('data-ItemName');
+        var itemsIDs = $(this).attr('data-ItemsIDs');
+
+        $('#assignItemName').text('Price for ' + itemName);
+        $('#assignItemPrice').attr('data-ItemsIDs', itemsIDs);
+
+        $('#itemPriceModal').modal('show');
+    });
+
+    $(document).on('click', '#assignItemPrice', function () {
+        var itemPrice = $('#itemPrice').val();
+        var listOfIDs = $(this).attr('data-ItemsIDs');
+        
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: "@Url.Action("EditPrice","Items")?itemPrice=" + itemPrice + '&listOfIDs=' + listOfIDs,
+            success: function (response) {
+                $('#itemPrice').val('');
+                $('#itemPriceModal').modal('hide');
+                searchItems();
+            }
+        });
+    });
+
+    function formatState(opt) {
+        if (!opt.id) {
+            return opt.text;
+        }
+
+        var optimage = $(opt.element).data('image');
+        if (!optimage) {
+            return opt.text;
+        } else {
+            var $opt = $(
+                '<span><img src="' + optimage + '" width="23px" /> ' + opt.text + '</span>'
+            );
+            return $opt;
+        }
+    };
+
+</script>

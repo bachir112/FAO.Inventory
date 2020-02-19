@@ -105,7 +105,6 @@ C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.WebApplication\obj\D
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.WebApplication\obj\Debug\Inventory.WebApplication.csproj.CopyComplete
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.WebApplication\obj\Debug\Inventory.WebApplication.dll
 C:\Users\Hp\source\repos\Inventory.WebApplication\Inventory.WebApplication\obj\Debug\Inventory.WebApplication.pdb
-C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.WebApplication\obj\Debug\Inventory.WebApplication.csprojAssemblyReference.cache
 C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.WebApplication\bin\Inventory.WebApplication.dll.config
 C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.WebApplication\bin\Inventory.WebApplication.dll
 C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.WebApplication\bin\Inventory.WebApplication.pdb
@@ -218,6 +217,7 @@ C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.WebApp
 C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.WebApplication\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.WebApplication\bin\Microsoft.Owin.Security.OAuth.xml
 C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.WebApplication\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.WebApplication\obj\Debug\Inventory.WebApplication.csprojAssemblyReference.cache
 C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.WebApplication\obj\Debug\Inventory.WebApplication.csproj.CopyComplete
 C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.WebApplication\obj\Debug\Inventory.WebApplication.dll
 C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.WebApplication\obj\Debug\Inventory.WebApplication.pdb

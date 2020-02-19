@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        @Html.Partial("_ThemeColors")
+
+        <h1 class="page-title"> Error </h1>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index","Home")">Error</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <span>Sonething went wrong</span>
+                </li>
+            </ul>
+        </div>
+
+
+
+    </div>
+</div>

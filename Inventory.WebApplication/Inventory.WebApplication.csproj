@@ -3773,7 +3773,6 @@
     <Content Include="assets\global\plugins\icheck\demo\css\montserrat-regular.svg" />
     <Content Include="assets\global\plugins\icheck\demo\css\normalize.css" />
     <Content Include="assets\global\plugins\icheck\demo\index.html" />
-    <Content Include="assets\global\plugins\icheck\demo\js\custom.js" />
     <Content Include="assets\global\plugins\icheck\demo\js\custom.min.js" />
     <Content Include="assets\global\plugins\icheck\demo\js\jquery.js" />
     <Content Include="assets\global\plugins\icheck\demo\js\zepto.js" />
@@ -5524,7 +5523,6 @@
     <Content Include="assets\global\plugins\gmaps\README.md" />
     <Content Include="assets\global\plugins\icheck\bower.json" />
     <Content Include="assets\global\plugins\icheck\CHANGELOG.md" />
-    <Content Include="assets\global\plugins\icheck\demo\css\custom.styl" />
     <Content Include="assets\global\plugins\icheck\demo\css\montserrat-bold.eot" />
     <Content Include="assets\global\plugins\icheck\demo\css\montserrat-bold.ttf" />
     <Content Include="assets\global\plugins\icheck\demo\css\montserrat-bold.woff" />

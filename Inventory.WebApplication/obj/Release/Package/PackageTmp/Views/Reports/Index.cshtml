@@ -22,7 +22,7 @@
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="index.html">Dashboard</a>
+                    <a href="@Url.Action("Index","Home")">Dashboard</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
@@ -53,7 +53,7 @@
                                                 <a href="@Url.Action("InventoryGeneralReport","Reports")">Generate</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;">Send as email</a>
+                                                <a href="javascript:sendEmail('InventoryGeneralReport');">Send as email</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -81,7 +81,7 @@
                                                 <a href="@Url.Action("ItemsInReport","Reports")">Generate</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;">Send as email</a>
+                                                <a href="javascript:sendEmail('ItemsInReport');">Send as email</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -109,7 +109,7 @@
                                                 <a href="@Url.Action("SearchForNonConsumableReport","Reports")">Generate</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;">Send as email</a>
+                                                <a href="javascript:sendEmail('SearchForNonConsumableReport');">Send as email</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -137,7 +137,7 @@
                                                 <a href="@Url.Action("DailyReport","Reports")">Generate</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;">Send as email</a>
+                                                <a href="javascript:sendEmail('DailyReport');">Send as email</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -165,7 +165,7 @@
                                                 <a href="@Url.Action("ConsumableItemsReport","Reports")">Generate</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;">Send as email</a>
+                                                <a href="javascript:sendEmail('ConsumableItemsReport');">Send as email</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -193,7 +193,7 @@
                                                 <a href="@Url.Action("NonConsumableItemsReport","Reports")">Generate</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;">Send as email</a>
+                                                <a href="javascript:sendEmail('NonConsumableItemsReport');">Send as email</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -221,7 +221,7 @@
                                                 <a href="@Url.Action("FullInventoryGeneralReport","Reports")">Generate</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;">Send as email</a>
+                                                <a href="javascript:sendEmail('FullInventoryGeneralReport');">Send as email</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -249,7 +249,7 @@
                                                 <a href="@Url.Action("BudgetLineStatementOfAccountReport","Reports")">Generate</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;">Send as email</a>
+                                                <a href="javascript:sendEmail('BudgetLineStatementOfAccountReport');">Send as email</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -277,7 +277,7 @@
                                                 <a href="@Url.Action("QuantityReport","Reports")">Generate</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;">Send as email</a>
+                                                <a href="javascript:sendEmail('QuantityReport');">Send as email</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -305,7 +305,7 @@
                                                 <a href="@Url.Action("SchoolTransferReport","Reports")">Generate</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:;">Send as email</a>
+                                                <a href="javascript:sendEmail('SchoolTransferReport');">Send as email</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -332,13 +332,13 @@
                                             <li>
                                                 <a href="@Url.Action("ABCAnalysisReport","Reports")">Generate</a>
                                             </li>
-                                            <li>
-                                                <a href="javascript:;">Send as email</a>
-                                            </li>
-                                            <li class="divider"> </li>
+                                            @*<li>
+                                                <a href="javascript:sendEmail('ABCAnalysisReport');">Send as email</a>
+                                            </li>*@
+                                            @*<li class="divider"> </li>
                                             <li>
                                                 <a href="@Url.Action("ReportSettings","Reports", new { Id = "11" });">Report Settings</a>
-                                            </li>
+                                            </li>*@
                                         </ul>
                                     </span>
                                 </div>
@@ -361,5 +361,17 @@
         reportActive();
 
     });
+
+    function sendEmail(reportName) {
+        var url = reportName + '_Email';
+        $.ajax({
+            url: url,
+            type: "POST",
+            success: function (data) {
+                $('#success_tic').modal('show');
+            }
+        });
+
+    }
 
 </script>

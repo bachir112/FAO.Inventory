@@ -12,7 +12,7 @@
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="index.html">Transaction</a>
+                    <a href="@Url.Action("Index","Home")">Transaction</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
@@ -26,7 +26,7 @@
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="icon-bubble font-dark hide"></i>
-                            <span class="caption-subject font-hide bold uppercase">Take item in/out of the stock</span>
+                            <span class="caption-subject font-hide bold uppercase">Take item in - out of the stock</span>
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -62,7 +62,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        itemsActive();
+        transactionsActive();
 
         $('.intoStock').click(function () {
             var url = '@Url.Action("TransactionsIntoStock","Home")';

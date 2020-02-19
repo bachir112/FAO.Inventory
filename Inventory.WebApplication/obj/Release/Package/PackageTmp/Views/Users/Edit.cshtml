@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Edit";
     List<AspNetRole> aspNetRoles = ViewBag.AspNetRoles as List<AspNetRole>;
+    string userID = Model.Id;
 }
 
 
@@ -16,7 +17,7 @@
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="index.html">Home</a>
+                    <a href="@Url.Action("Index","Home")">Home</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
@@ -155,6 +156,23 @@
 
         }
         @*Content ends here*@
+
+        <div class="form-group" style="margin-top:30px;margin-bottom:30px;">
+            <div class="col-md-2" style="height:10px"></div>
+            <div class="col-md-10" style="margin-bottom:15px;">
+                <button id="changePassword" class="btn btn-circle btn-success">Change user's password</button>
+            </div>
+            <div id="newPasswordContainer" class="form-group" style="display:none;">
+                <div class="col-md-2" style="height:10px"></div>
+                <div class="col-md-8">
+                    <input class="form-control text-box single-line" id="newPassword" type="password" placeholder="New password">
+                </div>
+                <div class="col-md-2">
+                    <button id="updateUserPassword" class="btn btn-default">Update</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -168,6 +186,30 @@
         $('select').val('@ViewBag.UserRole').trigger('change');
         //$('#userRole').val('').trigger('change');
 
+        $('#changePassword').click(function () {
+            $('#newPasswordContainer').toggle();
+        });
+
+        $('#updateUserPassword').click(function () {
+            var newPassword = $('#newPassword').val();
+            
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("ResetUserPassword", "Account")' + '?userId=' + '@userID' + '&newPassword=' + newPassword,
+                dataType: 'text',
+                success: function (data) {
+                    $('#success_tic').modal('show');
+
+                    setTimeout(
+                        function ()
+                        {
+                            location.reload();
+                        }, 2000);
+                }
+            });
+            
+            console.log(newPassword);
+        });
     });
 
 </script>

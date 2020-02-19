@@ -1,6 +1,5 @@
-C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\InventoryService\bin\Debug\InventoryService.exe.config
 C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\InventoryService\bin\Debug\InventoryService.exe
-C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\InventoryService\bin\Debug\InventoryService.pdb
+C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\InventoryService\bin\Debug\InventoryService.exe.config
 C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\InventoryService\obj\Debug\InventoryService.csprojAssemblyReference.cache
 C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\InventoryService\obj\Debug\InventoryService.ProjectInstaller.resources
 C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\InventoryService\obj\Debug\InventoryService.csproj.GenerateResource.cache
