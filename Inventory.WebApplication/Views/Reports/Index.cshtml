@@ -13,6 +13,177 @@
     }
 </style>
 
+
+<div class="modal fade" id="reportSettingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Assign item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>*@
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Report Name</label>
+                    <input id="reportName_Settings" type="text" class="form-control" placeholder="ReportName" disabled="disabled">
+                </div>
+                <div class="form-group">
+                    <label>Received By Users</label>
+                    <div style="width:100%;">
+                        <div>
+                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                <input type="checkbox" class="checkboxes">
+                                <span></span>
+                                <i style="font-style:normal;">Bachir</i>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Send report on</label>
+                    <div style="width:100%;">
+                        <div>
+                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                <input type="checkbox" class="checkboxes">
+                                <span></span>
+                                <i style="font-style:normal;">Daily basis</i>
+                            </label>
+                        </div>
+                    </div>
+                    <div style="width:100%;">
+                        <div>
+                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                <input type="checkbox" class="checkboxes">
+                                <span></span>
+                                <i style="font-style:normal;">Weekly basis</i>
+                            </label>
+                        </div>
+                    </div>
+                    <div style="width:100%;">
+                        <div>
+                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                <input type="checkbox" class="checkboxes">
+                                <span></span>
+                                <i style="font-style:normal;">Monthly basis</i>
+                            </label>
+                        </div>
+                    </div>
+                    <div style="width:100%;">
+                        <div>
+                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                <input type="checkbox" class="checkboxes">
+                                <span></span>
+                                <i style="font-style:normal;">Yearly basis</i>
+                            </label>
+                        </div>
+                    </div>
+                    @*<div class="form-control">
+            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                <input type="checkbox" class="checkboxes">
+                <span>Daily basis</span>
+            </label>
+            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                <input type="checkbox" class="checkboxes">
+                <span>Weekly basis</span>
+            </label>
+            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                <input type="checkbox" class="checkboxes">
+                <span>Monthly basis</span>
+            </label>
+            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                <input type="checkbox" class="checkboxes">
+                <span>Yearly basis</span>
+            </label>
+        </div>*@
+                </div>
+                <div class="form-group">
+                    <label style="width:100%;">
+                        Query
+                        <i style="cursor:pointer;" class="fa fa-plus pull-right addNewQuery" aria-hidden="true"></i>
+                    </label>
+                    <div style="width:100%;">
+                        <div>
+                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                <input type="checkbox" class="checkboxes">
+                                <span></span>
+                                <i style="font-style:normal;">Mouse Pads less than 20</i>
+                            </label>
+                        </div>
+                    </div>
+                    <div style="width:100%;">
+                        <div>
+                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                <input type="checkbox" class="checkboxes">
+                                <span></span>
+                                <i style="font-style:normal;">Mouses greater than 30</i>
+                            </label>
+                        </div>
+                    </div>
+                    <div style="width:100%;">
+                        <div>
+                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                <input type="checkbox" class="checkboxes">
+                                <span></span>
+                                <i style="font-style:normal;">Tables greater than 100</i>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="newQueryContainer" style="width:100%; display:none;">
+                        <hr />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label style="font-weight:bold;">New query</label>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-bottom:15px;">
+                            <div class="col-sm-6">
+                                <label style="width:100%;">Item Name</label>
+                                <select class="itemName" style="width:100%;">
+                                    <option value="Item Name">Item Name</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label style="width:100%;">By Availibility</label>
+                                <select class="itemAvailability" style="width:100%;">
+                                    <option value="Item Name">Availability Name</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-bottom:15px;">
+                            <div class="col-sm-3">
+                                <input id="minQuantity" type="number" class="form-control" placeholder="Min. Quantity" />
+                            </div>
+                            <div class="col-sm-3">
+                                <input id="maxQuantity" type="number" class="form-control" placeholder="Max. Quantity" />
+                            </div>
+                            <div class="col-sm-3">
+                                <input id="minPrice" type="number" class="form-control" placeholder="Min. Quantity" />
+                            </div>
+                            <div class="col-sm-3">
+                                <input id="maxPrice" type="number" class="form-control" placeholder="Min. Quantity" />
+                            </div>
+                        </div>
+                        <div class="row" style="padding-bottom:15px;">
+                            <div class="col-sm-3">
+                                <button id="createQuery" type="button" class="btn btn-primary">Create</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button id="assignItem" type="button" class="btn btn-primary">Assign</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="page-content-wrapper">
     <div class="page-content">
 
@@ -57,7 +228,7 @@
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
-                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "1" })">Report Settings</a>
+                                                <a href="javascript:reportSettings('InventoryGeneralReport');">Report Settings</a>
                                             </li>
                                         </ul>
                                     </span>
@@ -333,12 +504,12 @@
                                                 <a href="@Url.Action("ABCAnalysisReport","Reports")">Generate</a>
                                             </li>
                                             @*<li>
-                                                <a href="javascript:sendEmail('ABCAnalysisReport');">Send as email</a>
-                                            </li>*@
+                                                    <a href="javascript:sendEmail('ABCAnalysisReport');">Send as email</a>
+                                                </li>*@
                                             @*<li class="divider"> </li>
-                                            <li>
-                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "11" });">Report Settings</a>
-                                            </li>*@
+                                                <li>
+                                                    <a href="@Url.Action("ReportSettings","Reports", new { Id = "11" });">Report Settings</a>
+                                                </li>*@
                                         </ul>
                                     </span>
                                 </div>
@@ -359,8 +530,27 @@
     $(document).ready(function () {
 
         reportActive();
+        $('.itemName').select2();
+        $('.itemAvailability').select2();
+
+        $('.addNewQuery').click(function () {
+
+            if ($(this).hasClass('fa-plus')) {
+                $(this).removeClass('fa-plus');
+                $(this).addClass('fa-minus');
+            } else {
+                $(this).removeClass('fa-minus');
+                $(this).addClass('fa-plus');
+            }
+            $('.newQueryContainer').toggle();
+
+        });
 
     });
+
+    function reportSettings(reportName) {
+        $('#reportSettingModal').modal('show');
+    }
 
     function sendEmail(reportName) {
         var url = reportName + '_Email';
