@@ -186,7 +186,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
         
-        public void InventoryGeneralReport_Email(string usersListID = null)
+        public void InventoryGeneralReport_Email(string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
@@ -226,6 +226,7 @@ namespace Inventory.WebApplication.Controllers
                 }
                 else
                 {
+                    emailBody = emailBody + (queryReport == null ? string.Empty : "<br />" + queryReport);
                     List<string> usersList = usersListID.Split(',').ToList();
                     foreach (var userID in usersList)
                     {
@@ -269,7 +270,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
 
-        public void ItemsInReport_Email(string usersListID = null)
+        public void ItemsInReport_Email(string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
@@ -308,6 +309,7 @@ namespace Inventory.WebApplication.Controllers
                 }
                 else
                 {
+                    emailBody = emailBody + (queryReport == null ? string.Empty : "<br />" + queryReport);
                     List<string> usersList = usersListID.Split(',').ToList();
                     foreach (var userID in usersList)
                     {
@@ -344,7 +346,7 @@ namespace Inventory.WebApplication.Controllers
             return View(result);
         }
 
-        public void SearchForNonConsumableReport_Email(string usersListID = null)
+        public void SearchForNonConsumableReport_Email(string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<TransactionDTO> result = new List<TransactionDTO>();
@@ -376,6 +378,7 @@ namespace Inventory.WebApplication.Controllers
                 }
                 else
                 {
+                    emailBody = emailBody + (queryReport == null ? string.Empty : "<br />" + queryReport);
                     List<string> usersList = usersListID.Split(',').ToList();
                     foreach (var userID in usersList)
                     {
@@ -399,7 +402,7 @@ namespace Inventory.WebApplication.Controllers
             return View(transactionsReminders);
         }
 
-        public void DailyReport_Email(string usersListID = null)
+        public void DailyReport_Email(string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<TransactionsReminder> transactionsReminders = new List<TransactionsReminder>();
@@ -419,6 +422,7 @@ namespace Inventory.WebApplication.Controllers
                 }
                 else
                 {
+                    emailBody = emailBody + (queryReport == null ? string.Empty : "<br />" + queryReport);
                     List<string> usersList = usersListID.Split(',').ToList();
                     foreach(var userID in usersList)
                     {
@@ -477,7 +481,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInReportQuery);
         }
 
-        public void ConsumableItemsReport_Email(string usersListID = null)
+        public void ConsumableItemsReport_Email(string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsInReportQuery> itemsInReportQuery = new List<ItemsInReportQuery>();
@@ -531,6 +535,7 @@ namespace Inventory.WebApplication.Controllers
                 }
                 else
                 {
+                    emailBody = emailBody + (queryReport == null ? string.Empty : "<br />" + queryReport);
                     List<string> usersList = usersListID.Split(',').ToList();
                     foreach (var userID in usersList)
                     {
@@ -590,7 +595,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInReportQuery);
         }
 
-        public void NonConsumableItemsReport_Email(string usersListID = null)
+        public void NonConsumableItemsReport_Email(string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsInReportQuery> itemsInReportQuery = new List<ItemsInReportQuery>();
@@ -644,6 +649,7 @@ namespace Inventory.WebApplication.Controllers
                 }
                 else
                 {
+                    emailBody = emailBody + (queryReport == null ? string.Empty : "<br />" + queryReport);
                     List<string> usersList = usersListID.Split(',').ToList();
                     foreach (var userID in usersList)
                     {
@@ -693,7 +699,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
 
-        public void FullInventoryGeneralReport_Email(string usersListID = null)
+        public void FullInventoryGeneralReport_Email(string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
@@ -737,6 +743,7 @@ namespace Inventory.WebApplication.Controllers
                 }
                 else
                 {
+                    emailBody = emailBody + (queryReport == null ? string.Empty : "<br />" + queryReport);
                     List<string> usersList = usersListID.Split(',').ToList();
                     foreach (var userID in usersList)
                     {
@@ -784,7 +791,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
 
-        public void BudgetLineStatementOfAccountReport_Email(string usersListID = null)
+        public void BudgetLineStatementOfAccountReport_Email(string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
@@ -826,6 +833,7 @@ namespace Inventory.WebApplication.Controllers
                 }
                 else
                 {
+                    emailBody = emailBody + (queryReport == null ? string.Empty : "<br />" + queryReport);
                     List<string> usersList = usersListID.Split(',').ToList();
                     foreach (var userID in usersList)
                     {
@@ -873,7 +881,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
 
-        public void QuantityReport_Email(string usersListID = null)
+        public void QuantityReport_Email(string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
@@ -914,6 +922,7 @@ namespace Inventory.WebApplication.Controllers
                 }
                 else
                 {
+                    emailBody = emailBody + (queryReport == null ? string.Empty : "<br />" + queryReport);
                     List<string> usersList = usersListID.Split(',').ToList();
                     foreach (var userID in usersList)
                     {
@@ -957,7 +966,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
 
-        public void SchoolTransferReport_Email(string usersListID = null)
+        public void SchoolTransferReport_Email(string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<TransactionDTO> itemsInStock = new List<TransactionDTO>();
@@ -995,6 +1004,7 @@ namespace Inventory.WebApplication.Controllers
                 }
                 else
                 {
+                    emailBody = emailBody + (queryReport == null ? string.Empty : "<br />" + queryReport);
                     List<string> usersList = usersListID.Split(',').ToList();
                     foreach (var userID in usersList)
                     {

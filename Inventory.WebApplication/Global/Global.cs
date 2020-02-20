@@ -35,10 +35,14 @@ namespace Inventory.WebApplication.Global
                 mail.Subject = title;// ;
 
                 string body = string.Empty;
-                using (StreamReader reader = new StreamReader(System.Web.Hosting.HostingEnvironment.MapPath("~/EmailHTML.html")))
+                using (StreamReader reader = new StreamReader(@"C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.WebApplication\EmailHTML.html"))
                 {
                     body = reader.ReadToEnd();
                 }
+                //using (StreamReader reader = new StreamReader(System.Web.Hosting.HostingEnvironment.MapPath("~/EmailHTML.html")))
+                //{
+                //    body = reader.ReadToEnd();
+                //}
                 body = body.Replace("{UserName}", sendTo); //replacing the required things  
                 body = body.Replace("{Title}", title);
                 body = body.Replace("{message}", message);
