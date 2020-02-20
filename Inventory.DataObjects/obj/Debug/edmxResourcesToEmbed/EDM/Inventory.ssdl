@@ -158,6 +158,7 @@
     <Property Name="SpecificDates" Type="nvarchar(max)" />
     <Property Name="QueryBasis" Type="bit" Nullable="false" />
     <Property Name="QueryID" Type="int" />
+    <Property Name="LastSent" Type="datetime" />
   </EntityType>
   <EntityType Name="Suppliers">
     <Key>

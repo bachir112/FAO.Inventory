@@ -231,6 +231,7 @@
     <Property Name="SpecificDates" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="QueryBasis" Type="Boolean" Nullable="false" />
     <Property Name="QueryID" Type="Int32" />
+    <Property Name="LastSent" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="Item">
     <Key>

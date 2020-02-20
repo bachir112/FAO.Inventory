@@ -170,6 +170,7 @@
     <EntitySetMapping Name="ReportSettings">
       <EntityTypeMapping TypeName="InventoryModel.ReportSetting">
         <MappingFragment StoreEntitySet="ReportSettings">
+          <ScalarProperty Name="LastSent" ColumnName="LastSent" />
           <ScalarProperty Name="QueryID" ColumnName="QueryID" />
           <ScalarProperty Name="QueryBasis" ColumnName="QueryBasis" />
           <ScalarProperty Name="SpecificDates" ColumnName="SpecificDates" />

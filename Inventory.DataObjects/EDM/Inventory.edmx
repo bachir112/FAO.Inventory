@@ -163,6 +163,7 @@
           <Property Name="SpecificDates" Type="nvarchar(max)" />
           <Property Name="QueryBasis" Type="bit" Nullable="false" />
           <Property Name="QueryID" Type="int" />
+          <Property Name="LastSent" Type="datetime" />
         </EntityType>
         <EntityType Name="Suppliers">
           <Key>
@@ -536,6 +537,7 @@
           <Property Name="SpecificDates" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="QueryBasis" Type="Boolean" Nullable="false" />
           <Property Name="QueryID" Type="Int32" />
+          <Property Name="LastSent" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -745,6 +747,7 @@
           <EntitySetMapping Name="ReportSettings">
             <EntityTypeMapping TypeName="InventoryModel.ReportSetting">
               <MappingFragment StoreEntitySet="ReportSettings">
+                <ScalarProperty Name="LastSent" ColumnName="LastSent" />
                 <ScalarProperty Name="QueryID" ColumnName="QueryID" />
                 <ScalarProperty Name="QueryBasis" ColumnName="QueryBasis" />
                 <ScalarProperty Name="SpecificDates" ColumnName="SpecificDates" />

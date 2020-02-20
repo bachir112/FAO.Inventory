@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Inventory.DataObjects.EDM;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,8 +33,34 @@ namespace InventoryService
             Timer.Enabled = true;
         }
 
+
         private void OnElapsedTime(object source, ElapsedEventArgs e)
         {
+            try
+            {
+                using (InventoryEntities db = new InventoryEntities())
+                {
+                    List<ReportSetting> reportSettings = db.ReportSettings.Select(x => x).ToList();
+                    Inventory.WebApplication.Controllers.ReportsController reportsController = new Inventory.WebApplication.Controllers.ReportsController();
+                    foreach (var report in reportSettings)
+                    {
+                        switch (report.ReportID)
+                        {
+                            case 1:
+                                reportsController.DailyReport_Email();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    WriteLog("{0} connected to DB");
+                    WriteLog("{0} : Found " + reportSettings.Count() + " reports");
+                }
+            }
+            catch(Exception ex)
+            {
+                WriteLog("{0} Exception.");
+            }
             WriteLog("{0} ms elapsed.");
         }
 

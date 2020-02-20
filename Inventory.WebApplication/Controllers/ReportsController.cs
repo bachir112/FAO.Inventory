@@ -109,8 +109,6 @@ namespace Inventory.WebApplication.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-
-        
         public JsonResult DeleteQuery(int queryID)
         {
             string result = string.Empty;
@@ -187,7 +185,8 @@ namespace Inventory.WebApplication.Controllers
 
             return View(itemsInStock);
         }
-        public void InventoryGeneralReport_Email()
+        
+        public void InventoryGeneralReport_Email(string usersListID = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
@@ -217,14 +216,25 @@ namespace Inventory.WebApplication.Controllers
                                     Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
                                 }).ToList();
 
-                string userID = User.Identity.GetUserId();
-                sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                Global.Global.ExportDataSetToExcel(itemsInStock);
+                string emailBody = "Please find attached to this email a copy of the Inventory General Report";
+                if (usersListID == null)
+                {
+                    string userID = User.Identity.GetUserId();
+                    sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                    Global.Global.sendEmail("Inventory General Report", emailBody, sendToEmail);
+                }
+                else
+                {
+                    List<string> usersList = usersListID.Split(',').ToList();
+                    foreach (var userID in usersList)
+                    {
+                        sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                        Global.Global.sendEmail("Inventory General Report", emailBody, sendToEmail);
+                    }
+                }
             }
 
-            Global.Global.ExportDataSetToExcel(itemsInStock);
-
-            string emailBody = "Please find attached to this email a copy of the Inventory General Report";
-            Global.Global.sendEmail("Inventory General Report", emailBody, sendToEmail);
         }
 
         public ActionResult ItemsInReport()
@@ -259,7 +269,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
 
-        public void ItemsInReport_Email()
+        public void ItemsInReport_Email(string usersListID = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
@@ -287,14 +297,26 @@ namespace Inventory.WebApplication.Controllers
                                     Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
                                 }).ToList();
 
-                string userID = User.Identity.GetUserId();
-                sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                Global.Global.ExportDataSetToExcel(itemsInStock);
+                string emailBody = "Please find attached to this email a copy of the Items In Report";
+
+                if (usersListID == null)
+                {
+                    string userID = User.Identity.GetUserId();
+                    sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                    Global.Global.sendEmail("Items In Report", emailBody, sendToEmail);
+                }
+                else
+                {
+                    List<string> usersList = usersListID.Split(',').ToList();
+                    foreach (var userID in usersList)
+                    {
+                        sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                        Global.Global.sendEmail("Items In Report", emailBody, sendToEmail);
+                    }
+                }
             }
 
-            Global.Global.ExportDataSetToExcel(itemsInStock);
-
-            string emailBody = "Please find attached to this email a copy of the Items In Report";
-            Global.Global.sendEmail("Inventory General Report", emailBody, sendToEmail);
         }
 
         public ActionResult SearchForNonConsumableReport()
@@ -322,7 +344,7 @@ namespace Inventory.WebApplication.Controllers
             return View(result);
         }
 
-        public void SearchForNonConsumableReport_Email()
+        public void SearchForNonConsumableReport_Email(string usersListID = null)
         {
             string sendToEmail = string.Empty;
             List<TransactionDTO> result = new List<TransactionDTO>();
@@ -343,14 +365,25 @@ namespace Inventory.WebApplication.Controllers
                     TransactionDate = x.TransactionDate
                 }).ToList();
 
-                string userID = User.Identity.GetUserId();
-                sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                Global.Global.ExportDataSetToExcel(result);
+                string emailBody = "Please find attached to this email a copy of the Search For Non Consumable Report";
+
+                if (usersListID == null)
+                {
+                    string userID = User.Identity.GetUserId();
+                    sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                    Global.Global.sendEmail("Search For Non Consumable Report", emailBody, sendToEmail);
+                }
+                else
+                {
+                    List<string> usersList = usersListID.Split(',').ToList();
+                    foreach (var userID in usersList)
+                    {
+                        sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                        Global.Global.sendEmail("Search For Non Consumable Report", emailBody, sendToEmail);
+                    }
+                }
             }
-
-            Global.Global.ExportDataSetToExcel(result);
-
-            string emailBody = "Please find attached to this email a copy of the Search For Non Consumable Report";
-            Global.Global.sendEmail("Inventory General Report", emailBody, sendToEmail);
         }
 
         public ActionResult DailyReport()
@@ -366,7 +399,7 @@ namespace Inventory.WebApplication.Controllers
             return View(transactionsReminders);
         }
 
-        public void DailyReport_Email()
+        public void DailyReport_Email(string usersListID = null)
         {
             string sendToEmail = string.Empty;
             List<TransactionsReminder> transactionsReminders = new List<TransactionsReminder>();
@@ -375,14 +408,25 @@ namespace Inventory.WebApplication.Controllers
             {
                 transactionsReminders.AddRange(db.TransactionsReminders.ToList());
 
-                string userID = User.Identity.GetUserId();
-                sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                Global.Global.ExportDataSetToExcel(transactionsReminders);
+                string emailBody = "Please find attached to this email a copy of the Daily Report";
+
+                if (usersListID == null)
+                {
+                    string userID = User.Identity.GetUserId();
+                    sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                    Global.Global.sendEmail("Daily Report", emailBody, sendToEmail);
+                }
+                else
+                {
+                    List<string> usersList = usersListID.Split(',').ToList();
+                    foreach(var userID in usersList)
+                    {
+                        sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                        Global.Global.sendEmail("Daily Report", emailBody, sendToEmail);
+                    }
+                }
             }
-
-            Global.Global.ExportDataSetToExcel(transactionsReminders);
-
-            string emailBody = "Please find attached to this email a copy of the Daily Report";
-            Global.Global.sendEmail("Inventory General Report", emailBody, sendToEmail);
         }
 
         public ActionResult ConsumableItemsReport()
@@ -433,7 +477,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInReportQuery);
         }
 
-        public void ConsumableItemsReport_Email()
+        public void ConsumableItemsReport_Email(string usersListID = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsInReportQuery> itemsInReportQuery = new List<ItemsInReportQuery>();
@@ -477,14 +521,25 @@ namespace Inventory.WebApplication.Controllers
                                           Unit = item.Unit
                                       }).ToList();
 
-                string userID = User.Identity.GetUserId();
-                sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                Global.Global.ExportDataSetToExcel(itemsInReportQuery);
+                string emailBody = "Please find attached to this email a copy of the Consumable Items Report";
+                if (usersListID == null)
+                {
+                    string userID = User.Identity.GetUserId();
+                    sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                    Global.Global.sendEmail("Consumable Items Report", emailBody, sendToEmail);
+                }
+                else
+                {
+                    List<string> usersList = usersListID.Split(',').ToList();
+                    foreach (var userID in usersList)
+                    {
+                        sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                        Global.Global.sendEmail("Consumable Items Report", emailBody, sendToEmail);
+                    }
+                }
             }
 
-            Global.Global.ExportDataSetToExcel(itemsInReportQuery);
-
-            string emailBody = "Please find attached to this email a copy of the Consumable Items Report";
-            Global.Global.sendEmail("Inventory General Report", emailBody, sendToEmail);
         }
 
         public ActionResult NonConsumableItemsReport()
@@ -535,7 +590,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInReportQuery);
         }
 
-        public void NonConsumableItemsReport_Email()
+        public void NonConsumableItemsReport_Email(string usersListID = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsInReportQuery> itemsInReportQuery = new List<ItemsInReportQuery>();
@@ -579,14 +634,25 @@ namespace Inventory.WebApplication.Controllers
                                           Unit = item.Unit
                                       }).ToList();
 
-                string userID = User.Identity.GetUserId();
-                sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                Global.Global.ExportDataSetToExcel(itemsInReportQuery);
+                string emailBody = "Please find attached to this email a copy of the Non-Consumable Items Report";
+                if (usersListID == null)
+                {
+                    string userID = User.Identity.GetUserId();
+                    sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                    Global.Global.sendEmail("Non Consumable Items Report", emailBody, sendToEmail);
+                }
+                else
+                {
+                    List<string> usersList = usersListID.Split(',').ToList();
+                    foreach (var userID in usersList)
+                    {
+                        sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                        Global.Global.sendEmail("Non Consumable Items Report", emailBody, sendToEmail);
+                    }
+                }
             }
 
-            Global.Global.ExportDataSetToExcel(itemsInReportQuery);
-
-            string emailBody = "Please find attached to this email a copy of the Non-Consumable Items Report";
-            Global.Global.sendEmail("Inventory General Report", emailBody, sendToEmail);
         }
 
         public ActionResult FullInventoryGeneralReport()
@@ -627,7 +693,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
 
-        public void FullInventoryGeneralReport_Email()
+        public void FullInventoryGeneralReport_Email(string usersListID = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
@@ -661,16 +727,26 @@ namespace Inventory.WebApplication.Controllers
                                     TotalPrice = items.Key.Price * items.Count()
                                 }).ToList();
 
-                string userID = User.Identity.GetUserId();
-                sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                Global.Global.ExportDataSetToExcel(itemsInStock);
+                string emailBody = "Please find attached to this email a copy of the Full Inventory General Report";
+                if (usersListID == null)
+                {
+                    string userID = User.Identity.GetUserId();
+                    sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                    Global.Global.sendEmail("Full Inventory General Report", emailBody, sendToEmail);
+                }
+                else
+                {
+                    List<string> usersList = usersListID.Split(',').ToList();
+                    foreach (var userID in usersList)
+                    {
+                        sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                        Global.Global.sendEmail("Full Inventory General Report", emailBody, sendToEmail);
+                    }
+                }
             }
 
-            Global.Global.ExportDataSetToExcel(itemsInStock);
-
-            string emailBody = "Please find attached to this email a copy of the Full Inventory General Report";
-            Global.Global.sendEmail("Inventory General Report", emailBody, sendToEmail);
         }
-
 
         public ActionResult BudgetLineStatementOfAccountReport()
         {
@@ -708,7 +784,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
 
-        public void BudgetLineStatementOfAccountReport_Email()
+        public void BudgetLineStatementOfAccountReport_Email(string usersListID = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
@@ -740,14 +816,25 @@ namespace Inventory.WebApplication.Controllers
                                     TotalPrice = items.Key.Price * items.Count()
                                 }).ToList();
 
-                string userID = User.Identity.GetUserId();
-                sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                Global.Global.ExportDataSetToExcel(itemsInStock);
+                string emailBody = "Please find attached to this email a copy of the BudgetLine Statement Of Account Report";
+                if (usersListID == null)
+                {
+                    string userID = User.Identity.GetUserId();
+                    sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                    Global.Global.sendEmail("BudgetLine Statement Of Account Report", emailBody, sendToEmail);
+                }
+                else
+                {
+                    List<string> usersList = usersListID.Split(',').ToList();
+                    foreach (var userID in usersList)
+                    {
+                        sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                        Global.Global.sendEmail("BudgetLine Statement Of Account Report", emailBody, sendToEmail);
+                    }
+                }
             }
 
-            Global.Global.ExportDataSetToExcel(itemsInStock);
-
-            string emailBody = "Please find attached to this email a copy of the BudgetLine Statement Of Account Report";
-            Global.Global.sendEmail("Inventory General Report", emailBody, sendToEmail);
         }
 
 
@@ -786,7 +873,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
 
-        public void QuantityReport_Email()
+        public void QuantityReport_Email(string usersListID = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
@@ -817,16 +904,26 @@ namespace Inventory.WebApplication.Controllers
                                     Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
                                 }).ToList();
 
-                string userID = User.Identity.GetUserId();
-                sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                Global.Global.ExportDataSetToExcel(itemsInStock);
+                string emailBody = "Please find attached to this email a copy of the Quantity Report";
+                if (usersListID == null)
+                {
+                    string userID = User.Identity.GetUserId();
+                    sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                    Global.Global.sendEmail("Quantity Report", emailBody, sendToEmail);
+                }
+                else
+                {
+                    List<string> usersList = usersListID.Split(',').ToList();
+                    foreach (var userID in usersList)
+                    {
+                        sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                        Global.Global.sendEmail("Quantity Report", emailBody, sendToEmail);
+                    }
+                }
             }
 
-            Global.Global.ExportDataSetToExcel(itemsInStock);
-
-            string emailBody = "Please find attached to this email a copy of the Quantity Report";
-            Global.Global.sendEmail("Inventory General Report", emailBody, sendToEmail);
         }
-
 
         public ActionResult SchoolTransferReport()
         {
@@ -860,7 +957,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
 
-        public void SchoolTransferReport_Email()
+        public void SchoolTransferReport_Email(string usersListID = null)
         {
             string sendToEmail = string.Empty;
             List<TransactionDTO> itemsInStock = new List<TransactionDTO>();
@@ -888,14 +985,25 @@ namespace Inventory.WebApplication.Controllers
                                     UnitAmount = items.UnitAmount
                                 }).ToList();
 
-                string userID = User.Identity.GetUserId();
-                sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                Global.Global.ExportDataSetToExcel(itemsInStock);
+                string emailBody = "Please find attached to this email a copy of the School Transfer Report";
+                if (usersListID == null)
+                {
+                    string userID = User.Identity.GetUserId();
+                    sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                    Global.Global.sendEmail("School Transfer Report", emailBody, sendToEmail);
+                }
+                else
+                {
+                    List<string> usersList = usersListID.Split(',').ToList();
+                    foreach (var userID in usersList)
+                    {
+                        sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
+                        Global.Global.sendEmail("School Transfer Report", emailBody, sendToEmail);
+                    }
+                }
             }
 
-            Global.Global.ExportDataSetToExcel(itemsInStock);
-
-            string emailBody = "Please find attached to this email a copy of the School Transfer Report";
-            Global.Global.sendEmail("Inventory General Report", emailBody, sendToEmail);
         }
 
         public ActionResult ABCAnalysisReport()
