@@ -62,12 +62,13 @@
     <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
     <Property Name="AccessFailedCount" Type="int" Nullable="false" />
     <Property Name="Verified" Type="bit" Nullable="false" />
+    <Property Name="LastLogin" Type="datetime" />
   </EntityType>
   <EntityType Name="AvailabilityStatus">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Status" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
   </EntityType>
@@ -86,6 +87,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Name_Arabic" Type="nvarchar" MaxLength="250" />
     <Property Name="AvailabilityStatusID" Type="int" Nullable="false" />
     <Property Name="ItemStatusID" Type="int" Nullable="false" />
     <Property Name="LocationInStock" Type="nvarchar" MaxLength="250" />
@@ -93,7 +95,7 @@
     <Property Name="UnitID" Type="int" Nullable="false" />
     <Property Name="UnitAmount" Type="int" />
     <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
-    <Property Name="Consumable" Type="bit" />
+    <Property Name="Expandable" Type="bit" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
     <Property Name="ReceivedOn" Type="date" />
     <Property Name="CategoryID" Type="int" Nullable="false" />
@@ -106,8 +108,10 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ItemName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ItemName" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="ItemName_Arabic" Type="nvarchar" MaxLength="250" />
     <Property Name="CategoryID" Type="int" Nullable="false" />
+    <Property Name="Expandable" Type="bit" />
   </EntityType>
   <EntityType Name="ItemStatus">
     <Key>
@@ -137,6 +141,7 @@
     <Property Name="MinimumPrice" Type="int" />
     <Property Name="MaximumPrice" Type="int" />
     <Property Name="AvailabilityStatusID" Type="int" />
+    <Property Name="ReportID" Type="int" />
   </EntityType>
   <EntityType Name="ReportSettings">
     <Key>

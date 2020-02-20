@@ -1,6 +1,12 @@
-﻿
+﻿@using Inventory.DataObjects.EDM
+@using Inventory.DataObjects.DTO
+
 @{
     ViewBag.Title = "Reports";
+
+    List<ItemNames> itemName = ViewBag.ItemsNames as List<ItemNames>;
+    List<AvailabilityStatu> availabilityStatus = ViewBag.AvailabilityStatus as List<AvailabilityStatu>;
+    List<AspNetUser> users = ViewBag.Users as List<AspNetUser>;
 }
 
 <style type="text/css">
@@ -12,6 +18,158 @@
         border-bottom: 1px solid #eef1f5;
     }
 </style>
+
+
+<div class="modal fade" id="reportSettingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Assign item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>*@
+            <div class="modal-body">
+                <div class="form-group">
+                    <label style="font-weight:bold;">Report Name</label>
+                    <input id="reportName_Settings" type="text" class="form-control" placeholder="ReportName" disabled="disabled">
+                </div>
+                <div class="col-sm-12" style="padding:0;">
+                    <div class="col-sm-6" style="padding:0;">
+                        <div class="form-group">
+                            <label style="font-weight:bold;">Received By Users</label>
+                            <div id="usersContainer" style="width:100%;">
+                                @{
+                                    foreach (var user in users)
+                                    {
+                                        <div>
+                                            <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                <input value="@user.Id" type="checkbox" class="checkboxes">
+                                                <span></span>
+                                                <i style="font-style:normal;">@user.Email</i>
+                                            </label>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label style="font-weight:bold;">Send report on</label>
+                            <div id="timeBasisContainer">
+                                <div style="width:100%;">
+                                    <div>
+                                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                            <input value="dailyBasis" type="checkbox" class="checkboxes">
+                                            <span></span>
+                                            <i style="font-style:normal;">Daily basis</i>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div style="width:100%;">
+                                    <div>
+                                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                            <input value="weeklyBasis" type="checkbox" class="checkboxes">
+                                            <span></span>
+                                            <i style="font-style:normal;">Weekly basis</i>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div style="width:100%;">
+                                    <div>
+                                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                            <input value="monthlyBasis" type="checkbox" class="checkboxes">
+                                            <span></span>
+                                            <i style="font-style:normal;">Monthly basis</i>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div style="width:100%;">
+                                    <div>
+                                        <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                            <input value="yearlyBasis" type="checkbox" class="checkboxes">
+                                            <span></span>
+                                            <i style="font-style:normal;">Yearly basis</i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label style="width:100%;">
+                        <i style="cursor:pointer; margin:4px;" class="fa fa-plus pull-left addNewQuery" aria-hidden="true"></i>
+                        <span style="font-size:16px;" style="font-weight:bold;">Query</span>
+                    </label>
+                    <div id="queryIDContainer">
+
+                    </div>
+
+                    <div class="newQueryContainer" style="width:100%; display:none;">
+                        <hr />
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label style="font-weight:bold;">New query</label>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-bottom:15px;">
+                            <div class="col-sm-6">
+                                <label style="width:100%;">Item Name</label>
+                                <select id="itemName" style="width:100%;">
+                                    @{
+                                        foreach (var item in itemName)
+                                        {
+                                            <option value="@item.ItemName">@item.ItemName - @item.ItemName_Arabic</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label style="width:100%;">By Availibility</label>
+                                <select id="itemAvailability" style="width:100%;">
+                                    @{
+                                        foreach (var availability in availabilityStatus)
+                                        {
+                                            <option value="@availability.Id">@availability.Status</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-bottom:15px;">
+                            <div class="col-sm-3">
+                                <input id="minQuantity" type="number" class="form-control" placeholder="Min. Quantity" />
+                            </div>
+                            <div class="col-sm-3">
+                                <input id="maxQuantity" type="number" class="form-control" placeholder="Max. Quantity" />
+                            </div>
+                            <div class="col-sm-3">
+                                <input id="minPrice" type="number" class="form-control" placeholder="Min. Quantity" />
+                            </div>
+                            <div class="col-sm-3">
+                                <input id="maxPrice" type="number" class="form-control" placeholder="Min. Quantity" />
+                            </div>
+                        </div>
+                        <div class="row" style="padding-bottom:15px;">
+                            <div class="col-sm-3">
+                                <button id="createQuery" type="button" class="btn btn-primary">Create</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button id="updateSettings" type="button" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="page-content-wrapper">
     <div class="page-content">
@@ -57,7 +215,7 @@
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
-                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "1" })">Report Settings</a>
+                                                <a href="javascript:reportSettings('1','Inventory General Report');">Report Settings</a>
                                             </li>
                                         </ul>
                                     </span>
@@ -85,7 +243,7 @@
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
-                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "2" })">Report Settings</a>
+                                                <a href="javascript:reportSettings('2','Items In Report');">Report Settings</a>
                                             </li>
                                         </ul>
                                     </span>
@@ -113,7 +271,7 @@
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
-                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "3" })">Report Settings</a>
+                                                <a href="javascript:reportSettings('3','Search for Non-Consumable Report');">Report Settings</a>
                                             </li>
                                         </ul>
                                     </span>
@@ -141,7 +299,7 @@
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
-                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "4" })">Report Settings</a>
+                                                <a href="javascript:reportSettings('4','Daily Report');">Report Settings</a>
                                             </li>
                                         </ul>
                                     </span>
@@ -169,7 +327,7 @@
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
-                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "5" })">Report Settings</a>
+                                                <a href="javascript:reportSettings('5','Consumable Item Report');">Report Settings</a>
                                             </li>
                                         </ul>
                                     </span>
@@ -197,7 +355,7 @@
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
-                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "6" })">Report Settings</a>
+                                                <a href="javascript:reportSettings('6','Non-Consumable Item Report');">Report Settings</a>
                                             </li>
                                         </ul>
                                     </span>
@@ -225,7 +383,7 @@
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
-                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "7" })">Report Settings</a>
+                                                <a href="javascript:reportSettings('7','Inventory General Report');">Report Settings</a>
                                             </li>
                                         </ul>
                                     </span>
@@ -253,7 +411,7 @@
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
-                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "8" })">Report Settings</a>
+                                                <a href="javascript:reportSettings('8','Budget Line Report');">Report Settings</a>
                                             </li>
                                         </ul>
                                     </span>
@@ -281,7 +439,7 @@
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
-                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "9" })">Report Settings</a>
+                                                <a href="javascript:reportSettings('9','Quantity Report');">Report Settings</a>
                                             </li>
                                         </ul>
                                     </span>
@@ -309,7 +467,7 @@
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
-                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "10" })">Report Settings</a>
+                                                <a href="javascript:reportSettings('10','Transfer Report from a school to another Report');">Report Settings</a>
                                             </li>
                                         </ul>
                                     </span>
@@ -333,12 +491,12 @@
                                                 <a href="@Url.Action("ABCAnalysisReport","Reports")">Generate</a>
                                             </li>
                                             @*<li>
-                                                <a href="javascript:sendEmail('ABCAnalysisReport');">Send as email</a>
-                                            </li>*@
+                                                    <a href="javascript:sendEmail('ABCAnalysisReport');">Send as email</a>
+                                                </li>*@
                                             @*<li class="divider"> </li>
-                                            <li>
-                                                <a href="@Url.Action("ReportSettings","Reports", new { Id = "11" });">Report Settings</a>
-                                            </li>*@
+                                                <li>
+                                                    <a href="@Url.Action("ReportSettings","Reports", new { Id = "11" });">Report Settings</a>
+                                                </li>*@
                                         </ul>
                                     </span>
                                 </div>
@@ -359,8 +517,155 @@
     $(document).ready(function () {
 
         reportActive();
+        $('#itemName').select2();
+        $('#itemAvailability').select2();
+
+        $('.addNewQuery').click(function () {
+
+            if ($(this).hasClass('fa-plus')) {
+                $(this).removeClass('fa-plus');
+                $(this).addClass('fa-minus');
+            } else {
+                $(this).removeClass('fa-minus');
+                $(this).addClass('fa-plus');
+            }
+            $('.newQueryContainer').toggle();
+
+        });
+
+        $('#updateSettings').click(function () {
+
+            var reportID = $('#reportName_Settings').val();
+
+            var userID = [];
+            var queriesID = [];
+            var dailyBasis = false;
+            var weeklyBasis = false;
+            var monthlyBasis = false;
+            var yearlyBasis = false;
+
+            $('#usersContainer label input:checked').each(function () {
+                userID.push($(this).val());
+            });
+
+            $('#timeBasisContainer label input:checked').each(function () {
+                switch ($(this).val()) {
+                    case 'dailyBasis':
+                        dailyBasis = true;
+                        break;
+                    case 'weeklyBasis':
+                        weeklyBasis = true;
+                        break;
+                    case 'monthlyBasis':
+                        monthlyBasis = true;
+                        break;
+                    case 'yearlyBasis':
+                        yearlyBasis = true;
+                        break;
+                    default:
+                        break;
+                }
+            });
+            
+            $('#queryIDContainer label input:checked').each(function () {
+                queriesID.push($(this).val());
+            });
+
+            //$.ajax({
+            //    contentType: 'application/json; charset=utf-8',
+            //    dataType: 'json',
+            //    type: 'POST',
+            //    url: '',
+            //    data: selectedItems,
+            //    success: function (response) {
+
+            //    }
+            //});
+
+        });
 
     });
+
+    $('#createQuery').click(function () {
+
+        var reportID = $('#itemName').attr('data-reportID');
+        var itemName = $('#itemName').val();
+        var itemAvailability = $('#itemAvailability').val();
+        var minQuantity = $('#minQuantity').val();
+        var maxQuantity = $('#maxQuantity').val();
+        var minPrice = $('#minPrice').val();
+        var maxPrice = $('#maxPrice').val();
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Action("CreateQuery","Reports")?itemName=' + itemName +
+                '&reportID=' + reportID +
+                '&itemAvailability=' + itemAvailability +
+                '&minQuantity=' + minQuantity + 
+                '&maxQuantity=' + maxQuantity + 
+                '&minPrice=' + minPrice +
+                '&maxPrice=' + maxPrice,
+            success: function (response) {
+                reportSettings(reportID);
+            }
+        });
+
+    });
+
+    function reportSettings(reportID, reportName) {
+
+        $('#reportName_Settings').val(reportName);
+        $('#itemName').attr('data-reportID', reportID);
+        $('#reportSettingModal').modal('show');
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Action("GetReportSettings","Reports")?reportID=' + reportID,
+            success: function (response) {
+                console.log('report settings retreived');
+                console.log(response);
+
+                var reportSettings = response.reportSettings;
+                var listOfReportQuery = response.listOfReportQuery;
+
+                var queriesAvailable = '';
+                $.each(listOfReportQuery, function(k, v) {
+                    console.log(v);
+
+                    queriesAvailable += '<div style="width:100%;">';
+                    queriesAvailable += '<div>';
+                    queriesAvailable += '<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">';
+                    queriesAvailable += '<input value="' + v.Id + '" type="checkbox" class="checkboxes">';
+                    queriesAvailable += '<span></span>';
+                    queriesAvailable += '<i style="font-style:normal;">';
+                    queriesAvailable += 'Item: ' + v.ItemName;
+                    if (v.MinimumQuantity != null) {
+                        queriesAvailable += ' Count less than ' + v.MinimumQuantity;
+                    }
+                    if (v.MaximumQuantity != null) {
+                        queriesAvailable += ' Count higher than ' + v.MaximumQuantity;
+                    }
+                    if (v.MinimumPrice != null) {
+                        queriesAvailable += ' Price less than ' + v.MinimumPrice;
+                    }
+                    if (v.MaximumPrice != null) {
+                        queriesAvailable += ' Price higher than ' + v.MaximumPrice;
+                    }
+                    queriesAvailable += ' For availability ' + v.AvailabilityStatusID;
+                    queriesAvailable += '</i>';
+                    queriesAvailable += '</label>';
+                    queriesAvailable += '</div>';
+                    queriesAvailable += '</div>';
+                });
+
+                $('#queryIDContainer').html(queriesAvailable);
+            }
+        });
+    }
 
     function sendEmail(reportName) {
         var url = reportName + '_Email';

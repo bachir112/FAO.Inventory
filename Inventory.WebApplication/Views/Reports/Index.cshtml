@@ -165,7 +165,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button id="updateSettings" type="button" class="btn btn-primary">Update</button>
+                <button id="updateSettings" type="button" class="btn btn-primary" data-dismiss="modal">Update</button>
             </div>
         </div>
     </div>
@@ -535,7 +535,8 @@
 
         $('#updateSettings').click(function () {
 
-            var reportID = $('#reportName_Settings').val();
+            var reportID = $('#itemName').attr('data-reportID');
+            var reportName = $('#reportName_Settings').val();
 
             var userID = [];
             var queriesID = [];
@@ -571,16 +572,23 @@
                 queriesID.push($(this).val());
             });
 
-            //$.ajax({
-            //    contentType: 'application/json; charset=utf-8',
-            //    dataType: 'json',
-            //    type: 'POST',
-            //    url: '',
-            //    data: selectedItems,
-            //    success: function (response) {
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: '@Url.Action("CreateReportSettings","Reports")?ReportID=' + reportID
+                    + '&ReportName=' + reportName
+                    + '&ReceivedByUsers=' + userID
+                    + '&DailyBasis=' + dailyBasis
+                    + '&WeeklyBasis=' + weeklyBasis
+                    + '&MonthlyBasis=' + monthlyBasis
+                    + '&YearlyBasis=' + yearlyBasis,
+                    //+ '&SpecificDates=' +
+                    //+ '&QueryBasis=',
+                success: function (response) {
 
-            //    }
-            //});
+                }
+            });
 
         });
 
@@ -588,6 +596,7 @@
 
     $('#createQuery').click(function () {
 
+        var reportName = $('#reportName').val();
         var reportID = $('#itemName').attr('data-reportID');
         var itemName = $('#itemName').val();
         var itemAvailability = $('#itemAvailability').val();
@@ -608,7 +617,7 @@
                 '&minPrice=' + minPrice +
                 '&maxPrice=' + maxPrice,
             success: function (response) {
-                reportSettings(reportID);
+                reportSettings(reportID, reportName);
             }
         });
 
@@ -630,19 +639,48 @@
                 console.log(response);
 
                 var reportSettings = response.reportSettings;
+                console.log('v.DailyBasis = ' + reportSettings.DailyBasis);
+                $('#timeBasisContainer label input').each(function () {
+                    switch ($(this).val()) {
+                        case 'dailyBasis':
+                            $(this).prop("checked", reportSettings.DailyBasis);
+                            break;
+                        case 'weeklyBasis':
+                            $(this).prop("checked", reportSettings.WeeklyBasis);
+                            break;
+                        case 'monthlyBasis':
+                            $(this).prop("checked", reportSettings.MonthlyBasis);
+                            break;
+                        case 'yearlyBasis':
+                            $(this).prop("checked", reportSettings.YearlyBasis);
+                            break;
+                        default:
+                            break;
+                    }
+                });
+
+                var receivedByUsers = reportSettings.ReceivedByUsers.split(",");
+                $.each(receivedByUsers, function (k, v) {
+                    console.log('v = ' + v);
+                    $('#usersContainer label input').each(function () {
+                        if (v == $(this).val()) {
+                            $(this).prop("checked", true);
+                        }
+                    });
+                });
+
+
                 var listOfReportQuery = response.listOfReportQuery;
 
                 var queriesAvailable = '';
                 $.each(listOfReportQuery, function(k, v) {
                     console.log(v);
 
-                    queriesAvailable += '<div style="width:100%;">';
+                    queriesAvailable += '<div class="queryContainer" style="padding:10px;width:100%;">';
                     queriesAvailable += '<div>';
-                    queriesAvailable += '<label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">';
-                    queriesAvailable += '<input value="' + v.Id + '" type="checkbox" class="checkboxes">';
-                    queriesAvailable += '<span></span>';
-                    queriesAvailable += '<i style="font-style:normal;">';
-                    queriesAvailable += 'Item: ' + v.ItemName;
+                    queriesAvailable += '<label>';
+                    queriesAvailable += '<i data-ID="' + v.Id + '" style="font-style:normal;padding: 5px;font-size: 20px;cursor: pointer;" class="fa fa-2x fa-trash deleteQuery"></i>';
+                    queriesAvailable += v.ItemName;
                     if (v.MinimumQuantity != null) {
                         queriesAvailable += ' Count less than ' + v.MinimumQuantity;
                     }
@@ -656,8 +694,6 @@
                         queriesAvailable += ' Price higher than ' + v.MaximumPrice;
                     }
                     queriesAvailable += ' For availability ' + v.AvailabilityStatusID;
-                    queriesAvailable += '</i>';
-                    queriesAvailable += '</label>';
                     queriesAvailable += '</div>';
                     queriesAvailable += '</div>';
                 });
@@ -666,6 +702,21 @@
             }
         });
     }
+
+    $(document).on('click', '.deleteQuery', function () {
+
+        var queryID = $(this).attr('data-ID');
+        $(this).parent().parent().parent().remove();
+        
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Action("DeleteQuery","Reports")?queryID=' + queryID,
+            success: function (response) {
+            }
+        });
+    });
 
     function sendEmail(reportName) {
         var url = reportName + '_Email';

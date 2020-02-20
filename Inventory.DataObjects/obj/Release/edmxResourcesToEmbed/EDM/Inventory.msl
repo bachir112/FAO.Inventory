@@ -41,6 +41,7 @@
     <EntitySetMapping Name="AspNetUsers">
       <EntityTypeMapping TypeName="InventoryModel.AspNetUser">
         <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
           <ScalarProperty Name="Verified" ColumnName="Verified" />
           <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
           <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
@@ -77,31 +78,11 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Items">
-      <EntityTypeMapping TypeName="InventoryModel.Item">
-        <MappingFragment StoreEntitySet="Items">
-          <ScalarProperty Name="Consumable" ColumnName="Consumable" />
-          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-          <ScalarProperty Name="ReceivedOn" ColumnName="ReceivedOn" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="UnitAmount" ColumnName="UnitAmount" />
-          <ScalarProperty Name="UnitID" ColumnName="UnitID" />
-          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
-          <ScalarProperty Name="LocationInStock" ColumnName="LocationInStock" />
-          <ScalarProperty Name="ItemStatusID" ColumnName="ItemStatusID" />
-          <ScalarProperty Name="AvailabilityStatusID" ColumnName="AvailabilityStatusID" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ItemsSearchValues">
       <EntityTypeMapping TypeName="InventoryModel.ItemsSearchValue">
         <MappingFragment StoreEntitySet="ItemsSearchValues">
+          <ScalarProperty Name="Expandable" ColumnName="Expandable" />
+          <ScalarProperty Name="ItemName_Arabic" ColumnName="ItemName_Arabic" />
           <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
           <ScalarProperty Name="ItemName" ColumnName="ItemName" />
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -175,6 +156,7 @@
     <EntitySetMapping Name="ReportQueries">
       <EntityTypeMapping TypeName="InventoryModel.ReportQuery">
         <MappingFragment StoreEntitySet="ReportQueries">
+          <ScalarProperty Name="ReportID" ColumnName="ReportID" />
           <ScalarProperty Name="AvailabilityStatusID" ColumnName="AvailabilityStatusID" />
           <ScalarProperty Name="MaximumPrice" ColumnName="MaximumPrice" />
           <ScalarProperty Name="MinimumPrice" ColumnName="MinimumPrice" />
@@ -198,6 +180,29 @@
           <ScalarProperty Name="ReceivedByUsers" ColumnName="ReceivedByUsers" />
           <ScalarProperty Name="ReportName" ColumnName="ReportName" />
           <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Items">
+      <EntityTypeMapping TypeName="InventoryModel.Item">
+        <MappingFragment StoreEntitySet="Items">
+          <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="ReceivedOn" ColumnName="ReceivedOn" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Expandable" ColumnName="Expandable" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="UnitAmount" ColumnName="UnitAmount" />
+          <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+          <ScalarProperty Name="LocationInStock" ColumnName="LocationInStock" />
+          <ScalarProperty Name="ItemStatusID" ColumnName="ItemStatusID" />
+          <ScalarProperty Name="AvailabilityStatusID" ColumnName="AvailabilityStatusID" />
+          <ScalarProperty Name="Name_Arabic" ColumnName="Name_Arabic" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

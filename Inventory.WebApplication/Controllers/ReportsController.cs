@@ -40,6 +40,48 @@ namespace Inventory.WebApplication.Controllers
             }
         }
 
+        public JsonResult CreateReportSettings(int ReportID, string ReportName, string ReceivedByUsers, 
+            bool DailyBasis, bool WeeklyBasis, bool MonthlyBasis, bool YearlyBasis)//, string SpecificDates)
+        {
+            string result = "error";
+
+            using (var db = new InventoryEntities())
+            {
+                ReportSetting reportSettings = db.ReportSettings.FirstOrDefault(x => x.ReportID == ReportID);
+
+                if(reportSettings == null)
+                {
+                    ReportSetting newSettings = new ReportSetting();
+                    newSettings.ReportID = ReportID;
+                    newSettings.ReportName = ReportName;
+                    newSettings.ReceivedByUsers = ReceivedByUsers;
+                    newSettings.DailyBasis = DailyBasis;
+                    newSettings.WeeklyBasis = WeeklyBasis;
+                    newSettings.MonthlyBasis = MonthlyBasis;
+                    newSettings.YearlyBasis = YearlyBasis;
+
+                    db.ReportSettings.Add(newSettings);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    reportSettings.ReportID = ReportID;
+                    reportSettings.ReportName = ReportName;
+                    reportSettings.ReceivedByUsers = ReceivedByUsers;
+                    reportSettings.DailyBasis = DailyBasis;
+                    reportSettings.WeeklyBasis = WeeklyBasis;
+                    reportSettings.MonthlyBasis = MonthlyBasis;
+                    reportSettings.YearlyBasis = YearlyBasis;
+
+                    db.SaveChanges();
+                }
+
+                result = "success";
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult CreateQuery(string itemName, int reportID,
             Nullable<int> itemAvailability,
             Nullable<int> minQuantity, Nullable<int> maxQuantity,
@@ -64,6 +106,32 @@ namespace Inventory.WebApplication.Controllers
                 result = "success";
             }
             
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+        
+        public JsonResult DeleteQuery(int queryID)
+        {
+            string result = string.Empty;
+
+            try
+            {
+                using (var db = new InventoryEntities())
+                {
+                    ReportQuery query = db.ReportQueries.First(x => x.Id == queryID);
+                    db.ReportQueries.Remove(query);
+                    db.SaveChanges();
+
+                    result = "success";
+                }
+
+            }
+            catch(Exception ex)
+            {
+
+            }
+
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
