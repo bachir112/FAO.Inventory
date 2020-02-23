@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Inventory.WebApplication.Global
+
+@{
     ViewBag.Title = "Dashboard";
 }
 
@@ -7,15 +9,15 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Home </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("Home") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Home</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Home")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>Dashboard</span>
+                    <span>@Translation.GetStringValue("HomeInner")</span>
                 </li>
             </ul>
         </div>
@@ -33,6 +35,7 @@
     $(document).ready(function () {
         dashboardActive();
         $('#itemsPartialView').hide();
+
     });
 
     $(window).load(function () {
