@@ -33,6 +33,7 @@ namespace Inventory.WebApplication.Controllers
                         {
                             Id = x.Id,
                             Name = x.Name,
+                            Name_Arabic = x.Name_Arabic,
                             Picture = x.Picture,
                             ParentCategory = x.ParentCategory
                         }).ToList();
@@ -104,6 +105,7 @@ namespace Inventory.WebApplication.Controllers
                                     {
                                         Id = x.Id,
                                         Name = x.Name,
+                                        Name_Arabic = x.Name_Arabic,
                                         Picture = x.Picture,
                                         ParentCategory = x.ParentCategory
                                     }).ToList();

@@ -1,4 +1,6 @@
-﻿@using Inventory.DataObjects.DTO
+﻿@using Inventory.WebApplication.Global
+
+@using Inventory.DataObjects.DTO
 
 @{
     ViewBag.Title = "About";
@@ -17,24 +19,24 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Assign Price</h5>
+                <h5 class="modal-title" id="exampleModalLabel">@Translation.GetStringValue("AssignPrice")</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <h4 id="assignItemName" style="color:red;">Item Name</h4>
+                <h4 id="assignItemName" style="color:red;">@Translation.GetStringValue("Name")</h4>
                 <hr />
                 <div class="form-group">
                     <div class="input-icon">
                         <i class="fa fa-tasks font-green" aria-hidden="true"></i>
-                        <input id="itemPrice" type="number" class="form-control" placeholder="Price per item">
+                        <input id="itemPrice" type="number" class="form-control" placeholder="@Translation.GetStringValue("PricePerItem")">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button id="assignItemPrice" type="button" class="btn btn-primary">Assign</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@Translation.GetStringValue("Cancel")</button>
+                <button id="assignItemPrice" type="button" class="btn btn-primary">@Translation.GetStringValue("Assign")</button>
             </div>
         </div>
     </div>
@@ -50,11 +52,11 @@
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Transactions","Home")">Items</a>
+                    <a href="@Url.Action("Transactions","Home")">@Translation.GetStringValue("Items")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>Pricing</span>
+                    <span>@Translation.GetStringValue("Pricing")</span>
                 </li>
             </ul>
         </div>
@@ -66,7 +68,7 @@
                         <div class="caption font-dark">
                             <i class="fa fa-money" aria-hidden="true"></i>
                             <span class="caption-subject bold uppercase">
-                                Items Prices
+                                @Translation.GetStringValue("ItemsPrices")
                             </span>
                         </div>
                     </div>
@@ -75,36 +77,39 @@
                         <div class="form-horizontal form-bordered">
                             <div class="form-body">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">Item in GROUP</label>
+                                    <label class="control-label col-md-3">@Translation.GetStringValue("ItemInGroup")</label>
                                     <div class="col-md-4">
                                         <select id="categories" style="width:100%!important;">
                                             <option value="">All</option>
                                             @{
                                                 foreach (CategoryDTO cat in categories)
                                                 {
-                                                    <option value="@cat.Id" data-image="@Url.Content("~/Images/" + cat.Picture)">@cat.Name</option>
+                                                    <option value="@cat.Id" data-image="@Url.Content("~/Images/" + cat.Picture)">
+                                                        <span class="english">@cat.Name</span>
+                                                        <span class="arabic">@cat.Name_Arabic</span>
+                                                    </option>
                                                 }
                                             }
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">Checked in stock</label>
+                                    <label class="control-label col-md-3">@Translation.GetStringValue("CheckedInStock")</label>
                                     <div class="col-md-4">
                                         <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy">
-                                            <input id="fromDate" type="text" class="form-control" name="from" placeholder="From Date">
+                                            <input id="fromDate" type="text" class="form-control" name="from" placeholder="@Translation.GetStringValue("FromDate")">
                                             <span class="input-group-addon"> to </span>
-                                            <input id="toDate" type="text" class="form-control" name="to" placeholder="To Date">
+                                            <input id="toDate" type="text" class="form-control" name="to" placeholder="@Translation.GetStringValue("ToDate")">
                                         </div>
                                         <!-- /input-group -->
-                                        <span class="help-block"> Select date range </span>
+                                        <span class="help-block"> @Translation.GetStringValue("SelectDateRange") </span>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3"></label>
                                     <div class="col-md-4">
-                                        <button id="searchItems" type="button" class="btn btn-circle btn-success pull-right">Search</button>
+                                        <button id="searchItems" type="button" class="btn btn-circle btn-success pull-right">@Translation.GetStringValue("Search")</button>
                                     </div>
                                 </div>
                             </div>

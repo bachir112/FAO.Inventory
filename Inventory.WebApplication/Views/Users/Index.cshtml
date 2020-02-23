@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Inventory.DataObjects.EDM.AspNetUser>
+﻿@using Inventory.WebApplication.Global
+
+@model IEnumerable<Inventory.DataObjects.EDM.AspNetUser>
 
 @{
     ViewBag.Title = "Index";
@@ -9,20 +11,19 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 style="float:left;" class="modal-title"> Reset Password </h5>
+                <h5 style="float:left;" class="modal-title"> @Translation.GetStringValue("ResetPassword") </h5>
                 <button style="float:right;" type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <input id="userPassword" type="password" class="form-control" placeholder="The new password">
-                @*<input id="userPassword" style="width:100%;" type="text" class="k-input k-textbox" placeholder="Your new password">*@
-                <p style="color:red; padding-top:10px;">You will receive an email with the new password.</p>
-                <p style="color:red;">Please check your inbox as well.</p>
+                <p style="color:red; padding-top:10px;">@Translation.GetStringValue("YouWillReceiveAnEmail")</p>
+                <p style="color:red;">@Translation.GetStringValue("PleaseCheckYourInbox")</p>
             </div>
             <div class="modal-footer">
-                <a id="resetPassword" href="javascript:resetPassword()" class="btn btn-success">Reset</a>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a id="resetPassword" href="javascript:resetPassword()" class="btn btn-success">@Translation.GetStringValue("Reset")</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@Translation.GetStringValue("Close")</button>
             </div>
         </div>
     </div>
@@ -33,15 +34,15 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Management </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("Management") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Users</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Users")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>List</span>
+                    <span>@Translation.GetStringValue("List")</span>
                 </li>
             </ul>
         </div>
@@ -52,10 +53,10 @@
                     <div class="portlet-title tabbable-line">
                         <div class="caption">
                             <i class="icon-bubbles font-dark hide"></i>
-                            <span class="caption-subject font-dark bold uppercase">Users</span>
+                            <span class="caption-subject font-dark bold uppercase">@Translation.GetStringValue("Users")</span>
                         </div>
-                        <div class="caption" style="float:right;">
-                            @Html.ActionLink("Create New", "Create")
+                        <div class="caption createNew" style="float:right;">
+                            @Html.ActionLink(Translation.GetStringValue("CreateNew"), "Create")
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -71,19 +72,19 @@
                                             <div class="mt-comment-body">
                                                 <div class="mt-comment-info">
                                                     <span class="mt-comment-author">@Html.DisplayFor(modelUser => user.UserName)</span>
-                                                    <span class="mt-comment-date">Last login: 12 Feb, 08:30AM</span>
+                                                    <span class="mt-comment-date">@Translation.GetStringValue("LastLogin"): 12 Feb, 08:30AM</span>
                                                 </div>
                                                 <div class="mt-comment-text">
-                                                    <h5>Role: @user.UserRole.</h5>
-                                                    <h5>Phone: @Html.DisplayFor(modelUser => user.PhoneNumber)</h5>
+                                                    <h5>@Translation.GetStringValue("Role"): @user.UserRole</h5>
+                                                    <h5>@Translation.GetStringValue("Phone"): @Html.DisplayFor(modelUser => user.PhoneNumber)</h5>
                                                 </div>
                                                 <div class="mt-comment-details">
                                                     <span class="mt-comment-status mt-comment-status-pending">
-                                                        @Html.ActionLink("Edit", "Edit", new { id = user.Id })
+                                                        @Html.ActionLink(Translation.GetStringValue("Edit"), "Edit", new { id = user.Id })
                                                         |
-                                                        @Html.ActionLink("Delete", "Delete", new { id = user.Id })
+                                                        @Html.ActionLink(Translation.GetStringValue("Delete"), "Delete", new { id = user.Id })
                                                         |
-                                                        <a href="javascript:resetPasswordOpenModal('@user.Id')">Change Password</a>
+                                                        <a href="javascript:resetPasswordOpenModal('@user.Id')">@Translation.GetStringValue("ChangePassword")</a>
                                                     </span>
                                                 </div>
                                             </div>

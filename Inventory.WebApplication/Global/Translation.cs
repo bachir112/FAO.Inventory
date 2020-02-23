@@ -8,7 +8,7 @@ namespace Inventory.WebApplication.Global
     public class Translation
     {
         public static Dictionary<string, string> LanguageDictionary = new Dictionary<string, string>() {
-            {"Home-english", "Home" },
+            { "Home-english", "Home" },
             { "Home-arabic", "قائمة الرئيسة"},
 
             { "HomeInner-english", "Home Dashboard"},
@@ -29,26 +29,207 @@ namespace Inventory.WebApplication.Global
             { "Pricing-english", "Pricing"},
             { "Pricing-arabic", "التسعير"},
 
+            { "ItemsPrices-english", "Items Prices"},
+            { "ItemsPrices-arabic", "بنود الأسعار"},
+
+            { "ItemInGroup-english", "Item In Group"},
+            { "ItemInGroup-arabic", "القطعة في المجموعة"},
+            
             { "Deteriorated-english", "Useless"},
             { "Deteriorated-arabic", "غير صالح للاستخدام"},
 
             { "Management-english", "Management"},
             { "Management-arabic", "إدارة"},
 
+            { "Close-english", "Close"},
+            { "Close-arabic", "غلق"},
+
+            { "Reset-english", "Reset"},
+            { "Reset-arabic", "إعادة تعيين"},
+
+            { "ResetPassword-english", "Reset Password"},
+            { "ResetPassword-arabic", "إعادة تعيين كلمة المرور"},
+
+            { "YouWillReceiveAnEmail-english", "You will receive an email with the new password."},
+            { "YouWillReceiveAnEmail-arabic", "ستتلقى رسالة بريد إلكتروني تحتوي على كلمة المرور الجديدة."},
+
+            { "PleaseCheckYourInbox-english", "Please check your inbox."},
+            { "PleaseCheckYourInbox-arabic", "يرجى التحقق من البريد الوارد الخاص بك."},
+
             { "Users-english", "Users"},
             { "Users-arabic", "المستخدمين"},
+
+            { "User-english", "User"},
+            { "User-arabic", "المستخدم"},
+
+            { "CreateUser-english", "Create User"},
+            { "CreateUser-arabic", "إنشاء مستخدم"},
+
+            { "CheckedInStock-english", "Checked In Stock"},
+            { "CheckedInStock-arabic", "دخل الى المستودع"},
+
+            { "FromDate-english", "From Date"},
+            { "FromDate-arabic", "من تاريخ"},
+
+            { "ToDate-english", "To Date"},
+            { "ToDate-arabic", "الى تاريخ"},
+
+            { "SelectDateRange-english", "Select date range"},
+            { "SelectDateRange-arabic", "اختر نطاق التاريخ"},
+
+            { "Search-english", "Search"},
+            { "Search-arabic", "بحث"},
+
+            { "Set-english", "Set"},
+            { "Set-arabic", "ثحديد"},
+            
+            { "AssignPrice-english", "Assign Price"},
+            { "AssignPrice-arabic", "تعيين السعر"},
+            
+            { "Email-english", "Email"},
+            { "Email-arabic", "البريد الإلكتروني"},
+
+            { "AreYouSureYouWantToDeleteThisItemFromTheStock-english", "Are you sure you want to delete this item from the stock?"},
+            { "AreYouSureYouWantToDeleteThisItemFromTheStock-arabic", "هل تريد بالتأكيد حذف هذا العنصر من المخزون؟"},
+
+            { "Username-english", "Username"},
+            { "Username-arabic", "اسم المستخدم"},
+
+            { "Password-english", "Password"},
+            { "Password-arabic", "كلمه السر"},
+
+            { "RetypeYourPassword-english", "Re-type Your Password"},
+            { "RetypeYourPassword-arabic", "أعد كتابة كلمة مرورك"},
+
+            { "Create-english", "Create"},
+            { "Create-arabic", "خلق"},
+
+            { "NewItemInStock-english", "New Item in Stock"},
+            { "NewItemInStock-arabic", "عنصر جديد في المخزون"},
+
+            { "Categories-english", "Categories"},
+            { "Categories-arabic", "فئات"},
+
+            { "Details-english", "Details"},
+            { "Details-arabic", "تفاصيل"},
+
+            { "Location-english", "Location"},
+            { "Location-arabic", "موقع"},
+
+            { "Name-english", "Name"},
+            { "Name-arabic", "اسم"},
+                        
+            { "Next-english", "Next"},
+            { "Next-arabic", "التالى"},
+
+            { "Previous-english", "Previous"},
+            { "Previous-arabic", "السابق"},
+
+            { "Update-english", "Update"},
+            { "Update-arabic", "تحديث"},
+
+            { "AddOrDeleteItems-english", "Add or delete items"},
+            { "AddOrDeleteItems-arabic", "إضافة أو حذف"},
+
+            { "WhatCategoryDoesThisItemBelongTo-english", "What category does this item belong to?"},
+            { "WhatCategoryDoesThisItemBelongTo-arabic", "ما الفئة التي ينتمي إليها؟"},
+
+            { "ItemsUnderThisCategory-english", "Items under this category"},
+            { "ItemsUnderThisCategory-arabic", "العناصر تحت هذه الفئة"},
+
+            { "SelectFromThisList-english", "Select from this list"},
+            { "SelectFromThisList-arabic", "اختر من هذه القائمة"},
+
+            { "CouldntFindIt-english", "Couldn't find it?"},
+            { "CouldntFindIt-arabic", "لا يمكن العثور عليه؟"},
+
+            { "AddItHere-english", "Add it here"},
+            { "AddItHere-arabic", "أضفه هنا"},
+
+            { "Add-english", "Add"},
+            { "Add-arabic", "إضافة"},
+
+            { "WriteDownTheFinalDetails-english", "Write down the final details"},
+            { "WriteDownTheFinalDetails-arabic", "اكتب التفاصيل النهائية"},
+            
+
+            { "AreYouSureYouWantToDeleteThisUser-english", "Are you sure you want to delete this user?"},
+            { "AreYouSureYouWantToDeleteThisUser-arabic", "هل أنت متأكد أنك تريد حذف هذا المستخدم؟"},
+
+            { "AreYouSureYouWantToDeleteThisSupplier-english", "Are you sure you want to delete this supplier?"},
+            { "AreYouSureYouWantToDeleteThisSupplier-arabic", "هل أنت متأكد أنك تريد حذف هذا المورد؟"},
+
+            { "NewPassword-english", "New password"},
+            { "NewPassword-arabic", "كلمة مرور جديدة"},
+
+            { "ChangeUserPassword-english", "Change user's password"},
+            { "ChangeUserPassword-arabic", "تغيير كلمة مرور المستخدم"},
+
+            { "BackToList-english", "Back to List"},
+            { "BackToList-arabic", "الرجوع للقائمة"},
+
+            { "EnterYourAccountDetailsBelow-english", "Enter your account details below"},
+            { "EnterYourAccountDetailsBelow-arabic", "أدخل تفاصيل حسابك أدناه"},
+
+            { "EnterYourPersonalDetailsBelow-english", "Enter your personal details below"},
+            { "EnterYourPersonalDetailsBelow-arabic", "أدخل بياناتك الشخصية أدناه"},
+
+            { "FullName-english", "Full Name"},
+            { "FullName-arabic", "الاسم الكامل"},
+
+            { "List-english", "List"},
+            { "List-arabic", "قائمة"},
 
             { "Roles-english", "Roles"},
             { "Roles-arabic", "الأدوار"},
 
+            { "Role-english", "Roles"},
+            { "Role-arabic", "الدور"},
+
+            { "AreYouSureYouWantToDeleteThisRole-english", "Are you sure you want to delete this role?"},
+            { "AreYouSureYouWantToDeleteThisRole-arabic", "هل أنت متأكد أنك تريد حذف هذا الدور؟"},
+
+            { "Phone-english", "Phone"},
+            { "Phone-arabic", "الهاتف"},
+
+            { "LastLogin-english", "Last login"},
+            { "LastLogin-arabic", "آخر تسجيل دخول"},
+
             { "PageManagement-english", "Page Management"},
             { "PageManagement-arabic", "إدارة الصفحات"},
+
+            { "ManagePagesByRoles-english", "Manage Pages By Roles"},
+            { "ManagePagesByRoles-arabic", "إدارة الصفحات حسب الأدوار"},
+
+            { "Page-english", "Page"},
+            { "Page-arabic", "صفحة"},
+            
+            { "PageName-english", "Page name"},
+            { "PageName-arabic", "اسم الصفحة"},
+
+            { "Allowed-english", "Allowed"},
+            { "Allowed-arabic", "سماح"},
+
+            { "NotAllowed-english", "Allowed"},
+            { "NotAllowed-arabic", "غير مسموح"},
+
+            { "NoSettingsAssigned-english", "No Settings Assigned"},
+            { "NoSettingsAssigned-arabic", "لا توجد إعدادات مخصصة"},
+
+            { "AuthorizationTable-english", "Authorization table"},
+            { "AuthorizationTable-arabic", "جدول التفويض"},
+
+            { "Authorization-english", "Authorization"},
+            { "Authorization-arabic", "تفويض"},
+
+            { "ByRole-english", "By role"},
+            { "ByRole-arabic", "حسب الدور"},
 
             { "Suppliers-english", "Suppliers"},
             { "Suppliers-arabic", "الموردين"},
 
             { "Items-english", "stock"},
-            { "Items-arabic", "مخزون"},
+            { "Items-arabic", "مخزن"},
 
             { "FilterbyCategory-english", "Filter by Category"},
             { "FilterbyCategory-arabic", "فلتر حسب الفئة"},
@@ -67,6 +248,9 @@ namespace Inventory.WebApplication.Global
 
             { "CheckedOut-english", "Checked Out"},
             { "CheckedOut-arabic", "أخرج"},
+
+            { "Category-english", "Category"},
+            { "Category-arabic", "الفئة"},
 
             { "Thrown-english", "Thrown"},
             { "Thrown-arabic", "رمى"},
@@ -103,9 +287,15 @@ namespace Inventory.WebApplication.Global
 
             { "Availability-english", "Availability"},
             { "Availability-arabic", "متاحية"},
+            
+            { "HowMany-english", "How many?"},
+            { "HowMany-arabic", "كم العدد؟"},
 
             { "LocationInStock-english", "Location in Stock"},
             { "LocationInStock-arabic", "الموقع في المخزون"},
+            
+            { "Unit-english", "Unit"},
+            { "Unit-arabic", "وحدة"},
 
             { "Description-english", "Description"},
             { "Description-arabic", "تفاصيل"},
@@ -146,6 +336,25 @@ namespace Inventory.WebApplication.Global
             { "ItemsIn-english", "Items in Stock"},
             { "ItemsIn-arabic", "في المخزن"},
 
+            { "AddNewItemsToStock-english", "Add new items to stock"},
+            { "AddNewItemsToStock-arabic", "اضافة الى المخزن"},
+
+            { "DeleteItemsFromStock-english", "Delete items in stock"},
+            { "DeleteItemsFromStock-arabic", "ازالة من المخزن"},
+
+            { "CreateNew-english", "Create New"},
+            { "CreateNew-arabic", "خلق جديد إبداع جديد"},
+
+            { "Edit-english", "Edit"},
+            { "Edit-arabic", "تعديل"},
+
+            { "Delete-english", "Delete"},
+            { "Delete-arabic", "حذف"},
+
+            { "ChangePassword-english", "Change Password"},
+            { "ChangePassword-arabic", "تغيير كلمة السر"},
+
+            
         }; 
 
         static public string GetLanguageCookieValue(string cookieName = "language")

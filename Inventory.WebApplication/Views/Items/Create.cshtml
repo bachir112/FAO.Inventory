@@ -1,5 +1,6 @@
 ﻿@using Inventory.DataObjects.DTO
 @using Inventory.DataObjects.EDM
+@using Inventory.WebApplication.Global
 
 @model Inventory.DataObjects.EDM.Item
 
@@ -110,11 +111,11 @@
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Create</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Create")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>New Item in Stock</span>
+                    <span>@Translation.GetStringValue("NewItemInStock")</span>
                 </li>
             </ul>
         </div>
@@ -128,21 +129,21 @@
                         <div class="wizard-navigation">
                             <ul class="nav nav-pills">
                                 <li class="active" style="width: 25%;">
-                                    <a href="#Categories" data-toggle="tab">Categories</a>
+                                    <a href="#Categories" data-toggle="tab">@Translation.GetStringValue("Categories")</a>
                                 </li>
                                 <li style="width: 25%;">
-                                    <a href="#item" data-toggle="tab">Item</a>
+                                    <a href="#item" data-toggle="tab">@Translation.GetStringValue("Name")</a>
                                 </li>
                                 <li style="width: 25%;">
-                                    <a href="#details" data-toggle="tab">Details</a>
+                                    <a href="#details" data-toggle="tab">@Translation.GetStringValue("Details")</a>
                                 </li>
                             </ul>
-                            <div class="moving-tab" style="width: 187.5px; transform: translate3d(0px, 0px, 0px); transition: transform 0s ease 0s;">Location</div>
+                            <div class="moving-tab" style="width: 187.5px; transform: translate3d(0px, 0px, 0px); transition: transform 0s ease 0s;">@Translation.GetStringValue("Location")</div>
                         </div>
 
                         <div class="tab-content">
                             <div class="tab-pane active" id="Categories">
-                                <h4 class="info-text"> What category does this item belong to? </h4>
+                                <h4 class="info-text"> @Translation.GetStringValue("WhatCategoryDoesThisItemBelongTo") </h4>
                                 <div class="row">
                                     <div class="col-sm-10 col-sm-offset-1">
                                         @{
@@ -153,7 +154,8 @@
                                                         <div class="icon">
                                                             <img src="@Url.Content("~/images/" + category.Picture)" style="width:50px;margin:29px;" />
                                                         </div>
-                                                        <h6>@category.Name</h6>
+                                                        <h6 class="english">@category.Name</h6>
+                                                        <h6 class="arabic">@category.Name_Arabic</h6>
                                                     </div>
                                                 </div>
                                             }
@@ -162,11 +164,11 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="item">
-                                <h4 class="info-text"> Items under this category. </h4>
+                                <h4 class="info-text"> @Translation.GetStringValue("ItemsUnderThisCategory") </h4>
                                 <div class="row">
                                     <div class="col-sm-5 col-sm-offset-1">
                                         <div class="form-group">
-                                            <label>Select from this list</label>
+                                            <label>@Translation.GetStringValue("SelectFromThisList")</label>
                                             <select id="itemsInCategory" style="width:100%;" class="form-control">
                                                 <option></option>
                                             </select>
@@ -174,27 +176,27 @@
                                     </div>
                                 </div>
                                 <h4 class="info-text">
-                                    <a id="toggleAddNewItemContainer">Couldn't find it?</a>
+                                    <a id="toggleAddNewItemContainer">@Translation.GetStringValue("CouldntFindIt")</a>
                                 </h4>
                                 <div id="addNewItemContainer" class="row" style="display:none;">
                                     <div class="col-sm-5 col-sm-offset-1">
                                         <div class="form-group">
-                                            <label>Add it here</label>
+                                            <label>@Translation.GetStringValue("AddItHere")</label>
                                             <input id="newSearchableItem" type="text" class="form-control" placeholder="English name" />
-                                            <input id="newSearchableItem_Arabic" type="text" class="form-control" placeholder="Arabic name" />
+                                            <input id="newSearchableItem_Arabic" type="text" class="form-control" placeholder="الاسم العربي" />
                                         </div>
                                     </div>
                                     <div class="col-sm-5 col-sm-offset-1">
                                         <div class="form-group">
                                             <label style="width:100%;"></label>
-                                            <a id="addToSearchable" class="btn btn-success">Add</a>
+                                            <a id="addToSearchable" class="btn btn-success">@Translation.GetStringValue("Add")</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="tab-pane" id="details">
                                 <div class="row">
-                                    <h4 class="info-text"> Write down the final details. </h4>
+                                    <h4 class="info-text"> @Translation.GetStringValue("WriteDownTheFinalDetails") </h4>
                                     <div class="col-sm-12">
                                         <div class="form-horizontal">
                                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -207,7 +209,7 @@
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <label class="control-label col-md-2" for="Name">Arabic Name</label>
+                                                <label class="control-label col-md-2" for="Name">الاسم العربي</label>
                                                 <div class="col-md-10">
                                                     @Html.EditorFor(model => model.Name_Arabic, new { htmlAttributes = new { @id = "itemName_Arabic", @class = "form-control", @readonly = "readonly" } })
                                                     @Html.ValidationMessageFor(model => model.Name_Arabic, "", new { @class = "text-danger" })
@@ -219,7 +221,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-2" for="AvailabilityStatusID">Availability Status</label>
+                                                <label class="control-label col-md-2" for="AvailabilityStatusID">@Translation.GetStringValue("Availability")</label>
                                                 <div class="col-md-10">
                                                     @Html.DropDownListFor(m => m.AvailabilityStatusID, new SelectList(availabilityStatusList, "Id", "Status"), new { @name = "AvailabilityStatusID", @id = "availabilityStatus", @style = "width:100%;" })
                                                     @Html.ValidationMessageFor(model => model.AvailabilityStatusID, "", new { @class = "text-danger" })
@@ -227,7 +229,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-2" for="ItemStatusID">Item Status</label>
+                                                <label class="control-label col-md-2" for="ItemStatusID">@Translation.GetStringValue("Status")</label>
                                                 <div class="col-md-10">
                                                     @Html.DropDownListFor(m => m.ItemStatusID, new SelectList(itemStatusList, "Id", "Status"), new { @name = "ItemStatusID", @id = "itemStatusID", @style = "width:100%;" })
                                                     @Html.ValidationMessageFor(model => model.ItemStatusID, "", new { @class = "text-danger" })
@@ -235,7 +237,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-2" for="LocationInStock">Location In Stock</label>
+                                                <label class="control-label col-md-2" for="LocationInStock">@Translation.GetStringValue("LocationInStock")</label>
                                                 <div class="col-md-10">
                                                     @Html.EditorFor(model => model.LocationInStock, new { htmlAttributes = new { @class = "form-control" } })
                                                     @Html.ValidationMessageFor(model => model.LocationInStock, "", new { @class = "text-danger" })
@@ -243,7 +245,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-2" for="UnitID">Unit</label>
+                                                <label class="control-label col-md-2" for="UnitID">@Translation.GetStringValue("Unit")</label>
                                                 <div class="col-md-10">
                                                     @Html.DropDownListFor(m => m.UnitID, new SelectList(unitList, "Id", "Name"), new { @name = "UnitID", @id = "unitID", @style = "width:100%;" })
                                                     @Html.ValidationMessageFor(model => model.UnitID, "", new { @class = "text-danger" })
@@ -251,7 +253,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-2" for="UnitAmount">Amount</label>
+                                                <label class="control-label col-md-2" for="UnitAmount">@Translation.GetStringValue("Amount")</label>
                                                 <div class="col-md-10">
                                                     @Html.EditorFor(model => model.UnitAmount, new { htmlAttributes = new { @class = "form-control" } })
                                                     @Html.ValidationMessageFor(model => model.UnitAmount, "", new { @class = "text-danger" })
@@ -259,7 +261,7 @@
                                             </div>
 
                                             <div id="quantityContainer" style="display:none;" class="form-group">
-                                                <label class="control-label col-md-2" for="UnitID">How many?</label>
+                                                <label class="control-label col-md-2" for="UnitID">@Translation.GetStringValue("HowMany")</label>
                                                 <div class="col-md-10">
                                                     <input class="form-control text-box single-line valid" data-val="true" data-val-number="The field Quantity must be a number." data-val-required="Quantity is required." id="Quantity" name="Quantity" type="text" value="" aria-invalid="false">
                                                     @Html.ValidationMessageFor(model => model.UnitID, "", new { @class = "text-danger" })
@@ -267,7 +269,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-2" for="ExpiryDate">Expiry Date</label>
+                                                <label class="control-label col-md-2" for="ExpiryDate">@Translation.GetStringValue("ExpiryDate")</label>
                                                 <div class="col-md-10">
                                                     <input id="expiryDate" name="ExpiryDate" style="width:100%!important;" class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="">
                                                     @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
@@ -275,7 +277,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-2" for="Description">Item Description</label>
+                                                <label class="control-label col-md-2" for="Description">@Translation.GetStringValue("Description")</label>
                                                 <div class="col-md-10">
                                                     @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                                                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
@@ -283,7 +285,7 @@
                                             </div>
 
                                             <div style="display:none;" class="form-group">
-                                                <label class="control-label col-md-2" for="Price">Item Price</label>
+                                                <label class="control-label col-md-2" for="Price">@Translation.GetStringValue("Price") </label>
                                                 <div class="col-md-10">
                                                     <input class="form-control text-box single-line" data-val="true" data-val-number="The field Price must be a number." id="Price" name="Price" type="number" value="">
                                                     @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
@@ -291,7 +293,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-2" for="SupplierID">Supplier</label>
+                                                <label class="control-label col-md-2" for="SupplierID">@Translation.GetStringValue("Supplier")</label>
                                                 <div class="col-md-10">
                                                     @Html.DropDownListFor(m => m.SupplierID, new SelectList(suppliersList, "Id", "Supplier1"), new { @name = "SupplierID", @id = "supplierID", @style = "width:100%;" })
                                                     @*@Html.EditorFor(model => model.SupplierID, new { htmlAttributes = new { @id = "SupplierID", @class = "form-control" } })*@
@@ -300,7 +302,7 @@
                                             </div>
 
                                             <div style="display:none;" class="form-group">
-                                                <label class="control-label col-md-2" for="CategoryID">Category</label>
+                                                <label class="control-label col-md-2" for="CategoryID">@Translation.GetStringValue("Category")</label>
                                                 <div class="col-md-10">
                                                     @Html.EditorFor(model => model.CategoryID, new { htmlAttributes = new { @id = "categoryID", @class = "form-control" } })
                                                     @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
@@ -313,12 +315,12 @@
                         </div>
                         <div class="wizard-footer">
                             <div class="pull-right">
-                                <input type="button" class="btn btn-next btn-fill btn-success btn-wd btn-sm" name="next" value="Next">
-                                <input type="submit" class="btn btn-finish btn-fill btn-success btn-wd btn-sm" name="finish" value="Create" style="display: none;">
+                                <input type="button" class="btn btn-next btn-fill btn-success btn-wd btn-sm" name="next" value="@Translation.GetStringValue("Next")">
+                                <input type="submit" class="btn btn-finish btn-fill btn-success btn-wd btn-sm" name="finish" value="@Translation.GetStringValue("Create")" style="display: none;">
 
                             </div>
                             <div class="pull-left">
-                                <input type="button" class="btn btn-previous btn-fill btn-default btn-wd btn-sm disabled" name="previous" value="Previous">
+                                <input type="button" class="btn btn-previous btn-fill btn-default btn-wd btn-sm disabled" name="previous" value="@Translation.GetStringValue("Previous")">
                             </div>
                             <div class="clearfix"></div>
                         </div>
