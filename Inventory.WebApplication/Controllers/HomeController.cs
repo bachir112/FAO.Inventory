@@ -59,6 +59,7 @@ namespace Inventory.WebApplication.Controllers
                                     {
                                         Id = x.Id,
                                         Name = x.Name,
+                                        Name_Arabic = x.Name_Arabic,
                                         Picture = x.Picture,
                                         ParentCategory = x.ParentCategory
                                     }).ToList();
@@ -106,7 +107,9 @@ namespace Inventory.WebApplication.Controllers
                                 {
                                     ItemsIDs = string.Join(",", items.Select(x => x.Id).ToList()),
                                     Name = items.Key.Name,
+                                    Name_Arabic = items.First().Name_Arabic,
                                     AvailabilityStatus = availabilityStatuses.FirstOrDefault(x => x.Id == items.Key.AvailabilityStatusID).Status,
+                                    AvailabilityStatus_Arabic = availabilityStatuses.FirstOrDefault(x => x.Id == items.Key.AvailabilityStatusID).Status_Arabic,
                                     AvailabilityStatusID = items.Key.AvailabilityStatusID,
                                     Quantity = items.Count(),
                                     LocationInStock = string.Join(", ", items.Where(x => !string.IsNullOrEmpty(x.LocationInStock)).Select(x => x.LocationInStock + " (" + items.Where(y => y.LocationInStock == x.LocationInStock).Select(y => y).Count().ToString() + ")").Distinct()),
@@ -148,6 +151,7 @@ namespace Inventory.WebApplication.Controllers
                                 {
                                     ItemsIDs = string.Join(",", items.Select(x => x.Id).ToList()),
                                     Name = items.Key.Name,
+                                    Name_Arabic = items.First().Name_Arabic,
                                     Price = items.Key.Price,
                                     Supplier = suppliers.FirstOrDefault(x => x.Id == items.Key.SupplierID)?.Supplier1,
                                     Quantity = items.Count(),
@@ -249,11 +253,14 @@ namespace Inventory.WebApplication.Controllers
                 {
                     Id = x.Id,
                     ItemName = x.ItemName,
+                    ItemName_Arabic = x.ItemName_Arabic,
                     Quantity = x.Quantity,
                     Unit = db.Units.FirstOrDefault(y => y.Id == x.UnitID) != null ? db.Units.FirstOrDefault(y => y.Id == x.UnitID).Name : string.Empty,
                     UnitAmount = x.UnitAmount,
                     NewAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus).Status : string.Empty,
+                    NewAvailabilityStatus_Arabic = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus).Status_Arabic : string.Empty,
                     OldAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus).Status : string.Empty,
+                    OldAvailabilityStatus_Arabic = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus).Status_Arabic : string.Empty,
                     StockKeeper = db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper) != null ? db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper).UserName : string.Empty,
                     Description = x.Description,
                     ToWhom = x.ToWhom,
@@ -280,7 +287,9 @@ namespace Inventory.WebApplication.Controllers
                         ItemName = x.ItemName,
                         Quantity = x.Quantity,
                         NewAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus).Status : string.Empty,
+                        NewAvailabilityStatus_Arabic = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus).Status_Arabic : string.Empty,
                         OldAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus).Status : string.Empty,
+                        OldAvailabilityStatus_Arabic = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus).Status_Arabic : string.Empty,
                         StockKeeper = db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper) != null ? db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper).FullName : string.Empty,
                         Description = x.Description,
                         ToWhom = x.ToWhom,
@@ -355,7 +364,8 @@ namespace Inventory.WebApplication.Controllers
                     itemInDB.ForEach(x => x.Description = Description);
 
                     Transaction newTransaction = new Transaction();
-                    newTransaction.ItemName = item.Name;
+                    newTransaction.ItemName = itemInDB.FirstOrDefault() != null ? itemInDB.First().Name : string.Empty;
+                    newTransaction.ItemName_Arabic = itemInDB.FirstOrDefault() != null ? itemInDB.First().Name_Arabic : string.Empty;
                     newTransaction.OldAvailabilityStatus = item.AvailabilityStatusID;
                     newTransaction.NewAvailabilityStatus = AvailabilityStatusID;
                     newTransaction.StockKeeper = User.Identity.GetUserId();

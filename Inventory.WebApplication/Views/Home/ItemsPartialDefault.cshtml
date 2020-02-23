@@ -1,23 +1,31 @@
 ﻿@using Inventory.DataObjects.DTO
+@using Inventory.WebApplication.Global
 @model List<ItemsGroupedDTO>
 
-@{ 
+@{
     Layout = null;
-    string categoryName = ViewBag.CategoryName;
-    categoryName = categoryName == null ? "All Stock" : categoryName;
+    string categoryNameEnglish = ViewBag.CategoryName;
+    categoryNameEnglish = categoryNameEnglish == null ? "All Stock" : categoryNameEnglish;
+
+    string categoryNameArabic = ViewBag.CategoryName;
+    categoryNameArabic = categoryNameArabic == null ? "كل المستودع" : categoryNameEnglish;
 }
 
 <div class="col-md-12">
     <div class="portlet light bordered">
-        <div class="portlet-title">
+        @*<div class="portlet-title">
             <div class="caption font-dark pull-right">
                 <button type="button" class="btn btn-circle red btn-outline">View all Items</button>
             </div>
-        </div>
+        </div>*@
         <div class="portlet-title">
             <div class="caption font-dark">
                 <img src="../images/all-items.png" style="width:50px;">
-                <span class="caption-subject bold uppercase"> Items in <span style="color: red;">@categoryName.ToUpper()</span></span>
+                <span class="caption-subject bold uppercase"> 
+                    @Translation.GetStringValue("ItemsIn") 
+                    <span class="english" style="color: red;">@categoryNameEnglish.ToUpper()</span>
+                    <span class="arabic" style="color: red;">@categoryNameArabic.ToUpper()</span>
+                </span>
             </div>
         </div>
         <div class="portlet-body">
@@ -27,12 +35,12 @@
                         <div class="btn-group">
                             <button id="deleteActionSelector" class="btn sbold red" data-toggle="modal" data-target="#deleteItemModal">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
-                                Delete One
+                                @Translation.GetStringValue("DeleteOne")
                             </button>
 
                             <button id="batchDeletedItemActionSelector" class="btn sbold red" style="margin-left:15px;" data-toggle="modal" data-target="#deleteItemModal">
                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                Delete All
+                                @Translation.GetStringValue("DeleteAll")
                             </button>
                         </div>
                     </div>
@@ -41,7 +49,7 @@
                     <div class="col-md-6">
                         <div class="btn-group">
                             <button id="assignActionSelector" class="btn sbold green" data-toggle="modal" data-target="#assignItemModal">
-                                Assign
+                                @Translation.GetStringValue("Assign")
                                 <i class="fa fa-archive" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -53,14 +61,14 @@
                     <tr>
                         <th>
                         </th>
-                        <th> Item Name </th>
-                        <th> Availability </th>
-                        <th> Expiry Date </th>
-                        <th> Quantity </th>
-                        <th> Amount </th>
-                        <th> Location in Stock </th>
-                        <th> Description </th>
-                        <th> Received On </th>
+                        <th> @Translation.GetStringValue("ItemName") </th>
+                        <th> @Translation.GetStringValue("Availability") </th>
+                        <th> @Translation.GetStringValue("ExpiryDate") </th>
+                        <th> @Translation.GetStringValue("Quantity") </th>
+                        <th> @Translation.GetStringValue("Amount") </th>
+                        <th> @Translation.GetStringValue("LocationInStock") </th>
+                        <th> @Translation.GetStringValue("Description") </th>
+                        <th> @Translation.GetStringValue("ReceivedOn") </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,26 +95,29 @@
                             <tr class="odd gradeX">
                                 <td>
                                     <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-                                        <input type="checkbox" class="checkboxes" 
+                                        <input type="checkbox" class="checkboxes"
                                                data-itemsIDs="@item.ItemsIDs"
-                                               data-Name="@item.Name" 
+                                               data-Name="@item.Name"
                                                data-AvailabilityStatusID="@item.AvailabilityStatusID"
-                                               data-ItemStatusID = "@item.ItemStatusID"
-                                               data-ExpiryDate="@item.ExpiryDate" 
-                                               data-LocationInStock="@item.LocationInStock" 
-                                               data-ReceivedOn="@item.ReceivedOn" 
-                                               data-Description="@item.Description" 
-                                               data-UnitID="@item.UnitID" 
-                                               data-UnitAmount="@item.UnitAmount" 
-                                               />
+                                               data-ItemStatusID="@item.ItemStatusID"
+                                               data-ExpiryDate="@item.ExpiryDate"
+                                               data-LocationInStock="@item.LocationInStock"
+                                               data-ReceivedOn="@item.ReceivedOn"
+                                               data-Description="@item.Description"
+                                               data-UnitID="@item.UnitID"
+                                               data-UnitAmount="@item.UnitAmount" />
                                         <span></span>
                                     </label>
                                 </td>
                                 <td>
-                                    @item.Name
+                                    <span class="english">@item.Name</span>
+                                    <span class="arabic">@item.Name_Arabic</span>
                                 </td>
                                 <td>
-                                    <span class="label label-sm label-@AvailabilityStatusColor"> @item.AvailabilityStatus </span>                                    
+                                    <span class="label label-sm label-@AvailabilityStatusColor">
+                                        <span class="english">@item.AvailabilityStatus</span>
+                                        <span class="arabic">@item.AvailabilityStatus_Arabic</span>
+                                    </span>
                                 </td>
                                 <td>
                                     @item.ExpiryDate

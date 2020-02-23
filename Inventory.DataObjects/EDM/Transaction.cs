@@ -27,5 +27,6 @@ namespace Inventory.DataObjects.EDM
         public string ToWhom { get; set; }
         public Nullable<bool> ShouldReturn { get; set; }
         public Nullable<int> ChildOfTransaction { get; set; }
+        public string ItemName_Arabic { get; set; }
     }
 }

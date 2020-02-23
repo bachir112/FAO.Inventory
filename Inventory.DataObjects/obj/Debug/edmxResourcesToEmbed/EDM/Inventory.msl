@@ -62,6 +62,7 @@
     <EntitySetMapping Name="AvailabilityStatus">
       <EntityTypeMapping TypeName="InventoryModel.AvailabilityStatu">
         <MappingFragment StoreEntitySet="AvailabilityStatus">
+          <ScalarProperty Name="Status_Arabic" ColumnName="Status_Arabic" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -71,6 +72,7 @@
     <EntitySetMapping Name="Categories">
       <EntityTypeMapping TypeName="InventoryModel.Category">
         <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="Name_Arabic" ColumnName="Name_Arabic" />
           <ScalarProperty Name="ParentCategory" ColumnName="ParentCategory" />
           <ScalarProperty Name="Picture" ColumnName="Picture" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -110,6 +112,7 @@
     <EntitySetMapping Name="Transactions">
       <EntityTypeMapping TypeName="InventoryModel.Transaction">
         <MappingFragment StoreEntitySet="Transaction">
+          <ScalarProperty Name="ItemName_Arabic" ColumnName="ItemName_Arabic" />
           <ScalarProperty Name="ChildOfTransaction" ColumnName="ChildOfTransaction" />
           <ScalarProperty Name="ShouldReturn" ColumnName="ShouldReturn" />
           <ScalarProperty Name="ToWhom" ColumnName="ToWhom" />

@@ -11,8 +11,10 @@ namespace Inventory.DataObjects.DTO
         public Nullable<int> GroupedId { get; set; }
         public string ItemsIDs { get; set; }
         public string Name { get; set; }
+        public string Name_Arabic { get; set; }
         public int AvailabilityStatusID { get; set; }
         public string AvailabilityStatus { get; set; }
+        public string AvailabilityStatus_Arabic { get; set; }
         public int ItemStatusID { get; set; }
         public string ItemStatus { get; set; }
         public string LocationInStock { get; set; }

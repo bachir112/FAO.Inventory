@@ -70,6 +70,7 @@
     </Key>
     <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="Status" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Status_Arabic" Type="nvarchar" MaxLength="100" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="Category">
@@ -78,6 +79,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Name_Arabic" Type="nvarchar" MaxLength="250" />
     <Property Name="Picture" Type="nvarchar" MaxLength="250" Nullable="false" />
     <Property Name="ParentCategory" Type="int" Nullable="false" />
   </EntityType>
@@ -174,6 +176,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ItemName" Type="nvarchar" MaxLength="250" />
+    <Property Name="ItemName_Arabic" Type="nvarchar" MaxLength="250" />
     <Property Name="OldAvailabilityStatus" Type="int" />
     <Property Name="NewAvailabilityStatus" Type="int" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
