@@ -609,14 +609,9 @@
     <script src="@Url.Content("~/assets/layouts/global/scripts/quick-sidebar.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/assets/layouts/global/scripts/quick-nav.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/assets/pages/scripts/components-date-time-pickers.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/global/scripts/jquery.cookie.js")" type="text/javascript"></script>
 
     <script>
-
-        $(document).ready(function () {
-            $('#clickmewow').click(function () {
-                $('#radio1003').attr('checked', 'checked');
-            });
-        });
 
         $(document).ready(function () {
 
@@ -637,8 +632,15 @@
 
             });
 
+            //$('#schools').select2();
         });
-        
+
+        //$(document).on('change', '#schools', function () {
+        //    var schoolDB = $(this).val();
+        //    $.cookie('schoolDB', schoolDB, { path: '/' });
+
+        //    location.reload();
+        //});
 
         function dashboardActive() {
             $('#dashboardParentTab').addClass('active');
@@ -660,7 +662,7 @@
             $('#itemsParentTab').addClass('active');
             $('#itemsParentTab').addClass('open');
             $('#itemsParentTab .arrow').addClass('open');
-            $('#itemsParentTab .sub-menu').css('display', 'block');            
+            $('#itemsParentTab .sub-menu').css('display', 'block');
             $('#itemsTab').addClass('active');
         }
 
@@ -668,7 +670,7 @@
             $('#itemsParentTab').addClass('active');
             $('#itemsParentTab').addClass('open');
             $('#itemsParentTab .arrow').addClass('open');
-            $('#itemsParentTab .sub-menu').css('display', 'block');            
+            $('#itemsParentTab .sub-menu').css('display', 'block');
             $('#itemsPricingTab').addClass('active');
         }
 
@@ -679,7 +681,7 @@
             $('#usersParentTab .sub-menu').css('display', 'block');
             $('#usersTab').addClass('active');
         }
-        
+
         function pageManagementActive() {
             $('#usersParentTab').addClass('active');
             $('#usersParentTab').addClass('open');
@@ -687,7 +689,7 @@
             $('#usersParentTab .sub-menu').css('display', 'block');
             $('#pageManagementTab').addClass('active');
         }
-        
+
         function pageManagementActive() {
             $('#usersParentTab').addClass('active');
             $('#usersParentTab').addClass('open');

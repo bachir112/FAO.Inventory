@@ -20,7 +20,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (Global.Global.isAllowed(User.Identity.GetUserId(), "Reports"))
             {
-                using (var db = new InventoryEntities())
+                using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
                 {
                     ViewBag.ItemsNames = db.Items.Select(x => new ItemNames
                                                               {
@@ -45,7 +45,7 @@ namespace Inventory.WebApplication.Controllers
         {
             string result = "error";
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 ReportSetting reportSettings = db.ReportSettings.FirstOrDefault(x => x.ReportID == ReportID);
 
@@ -89,7 +89,7 @@ namespace Inventory.WebApplication.Controllers
         {
             string result = "error";
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 ReportQuery newReportQuery = new ReportQuery();
                 newReportQuery.ReportID = reportID;
@@ -115,7 +115,7 @@ namespace Inventory.WebApplication.Controllers
 
             try
             {
-                using (var db = new InventoryEntities())
+                using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
                 {
                     ReportQuery query = db.ReportQueries.First(x => x.Id == queryID);
                     db.ReportQueries.Remove(query);
@@ -140,7 +140,7 @@ namespace Inventory.WebApplication.Controllers
             ReportSetting reportSettings = new ReportSetting();
             List<ReportQuery> listOfReportQuery = new List<ReportQuery>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 reportSettings = db.ReportSettings.FirstOrDefault(x => x.ReportID == reportID);
                 listOfReportQuery = db.ReportQueries.Where(x => x.ReportID == reportID).ToList();
@@ -157,7 +157,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
@@ -191,7 +191,7 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
@@ -243,7 +243,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
@@ -275,7 +275,7 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
@@ -326,7 +326,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<TransactionDTO> result = new List<TransactionDTO>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<Transaction> transactions = db.Transactions.ToList();
                 result = transactions.Select(x => new TransactionDTO
@@ -351,7 +351,7 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<TransactionDTO> result = new List<TransactionDTO>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<Transaction> transactions = db.Transactions.ToList();
                 result = transactions.Select(x => new TransactionDTO
@@ -394,7 +394,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<TransactionsReminder> transactionsReminders = new List<TransactionsReminder>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 transactionsReminders.AddRange(db.TransactionsReminders.ToList());
             }
@@ -407,7 +407,7 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<TransactionsReminder> transactionsReminders = new List<TransactionsReminder>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 transactionsReminders.AddRange(db.TransactionsReminders.ToList());
 
@@ -438,7 +438,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsInReportQuery> itemsInReportQuery = new List<ItemsInReportQuery>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Unit> units = db.Units.ToList();
@@ -486,7 +486,7 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<ItemsInReportQuery> itemsInReportQuery = new List<ItemsInReportQuery>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Unit> units = db.Units.ToList();
@@ -552,7 +552,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsInReportQuery> itemsInReportQuery = new List<ItemsInReportQuery>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Unit> units = db.Units.ToList();
@@ -600,7 +600,7 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<ItemsInReportQuery> itemsInReportQuery = new List<ItemsInReportQuery>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Unit> units = db.Units.ToList();
@@ -666,7 +666,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
@@ -704,7 +704,7 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
@@ -760,7 +760,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
@@ -796,7 +796,7 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
@@ -851,7 +851,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
@@ -886,7 +886,7 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
@@ -939,7 +939,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<TransactionDTO> itemsInStock = new List<TransactionDTO>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
@@ -971,7 +971,7 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<TransactionDTO> itemsInStock = new List<TransactionDTO>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
@@ -1027,7 +1027,7 @@ namespace Inventory.WebApplication.Controllers
             emptyItem.itemName = "";
             abcReportItems.Add(emptyItem);
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<Item> items = db.Items.OrderByDescending(x => x.Price).ToList();
 

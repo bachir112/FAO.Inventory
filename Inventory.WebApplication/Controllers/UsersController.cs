@@ -18,7 +18,7 @@ namespace Inventory.WebApplication.Controllers
     [Authorize(Roles = "Admin, SchoolManager, SchoolStockKeeper")]
     public class UsersController : Controller
     {
-        private InventoryEntities db = new InventoryEntities();
+        private InventoryEntities db = new InventoryEntities(Global.Global.GetSchoolCookieValue());
 
         // GET: AspNetUsers
         public async Task<ActionResult> Index()
@@ -28,7 +28,7 @@ namespace Inventory.WebApplication.Controllers
             {
                 List<AspNetUser> listAspNetUser = db.AspNetUsers.ToList();
 
-                using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+                using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))))
                 {
                     foreach (var user in listAspNetUser)
                     {
@@ -51,7 +51,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<AspNetUser> listAspNetUser = db.AspNetUsers.ToList();
 
-            using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
+            using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))))
             {
                 foreach (var user in listAspNetUser)
                 {
@@ -116,7 +116,7 @@ namespace Inventory.WebApplication.Controllers
                 return HttpNotFound();
             }
 
-            using (var context = new ApplicationDbContext())
+            using (var context = new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))
             {
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
@@ -141,7 +141,7 @@ namespace Inventory.WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var context = new ApplicationDbContext())
+                using (var context = new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))
                 {
                     var userStore = new UserStore<ApplicationUser>(context);
                     var userManager = new UserManager<ApplicationUser>(userStore);
@@ -191,7 +191,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             string response = Global.Global.EnumsError;
 
-            using (var context = new ApplicationDbContext())
+            using (var context = new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))
             {
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);

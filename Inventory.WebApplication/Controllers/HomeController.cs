@@ -52,7 +52,7 @@ namespace Inventory.WebApplication.Controllers
 
             int queryID = (query == "IN" ? 1 : query == "OUT" ? 2 : query == "TRASH" ? 3 : -1);
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 categoriesList = db.Categories
                                     .Select(x => new CategoryDTO
@@ -91,7 +91,7 @@ namespace Inventory.WebApplication.Controllers
 
             int queryID = (query == "IN" ? 1 : query == "OUT" ? 2 : query == "TRASH" ? 3 : -1);
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
@@ -132,7 +132,7 @@ namespace Inventory.WebApplication.Controllers
         {
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
@@ -178,7 +178,7 @@ namespace Inventory.WebApplication.Controllers
         public ActionResult TransactionsIntoStock()
         {
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 ViewBag.ToWhom = db.Transactions.Where(x => x.ToWhom != null && x.ToWhom.Trim() != string.Empty)
                                                 .Select(x => x.ToWhom)
@@ -201,7 +201,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (Global.Global.isAllowed(User.Identity.GetUserId(), "Reports"))
             {
-                using (var db = new InventoryEntities())
+                using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
                 {
                     ViewBag.ToWhom = db.Transactions.Where(x => x.ToWhom != null && x.ToWhom.Trim() != string.Empty)
                                                     .Select(x => x.ToWhom)
@@ -242,7 +242,7 @@ namespace Inventory.WebApplication.Controllers
         {
             List<TransactionDTO> result = new List<TransactionDTO>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<Transaction> transactions = db.Transactions.ToList();
                 result = transactions.Select(x => new TransactionDTO
@@ -271,7 +271,7 @@ namespace Inventory.WebApplication.Controllers
             {
                 List<TransactionDTO> result = new List<TransactionDTO>();
 
-                using (var db = new InventoryEntities())
+                using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
                 {
                     List<Transaction> transactions = db.Transactions.ToList();
                     result = transactions.Select(x => new TransactionDTO
@@ -309,7 +309,7 @@ namespace Inventory.WebApplication.Controllers
             var selectedItemsJSON = JsonConvert.SerializeObject(selectedItems);
             List<ItemsGroupedDTO> selectedItemsList = JsonConvert.DeserializeObject<List<ItemsGroupedDTO>>(selectedItemsJSON);
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 foreach(var item in selectedItemsList)
                 {
@@ -379,7 +379,7 @@ namespace Inventory.WebApplication.Controllers
         {
             List<SearchItemsDTO> result = new List<SearchItemsDTO>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<SearchItemsDTO>  items = db.Items
                                                 .Where(x => (categoryID == null) ? true : x.CategoryID == categoryID)
@@ -409,7 +409,7 @@ namespace Inventory.WebApplication.Controllers
         {
             string result = "error";
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 ItemsSearchValue newItem = new ItemsSearchValue();
                 newItem.ItemName = itemName;

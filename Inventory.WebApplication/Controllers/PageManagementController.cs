@@ -18,7 +18,7 @@ namespace Inventory.WebApplication.Controllers
             {
                 List<PageManagement> pageManagement = new List<PageManagement>();
 
-                using (var db = new InventoryEntities())
+                using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
                 {
                     pageManagement = db.PageManagements.OrderBy(x => x.RoleName).ToList();
 
@@ -38,7 +38,7 @@ namespace Inventory.WebApplication.Controllers
         {
             List<string> result = new List<string>();
 
-            using (var db = new InventoryEntities())
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
                 List<PageManagement> pageManagements = db.PageManagements.Where(x => x.PageName == pageName && x.RoleName == userRole).ToList();
 

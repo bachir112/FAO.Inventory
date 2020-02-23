@@ -157,7 +157,7 @@ namespace Inventory.WebApplication.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    using (var context = new ApplicationDbContext())
+                    using (var context = new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))
                     {
                         UserManager.AddToRole(user.Id, "Guest");
                     }
@@ -419,7 +419,7 @@ namespace Inventory.WebApplication.Controllers
         {
             List<ApplicationUser> usersList = new List<ApplicationUser>();
 
-            using (var context = new ApplicationDbContext())
+            using (var context = new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))
             {
                 usersList = UserManager.Users.ToList();
             }
@@ -431,7 +431,7 @@ namespace Inventory.WebApplication.Controllers
         {
             string response = string.Empty;
 
-            using (var context = new ApplicationDbContext())
+            using (var context = new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))
             {
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);

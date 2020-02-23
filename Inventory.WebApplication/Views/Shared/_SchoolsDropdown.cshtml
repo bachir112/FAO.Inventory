@@ -1,0 +1,31 @@
+﻿
+<select id="schools" style="width:100%;">
+    <option value="s1">School One</option>
+    <option value="s2">School Two</option>
+    <option value="s3">School Three</option>
+    <option value="s4">School Four</option>
+</select>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var cookieVal = $.cookie("schoolDB");
+
+        $('#schools').select2();
+        $('#schools').val(cookieVal).trigger('change');
+    });
+
+    $(document).on('change', '#schools', function () {
+        
+        var cookieVal = $.cookie("schoolDB");
+
+        var schoolDB = $(this).val();
+        $.cookie('schoolDB', schoolDB, { path: '/', expires: 10000 });
+
+        if (schoolDB != cookieVal && schoolDB != null && cookieVal != null) {
+            location.reload();
+        }
+    });
+
+</script>

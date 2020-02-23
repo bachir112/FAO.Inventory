@@ -13,7 +13,7 @@ namespace Inventory.WebApplication.Controllers
 {
     public class SuppliersController : Controller
     {
-        private InventoryEntities db = new InventoryEntities();
+        private InventoryEntities db = new InventoryEntities(Global.Global.GetSchoolCookieValue());
 
         // GET: Suppliers
         public ActionResult Index()

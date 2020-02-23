@@ -15,7 +15,7 @@ namespace Inventory.WebApplication.Controllers
     [Authorize(Roles = "Admin, SchoolManager, SchoolStockKeeper")]
     public class ItemsController : Controller
     {
-        private InventoryEntities db = new InventoryEntities();
+        private InventoryEntities db = new InventoryEntities(Global.Global.GetSchoolCookieValue());
 
         public ActionResult Route()
         {

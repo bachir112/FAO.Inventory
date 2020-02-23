@@ -23,7 +23,11 @@ namespace Inventory.WebApplication.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("AuthenticationEntities", throwIfV1Schema: false)
+        {
+        }
+        public ApplicationDbContext(string schoolDB)
+            : base("AuthenticationEntities_" + schoolDB, throwIfV1Schema: false)
         {
         }
 
