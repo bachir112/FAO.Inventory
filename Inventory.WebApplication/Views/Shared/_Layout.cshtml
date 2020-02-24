@@ -34,6 +34,7 @@
     <link href="@Url.Content("~/assets/layouts/layout/css/themes/darkblue.min.css")" rel="stylesheet" type="text/css" id="style_color" />
     <link href="@Url.Content("~/assets/layouts/layout/css/custom.min.css")" rel="stylesheet" type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/css/select2.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
 
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -149,17 +150,17 @@
             right: 0;
         }
 
-            .autocomplete-items div {
-                padding: 10px;
-                cursor: pointer;
-                background-color: #fff;
-                border-bottom: 1px solid #d4d4d4;
-            }
+        .autocomplete-items div {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #fff;
+            border-bottom: 1px solid #d4d4d4;
+        }
 
-                /*when hovering an item:*/
-                .autocomplete-items div:hover {
-                    background-color: #e9e9e9;
-                }
+        /*when hovering an item:*/
+        .autocomplete-items div:hover {
+            background-color: #e9e9e9;
+        }
 
         /*when navigating through the items using the arrow keys:*/
         .autocomplete-active {
@@ -333,9 +334,13 @@
                 opacity: 1;
             }
         }
+
+        .arabic{
+            display:none;
+        }
     </style>
 
-    
+
     <style id="right_to_left_direction" type="text/css">
 
         .page-sidebar-reversed .page-logo {
@@ -377,92 +382,99 @@
             float: right !important;
         }
 
-        .page-sidebar-reversed .feeds li .col1 > .cont > .cont-col1 {
-            float: right !important;
-            margin-left: -100% !important;
-            margin-right: 0!important;
-        }
+            .page-sidebar-reversed .feeds li .col1 > .cont > .cont-col1 {
+                float: right !important;
+                margin-left: -100% !important;
+                margin-right: 0 !important;
+            }
 
-        .page-sidebar-reversed .feeds li .col1 > .cont {
-            float: right !important;
-            margin-left: 75px !important;
-            margin-right:0px;
-            overflow: hidden !important;
-        }
+            .page-sidebar-reversed .feeds li .col1 > .cont {
+                float: right !important;
+                margin-left: 75px !important;
+                margin-right: 0px;
+                overflow: hidden !important;
+            }
 
         .page-sidebar-reversed .feeds li .col1, .feeds li .col1 > .cont > .cont-col2 {
             width: 100% !important;
             float: right !important;
         }
 
-        .page-sidebar-reversed .feeds li .col1 > .cont > .cont-col2 > .desc {
-            margin-right: 45px !important;
-            padding-top: 4px !important;
-            padding-bottom: 5px !important;
-            overflow: hidden !important;
+            .page-sidebar-reversed .feeds li .col1 > .cont > .cont-col2 > .desc {
+                margin-right: 45px !important;
+                padding-top: 4px !important;
+                padding-bottom: 5px !important;
+                overflow: hidden !important;
+            }
+
+        .page-sidebar-reversed .page-title {
+            padding-right: 10px;
+            padding-top: 10px;
         }
 
-        .page-sidebar-reversed .page-title{
-            padding-right:10px;
-            padding-top:10px;
-        }
-
-        .page-sidebar-reversed .portlet>.portlet-title>.caption{
-            float:right;
+        .page-sidebar-reversed .portlet > .portlet-title > .caption {
+            float: right;
         }
 
         .page-sidebar-reversed .theme-panel {
-            margin-top:-50px;
+            margin-top: -50px;
         }
 
-        .page-sidebar-reversed .widget-thumb-wrap img{
-            float:right;
-        }
-        
-        .page-sidebar-reversed .english{
-            display:none!important;
+        .page-sidebar-reversed .widget-thumb-wrap img {
+            float: right;
         }
 
-        .page-sidebar-reversed .arabic{
-            display:contents!important;
+        .page-sidebar-reversed .english {
+            display: none !important;
         }
 
-        .page-sidebar-reversed .dataTables_wrapper .dt-buttons{
-            float:left!important;
-        }
-        
-        .page-sidebar-reversed #assignActionContainer{
-            float:right!important;
+        .page-sidebar-reversed .arabic {
+            display: contents !important;
         }
 
-        .page-sidebar-reversed #editActionContainer{
-            float:right!important;
+        .page-sidebar-reversed .dataTables_wrapper .dt-buttons {
+            float: left !important;
         }
 
-        .page-sidebar-reversed .modal-body{
-            direction:rtl;
+        .page-sidebar-reversed #assignActionContainer {
+            float: right !important;
         }
 
-        .page-sidebar-reversed .createNew{
-            float:left!important;
+        .page-sidebar-reversed #editActionContainer {
+            float: right !important;
         }
 
-        .page-sidebar-reversed .control-label.col-md-2{
-            float:right;
+        .page-sidebar-reversed .modal-body {
+            direction: rtl;
         }
 
-        .page-sidebar-reversed .control-label.col-md-3{
-            float:right;
+        .page-sidebar-reversed .createNew {
+            float: left !important;
         }
 
-
-        .page-sidebar-reversed .form-group .col-md-4{
-            float:right;
+        .page-sidebar-reversed .control-label.col-md-2 {
+            float: right;
         }
 
-        .page-sidebar-reversed .dropdown-menu-right, .dropdown-menu.pull-right{
+        .page-sidebar-reversed .control-label.col-md-3 {
+            float: right;
+        }
+
+        .page-sidebar-reversed .form-group .col-md-4 {
+            float: right;
+        }
+
+        .page-sidebar-reversed table th {
+            text-align: right;
+        }
+
+        .page-sidebar-reversed .dropdown-menu-right, .dropdown-menu.pull-right {
             right: unset;
             left: 10px;
+        }
+
+        body, h1, h2, h3, h4, h5, h6{
+            font-family: 'Cairo'!important ;
         }
     </style>
 

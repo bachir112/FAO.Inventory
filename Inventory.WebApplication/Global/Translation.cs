@@ -14,7 +14,7 @@ namespace Inventory.WebApplication.Global
             { "HomeInner-english", "Home Dashboard"},
             { "HomeInner-arabic", "الصفحة الرئيسة"},
 
-            { "GeneratedReports-english", "GeneratedReports"},
+            { "GeneratedReports-english", "Generated Reports"},
             { "GeneratedReports-arabic", "تقارير مولدة"},
 
             { "Reports-english", "Reports"},
@@ -308,7 +308,7 @@ namespace Inventory.WebApplication.Global
             { "DateTransfered-arabic", "تاريخ النقل"},
 
             { "ReasonOfTransfer-english", "Reason of transfer"},
-            { "DateTransfered-arabic", "سبب النقل"},
+            { "ReasonOfTransfer-arabic", "سبب النقل"},
             
             { "Source-english", "Source"},
             { "Source-arabic", "مصدر"},
