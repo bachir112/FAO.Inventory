@@ -17,6 +17,33 @@ namespace Inventory.WebApplication.Global
             { "Reports-english", "Reports"},
             { "Reports-arabic", "تقارير"},
 
+            { "Generate-english", "Generate"},
+            { "Generate-arabic", "انشاء"},
+
+            { "SendAsEmail-english", "Send as email"},
+            { "SendAsEmail-arabic", "إرسال بالبريد الإلكتروني"},
+
+            { "ReportSettings-english", "Report Settings"},
+            { "ReportSettings-arabic", "اعدادات التقرير"},
+
+            { "ReportName-english", "Report Name"},
+            { "ReportName-arabic", "اسم التقرير"},
+
+            { "Action-english", "Action"},
+            { "Action-arabic", "عمل"},
+
+            { "MinQuantity-english", "Min. Quantity"},
+            { "MinQuantity-arabic", "الحد الأدنى من الكمية"},
+
+            { "MaxQuantity-english", "Max. Quantity"},
+            { "MaxQuantity-arabic", "الحد الأقصى من الكمية"},
+
+            { "MinPrice-english", "Min. Price"},
+            { "MinPrice-arabic", "سعر الحد الأدنى"},
+
+            { "MaxPrice-english", "Max. Price"},
+            { "MaxPrice-arabic", "السعر الاقصى"},
+
             { "Transactions-english", "Transactions"},
             { "Transactions-arabic", "عمليات"},
 
@@ -224,6 +251,10 @@ namespace Inventory.WebApplication.Global
 
             { "ByRole-english", "By role"},
             { "ByRole-arabic", "حسب الدور"},
+
+            { "IsASchool-english", "Is a School"},
+            { "IsASchool-arabic", "هل هو مدرسة؟"},
+                        
 
             { "Suppliers-english", "Suppliers"},
             { "Suppliers-arabic", "الموردين"},

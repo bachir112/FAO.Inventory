@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Inventory.DataObjects.EDM.Supplier>
+﻿@using Inventory.WebApplication.Global
+
+@model IEnumerable<Inventory.DataObjects.EDM.Supplier>
 
 @{
     ViewBag.Title = "Index";
@@ -17,15 +19,15 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Management </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("Management") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Users</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Suppliers")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>List</span>
+                    <span>@Translation.GetStringValue("List")</span>
                 </li>
             </ul>
         </div>
@@ -36,9 +38,9 @@
                     <div class="portlet-title tabbable-line">
                         <div class="caption">
                             <i class="icon-bubbles font-dark hide"></i>
-                            <span class="caption-subject font-dark bold uppercase">Users</span>
+                            <span class="caption-subject font-dark bold uppercase">@Translation.GetStringValue("Suppliers")</span>
                         </div>
-                        <div class="caption" style="float:right;">
+                        <div class="caption createNew" style="float:right;">
                             @Html.ActionLink("Create New", "Create")
                         </div>
                     </div>
@@ -50,8 +52,8 @@
                                         <thead>
                                             <tr>
                                                 <th></th>
-                                                <th>Supplier</th>
-                                                <th>Is a School</th>
+                                                <th>@Translation.GetStringValue("Suppliers")</th>
+                                                <th>@Translation.GetStringValue("IsASchool")</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -59,9 +61,9 @@
                                             {
                                                 <tr>
                                                     <td>
-                                                        @Html.ActionLink("Edit", "Edit", new { id = supplier.Id })
+                                                        @Html.ActionLink(Translation.GetStringValue("Edit"), "Edit", new { id = supplier.Id })
                                                         |
-                                                        @Html.ActionLink("Delete", "Delete", new { id = supplier.Id })
+                                                        @Html.ActionLink(Translation.GetStringValue("Delete"), "Delete", new { id = supplier.Id })
                                                     </td>
                                                     <td>
                                                         @supplier.Supplier1
@@ -73,29 +75,6 @@
                                             }
                                         </tbody>
                                     </table>
-                                    @*@foreach (var supplier in Model)
-                                    {
-                                        <div class="mt-comment">
-                                            <div class="mt-comment-img">
-                                                <img src="../assets/pages/media/users/avatar6.jpg" />
-                                            </div>
-                                            <div class="mt-comment-body">
-                                                <div class="mt-comment-info">
-                                                    <span class="mt-comment-author">@Html.DisplayFor(modelUser => supplier.Supplier1)</span>
-                                                </div>
-                                                <div class="mt-comment-text">
-                                                    <h5>Is School: @supplier.IsSchool</h5>
-                                                </div>
-                                                <div class="mt-comment-details">
-                                                    <span class="mt-comment-status mt-comment-status-pending">
-                                                        @Html.ActionLink("Edit", "Edit", new { id = supplier.Id })
-                                                        |
-                                                        @Html.ActionLink("Delete", "Delete", new { id = supplier.Id })
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }*@
                                 </div>
                             </div>
                         </div>
@@ -148,36 +127,3 @@
     });
 
 </script>
-
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Supplier1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsSchool)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Supplier1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsSchool)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
-
-</table>*@
