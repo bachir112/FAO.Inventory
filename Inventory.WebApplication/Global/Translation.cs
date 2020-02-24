@@ -14,6 +14,9 @@ namespace Inventory.WebApplication.Global
             { "HomeInner-english", "Home Dashboard"},
             { "HomeInner-arabic", "الصفحة الرئيسة"},
 
+            { "GeneratedReports-english", "GeneratedReports"},
+            { "GeneratedReports-arabic", "تقارير مولدة"},
+
             { "Reports-english", "Reports"},
             { "Reports-arabic", "تقارير"},
 
@@ -44,6 +47,15 @@ namespace Inventory.WebApplication.Global
             { "MaxPrice-english", "Max. Price"},
             { "MaxPrice-arabic", "السعر الاقصى"},
 
+            { "QuantityIn-english", "Quantity In"},
+            { "QuantityIn-arabic", "الكمية في"},
+
+            { "QuantityOut-english", "Quantity Out"},
+            { "QuantityOut-arabic", "الكمية خارج"},
+
+            { "AvailableQuantity-english", "Available Quantity"},
+            { "AvailableQuantity-arabic", "الكمية المتوفرة"},
+            
             { "Transactions-english", "Transactions"},
             { "Transactions-arabic", "عمليات"},
 
@@ -283,6 +295,39 @@ namespace Inventory.WebApplication.Global
             { "Category-english", "Category"},
             { "Category-arabic", "الفئة"},
 
+            { "ConsumableNonConsumable-english", "Consumable / Non-Consumable"},
+            { "ConsumableNonConsumable-arabic", "مستهلكات / غير مستهلكات"},
+
+            { "DateIn-english", "Date in"},
+            { "DateIn-arabic", "تاريخ الدخول"},
+
+            { "Code-english", "Code"},
+            { "Code-arabic", "رمز"},
+
+            { "DateTransfered-english", "Date Transfered"},
+            { "DateTransfered-arabic", "تاريخ النقل"},
+
+            { "ReasonOfTransfer-english", "Reason of transfer"},
+            { "DateTransfered-arabic", "سبب النقل"},
+            
+            { "Source-english", "Source"},
+            { "Source-arabic", "مصدر"},
+
+            { "DateOut-english", "Date out"},
+            { "DateOut-arabic", "تاريخ الخروج"},
+
+            { "ReturnDate-english", "Return date"},
+            { "ReturnDate-arabic", "تاريخ العودة"},
+
+            { "ShouldReturnOn-english", "Should return on"},
+            { "ShouldReturnOn-arabic", "يجب أن يعود في تاريخ"},
+
+            { "CostPerItem-english", "Cost per item"},
+            { "CostPerItem-arabic", "التكلفة لكل بند"},
+
+            { "GrossTotal-english", "Gross total"},
+            { "GrossTotal-arabic", "المجموع الكلي"},
+            
             { "Thrown-english", "Thrown"},
             { "Thrown-arabic", "رمى"},
 

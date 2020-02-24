@@ -27,6 +27,7 @@ namespace Inventory.DataObjects.DTO
         public string Description { get; set; }
         public int CategoryID { get; set; }
         public string Category { get; set; }
+        public string Category_Arabic { get; set; }
         public int SupplierID { get; set; }
         public string Supplier { get; set; }
         public Nullable<int> Quantity { get; set; }

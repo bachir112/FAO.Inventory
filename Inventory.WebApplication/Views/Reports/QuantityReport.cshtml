@@ -1,4 +1,6 @@
 ﻿@using Inventory.DataObjects.DTO
+@using Inventory.WebApplication.Global
+
 @model List<ItemsGroupedDTO>
 
 @{
@@ -17,15 +19,16 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Generated Reports </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("GeneratedReports") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Reports</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Reports")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>Quantity Report</span>
+                    <span class="english">Quantity Report</span>
+                    <span class="arabic">تقرير الكمية</span>
                 </li>
             </ul>
         </div>
@@ -36,7 +39,8 @@
                     <div class="portlet-title tabbable-line">
                         <div class="caption">
                             <i class="icon-bubbles font-dark hide"></i>
-                            <span class="caption-subject font-dark bold uppercase">Quantity Report</span>
+                            <span class="caption-subject font-dark bold uppercase english">Quantity Report</span>
+                            <span class="caption-subject font-dark bold uppercase arabic">تقرير الكمية</span>
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -46,10 +50,10 @@
                                     <table id="quantityReportTable">
                                         <thead>
                                             <tr>
-                                                <th>Item</th>
-                                                <th>Category</th>
-                                                <th>Quantity In</th>
-                                                <th>Quantity Out</th>
+                                                <th>@Translation.GetStringValue("Item")</th>
+                                                <th>@Translation.GetStringValue("Category")</th>
+                                                <th>@Translation.GetStringValue("QuantityIn")</th>
+                                                <th>@Translation.GetStringValue("QuantityOut")</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -58,10 +62,13 @@
                                                 {
                                                     <tr class="odd gradeX">
                                                         <td>
-                                                            @item.Name  @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
+                                                            <span class="english">@item.Name</span>  
+                                                            <span class="arabic">@item.Name_Arabic</span>  
+                                                            @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
                                                         </td>
                                                         <td>
-                                                            @item.Category
+                                                            <span class="english">@item.Category</span>
+                                                            <span class="arabic">@item.Category_Arabic</span>
                                                         </td>
                                                         <td>
                                                             @item.QuantityIn

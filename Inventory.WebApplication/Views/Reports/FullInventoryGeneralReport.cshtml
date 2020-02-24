@@ -1,4 +1,6 @@
 ﻿@using Inventory.DataObjects.DTO
+@using Inventory.WebApplication.Global
+
 @model List<ItemsGroupedDTO>
 
 @{
@@ -17,15 +19,16 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Generated Reports </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("GeneratedReports") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Reports</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Reports")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>Full Inventory General Report</span>
+                    <span class="english">Full Inventory General Report</span>
+                    <span class="arabic">التقرير العام للمخزون الكامل</span>
                 </li>
             </ul>
         </div>
@@ -36,7 +39,8 @@
                     <div class="portlet-title tabbable-line">
                         <div class="caption">
                             <i class="icon-bubbles font-dark hide"></i>
-                            <span class="caption-subject font-dark bold uppercase">Full Inventory General Report</span>
+                            <span class="caption-subject font-dark bold uppercase english">Full Inventory General Report</span>
+                            <span class="caption-subject font-dark bold uppercase arabic">التقرير العام للمخزون الكامل</span>
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -46,12 +50,12 @@
                                     <table id="inventoryGeneralReportTable">
                                         <thead>
                                             <tr>
-                                                <th>Item</th>
-                                                <th>Category In</th>
-                                                <th>Description</th>
-                                                <th>Quantity</th>
-                                                <th>Cost/Item</th>
-                                                <th>Gross Total</th>
+                                                <th>@Translation.GetStringValue("Item")</th>
+                                                <th>@Translation.GetStringValue("Category")</th>
+                                                <th>@Translation.GetStringValue("Description")</th>
+                                                <th>@Translation.GetStringValue("Quantity")</th>
+                                                <th>@Translation.GetStringValue("CostPerItem")</th>
+                                                <th>@Translation.GetStringValue("GrossTotal")</th>
                                             </tr>
                                         </thead>
                                         <tbody>

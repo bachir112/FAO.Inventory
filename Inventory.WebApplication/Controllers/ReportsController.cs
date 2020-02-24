@@ -774,10 +774,12 @@ namespace Inventory.WebApplication.Controllers
                                 {
                                     GroupedId = items.FirstOrDefault().Id,
                                     Name = items.Key.Name,
+                                    Name_Arabic = items.First().Name_Arabic,
                                     AvailabilityStatus = availabilityStatuses.FirstOrDefault(x => x.Id == items.Key.AvailabilityStatusID).Status,
                                     AvailabilityStatusID = items.Key.AvailabilityStatusID,
                                     Quantity = items.Count(),
                                     Category = categories.FirstOrDefault(x => x.Id == items.Key.CategoryID)?.Name,
+                                    Category_Arabic = categories.FirstOrDefault(x => x.Id == items.Key.CategoryID)?.Name_Arabic,
                                     LocationInStock = string.Join(", ", items.Where(x => !string.IsNullOrEmpty(x.LocationInStock)).Select(x => x.LocationInStock + " (" + items.Where(y => y.LocationInStock == x.LocationInStock).Select(y => y).Count().ToString() + ")").Distinct()),
                                     Description = string.Join(",", items.Where(x => !string.IsNullOrEmpty(x.Description)).Select(x => x.Description)),
                                     UnitID = items.Key.UnitID,
