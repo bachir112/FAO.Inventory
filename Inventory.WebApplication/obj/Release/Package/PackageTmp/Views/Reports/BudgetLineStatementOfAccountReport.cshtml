@@ -1,4 +1,6 @@
 ﻿@using Inventory.DataObjects.DTO
+@using Inventory.WebApplication.Global
+
 @model List<ItemsGroupedDTO>
 
 @{
@@ -17,15 +19,16 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Generated Reports </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("GeneratedReports") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Reports</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Reports")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>Budget Line / Statement Of Account Report</span>
+                    <span class="english">Budget Line / Statement Of Account Report</span>
+                    <span class="arabic">بند الميزانية / بيان الحساب</span>
                 </li>
             </ul>
         </div>
@@ -36,7 +39,8 @@
                     <div class="portlet-title tabbable-line">
                         <div class="caption">
                             <i class="icon-bubbles font-dark hide"></i>
-                            <span class="caption-subject font-dark bold uppercase">Budget Line / Statement Of Account Report</span>
+                            <span class="caption-subject font-dark bold uppercase english">Budget Line / Statement Of Account Report</span>
+                            <span class="caption-subject font-dark bold uppercase arabic">بند الميزانية / بيان الحساب</span>
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -46,13 +50,13 @@
                                     <table id="budgetLineStatementOfAccountReportTable">
                                         <thead>
                                             <tr>
-                                                <th>Item</th>
-                                                <th>Category</th>
-                                                <th>Date In</th>
-                                                <th>Date Out</th>
-                                                <th>Quantity</th>
-                                                <th>Cost / Item</th>
-                                                <th>Gross Total</th>
+                                                <th>@Translation.GetStringValue("ItemName")</th>
+                                                <th>@Translation.GetStringValue("Category")</th>
+                                                <th>@Translation.GetStringValue("DateIn")</th>
+                                                <th>@Translation.GetStringValue("DateOut")</th>
+                                                <th>@Translation.GetStringValue("Quantity")</th>
+                                                <th>@Translation.GetStringValue("CostPerItem")</th>
+                                                <th>@Translation.GetStringValue("GrossTotal")</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -61,10 +65,13 @@
                                                 {
                                                     <tr class="odd gradeX">
                                                         <td>
-                                                            @item.Name  @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
+                                                            <span class="english">@item.Name</span>
+                                                            <span class="arabic">@item.Name_Arabic</span>
+                                                            @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
                                                         </td>
                                                         <td>
-                                                            @item.Category
+                                                            <span class="english">@item.Category</span>
+                                                            <span class="arabic">@item.Category</span>                                                            
                                                         </td>
                                                         <td>
                                                             @item.ReceivedOn

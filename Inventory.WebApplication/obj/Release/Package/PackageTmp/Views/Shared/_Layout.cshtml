@@ -1,4 +1,5 @@
 ﻿@using Inventory.DataObjects.EDM
+@using Inventory.WebApplication.Global
 
 @{     
     List<PageManagement> PageManagement = ViewBag.PageManagement as List<PageManagement>;
@@ -33,6 +34,7 @@
     <link href="@Url.Content("~/assets/layouts/layout/css/themes/darkblue.min.css")" rel="stylesheet" type="text/css" id="style_color" />
     <link href="@Url.Content("~/assets/layouts/layout/css/custom.min.css")" rel="stylesheet" type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/css/select2.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
 
     <link rel="shortcut icon" href="favicon.ico" />
 
@@ -180,9 +182,9 @@
             margin: 10% auto;
         }
 
-        #success_tic .page-body .head {
-            text-align: center;
-        }
+            #success_tic .page-body .head {
+                text-align: center;
+            }
 
         #success_tic .close {
             opacity: 1;
@@ -214,46 +216,46 @@
             border-radius: 5px;
         }
 
-        #success_tic .checkmark-circle .checkmark.draw:after {
-            -webkit-animation-delay: 300ms;
-            -moz-animation-delay: 300ms;
-            animation-delay: 300ms;
-            -webkit-animation-duration: 1s;
-            -moz-animation-duration: 1s;
-            animation-duration: 1s;
-            -webkit-animation-timing-function: ease;
-            -moz-animation-timing-function: ease;
-            animation-timing-function: ease;
-            -webkit-animation-name: checkmark;
-            -moz-animation-name: checkmark;
-            animation-name: checkmark;
-            -webkit-transform: scaleX(-1) rotate(135deg);
-            -moz-transform: scaleX(-1) rotate(135deg);
-            -ms-transform: scaleX(-1) rotate(135deg);
-            -o-transform: scaleX(-1) rotate(135deg);
-            transform: scaleX(-1) rotate(135deg);
-            -webkit-animation-fill-mode: forwards;
-            -moz-animation-fill-mode: forwards;
-            animation-fill-mode: forwards;
-        }
+            #success_tic .checkmark-circle .checkmark.draw:after {
+                -webkit-animation-delay: 300ms;
+                -moz-animation-delay: 300ms;
+                animation-delay: 300ms;
+                -webkit-animation-duration: 1s;
+                -moz-animation-duration: 1s;
+                animation-duration: 1s;
+                -webkit-animation-timing-function: ease;
+                -moz-animation-timing-function: ease;
+                animation-timing-function: ease;
+                -webkit-animation-name: checkmark;
+                -moz-animation-name: checkmark;
+                animation-name: checkmark;
+                -webkit-transform: scaleX(-1) rotate(135deg);
+                -moz-transform: scaleX(-1) rotate(135deg);
+                -ms-transform: scaleX(-1) rotate(135deg);
+                -o-transform: scaleX(-1) rotate(135deg);
+                transform: scaleX(-1) rotate(135deg);
+                -webkit-animation-fill-mode: forwards;
+                -moz-animation-fill-mode: forwards;
+                animation-fill-mode: forwards;
+            }
 
-        #success_tic .checkmark-circle .checkmark:after {
-            opacity: 1;
-            height: 50px;
-            width: 22.5px;
-            -webkit-transform-origin: left top;
-            -moz-transform-origin: left top;
-            -ms-transform-origin: left top;
-            -o-transform-origin: left top;
-            transform-origin: left top;
-            border-right: 15px solid #fff;
-            border-top: 15px solid #fff;
-            border-radius: 2.5px !important;
-            content: '';
-            left: 10px;
-            top: 60px;
-            position: absolute;
-        }
+            #success_tic .checkmark-circle .checkmark:after {
+                opacity: 1;
+                height: 50px;
+                width: 22.5px;
+                -webkit-transform-origin: left top;
+                -moz-transform-origin: left top;
+                -ms-transform-origin: left top;
+                -o-transform-origin: left top;
+                transform-origin: left top;
+                border-right: 15px solid #fff;
+                border-top: 15px solid #fff;
+                border-radius: 2.5px !important;
+                content: '';
+                left: 10px;
+                top: 60px;
+                position: absolute;
+            }
 
         @@-webkit-keyframes checkmark {
             0% {
@@ -333,7 +335,149 @@
             }
         }
 
+        .arabic{
+            display:none;
+        }
     </style>
+
+
+    <style id="right_to_left_direction" type="text/css">
+
+        .page-sidebar-reversed .page-logo {
+            float: right !important;
+        }
+
+        .page-sidebar-reversed .top-menu {
+            float: left !important;
+        }
+
+        .page-sidebar-reversed .page-title {
+            float: right !important;
+        }
+
+        .page-sidebar-reversed .theme-panel.hidden-xs.hidden-sm {
+            float: left !important;
+        }
+
+        .page-sidebar-reversed .theme-panel > .toggler {
+            left: 0 !important;
+            right: 90% !important;
+        }
+
+        .page-sidebar-reversed .page-bar {
+            direction: rtl !important;
+        }
+
+        .page-sidebar-reversed .page-content {
+            direction: rtl !important;
+        }
+
+        .page-sidebar-reversed .feeds li .col1 > .cont > .cont-col1 {
+            float: right !important;
+            margin-left: -100% !important;
+        }
+
+        .page-sidebar-reversed .feeds li .col1, .feeds li .col1 > .cont > .cont-col2 {
+            width: 100% !important;
+            float: right !important;
+        }
+
+            .page-sidebar-reversed .feeds li .col1 > .cont > .cont-col1 {
+                float: right !important;
+                margin-left: -100% !important;
+                margin-right: 0 !important;
+            }
+
+            .page-sidebar-reversed .feeds li .col1 > .cont {
+                float: right !important;
+                margin-left: 75px !important;
+                margin-right: 0px;
+                overflow: hidden !important;
+            }
+
+        .page-sidebar-reversed .feeds li .col1, .feeds li .col1 > .cont > .cont-col2 {
+            width: 100% !important;
+            float: right !important;
+        }
+
+            .page-sidebar-reversed .feeds li .col1 > .cont > .cont-col2 > .desc {
+                margin-right: 45px !important;
+                padding-top: 4px !important;
+                padding-bottom: 5px !important;
+                overflow: hidden !important;
+            }
+
+        .page-sidebar-reversed .page-title {
+            padding-right: 10px;
+            padding-top: 10px;
+        }
+
+        .page-sidebar-reversed .portlet > .portlet-title > .caption {
+            float: right;
+        }
+
+        .page-sidebar-reversed .theme-panel {
+            margin-top: -50px;
+        }
+
+        .page-sidebar-reversed .widget-thumb-wrap img {
+            float: right;
+        }
+
+        .page-sidebar-reversed .english {
+            display: none !important;
+        }
+
+        .page-sidebar-reversed .arabic {
+            display: contents !important;
+        }
+
+        .page-sidebar-reversed .dataTables_wrapper .dt-buttons {
+            float: left !important;
+        }
+
+        .page-sidebar-reversed #assignActionContainer {
+            float: right !important;
+        }
+
+        .page-sidebar-reversed #editActionContainer {
+            float: right !important;
+        }
+
+        .page-sidebar-reversed .modal-body {
+            direction: rtl;
+        }
+
+        .page-sidebar-reversed .createNew {
+            float: left !important;
+        }
+
+        .page-sidebar-reversed .control-label.col-md-2 {
+            float: right;
+        }
+
+        .page-sidebar-reversed .control-label.col-md-3 {
+            float: right;
+        }
+
+        .page-sidebar-reversed .form-group .col-md-4 {
+            float: right;
+        }
+
+        .page-sidebar-reversed table th {
+            text-align: right;
+        }
+
+        .page-sidebar-reversed .dropdown-menu-right, .dropdown-menu.pull-right {
+            right: unset;
+            left: 10px;
+        }
+
+        body, h1, h2, h3, h4, h5, h6{
+            font-family: 'Cairo'!important ;
+        }
+    </style>
+
 
     <script src="@Url.Content("~/assets/global/plugins/jquery.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/assets/global/plugins/bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
@@ -378,6 +522,11 @@
                 <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
                     <span></span>
                 </a>
+                <div class="top-menu" style="padding:15px;">
+                    <a id="chooseEnglish" style="text-decoration:none; color:white;">English</a>
+                    <span style="color:white;">|</span>
+                    <a id="chooseArabic" style="text-decoration:none; color:white;">عربية</a>
+                </div>
                 <div class="top-menu">
                     <ul class="nav navbar-nav pull-right">
                         <li class="dropdown dropdown-user">
@@ -417,7 +566,7 @@
                         <li id="dashboardParentTab" class="nav-item start">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="icon-home"></i>
-                                <span class="title">Home</span>
+                                <span class="title">@Translation.GetStringValue("Home")</span>
                                 <span class="selected"></span>
                                 <span class="arrow"></span>
                             </a>
@@ -428,7 +577,7 @@
                                         <li id="dashboardTab" class="nav-item start">
                                             <a href="@Url.Action("Index","Home")" class="nav-link ">
                                                 <i class="fa fa-tachometer" aria-hidden="true"></i>
-                                                <span class="title">Home</span>
+                                                <span class="title">@Translation.GetStringValue("HomeInner")</span>
                                                 <span class="selected"></span>
                                             </a>
                                         </li>
@@ -438,7 +587,7 @@
                                         <li id="reportTab" class="nav-item start">
                                             <a href="@Url.Action("Index","Reports")" class="nav-link ">
                                                 <i class="fa fa-flag-o" aria-hidden="true"></i>
-                                                <span class="title">Reports</span>
+                                                <span class="title">@Translation.GetStringValue("Reports")</span>
                                                 <span class="selected"></span>
                                             </a>
                                         </li>
@@ -452,7 +601,7 @@
                                 <li id="transactionsTab" class="heading" style="padding:0;">
                                     <a href="@Url.Action("Transactions","Home")" class="uppercase">
                                         <i class="icon-graph"></i>
-                                        <span class="title">Transactions</span>
+                                        <span class="title">@Translation.GetStringValue("Transactions")</span>
                                         <span class="selected"></span>
                                     </a>
                                 </li>
@@ -463,7 +612,7 @@
                                 <li id="transactionsHistoryTab" class="heading" style="padding:0;">
                                     <a href="@Url.Action("TransactionsHistory","Home")">
                                         <i class="fa fa-history" aria-hidden="true"></i>
-                                        <span class="title">Transactions History</span>
+                                        <span class="title">@Translation.GetStringValue("TransactionsHistory")</span>
                                         <span class="selected"></span>
                                     </a>
                                 </li>
@@ -472,7 +621,7 @@
                         <li id="itemsParentTab" class="nav-item">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-bullhorn"></i>
-                                <span class="title">Items</span>
+                                <span class="title">@Translation.GetStringValue("Items")</span>
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu" style="display: none;">
@@ -482,7 +631,7 @@
                                     {
                                         <li id="itemsTab" class="nav-item">
                                             <a href="@Url.Action("Route","Items")" class="nav-link ">
-                                                <span class="title">Create - Delete</span>
+                                                <span class="title">@Translation.GetStringValue("CreateDelete")</span>
                                             </a>
                                         </li>
                                     }
@@ -491,7 +640,7 @@
                                     {
                                         <li id="itemsPricingTab" class="nav-item">
                                             <a href="@Url.Action("Pricing","Items")" class="nav-link ">
-                                                <span class="title">Pricing</span>
+                                                <span class="title">@Translation.GetStringValue("Pricing")</span>
                                             </a>
                                         </li>
                                     }
@@ -500,7 +649,7 @@
                                     {
                                         <li id="categoriesTab" class="nav-item">
                                             <a href="@Url.Action("Deteriorated","Home")" class="nav-link ">
-                                                <span class="title">Deteriorated</span>
+                                                <span class="title">@Translation.GetStringValue("Deteriorated")</span>
                                             </a>
                                         </li>
                                     }
@@ -510,7 +659,7 @@
                         <li id="usersParentTab" class="nav-item">
                             <a href="javascript:;" class="nav-link nav-toggle">
                                 <i class="fa fa-user"></i>
-                                <span class="title">Management</span>
+                                <span class="title">@Translation.GetStringValue("Management")</span>
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu" style="display: none;">
@@ -519,7 +668,7 @@
                                     {
                                         <li id="usersTab" class="nav-item">
                                             <a href="@Url.Action("Index","Users")" class="nav-link ">
-                                                <span class="title">Users</span>
+                                                <span class="title">@Translation.GetStringValue("Users")</span>
                                             </a>
                                         </li>
                                     }
@@ -528,7 +677,7 @@
                                     {
                                         <li id="rolesTab" class="nav-item">
                                             <a href="@Url.Action("Index","Roles")" class="nav-link ">
-                                                <span class="title">Roles</span>
+                                                <span class="title">@Translation.GetStringValue("Roles")</span>
                                             </a>
                                         </li>
                                     }
@@ -537,7 +686,7 @@
                                     {
                                         <li id="pageManagementTab" class="nav-item">
                                             <a href="@Url.Action("Index","PageManagement")" class="nav-link ">
-                                                <span class="title">Page Management</span>
+                                                <span class="title">@Translation.GetStringValue("PageManagement")</span>
                                             </a>
                                         </li>
                                     }
@@ -546,7 +695,7 @@
                                     {
                                         <li id="suppliersTab" class="nav-item">
                                             <a href="@Url.Action("Index","Suppliers")" class="nav-link ">
-                                                <span class="title">Suppliers</span>
+                                                <span class="title">@Translation.GetStringValue("Suppliers")</span>
                                             </a>
                                         </li>
                                     }
@@ -609,14 +758,55 @@
     <script src="@Url.Content("~/assets/layouts/global/scripts/quick-sidebar.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/assets/layouts/global/scripts/quick-nav.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/assets/pages/scripts/components-date-time-pickers.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/assets/global/scripts/jquery.cookie.js")" type="text/javascript"></script>
 
-    <script>
+
+    <script id="languageScript" type="text/javascript">
 
         $(document).ready(function () {
-            $('#clickmewow').click(function () {
-                $('#radio1003').attr('checked', 'checked');
-            });
+
+            var cookieVal = $.cookie("language");
+
+            if (cookieVal == 'arabic') {
+                $('#chooseArabic').css('color', '#36c6d3');
+                $('#chooseEnglish').css('color', 'white');
+                $('body.page-header-fixed.page-sidebar-closed-hide-logo').addClass('page-sidebar-reversed');
+
+                $('.fa-angle-right').each(function () {
+                    $(this).removeClass('fa-angle-right');
+                    $(this).addClass('fa-angle-left');
+                });
+                
+                //$('.english').hide();
+                //$('.arabic').show();
+
+            } else {
+                $('#chooseArabic').css('color', 'white');
+                $('#chooseEnglish').css('color', '#36c6d3');
+            }
         });
+
+        $(document).on('click', '#chooseArabic', function () {
+            var languageCookie = $.cookie("language");
+            var languageVal = 'arabic';
+            $.cookie('language', languageVal, { path: '/', expires: 10000 });
+            if (languageVal != languageCookie) {
+                location.reload();
+            }
+        });
+        
+        $(document).on('click', '#chooseEnglish', function () {
+            var languageCookie = $.cookie("language");
+            var languageVal = 'english';
+            $.cookie('language', languageVal, { path: '/', expires: 10000 });
+            if (languageVal != languageCookie) {
+                location.reload();
+            }
+        });
+
+    </script>
+
+    <script>
 
         $(document).ready(function () {
 
@@ -637,8 +827,15 @@
 
             });
 
+            //$('body.page-header-fixed.page-sidebar-closed-hide-logo').addClass('page-sidebar-reversed');
         });
-        
+
+        //$(document).on('change', '#schools', function () {
+        //    var schoolDB = $(this).val();
+        //    $.cookie('schoolDB', schoolDB, { path: '/' });
+
+        //    location.reload();
+        //});
 
         function dashboardActive() {
             $('#dashboardParentTab').addClass('active');
@@ -660,7 +857,7 @@
             $('#itemsParentTab').addClass('active');
             $('#itemsParentTab').addClass('open');
             $('#itemsParentTab .arrow').addClass('open');
-            $('#itemsParentTab .sub-menu').css('display', 'block');            
+            $('#itemsParentTab .sub-menu').css('display', 'block');
             $('#itemsTab').addClass('active');
         }
 
@@ -668,7 +865,7 @@
             $('#itemsParentTab').addClass('active');
             $('#itemsParentTab').addClass('open');
             $('#itemsParentTab .arrow').addClass('open');
-            $('#itemsParentTab .sub-menu').css('display', 'block');            
+            $('#itemsParentTab .sub-menu').css('display', 'block');
             $('#itemsPricingTab').addClass('active');
         }
 
@@ -679,7 +876,7 @@
             $('#usersParentTab .sub-menu').css('display', 'block');
             $('#usersTab').addClass('active');
         }
-        
+
         function pageManagementActive() {
             $('#usersParentTab').addClass('active');
             $('#usersParentTab').addClass('open');
@@ -687,7 +884,7 @@
             $('#usersParentTab .sub-menu').css('display', 'block');
             $('#pageManagementTab').addClass('active');
         }
-        
+
         function pageManagementActive() {
             $('#usersParentTab').addClass('active');
             $('#usersParentTab').addClass('open');

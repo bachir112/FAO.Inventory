@@ -1,4 +1,5 @@
 ﻿@using Inventory.DataObjects.EDM
+@using Inventory.WebApplication.Global
 
 @model List<PageManagement>
 
@@ -19,36 +20,36 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Page Management</h5>
+                <h5 class="modal-title" id="exampleModalLabel">@Translation.GetStringValue("PageManagement")</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <h4 id="assignItem" style="color:red;">Manage Pages By Roles</h4>
+                <h4 id="assignItem" style="color:red;">@Translation.GetStringValue("ManagePagesByRoles")</h4>
                 <hr />
                 <div class="form-group">
-                    <label>Page</label>
+                    <label>@Translation.GetStringValue("Page")</label>
                     <select id="pageName" class="form-control" style="width:100%;">
                         <optgroup label="Home">
-                            <option value="Home">Home</option>
-                            <option value="Reports">Reports</option>
+                            <option value="Home">@Translation.GetStringValue("Home")</option>
+                            <option value="Reports">@Translation.GetStringValue("Reports")</option>
                         </optgroup>
                         <optgroup label="Transactions">
-                            <option value="Transactions">Transactions</option>
-                            <option value="TransactionsHistory">Transactions History</option>
+                            <option value="Transactions">@Translation.GetStringValue("Transactions")</option>
+                            <option value="TransactionsHistory">@Translation.GetStringValue("TransactionsHistory")</option>
                         </optgroup>
                         <optgroup label="Items">
-                            <option value="AddItems">Add Items</option>
-                            <option value="DeleteItems">Delete Items</option>
-                            <option value="Pricing">Pricing</option>
-                            <option value="Deteriorated">Deteriorated</option>
+                            <option value="AddItems">@Translation.GetStringValue("AddItems")</option>
+                            <option value="DeleteItems">@Translation.GetStringValue("DeleteItems")</option>
+                            <option value="Pricing">@Translation.GetStringValue("Pricing")</option>
+                            <option value="Deteriorated">@Translation.GetStringValue("Deteriorated")</option>
                         </optgroup>
                         <optgroup label="Management">
-                            <option value="Users">Users</option>
-                            <option value="Roles">Roles</option>
-                            <option value="PageManagement">Page Management</option>
-                            <option value="Suppliers">Suppliers</option>
+                            <option value="Users">@Translation.GetStringValue("Users")</option>
+                            <option value="Roles">@Translation.GetStringValue("Roles")</option>
+                            <option value="PageManagement">@Translation.GetStringValue("PageManagement")</option>
+                            <option value="Suppliers">@Translation.GetStringValue("Suppliers")</option>
                         </optgroup>
                     </select>
                 </div>
@@ -64,17 +65,17 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Authorization</label>
+                    <label>@Translation.GetStringValue("Authorization")</label>
                     <select id="allowed" class="form-control" style="width:100%;">
-                        <option value="true">Allowed</option>
-                        <option value="false">Not Allowed</option>
+                        <option value="true">@Translation.GetStringValue("Allowed")</option>
+                        <option value="false">@Translation.GetStringValue("NotAllowed")</option>
                     </select>
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button id="assignPageManagement" type="button" class="btn btn-primary">Assign</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@Translation.GetStringValue("Cancel")</button>
+                <button id="assignPageManagement" type="button" class="btn btn-primary">@Translation.GetStringValue("Assign")</button>
             </div>
         </div>
     </div>
@@ -87,15 +88,15 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Management </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("Management") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Allowed Pages</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("PageManagement")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>By Role</span>
+                    <span>@Translation.GetStringValue("ByRole")</span>
                 </li>
             </ul>
         </div>
@@ -104,13 +105,13 @@
             <div class="col-lg-12 col-xs-12 col-sm-12">
                 <div class="portlet light bordered">
                     <div class="portlet-title tabbable-line">
-                        <div class="caption">
+                        <div class="caption createNew">
                             <i class="icon-bubbles font-dark hide"></i>
-                            <span class="caption-subject font-dark bold uppercase">Authorization table</span>
+                            <span class="caption-subject font-dark bold uppercase">@Translation.GetStringValue("AuthorizationTable")</span>
                         </div>
                         <div class="caption" style="float:right;">
                             <button id="assignActionSelector" class="btn sbold green" data-toggle="modal" data-target="#assignPageAuthorizationModal">
-                                Assign
+                                @Translation.GetStringValue("Assign")
                                 <i class="fa fa-archive" aria-hidden="true"></i>
                             </button>
                         </div>
@@ -127,13 +128,13 @@
 
                                                 </th>*@
                                                 <th>
-                                                    Page Name
+                                                    @Translation.GetStringValue("PageName")
                                                 </th>
                                                 <th>
-                                                    Role Name
+                                                    @Translation.GetStringValue("Role")
                                                 </th>
                                                 <th>
-                                                    Allowed
+                                                    @Translation.GetStringValue("Allowed")                                                    
                                                 </th>
                                             </tr>
                                         </thead>
@@ -150,7 +151,7 @@
                                                     if (pagesInRole.Count() == 0)
                                                     {
                                                         <tr style="background:#f3f4f6!important;">
-                                                            <td colspan="3" style="font-size:16px;background:#fbfcfd;">No Settings Assigned</td>
+                                                            <td colspan="3" style="font-size:16px;background:#fbfcfd;">@Translation.GetStringValue("NoSettingsAssigned")</td>
                                                         </tr>
                                                     }
 

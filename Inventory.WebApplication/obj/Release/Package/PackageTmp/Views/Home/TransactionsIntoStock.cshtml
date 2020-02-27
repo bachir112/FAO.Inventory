@@ -1,4 +1,5 @@
 ﻿@using Inventory.DataObjects.EDM
+@using Inventory.WebApplication.Global
 
 @{
     ViewBag.Title = "About";
@@ -14,7 +15,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Assign item</h5>
+                <h5 class="modal-title" id="exampleModalLabel">@Translation.GetStringValue("Assign")</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -25,11 +26,11 @@
                 <div class="form-group">
                     <div class="input-icon">
                         <i class="fa fa-tasks font-green" aria-hidden="true"></i>
-                        <input id="assignQuantity" type="number" class="form-control" placeholder="Quantity">
+                        <input id="assignQuantity" type="number" class="form-control" placeholder="@Translation.GetStringValue("Quantity")">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Status</label>
+                    <label>@Translation.GetStringValue("Status")</label>
                     <select id="assignStatus" class="form-control">
                         @{
                             foreach (var availability in AvailabilityStatus)
@@ -43,23 +44,23 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>location In Stock</label>
+                    <label>@Translation.GetStringValue("LocationInStock")</label>
                     <select id="locationInStock" class="form-control">
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>ToWhom</label>
-                    <input id="toWhom" type="text" class="form-control" placeholder="To Whom" />
+                    <label>@Translation.GetStringValue("ToWhom")</label>
+                    <input id="toWhom" type="text" class="form-control" placeholder="@Translation.GetStringValue("ToWhom")" />
                 </div>
                 <div class="form-group">
-                    <label>Description</label>
+                    <label>@Translation.GetStringValue("Description")</label>
                     <textarea id="assignDescription" class="form-control" rows="3"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button id="assignItem" type="button" class="btn btn-primary">Assign</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@Translation.GetStringValue("Cancel")</button>
+                <button id="assignItem" type="button" class="btn btn-primary">@Translation.GetStringValue("Assign")</button>
             </div>
         </div>
     </div>
@@ -71,15 +72,15 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Transaction </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("Transactions") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Transactions","Home")">Items</a>
+                    <a href="@Url.Action("Transactions","Home")">@Translation.GetStringValue("Items")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>Check Items Into Your Stock</span>
+                    <span> @Translation.GetStringValue("ReturnToStock") </span>
                 </li>
             </ul>
         </div>

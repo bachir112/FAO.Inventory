@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Inventory.WebApplication.Global
+
+@{
     ViewBag.Title = "About";
 }
 
@@ -58,15 +60,15 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Items </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("Items") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Items</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Items")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>OFFICE EQUIPMENT AND SUPPLIES</span>
+                    <span>@Translation.GetStringValue("Deteriorated")</span>
                 </li>
             </ul>
         </div>

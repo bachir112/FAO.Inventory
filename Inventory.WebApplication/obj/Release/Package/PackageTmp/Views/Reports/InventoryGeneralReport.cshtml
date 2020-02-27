@@ -1,4 +1,6 @@
 ﻿@using Inventory.DataObjects.DTO
+@using Inventory.WebApplication.Global
+
 @model List<ItemsGroupedDTO>
 
 @{
@@ -17,15 +19,16 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Generated Reports </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("GeneratedReports") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Reports</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Reports")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>Inventory General Report</span>
+                    <span class="english">Inventory General Report</span>
+                    <span class="arabic">تقرير المخزون العام</span>
                 </li>
             </ul>
         </div>
@@ -36,7 +39,8 @@
                     <div class="portlet-title tabbable-line">
                         <div class="caption">
                             <i class="icon-bubbles font-dark hide"></i>
-                            <span class="caption-subject font-dark bold uppercase">Inventory General Report</span>
+                            <span class="caption-subject font-dark bold uppercase english">Inventory General Report</span>
+                            <span class="caption-subject font-dark bold uppercase arabic">تقرير المخزون العام</span>
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -46,16 +50,16 @@
                                     <table id="inventoryGeneralReportTable">
                                         <thead>
                                             <tr>
-                                                <th>Item</th>
-                                                <th>Date In</th>
-                                                <th>Code</th>
-                                                <th>Category</th>
-                                                <th>Source</th>
-                                                <th>Consumable/Non-Consumable</th>
-                                                <th>Storage Location</th>
-                                                <th>Date Out</th>
-                                                <th>Value (LBP)</th>
-                                                <th>Quantity</th>
+                                                <th>@Translation.GetStringValue("ItemName")</th>
+                                                <th>@Translation.GetStringValue("DateIn")</th>
+                                                <th>@Translation.GetStringValue("Code")</th>
+                                                <th>@Translation.GetStringValue("Category")</th>
+                                                <th>@Translation.GetStringValue("Source")</th>
+                                                <th>@Translation.GetStringValue("ConsumableNonConsumable")</th>
+                                                <th>@Translation.GetStringValue("Location")</th>
+                                                <th>@Translation.GetStringValue("DateOut")</th>
+                                                <th>@Translation.GetStringValue("Code")Value (LBP)</th>
+                                                <th>@Translation.GetStringValue("Quantity")</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -64,13 +68,16 @@
                                                 {
                                                     <tr class="odd gradeX">
                                                         <td>
-                                                            @item.Name  @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
+                                                            <span class="english">@item.Name</span>
+                                                            <span class="arabic">@item.Name_Arabic</span>
+                                                            @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
                                                         </td>
                                                         <td>
                                                             @item.ReceivedOn
                                                         </td>
                                                         <td>
-                                                            @(item.Category?.Substring(0,2))@(item.GroupedId)
+                                                            <span class="english">@(item.Category?.Substring(0, 2))@(item.GroupedId)</span>
+                                                            <span class="arabic">@(item.Category_Arabic?.Substring(0, 2))@(item.GroupedId)</span>
                                                         </td>
                                                         <td>
                                                             @item.Category
@@ -79,16 +86,14 @@
                                                             @item.Supplier
                                                         </td>
                                                         <td>
-
                                                         </td>
                                                         <td>
                                                             @item.LocationInStock
                                                         </td>
                                                         <td>
-
                                                         </td>
                                                         <td>
-                                                            @item.Price
+                                                            @item.Price L.L.
                                                         </td>
                                                         <td>
                                                             @item.Quantity

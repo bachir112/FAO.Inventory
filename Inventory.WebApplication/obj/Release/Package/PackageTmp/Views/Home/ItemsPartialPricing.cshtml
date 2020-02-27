@@ -1,4 +1,5 @@
 ﻿@using Inventory.DataObjects.DTO
+@using Inventory.WebApplication.Global
 @model List<ItemsGroupedDTO>
 
 @{
@@ -13,13 +14,13 @@
                     <tr>
                         <th>
                         </th>
-                        <th> Item Name </th>
-                        <th> Supplier </th>
-                        <th> Price </th>
-                        <th> Expiry Date </th>
-                        <th> Quantity </th>
-                        <th> Amount </th>
-                        <th> Received On </th>
+                        <th> @Translation.GetStringValue("ItemName") </th>
+                        <th> @Translation.GetStringValue("Supplier") </th>
+                        <th> @Translation.GetStringValue("Price") </th>
+                        <th> @Translation.GetStringValue("ExpiryDate") </th>
+                        <th> @Translation.GetStringValue("Quantity") </th>
+                        <th> @Translation.GetStringValue("Amount") </th>
+                        <th> @Translation.GetStringValue("ReceivedOn") </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,10 +49,11 @@
                                     <span class="setPriceForItem"
                                           style="cursor:pointer; color:#36c6d3; font-weight:bold" 
                                           data-ItemName="@item.Name"
-                                          data-itemsIDs="@item.ItemsIDs">Set</span>
+                                          data-itemsIDs="@item.ItemsIDs">@Translation.GetStringValue("Set")</span>
                                 </td>
                                 <td>
-                                    @item.Name
+                                    <span class="english">@item.Name</span>
+                                    <span class="arabic">@item.Name_Arabic</span>
                                 </td>
                                 <td>
                                     @item.Supplier

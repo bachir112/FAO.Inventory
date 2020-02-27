@@ -1,4 +1,5 @@
 ﻿@using Inventory.DataObjects.DTO
+@using Inventory.WebApplication.Global
 
 @model List<ABCItemsDTO>
 
@@ -20,15 +21,16 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Generated Reports </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("GeneratedReports") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Reports</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Reports")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span> ABC Analysis </span>
+                    <span class="english"> ABC Analysis </span>
+                    <span class="arabic"> تحليل ABC </span>
                 </li>
             </ul>
         </div>
@@ -39,7 +41,8 @@
                     <div class="portlet-title tabbable-line">
                         <div class="caption">
                             <i class="icon-bubbles font-dark hide"></i>
-                            <span class="caption-subject font-dark bold uppercase"> ABC Analysis </span>
+                            <span class="caption-subject font-dark bold uppercase english"> ABC Analysis </span>
+                            <span class="caption-subject font-dark bold uppercase arabic"> تحليل ABC </span>
                         </div>
                     </div>
                     <div class="portlet-body">

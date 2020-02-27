@@ -1,4 +1,7 @@
-﻿@model Inventory.DataObjects.EDM.Item
+﻿@using Inventory.WebApplication.Global
+
+@model Inventory.DataObjects.EDM.Item
+
 
 @{
     ViewBag.Title = "Delete";
@@ -58,7 +61,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink(Translation.GetStringValue("BackToList"), "Index")
         </div>
     }
 </div>

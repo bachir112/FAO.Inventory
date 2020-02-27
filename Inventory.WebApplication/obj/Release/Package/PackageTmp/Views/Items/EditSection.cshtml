@@ -1,5 +1,6 @@
 ﻿@using Inventory.DataObjects.DTO
 @using Inventory.DataObjects.EDM
+@using Inventory.WebApplication.Global
 
 @model Inventory.DataObjects.EDM.Item
 
@@ -85,20 +86,20 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" style="color:red;" id="exampleModalLabel">Delete item</h4>
+                <h4 class="modal-title" style="color:red;" id="exampleModalLabel">@Translation.GetStringValue("Delete")</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    Are you sure you want to delete this item from the stock?
+                    @Translation.GetStringValue("AreYouSureYouWantToDeleteThisItemFromTheStock")
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button id="deleteItemButton" type="button" class="btn btn-danger deleteItems" style="display:none;">Delete</button>
-                <button id="deleteAllItemButton" type="button" class="btn btn-danger deleteItems" style="display:none;">Delete All</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@Translation.GetStringValue("Cancel")</button>
+                <button id="deleteItemButton" type="button" class="btn btn-danger deleteItems" style="display:none;">@Translation.GetStringValue("Delete")</button>
+                <button id="deleteAllItemButton" type="button" class="btn btn-danger deleteItems" style="display:none;">@Translation.GetStringValue("DeleteAll")</button>
             </div>
         </div>
     </div>
@@ -110,15 +111,15 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Items </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("Items") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Items</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Items")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span> DELETE ITEMS IN STOCK </span>
+                    <span> @Translation.GetStringValue("DeleteItemsFromStock") </span>
                 </li>
             </ul>
         </div>

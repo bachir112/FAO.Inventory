@@ -1,8 +1,9 @@
 ﻿@using Inventory.DataObjects.EDM
+@using Inventory.WebApplication.Global
 
 @{
     ViewBag.Title = "About";
-    
+
     List<string> toWhom = ViewBag.ToWhom as List<string>;
     List<string> description = ViewBag.Description as List<string>;
 
@@ -14,14 +15,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Assign item</h5>
+                <h5 class="modal-title" id="exampleModalLabel">@Translation.GetStringValue("Assign")</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 @*<h4 id="assignItem" style="color:red;">Assigning Router</h4>
-                <hr />*@
+                    <hr />*@
                 <div class="form-group">
                     <div class="input-icon">
                         <i class="fa fa-tasks font-green" aria-hidden="true"></i>
@@ -29,7 +30,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Status</label>
+                    <label>@Translation.GetStringValue("Status")</label>
                     <select id="assignStatus" class="form-control">
                         @{
                             foreach (var availability in AvailabilityStatus)
@@ -38,27 +39,27 @@
                             }
                         }
                         @*<option value="2">Out of Stock</option>
-                        <option value="3">Out of Service</option>*@
+                            <option value="3">Out of Service</option>*@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Location In Stock</label>
+                    <label>@Translation.GetStringValue("LocationInStock")</label>
                     <select id="locationInStock" class="form-control">
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>To Whom</label>
+                    <label>@Translation.GetStringValue("ToWhom")</label>
                     <input id="toWhom" type="text" class="form-control" placeholder="To Whom" />
                 </div>
                 <div class="form-group">
-                    <label>Description</label>
+                    <label>@Translation.GetStringValue("Description")</label>
                     <textarea id="assignDescription" class="form-control" rows="3"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button id="assignItem" type="button" class="btn btn-primary">Assign</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@Translation.GetStringValue("Cancel")</button>
+                <button id="assignItem" type="button" class="btn btn-primary">@Translation.GetStringValue("Assign")</button>
             </div>
         </div>
     </div>
@@ -70,15 +71,15 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Transaction </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("Transactions") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Transactions","Home")">Items</a>
+                    <a href="@Url.Action("Transactions","Home")">@Translation.GetStringValue("Items")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>Check Items Out of Stock</span>
+                    <span>@Translation.GetStringValue("CheckItemsOutOfStock")</span>
                 </li>
             </ul>
         </div>

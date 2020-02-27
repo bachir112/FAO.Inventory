@@ -1,4 +1,6 @@
-﻿@model Inventory.DataObjects.EDM.AspNetUser
+﻿@using Inventory.WebApplication.Global
+
+@model Inventory.DataObjects.EDM.AspNetUser
 
 @{
     ViewBag.Title = "Delete";
@@ -9,21 +11,21 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Dashboard </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("Home") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Home</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Home")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>Dashboard</span>
+                    <span>@Translation.GetStringValue("Delete")</span>
                 </li>
             </ul>
         </div>
         @*Content starts here*@
         <div class="form-horizontal">
-            <h3>Are you sure you want to delete this user?</h3>
+            <h3>@Translation.GetStringValue("AreYouSureYouWantToDeleteThisUser")</h3>
             <hr />
             <dl class="dl-horizontal">
                 <dt>
@@ -44,7 +46,7 @@
             <div class="form-actions no-color">
                 <input type="submit" value="Delete" class="btn btn-default" />
                 <div style="float:right;">
-                    @Html.ActionLink("Back to List", "Index")
+                    @Html.ActionLink(Translation.GetStringValue("BackToList"), "Index")
                 </div>
             </div>
         }

@@ -95,7 +95,7 @@ namespace Inventory.WebApplication.Controllers
         }
 
         // GET: Items/Create
-        public ActionResult Create()
+        public ActionResult Create(Nullable<bool> newItem = null)
         {
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (Global.Global.isAllowed(User.Identity.GetUserId(), "AddItems"))
@@ -130,6 +130,7 @@ namespace Inventory.WebApplication.Controllers
                 ViewBag.AvailabilityStatusList = availabilityStatusList;
                 ViewBag.ItemStatusList = itemStatusList;
                 ViewBag.UnitList = unitList;
+                ViewBag.NewItem = newItem;
 
                 return View();
             }
@@ -176,10 +177,10 @@ namespace Inventory.WebApplication.Controllers
                     db.SaveChanges();
                 }
 
-                return RedirectToAction("Create");
+                return RedirectToAction("Create", new { newItem = true });
             }
 
-            return RedirectToAction("Create");
+            return RedirectToAction("Create", new { newItem = false });
         }
 
         // GET: Items/Edit/5

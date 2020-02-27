@@ -1,4 +1,4 @@
-﻿
+﻿@using Inventory.WebApplication.Global
 @{
     ViewBag.Title = "Route";
 }
@@ -8,15 +8,15 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Transactions </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("Transactions") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Transaction</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Transactions")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span> What would you like to do? </span>
+                    <span> @Translation.GetStringValue("TransactionsQuestion") </span>
                 </li>
             </ul>
         </div>
@@ -26,7 +26,7 @@
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="icon-bubble font-dark hide"></i>
-                            <span class="caption-subject font-hide bold uppercase">Take item in - out of the stock</span>
+                            <span class="caption-subject font-hide bold uppercase">@Translation.GetStringValue("TakeItemsInOut")</span>
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -37,7 +37,7 @@
                                         <img src="../images/in_stock.png" style="width:100px;">
                                     </div>
                                     <div class="mt-body">
-                                        <h3 class="mt-username">Return item to stock</h3>
+                                        <h3 class="mt-username">@Translation.GetStringValue("ReturnToStock")</h3>
                                     </div>
                                 </div>
                             </div>
@@ -47,7 +47,7 @@
                                         <img src="../images/out_of_stock.png" style="width:100px;">
                                     </div>
                                     <div class="mt-body">
-                                        <h3 class="mt-username">Take item out of stock</h3>
+                                        <h3 class="mt-username">@Translation.GetStringValue("TakeOutOfStock")</h3>
                                     </div>
                                 </div>
                             </div>

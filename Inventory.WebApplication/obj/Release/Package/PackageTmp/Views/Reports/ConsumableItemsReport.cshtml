@@ -1,4 +1,6 @@
 ﻿@using Inventory.DataObjects.DTO
+@using Inventory.WebApplication.Global
+
 @model List<ItemsInReportQuery>
 
 @{
@@ -17,15 +19,16 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Generated Reports </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("GeneratedReports") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Reports</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Reports")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>Consumable Item Report</span>
+                    <span class="english">Consumable Item Report</span>
+                    <span class="arabic">تقرير المواد الاستهلاكية</span>
                 </li>
             </ul>
         </div>
@@ -36,7 +39,8 @@
                     <div class="portlet-title tabbable-line">
                         <div class="caption">
                             <i class="icon-bubbles font-dark hide"></i>
-                            <span class="caption-subject font-dark bold uppercase">Consumable Item Report</span>
+                            <span class="caption-subject font-dark bold uppercase english">Consumable Item Report</span>
+                            <span class="caption-subject font-dark bold uppercase arabic">تقرير المواد الاستهلاكية</span>
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -46,11 +50,11 @@
                                     <table id="itemsInReportTable">
                                         <thead>
                                             <tr>
-                                                <th>Item</th>
-                                                <th>Description</th>
-                                                <th>Maximum Qty</th>
-                                                <th>Minimum Qty</th>
-                                                <th>Available</th>
+                                                <th>@Translation.GetStringValue("ItemName")</th>
+                                                <th>@Translation.GetStringValue("Description")</th>
+                                                <th>@Translation.GetStringValue("MaxQuantity")</th>
+                                                <th>@Translation.GetStringValue("MinQuantity")</th>
+                                                <th>@Translation.GetStringValue("AvailableQuantity")</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -59,7 +63,7 @@
                                                 {
                                                     <tr class="odd gradeX">
                                                         <td>
-                                                            @item.Name  @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
+                                                            @item.Name @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
                                                         </td>
                                                         <td>
                                                             @item.Description

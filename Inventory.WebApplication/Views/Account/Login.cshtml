@@ -49,14 +49,14 @@
         <div class="form-group">
             <button type="submit" class="btn red btn-block uppercase">Login</button>
         </div>
-        <div class="pull-right forget-password-block">
+        @*<div class="pull-right forget-password-block">
             <a href="javascript:;" id="forget-password" class="forget-password">Forgot Password?</a>
-        </div>
-        <div class="create-account form-group">
+        </div>*@
+        @*<div class="create-account form-group">
             <p>
                 <a href="javascript:;" class="btn-primary btn" id="register-btn">Create an account</a>
             </p>
-        </div>
+        </div>*@
     }
     @using (Html.BeginForm("ForgotPassword", "Account", FormMethod.Post, new { @class = "form-horizontal forget-form", role = "form" }))
     {

@@ -1,4 +1,5 @@
 ﻿@using Inventory.DataObjects.EDM
+@using Inventory.WebApplication.Global
 @model Inventory.DataObjects.EDM.AspNetUser
 
 @{
@@ -13,15 +14,15 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Dashboard </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("Home") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Home</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Home")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>Dashboard</span>
+                    <span>@Translation.GetStringValue("Edit")</span>
                 </li>
             </ul>
         </div>
@@ -51,7 +52,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-2" for="Email">Role</label>
+                    <label class="control-label col-md-2" for="Email">@Translation.GetStringValue("Role")</label>
                     <div class="col-md-10">
                         <select id="userRole" name="UserRole">
                             @{
@@ -148,7 +149,7 @@
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Save" class="btn btn-default" />
                         <div style="float:right;">
-                            @Html.ActionLink("Back to List", "Index")
+                            @Html.ActionLink(Translation.GetStringValue("BackToList"), "Index")
                         </div>
                     </div>
                 </div>
@@ -160,15 +161,15 @@
         <div class="form-group" style="margin-top:30px;margin-bottom:30px;">
             <div class="col-md-2" style="height:10px"></div>
             <div class="col-md-10" style="margin-bottom:15px;">
-                <button id="changePassword" class="btn btn-circle btn-success">Change user's password</button>
+                <button id="changePassword" class="btn btn-circle btn-success">@Translation.GetStringValue("ChangeUserPassword")</button>
             </div>
             <div id="newPasswordContainer" class="form-group" style="display:none;">
                 <div class="col-md-2" style="height:10px"></div>
                 <div class="col-md-8">
-                    <input class="form-control text-box single-line" id="newPassword" type="password" placeholder="New password">
+                    <input class="form-control text-box single-line" id="newPassword" type="password" placeholder="@Translation.GetStringValue("NewPassword")">
                 </div>
                 <div class="col-md-2">
-                    <button id="updateUserPassword" class="btn btn-default">Update</button>
+                    <button id="updateUserPassword" class="btn btn-default">@Translation.GetStringValue("Update")</button>
                 </div>
             </div>
         </div>

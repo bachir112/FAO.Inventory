@@ -101,36 +101,80 @@
 
         var table = $('#transactionsHistoryTable');
 
-        var oTable = table.dataTable({
-            "language": {
-                "aria": {
-                    "sortAscending": ": activate to sort column ascending",
-                    "sortDescending": ": activate to sort column descending"
+
+        var cookieVal = $.cookie("language");
+        
+        if (cookieVal == 'arabic') {
+            
+            var oTable = table.dataTable({
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "لا يوجد",
+                    "info": "عرض _START_ الى _END_ من _TOTAL_ ",
+                    "infoEmpty": "لا يوجد",
+                    "infoFiltered": "(filtered1 من _MAX_ العدد)",
+                    "lengthMenu": "_MENU_ العدد",
+                    "search": "بحث:",
+                    "zeroRecords": "لا يوجد"
                 },
-                "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
-                "infoEmpty": "No entries found",
-                "infoFiltered": "(filtered1 from _MAX_ total entries)",
-                "lengthMenu": "_MENU_ entries",
-                "search": "Search:",
-                "zeroRecords": "No matching records found"
-            },
-            "order": [
-                [6, 'desc']
-            ],
-            "lengthMenu": [
-                [5, 10, 15, 20, -1],
-                [5, 10, 15, 20, "All"] // change per page values here
-            ],
-            "pageLength": 10,
-            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
-            buttons: [
-                { extend: 'print', className: 'btn dark btn-outline' },
-                { extend: 'pdf', className: 'btn green btn-outline' },
-                { extend: 'excel', className: 'btn yellow btn-outline ' }
-            ],
-            responsive: true
-        });
+                "order": [
+                    [0, 'asc']
+                ],
+                "lengthMenu": [
+                    [5, 10, 15, 20, -1],
+                    [5, 10, 15, 20, "كل"] // change per page values here
+                ],
+                "pageLength": 10,
+                "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+                buttons: [
+                    { extend: 'print', className: 'btn dark btn-outline' },
+                    { extend: 'pdf', className: 'btn green btn-outline' },
+                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                ]
+                //,
+                //responsive: true
+            });
+
+        } 
+        else {
+            
+            var oTable = table.dataTable({
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "No data available in table",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "infoEmpty": "No entries found",
+                    "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                    "lengthMenu": "_MENU_ entries",
+                    "search": "Search:",
+                    "zeroRecords": "No matching records found"
+                },
+                "order": [
+                    [0, 'asc']
+                ],
+                "lengthMenu": [
+                    [5, 10, 15, 20, -1],
+                    [5, 10, 15, 20, "All"] // change per page values here
+                ],
+                "pageLength": 10,
+                "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+                buttons: [
+                    { extend: 'print', className: 'btn dark btn-outline' },
+                    { extend: 'pdf', className: 'btn green btn-outline' },
+                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                ]
+                //,
+                //responsive: true
+            });
+
+
+        }
     });
 
 </script>

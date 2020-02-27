@@ -1,4 +1,6 @@
 ﻿@using Inventory.DataObjects.DTO
+@using Inventory.WebApplication.Global
+
 @model List<TransactionDTO>
 
 @{
@@ -17,15 +19,16 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Generated Reports </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("GeneratedReports") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Reports")">Reports</a>
+                    <a href="@Url.Action("Index","Reports")">@Translation.GetStringValue("Reports")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span>School Transfer Report</span>
+                    <span class="english">School Transfer Report</span>
+                    <span class="arabic">تقرير نقل المدرسة</span>
                 </li>
             </ul>
         </div>
@@ -36,7 +39,8 @@
                     <div class="portlet-title tabbable-line">
                         <div class="caption">
                             <i class="icon-bubbles font-dark hide"></i>
-                            <span class="caption-subject font-dark bold uppercase">School Transfer Report</span>
+                            <span class="caption-subject font-dark bold uppercase english">School Transfer Report</span>
+                            <span class="caption-subject font-dark bold uppercase arabic">تقرير نقل المدرسة</span>
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -46,12 +50,12 @@
                                     <table id="inventoryGeneralReportTable">
                                         <thead>
                                             <tr>
-                                                <th>From</th>
-                                                <th>To</th>
-                                                <th>Item Code</th>
-                                                <th>Date Transfered</th>
-                                                <th>Quantity</th>
-                                                <th>Reason of Transfer</th>
+                                                <th>@Translation.GetStringValue("From")</th>
+                                                <th>@Translation.GetStringValue("To")</th>
+                                                <th>@Translation.GetStringValue("Code")</th>
+                                                <th>@Translation.GetStringValue("DateTransfered")</th>
+                                                <th>@Translation.GetStringValue("Quantity")</th>
+                                                <th>@Translation.GetStringValue("ReasonOfTransfer")</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -66,7 +70,8 @@
                                                             To School Name
                                                         </td>
                                                         <td>
-                                                            @item.ItemName
+                                                            <span class="english">@item.ItemName</span>
+                                                            <span class="arabic">@item.ItemName_Arabic</span>                                                            
                                                         </td>
                                                         <td>
                                                             @item.TransactionDate

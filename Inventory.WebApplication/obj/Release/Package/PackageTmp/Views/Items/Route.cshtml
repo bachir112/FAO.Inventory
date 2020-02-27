@@ -1,4 +1,5 @@
-﻿
+﻿@using Inventory.WebApplication.Global
+
 @{
     ViewBag.Title = "Route";
 }
@@ -8,15 +9,15 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Items </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("Items") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Items</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Items")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span> What would you like to do? </span>
+                    <span> @Translation.GetStringValue("TransactionsQuestion") </span>
                 </li>
             </ul>
         </div>
@@ -26,7 +27,7 @@
                     <div class="portlet-title">
                         <div class="caption">
                             <i class="icon-bubble font-dark hide"></i>
-                            <span class="caption-subject font-hide bold uppercase">Add or Delete items</span>
+                            <span class="caption-subject font-hide bold uppercase">@Translation.GetStringValue("AddOrDeleteItems")</span>
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -37,7 +38,7 @@
                                         <img src="../images/new-items.png" style="width:100px;">
                                     </div>
                                     <div class="mt-body">
-                                        <h3 class="mt-username">Add new items to stock</h3>
+                                        <h3 class="mt-username"> @Translation.GetStringValue("AddNewItemsToStock") </h3>
                                     </div>
                                 </div>
                             </div>
@@ -47,7 +48,7 @@
                                         <img src="../images/delete-items.png" style="width:100px;">
                                     </div>
                                     <div class="mt-body">
-                                        <h3 class="mt-username">Delete items in stock</h3>
+                                        <h3 class="mt-username"> @Translation.GetStringValue("DeleteItemsFromStock") </h3>
                                     </div>
                                 </div>
                             </div>

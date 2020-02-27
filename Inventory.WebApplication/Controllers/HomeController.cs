@@ -123,6 +123,7 @@ namespace Inventory.WebApplication.Controllers
                                 }).ToList();
 
                 ViewBag.CategoryName = categoryID == null ? null : db.Categories.First(x => x.Id == categoryID).Name;
+                ViewBag.CategoryNameArabic = categoryID == null ? null : db.Categories.First(x => x.Id == categoryID).Name_Arabic;
             }
 
             ViewBag.CategoryID = categoryID;
@@ -194,7 +195,7 @@ namespace Inventory.WebApplication.Controllers
                                                 .Distinct()
                                                 .ToList();
 
-                ViewBag.AvailabilityStatus = db.AvailabilityStatus.ToList();
+                ViewBag.AvailabilityStatus = db.AvailabilityStatus.Where(x => x.Id != 2).ToList();
             }
 
             return View();
@@ -217,7 +218,7 @@ namespace Inventory.WebApplication.Controllers
                                                     .Distinct()
                                                     .ToList();
 
-                    ViewBag.AvailabilityStatus = db.AvailabilityStatus.ToList();
+                    ViewBag.AvailabilityStatus = db.AvailabilityStatus.Where(x => x.Id != 1).ToList();
                 }
 
                 return View();

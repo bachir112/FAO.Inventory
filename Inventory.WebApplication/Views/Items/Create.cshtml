@@ -464,6 +464,26 @@
 </script>
 
 
+@{
+    if (ViewBag.NewItem == true)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#success_tic').modal('show');
+            });
+        </script>
+    }
+    if (ViewBag.NewItem == false)
+    {
+        <script>
+            $(document).ready(function () {
+                $('#error_result_modal').modal('show');
+            });
+        </script>
+    }
+}
+
+
 @*Autocomplete input*@
 <script type="text/javascript">
 
