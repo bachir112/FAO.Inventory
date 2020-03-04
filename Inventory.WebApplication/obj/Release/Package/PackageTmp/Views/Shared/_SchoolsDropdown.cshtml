@@ -9,9 +9,8 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-
         var cookieVal = $.cookie("schoolDB");
-
+        console.log('cookieVal = ' + cookieVal);
         $('#schools').select2();
         $('#schools').val(cookieVal).trigger('change');
     });
@@ -21,7 +20,11 @@
         var cookieVal = $.cookie("schoolDB");
 
         var schoolDB = $(this).val();
-        $.cookie('schoolDB', schoolDB, { path: '/', expires: 10000 });
+        console.log('change schoolDB = ' + schoolDB);
+
+        if (schoolDB != null) {
+            $.cookie('schoolDB', schoolDB, { path: '/' });
+        }
 
         if (schoolDB != cookieVal && schoolDB != null && cookieVal != null) {
             location.reload();

@@ -41,8 +41,16 @@ namespace Inventory.WebApplication.Controllers
 
         public ActionResult NotAuthorized()
         {
-            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
-            return View();
+            string schoolCookieValue = Global.Global.GetSchoolCookieValue();
+            if (schoolCookieValue == string.Empty || schoolCookieValue == null)
+            {
+                return RedirectToAction("LogOff", "Account");
+            }
+            else
+            {
+                ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+                return View();
+            }
         }
 
 

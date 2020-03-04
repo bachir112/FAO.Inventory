@@ -1,5 +1,6 @@
 ﻿using ClosedXML.Excel;
 using Inventory.DataObjects.EDM;
+using Inventory.WebApplication.Controllers;
 using Inventory.WebApplication.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;

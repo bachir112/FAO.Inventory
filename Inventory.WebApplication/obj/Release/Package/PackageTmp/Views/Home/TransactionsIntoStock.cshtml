@@ -10,6 +10,13 @@
     List<AvailabilityStatu> AvailabilityStatus = ViewBag.AvailabilityStatus as List<AvailabilityStatu>;
 }
 
+<style type="text/css">
+
+    #assignActionContainer{
+        display:block!important;
+    }
+
+</style>
 
 <div class="modal fade" id="assignItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -100,24 +107,18 @@
         $('#assignActionContainer').show();
     });
 
+    $(document).on('click', '#itemsTable tbody label input', function () {
+
+        $('#itemsTable tbody label input').prop('checked', false);
+        $(this).prop('checked', true);
+
+    });
+
     $(document).on('click', '#assignActionSelector', function () {
         console.log('open box');
         selectedItems = [];
 
         $('#itemsTable tbody label input:checked').each(function () {
-            //var item = {
-            //    Name: $(this).attr('data-Name'),
-            //    AvailabilityStatusID: $(this).attr('data-AvailabilityStatusID'),
-            //    ItemStatusID: $(this).attr('data-ItemStatusID'),
-            //    ExpiryDate: $(this).attr('data-ExpiryDate'),
-            //    LocationInStock: $(this).attr('data-LocationInStock'),
-            //    ReceivedOn: $(this).attr('data-ReceivedOn'),
-            //    Description: $(this).attr('data-Description'),
-            //    UnitID: $(this).attr('data-UnitID'),
-            //    UnitAmount: $(this).attr('data-UnitAmount')
-            //};
-
-            //selectedItems.push(item);
 
             var html = '';
             var locationInStock = $(this).attr('data-LocationInStock').split(',');
@@ -130,6 +131,11 @@
 
             $('#locationInStock').html('');
             $('#locationInStock').append(html);
+
+            
+            var description = $(this).attr('data-description');
+            description = description.replace(/\(.*?\)/, '').replace('(', '').replace(')', '');
+            $('#assignDescription').append(description);
         });
 
         if (selectedItems.length > 1) {

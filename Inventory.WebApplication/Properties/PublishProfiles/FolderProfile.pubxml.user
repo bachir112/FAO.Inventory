@@ -17182,10 +17182,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/25/2020 17:26:05</publishTime>
     </File>
     <File Include="bin/Inventory.WebApplication.dll">
-      <publishTime>02/27/2020 19:34:47</publishTime>
+      <publishTime>02/28/2020 00:43:18</publishTime>
     </File>
     <File Include="bin/Inventory.WebApplication.pdb">
-      <publishTime>02/27/2020 19:34:47</publishTime>
+      <publishTime>02/28/2020 00:43:18</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>02/14/2020 16:01:03</publishTime>
@@ -17566,7 +17566,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/14/2020 16:00:51</publishTime>
     </File>
     <File Include="Views/Account/Login.cshtml">
-      <publishTime>02/23/2020 10:38:56</publishTime>
+      <publishTime>02/28/2020 00:40:55</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
       <publishTime>02/14/2020 16:00:51</publishTime>
@@ -17593,7 +17593,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/17/2020 15:40:03</publishTime>
     </File>
     <File Include="Views/Home/CategoriesPartial.cshtml">
-      <publishTime>02/23/2020 14:07:24</publishTime>
+      <publishTime>02/27/2020 23:23:00</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
       <publishTime>02/14/2020 16:00:51</publishTime>
@@ -17602,13 +17602,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/23/2020 21:37:38</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>02/23/2020 13:28:14</publishTime>
+      <publishTime>02/28/2020 00:22:23</publishTime>
     </File>
     <File Include="Views/Home/ItemsPartialDefault.cshtml">
-      <publishTime>02/23/2020 21:01:00</publishTime>
+      <publishTime>02/28/2020 00:17:00</publishTime>
     </File>
     <File Include="Views/Home/ItemsPartialPricing.cshtml">
-      <publishTime>02/23/2020 21:34:01</publishTime>
+      <publishTime>02/28/2020 00:17:54</publishTime>
     </File>
     <File Include="Views/Home/NotAuthorized.cshtml">
       <publishTime>02/17/2020 14:08:44</publishTime>
@@ -17620,16 +17620,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/23/2020 15:36:15</publishTime>
     </File>
     <File Include="Views/Home/TransactionsHistory.cshtml">
-      <publishTime>02/17/2020 15:40:21</publishTime>
+      <publishTime>02/28/2020 00:19:19</publishTime>
     </File>
     <File Include="Views/Home/TransactionsIntoStock.cshtml">
-      <publishTime>02/23/2020 19:41:14</publishTime>
+      <publishTime>02/28/2020 00:30:11</publishTime>
     </File>
     <File Include="Views/Home/TransactionsOutOfStock.cshtml">
-      <publishTime>02/23/2020 15:18:50</publishTime>
+      <publishTime>02/28/2020 00:31:23</publishTime>
     </File>
     <File Include="Views/Items/Create.cshtml">
-      <publishTime>02/23/2020 20:55:32</publishTime>
+      <publishTime>02/27/2020 23:02:49</publishTime>
     </File>
     <File Include="Views/Items/Delete.cshtml">
       <publishTime>02/23/2020 20:07:34</publishTime>
@@ -17677,37 +17677,37 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/24/2020 15:23:30</publishTime>
     </File>
     <File Include="Views/Reports/BudgetLineStatementOfAccountReport.cshtml">
-      <publishTime>02/24/2020 16:34:55</publishTime>
+      <publishTime>02/28/2020 00:19:19</publishTime>
     </File>
     <File Include="Views/Reports/ConsumableItemsReport.cshtml">
-      <publishTime>02/24/2020 16:34:55</publishTime>
+      <publishTime>02/28/2020 00:19:19</publishTime>
     </File>
     <File Include="Views/Reports/DailyReport.cshtml">
-      <publishTime>02/24/2020 16:34:55</publishTime>
+      <publishTime>02/28/2020 00:19:19</publishTime>
     </File>
     <File Include="Views/Reports/FullInventoryGeneralReport.cshtml">
-      <publishTime>02/24/2020 16:34:55</publishTime>
+      <publishTime>02/28/2020 00:19:19</publishTime>
     </File>
     <File Include="Views/Reports/Index.cshtml">
       <publishTime>02/24/2020 16:34:55</publishTime>
     </File>
     <File Include="Views/Reports/InventoryGeneralReport.cshtml">
-      <publishTime>02/24/2020 16:34:55</publishTime>
+      <publishTime>02/28/2020 00:19:19</publishTime>
     </File>
     <File Include="Views/Reports/ItemsInReport.cshtml">
-      <publishTime>02/24/2020 16:34:55</publishTime>
+      <publishTime>02/28/2020 00:19:19</publishTime>
     </File>
     <File Include="Views/Reports/NonConsumableItemsReport.cshtml">
-      <publishTime>02/24/2020 16:34:55</publishTime>
+      <publishTime>02/28/2020 00:19:19</publishTime>
     </File>
     <File Include="Views/Reports/QuantityReport.cshtml">
-      <publishTime>02/24/2020 16:34:59</publishTime>
+      <publishTime>02/28/2020 00:19:19</publishTime>
     </File>
     <File Include="Views/Reports/SchoolTransferReport.cshtml">
-      <publishTime>02/24/2020 15:54:59</publishTime>
+      <publishTime>02/28/2020 00:19:19</publishTime>
     </File>
     <File Include="Views/Reports/SearchForNonConsumableReport.cshtml">
-      <publishTime>02/24/2020 16:34:56</publishTime>
+      <publishTime>02/28/2020 00:19:19</publishTime>
     </File>
     <File Include="Views/Roles/Index.cshtml">
       <publishTime>02/23/2020 22:02:28</publishTime>
@@ -17719,46 +17719,46 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/14/2020 16:00:51</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>02/24/2020 16:45:26</publishTime>
+      <publishTime>02/28/2020 00:16:21</publishTime>
     </File>
     <File Include="Views/Shared/_LoginLayout.cshtml">
-      <publishTime>02/23/2020 10:41:57</publishTime>
+      <publishTime>02/28/2020 00:41:24</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>02/14/2020 16:00:51</publishTime>
     </File>
     <File Include="Views/Shared/_SchoolsDropdown.cshtml">
-      <publishTime>02/23/2020 11:02:45</publishTime>
+      <publishTime>02/27/2020 22:52:28</publishTime>
     </File>
     <File Include="Views/Shared/_ThemeColors.cshtml">
-      <publishTime>02/23/2020 12:44:06</publishTime>
+      <publishTime>02/27/2020 22:33:47</publishTime>
     </File>
     <File Include="Views/Suppliers/Create.cshtml">
-      <publishTime>02/17/2020 15:41:52</publishTime>
+      <publishTime>02/27/2020 22:34:49</publishTime>
     </File>
     <File Include="Views/Suppliers/Delete.cshtml">
-      <publishTime>02/23/2020 20:19:25</publishTime>
+      <publishTime>02/27/2020 22:34:54</publishTime>
     </File>
     <File Include="Views/Suppliers/Details.cshtml">
       <publishTime>02/23/2020 20:09:29</publishTime>
     </File>
     <File Include="Views/Suppliers/Edit.cshtml">
-      <publishTime>02/17/2020 15:41:52</publishTime>
+      <publishTime>02/27/2020 22:34:59</publishTime>
     </File>
     <File Include="Views/Suppliers/Index.cshtml">
-      <publishTime>02/24/2020 07:19:51</publishTime>
+      <publishTime>02/28/2020 00:19:18</publishTime>
     </File>
     <File Include="Views/Users/Create.cshtml">
-      <publishTime>02/23/2020 19:59:47</publishTime>
+      <publishTime>02/27/2020 22:34:29</publishTime>
     </File>
     <File Include="Views/Users/Delete.cshtml">
-      <publishTime>02/23/2020 20:17:17</publishTime>
+      <publishTime>02/27/2020 22:34:26</publishTime>
     </File>
     <File Include="Views/Users/Details.cshtml">
       <publishTime>02/23/2020 20:10:15</publishTime>
     </File>
     <File Include="Views/Users/Edit.cshtml">
-      <publishTime>02/23/2020 20:14:37</publishTime>
+      <publishTime>02/27/2020 22:34:02</publishTime>
     </File>
     <File Include="Views/Users/Index.cshtml">
       <publishTime>02/23/2020 21:47:54</publishTime>

@@ -75,6 +75,13 @@ namespace Inventory.WebApplication.Controllers
                 return View(model);
             }
 
+            string schoolCookieValue = Global.Global.GetSchoolCookieValue();
+            if (schoolCookieValue == string.Empty || schoolCookieValue == null)
+            {
+                ModelState.AddModelError("", "Please choose schoold to continue.");
+                return View(model);
+            }
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -448,8 +455,8 @@ namespace Inventory.WebApplication.Controllers
 
         //
         // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);

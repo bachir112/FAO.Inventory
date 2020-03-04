@@ -62,7 +62,7 @@
             position: absolute;
             left: 0;
             text-align: center;
-            bottom: 25px;
+            bottom: 35px;
         }
 
         .addNewItemsSection:hover {
@@ -512,6 +512,26 @@
 
         </div>
 
+        <div id="error_result_modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <a class="close" href="#" data-dismiss="modal">X</a>
+                    <div class="page-body">
+                        <div class="head" style="text-align:center;padding:15px;">
+                            <h3 style="margin-top:5px; font-size:30px; color:red;">Error</h3>
+                        </div>
+                        <div class="modal-body" style="text-align:center;font-size:25px;padding-top:0px;">
+                            An error occurred
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
         <div class="page-header navbar navbar-fixed-top">
             <div class="page-header-inner ">
                 <div class="page-logo">
@@ -776,7 +796,7 @@
                     $(this).removeClass('fa-angle-right');
                     $(this).addClass('fa-angle-left');
                 });
-                
+
                 //$('.english').hide();
                 //$('.arabic').show();
 
