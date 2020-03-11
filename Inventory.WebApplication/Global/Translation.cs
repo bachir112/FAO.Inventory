@@ -131,6 +131,9 @@ namespace Inventory.WebApplication.Global
             { "AreYouSureYouWantToDeleteThisItemFromTheStock-english", "Are you sure you want to delete this item from the stock?"},
             { "AreYouSureYouWantToDeleteThisItemFromTheStock-arabic", "هل تريد بالتأكيد حذف هذا العنصر من المخزون؟"},
 
+            { "DeleteQuantity-english", "How much do you want to delete?"},
+            { "DeleteQuantity-arabic", "كم تريد الحذف من المخزون؟"},
+
             { "Username-english", "Username"},
             { "Username-arabic", "اسم المستخدم"},
 
@@ -384,6 +387,15 @@ namespace Inventory.WebApplication.Global
 
             { "ToWhom-english", "To Whom"},
             { "ToWhom-arabic", "إلى من"},
+
+            { "FromStatus-english", "From Status"},
+            { "FromStatus-arabic", "من"},
+
+            { "ToStatus-english", "To Status"},
+            { "ToStatus-arabic", "الى"},
+
+            { "StockKeeper-english", "StockKeeper"},
+            { "StockKeeper-arabic", "أمين المستودع"},
 
             { "Cancel-english", "Cancel"},
             { "Cancel-arabic", "إلغاء"},

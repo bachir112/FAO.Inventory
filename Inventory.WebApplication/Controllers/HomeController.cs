@@ -18,6 +18,17 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (Global.Global.isAllowed(User.Identity.GetUserId(), "Home"))
             {
+                using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+                {
+                    string userID = User.Identity.GetUserId();
+                    AspNetUser user = db.AspNetUsers.FirstOrDefault(x => x.Id == userID);
+                    if (user != null)
+                    {
+                        user.LastLogin = DateTime.Now;
+                        db.SaveChanges();
+                    }
+                }
+
                 return View();
             }
             else
@@ -109,6 +120,7 @@ namespace Inventory.WebApplication.Controllers
                 itemsInStock = (from item in db.Items
                                 where item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
                                 && item.AvailabilityStatusID == (queryID == -1 ? item.AvailabilityStatusID : queryID)
+                                && (queryID == 2 ? (item.Expandable != true) : true)
                                 group item by new { item.Name, item.AvailabilityStatusID, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.Description } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
@@ -294,6 +306,7 @@ namespace Inventory.WebApplication.Controllers
                     {
                         Id = x.Id,
                         ItemName = x.ItemName,
+                        ItemName_Arabic = x.ItemName_Arabic,
                         Quantity = x.Quantity,
                         NewAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus).Status : string.Empty,
                         NewAvailabilityStatus_Arabic = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus).Status_Arabic : string.Empty,
@@ -313,6 +326,30 @@ namespace Inventory.WebApplication.Controllers
                 return RedirectToAction("NotAuthorized", "Home");
             }
 
+        }
+
+        public JsonResult ChangeItemDescription(int itemID, string description)
+        {
+            string result = "success";
+
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            {
+                try
+                {
+                    var item = db.Items.FirstOrDefault(x => x.Id == itemID);
+                    if(item != null)
+                    {
+                        item.Description = description;
+                        db.SaveChanges();
+                    }
+                }
+                catch
+                {
+                    result = "error";
+                }
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult AssignItems(int quantity, 
@@ -428,17 +465,28 @@ namespace Inventory.WebApplication.Controllers
         {
             string result = "error";
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            foreach(var school in Global.Global.iterateThroughDatabases)
             {
-                ItemsSearchValue newItem = new ItemsSearchValue();
-                newItem.ItemName = itemName;
-                newItem.ItemName_Arabic = itemName_Arabic;
-                newItem.CategoryID = categoryID;
+                try
+                {
+                    using (var db = new InventoryEntities(school))
+                    {
+                        ItemsSearchValue newItem = new ItemsSearchValue();
+                        newItem.ItemName = itemName;
+                        newItem.ItemName_Arabic = itemName_Arabic;
+                        newItem.CategoryID = categoryID;
 
-                db.ItemsSearchValues.Add(newItem);
-                db.SaveChanges();
-                result = "success";
+                        db.ItemsSearchValues.Add(newItem);
+                        db.SaveChanges();
+                    }
+                }
+                catch
+                {
+
+                }
             }
+
+            result = "success";
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

@@ -72,7 +72,7 @@
                                             <div class="mt-comment-body">
                                                 <div class="mt-comment-info">
                                                     <span class="mt-comment-author">@Html.DisplayFor(modelUser => user.UserName)</span>
-                                                    <span class="mt-comment-date">@Translation.GetStringValue("LastLogin"): 12 Feb, 08:30AM</span>
+                                                    <span class="mt-comment-date">@Translation.GetStringValue("LastLogin"): @Html.DisplayFor(modelUser => user.LastLogin)</span>
                                                 </div>
                                                 <div class="mt-comment-text">
                                                     <h5>@Translation.GetStringValue("Role"): @user.UserRole</h5>

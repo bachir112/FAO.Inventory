@@ -23,7 +23,7 @@ namespace Inventory.WebApplication.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("AuthenticationEntities", throwIfV1Schema: false)
+            : base("AuthenticationEntities_" + Global.Global.GetSchoolCookieValue(), throwIfV1Schema: false)
         {
         }
         public ApplicationDbContext(string schoolDB)

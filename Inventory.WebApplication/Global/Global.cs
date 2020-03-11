@@ -23,6 +23,8 @@ namespace Inventory.WebApplication.Global
         static public string EnumsError = "error";
         static public string EnumsSuccess = "success";
 
+        static public List<string> iterateThroughDatabases = new List<string>() { "s1", "s2", "s3", "s4", "s5", "s6", "s7" };
+
         static public bool sendEmail(string title, string message, string sendTo)
         {
             bool result = false;

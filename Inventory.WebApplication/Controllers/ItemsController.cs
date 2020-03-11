@@ -259,13 +259,13 @@ namespace Inventory.WebApplication.Controllers
             return View(item);
         }
 
-        public JsonResult DeleteItems(string listOfIDs)
+        public JsonResult DeleteItems(string listOfIDs, int quantityToDelete)
         {
             string result = "Error";
 
             try
             {
-                List<int> listOfItemsIDs = listOfIDs.Split(',').Select(Int32.Parse).ToList();
+                List<int> listOfItemsIDs = listOfIDs.Split(',').Select(Int32.Parse).ToList().Take(quantityToDelete).ToList();
                 foreach (var ID in listOfItemsIDs)
                 {
                     Item item = db.Items.FirstOrDefault(x => x.Id == ID);

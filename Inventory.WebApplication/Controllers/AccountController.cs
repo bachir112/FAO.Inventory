@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using Inventory.WebApplication.Models;
 using System.Collections.Generic;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Inventory.DataObjects.EDM;
 
 namespace Inventory.WebApplication.Controllers
 {
@@ -59,6 +60,7 @@ namespace Inventory.WebApplication.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -88,6 +90,15 @@ namespace Inventory.WebApplication.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+                    {
+                        AspNetUser user = db.AspNetUsers.FirstOrDefault(x => x.Email == model.Email);
+                        if(user != null)
+                        {
+                            user.LastLogin = DateTime.Now;
+                            db.SaveChanges();
+                        }
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

@@ -1,4 +1,6 @@
 ﻿@using Inventory.DataObjects.DTO
+@using Inventory.WebApplication.Global
+
 @model List<TransactionDTO>
 
 @{
@@ -12,15 +14,12 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Transactions </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("TransactionsHistory") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">Transactions</a>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("TransactionsHistory")</a>
                     <i class="fa fa-angle-right"></i>
-                </li>
-                <li>
-                    <span>HISTORY</span>
                 </li>
             </ul>
         </div>
@@ -31,21 +30,21 @@
                     <div class="portlet-title">
                         <div class="caption font-dark">
                             <img src="../images/all-items.png" style="width:50px;">
-                            <span class="caption-subject bold uppercase"> History of all transactions </span>
+                            <span class="caption-subject bold uppercase"> @Translation.GetStringValue("TransactionsHistory") </span>
                         </div>
                     </div>
                     <div class="portlet-body">
                         <table id="transactionsHistoryTable" class="table table-striped table-bordered table-hover table-checkable order-column">
                             <thead>
                                 <tr>
-                                    <th> Item Name </th>
-                                    <th> Quantity </th>
-                                    <th> From Status </th>
-                                    <th> To Status </th>
-                                    <th> Description </th>
-                                    <th> StockKeeper </th>
-                                    <th> TransactionDate </th>
-                                    <th> ToWhom </th>
+                                    <th> @Translation.GetStringValue("ItemName") </th>
+                                    <th> @Translation.GetStringValue("Quantity") </th>
+                                    <th> @Translation.GetStringValue("FromStatus") </th>
+                                    <th> @Translation.GetStringValue("ToStatus") </th>
+                                    <th> @Translation.GetStringValue("Description") </th>
+                                    <th> @Translation.GetStringValue("StockKeeper") </th>
+                                    <th> @Translation.GetStringValue("DateTransfered") </th>
+                                    <th> @Translation.GetStringValue("ToWhom") </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -54,16 +53,19 @@
                                     {
                                         <tr class="odd gradeX">
                                             <td>
-                                                @transaction.ItemName
+                                                <span class="english">@transaction.ItemName</span>
+                                                <span class="arabic">@transaction.ItemName_Arabic</span>
                                             </td>
                                             <td class="center">
                                                 <span> @transaction.Quantity </span>
                                             </td>
                                             <td>
-                                                @transaction.OldAvailabilityStatus
+                                                <span class="english">@transaction.OldAvailabilityStatus</span>
+                                                <span class="arabic">@transaction.OldAvailabilityStatus_Arabic</span>
                                             </td>
                                             <td>
-                                                @transaction.NewAvailabilityStatus
+                                                <span class="english">@transaction.NewAvailabilityStatus</span>
+                                                <span class="arabic">@transaction.NewAvailabilityStatus_Arabic</span>
                                             </td>
                                             <td>
                                                 @transaction.Description
@@ -103,9 +105,9 @@
 
 
         var cookieVal = $.cookie("language");
-        
+
         if (cookieVal == 'arabic') {
-            
+
             var oTable = table.dataTable({
                 "language": {
                     "aria": {
@@ -138,9 +140,9 @@
                 //responsive: true
             });
 
-        } 
+        }
         else {
-            
+
             var oTable = table.dataTable({
                 "language": {
                     "aria": {
