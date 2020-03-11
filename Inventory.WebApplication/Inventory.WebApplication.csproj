@@ -5365,6 +5365,7 @@
     <Content Include="Images\heating.png" />
     <Content Include="Images\in_stock.png" />
     <Content Include="Images\laboratory-tools.png" />
+    <Content Include="Images\logo\ministry-logo.jpg" />
     <Content Include="Images\miscellanious.png" />
     <Content Include="Images\new-items.png" />
     <Content Include="Images\office-supplies.png" />
@@ -5721,6 +5722,7 @@
     <Content Include="assets\global\plugins\wysihtml\minified\wysihtml.toolbar.min.map" />
     <Content Include="assets\pages\media\blog\Thumbs.db" />
     <Content Include="assets\pages\media\pages\Thumbs.db" />
+    <Content Include="manifest.webmanifest" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

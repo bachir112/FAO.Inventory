@@ -1,5 +1,13 @@
 ﻿
-    <select id="schools" style="width:100%;">
+@{ 
+    string hide = "display:none;";
+    if (User.IsInRole("Admin"))
+    {
+        hide = "";
+    }
+}
+
+    <select id="schools" style="width:100%;@hide">
         <option value="s1">Fanar | فنار</option>
         <option value="s2">Abdeh | عبدي</option>
         <option value="s3">Batroun | بترون</option>
