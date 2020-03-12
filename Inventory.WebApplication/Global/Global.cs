@@ -86,8 +86,8 @@ namespace Inventory.WebApplication.Global
             }
             catch(Exception ex)
             {
-                FormsAuthentication.SignOut();
-                HttpContext.Current.Session.Abandon();
+                //FormsAuthentication.SignOut();
+                //HttpContext.Current.Session.Abandon();
             }
 
             return schoolCookieValue;

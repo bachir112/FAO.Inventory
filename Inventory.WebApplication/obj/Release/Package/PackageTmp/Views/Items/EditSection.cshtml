@@ -93,13 +93,14 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    @Translation.GetStringValue("AreYouSureYouWantToDeleteThisItemFromTheStock")
+                    @Translation.GetStringValue("DeleteQuantity")
+                    <input id="quantityToDelete" class="form-control" type="number" placeholder="@Translation.GetStringValue("Quantity")" />
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">@Translation.GetStringValue("Cancel")</button>
-                <button id="deleteItemButton" type="button" class="btn btn-danger deleteItems" style="display:none;">@Translation.GetStringValue("Delete")</button>
-                <button id="deleteAllItemButton" type="button" class="btn btn-danger deleteItems" style="display:none;">@Translation.GetStringValue("DeleteAll")</button>
+                @*<button id="deleteItemButton" type="button" class="btn btn-danger deleteItems" style="display:none;">@Translation.GetStringValue("Delete")</button>*@
+                <button id="deleteAllItemButton" type="button" class="btn btn-danger deleteItems" style="display:none;">@Translation.GetStringValue("Delete")</button>
             </div>
         </div>
     </div>
@@ -181,12 +182,13 @@
         $(document).on('click', '.deleteItems', function () {
 
             var ids = $(this).attr('data-SelectedIDs');
+            var quantity = $('#quantityToDelete').val();
 
             $.ajax({
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 type: 'POST',
-                url: "@Url.Action("DeleteItems","Items")?listOfIDs=" + ids,
+                url: "@Url.Action("DeleteItems","Items")?listOfIDs=" + ids + '&quantityToDelete=' + quantity,
                 success: function (response) {
                     $('#deleteItemModal').modal('hide');
                     refreshItemsTable();

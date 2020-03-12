@@ -33,24 +33,28 @@
                 <div id="editActionContainer" class="row" style="display:none;">
                     <div class="col-md-12">
                         <div class="btn-group">
-                            <button id="deleteActionSelector" style="margin:5px;" class="btn sbold red" data-toggle="modal" data-target="#deleteItemModal">
+                            @*<button id="deleteActionSelector" style="margin:5px;" class="btn sbold red" data-toggle="modal" data-target="#deleteItemModal">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                 @Translation.GetStringValue("DeleteOne")
-                            </button>
+                            </button>*@
 
                             <button id="batchDeletedItemActionSelector" class="btn sbold red" style="margin:5px;" data-toggle="modal" data-target="#deleteItemModal">
                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                @Translation.GetStringValue("DeleteAll")
+                                @Translation.GetStringValue("Delete")
                             </button>
                         </div>
                     </div>
                 </div>
                 <div id="assignActionContainer" class="row" style="display:none;">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="btn-group">
-                            <button id="assignActionSelector" class="btn sbold green" data-toggle="modal" data-target="#assignItemModal">
+                            <button id="assignActionSelector" style="margin:5px;" class="btn sbold green" data-toggle="modal" data-target="#assignItemModal">
                                 @Translation.GetStringValue("Assign")
                                 <i class="fa fa-archive" aria-hidden="true"></i>
+                            </button>
+                            <button id="changeDescriptionActionSelector" style="margin:5px;" class="btn sbold green" data-toggle="modal" data-target="#changeDescriptionModal">
+                                @Translation.GetStringValue("ChangeDescription")
+                                <i class="fa fa-fancybox-opened" aria-hidden="true"></i>
                             </button>
                         </div>
                     </div>

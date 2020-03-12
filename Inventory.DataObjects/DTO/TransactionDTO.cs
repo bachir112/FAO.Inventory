@@ -11,8 +11,10 @@ namespace Inventory.DataObjects.DTO
         public int Id { get; set; }
         public string ItemName { get; set; }
         public string ItemName_Arabic { get; set; }
+        public int? OldAvailabilityStatusID { get; set; }
         public string OldAvailabilityStatus { get; set; }
         public string OldAvailabilityStatus_Arabic { get; set; }
+        public int? NewAvailabilityStatusID { get; set; }
         public string NewAvailabilityStatus { get; set; }
         public string NewAvailabilityStatus_Arabic { get; set; }
         public string Description { get; set; }

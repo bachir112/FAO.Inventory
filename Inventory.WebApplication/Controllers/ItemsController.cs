@@ -73,18 +73,28 @@ namespace Inventory.WebApplication.Controllers
 
             try
             {
+                List<string> listOfItemsNames = new List<string>();
                 List<int> listOfItemsIDs = listOfIDs.Split(',').Select(Int32.Parse).ToList();
                 foreach (var ID in listOfItemsIDs)
                 {
                     Item item = db.Items.FirstOrDefault(x => x.Id == ID);
                     if(item != null)
                     {
+                        listOfItemsNames.Add(item.Name + "(" + item.Name_Arabic + ")");
                         item.Price = itemPrice;
                     }
                     db.SaveChanges();
 
                     result = "Success";
                 }
+
+                listOfItemsNames = listOfItemsNames.Distinct().Select(x => x).ToList();
+                var itemsNames = string.Join(",", listOfItemsNames);
+                Logging logging = new Logging();
+                logging.UserID = User.Identity.GetUserId();
+                logging.Action = "User " + User.Identity.Name + " changed the price of " + listOfItemsIDs.Count().ToString() + " " + itemsNames + " to LL" + itemPrice.ToString() + " on " + DateTime.Now.ToString();
+                db.Loggings.Add(logging);
+                db.SaveChanges();
             }
             catch(Exception ex)
             {
@@ -177,6 +187,12 @@ namespace Inventory.WebApplication.Controllers
                     db.SaveChanges();
                 }
 
+                Logging logging = new Logging();
+                logging.UserID = User.Identity.GetUserId();
+                logging.Action = "User " + User.Identity.Name + " created " + quantity + " " + item.Name + "(" + item.Name_Arabic + ") on " + item.ReceivedOn;
+                db.Loggings.Add(logging);
+                db.SaveChanges();
+
                 return RedirectToAction("Create", new { newItem = true });
             }
 
@@ -265,13 +281,23 @@ namespace Inventory.WebApplication.Controllers
 
             try
             {
+                List<string> listOfItemsNames = new List<string>();
                 List<int> listOfItemsIDs = listOfIDs.Split(',').Select(Int32.Parse).ToList().Take(quantityToDelete).ToList();
                 foreach (var ID in listOfItemsIDs)
                 {
                     Item item = db.Items.FirstOrDefault(x => x.Id == ID);
+                    listOfItemsNames.Add(item.Name + "(" + item.Name_Arabic + ")");
                     db.Items.Remove(item);
                     db.SaveChanges();
                 }
+
+                listOfItemsNames = listOfItemsNames.Distinct().Select(x => x).ToList();
+                var itemsNames = string.Join(",", listOfItemsNames);
+                Logging logging = new Logging();
+                logging.UserID = User.Identity.GetUserId();
+                logging.Action = "User " + User.Identity.Name + " deleted " + quantityToDelete + " " + itemsNames + " on " + DateTime.Now.ToString();
+                db.Loggings.Add(logging);
+                db.SaveChanges();
 
                 result = "Success";
             }

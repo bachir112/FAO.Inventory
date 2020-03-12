@@ -181,12 +181,21 @@ namespace Inventory.WebApplication.Controllers
                     }
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+                    {
+                        Logging logging = new Logging();
+                        logging.UserID = user.Id;
+                        logging.Action = "New user has registered " + user.Email + " on " + DateTime.Now.ToString();
+                        db.Loggings.Add(logging);
+                        db.SaveChanges();
+                    }
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -210,6 +219,15 @@ namespace Inventory.WebApplication.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+                    {
+                        Logging logging = new Logging();
+                        logging.UserID = User.Identity.GetUserId();
+                        logging.Action = "User " + User.Identity.Name + " created a new user " + model.Email + " on " + DateTime.Now.ToString();
+                        db.Loggings.Add(logging);
+                        db.SaveChanges();
+                    }
+
                     return RedirectToAction("Index", "Users");
                 }
             }

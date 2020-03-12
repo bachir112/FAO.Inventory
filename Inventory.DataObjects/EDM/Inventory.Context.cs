@@ -19,7 +19,6 @@ namespace Inventory.DataObjects.EDM
             : base("name=InventoryEntities")
         {
         }
-
         public InventoryEntities(string schoolDB)
             : base("name=InventoryEntities_" + schoolDB)
         {
@@ -46,6 +45,7 @@ namespace Inventory.DataObjects.EDM
         public virtual DbSet<ReportQuery> ReportQueries { get; set; }
         public virtual DbSet<ReportSetting> ReportSettings { get; set; }
         public virtual DbSet<Item> Items { get; set; }
+        public virtual DbSet<Logging> Loggings { get; set; }
         public virtual DbSet<TransactionsReminder> TransactionsReminders { get; set; }
     }
 }

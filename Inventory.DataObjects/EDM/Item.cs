@@ -23,8 +23,8 @@ namespace Inventory.DataObjects.EDM
         public Nullable<System.DateTime> ExpiryDate { get; set; }
         public int UnitID { get; set; }
         public Nullable<int> UnitAmount { get; set; }
-        public Nullable<decimal> Quantity { get; set; }
         public Nullable<decimal> Price { get; set; }
+        public Nullable<decimal> Quantity { get; set; }
         public Nullable<bool> Expandable { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> ReceivedOn { get; set; }
