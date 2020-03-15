@@ -123,6 +123,14 @@
     <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
   </EntityType>
+  <EntityType Name="Logging">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Action" Type="nvarchar" MaxLength="250" Nullable="false" />
+  </EntityType>
   <EntityType Name="PageManagement">
     <Key>
       <PropertyRef Name="Id" />
@@ -276,6 +284,7 @@
     <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ItemsSearchValues" EntityType="Self.ItemsSearchValues" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ItemStatus" EntityType="Self.ItemStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Logging" EntityType="Self.Logging" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PageManagement" EntityType="Self.PageManagement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ReportQueries" EntityType="Self.ReportQueries" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ReportSettings" EntityType="Self.ReportSettings" Schema="dbo" store:Type="Tables" />

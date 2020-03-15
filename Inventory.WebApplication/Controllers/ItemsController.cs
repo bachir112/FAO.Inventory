@@ -171,7 +171,7 @@ namespace Inventory.WebApplication.Controllers
                     newItem.Name_Arabic = item.Name_Arabic;
                     newItem.AvailabilityStatusID = item.AvailabilityStatusID;
                     newItem.CategoryID = item.CategoryID;
-                    newItem.Description = item.Description;
+                    newItem.Description = item.Description == null ? string.Empty : item.Description;
                     newItem.ExpiryDate = item.ExpiryDate;
                     newItem.ItemStatusID = item.ItemStatusID;
                     newItem.LocationInStock = item.LocationInStock;

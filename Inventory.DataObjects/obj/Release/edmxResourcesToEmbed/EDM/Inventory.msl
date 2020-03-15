@@ -211,6 +211,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Loggings">
+      <EntityTypeMapping TypeName="InventoryModel.Logging">
+        <MappingFragment StoreEntitySet="Logging">
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="TransactionsReminders">
       <EntityTypeMapping TypeName="InventoryModel.TransactionsReminder">
         <MappingFragment StoreEntitySet="TransactionsReminder">

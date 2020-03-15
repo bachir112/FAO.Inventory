@@ -29,6 +29,7 @@
     <EntitySet Name="ReportQueries" EntityType="InventoryModel.ReportQuery" />
     <EntitySet Name="ReportSettings" EntityType="InventoryModel.ReportSetting" />
     <EntitySet Name="Items" EntityType="InventoryModel.Item" />
+    <EntitySet Name="Loggings" EntityType="InventoryModel.Logging" />
     <EntitySet Name="TransactionsReminders" EntityType="InventoryModel.TransactionsReminder" />
   </EntityContainer>
   <EntityType Name="C__MigrationHistory">
@@ -257,6 +258,14 @@
     <Property Name="SupplierID" Type="Int32" Nullable="false" />
     <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Logging">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Action" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="TransactionsReminder">
     <Key>

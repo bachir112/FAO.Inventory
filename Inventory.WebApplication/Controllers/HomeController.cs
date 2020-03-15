@@ -116,16 +116,29 @@ namespace Inventory.WebApplication.Controllers
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
                 List<Unit> units = db.Units.ToList();
+                List<Category> categories = db.Categories.ToList();
 
                 itemsInStock = (from item in db.Items
                                 where item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
                                 && item.AvailabilityStatusID == (queryID == -1 ? item.AvailabilityStatusID : queryID)
                                 && (queryID == 2 ? (item.Expandable != true) : true)
-                                group item by new { item.Name, item.AvailabilityStatusID, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.Description } into items
+                                group item by new 
+                                { 
+                                    item.Name, 
+                                    item.CategoryID,
+                                    item.AvailabilityStatusID, 
+                                    item.ExpiryDate, 
+                                    item.UnitID, 
+                                    item.UnitAmount, 
+                                    item.ItemStatusID, 
+                                    item.Description 
+                                } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
                                 {
                                     ItemsIDs = string.Join(",", items.Select(x => x.Id).ToList()),
+                                    Category = categories.FirstOrDefault(x => x.Id == items.Key.CategoryID)?.Name,
+                                    Category_Arabic = categories.FirstOrDefault(x => x.Id == items.Key.CategoryID)?.Name_Arabic,
                                     Name = items.Key.Name,
                                     Name_Arabic = items.First().Name_Arabic,
                                     AvailabilityStatus = availabilityStatuses.FirstOrDefault(x => x.Id == items.Key.AvailabilityStatusID).Status,

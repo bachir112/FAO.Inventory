@@ -23,6 +23,9 @@ namespace Inventory.WebApplication.Global
             { "Generate-english", "Generate"},
             { "Generate-arabic", "انشاء"},
 
+            { "Scale-english", "Scale"},
+            { "Scale-arabic", "مقياس"},
+
             { "SendAsEmail-english", "Send as email"},
             { "SendAsEmail-arabic", "إرسال بالبريد الإلكتروني"},
 

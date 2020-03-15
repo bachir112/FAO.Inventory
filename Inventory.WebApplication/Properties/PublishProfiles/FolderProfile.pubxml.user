@@ -17173,19 +17173,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/06/2018 05:29:48</publishTime>
     </File>
     <File Include="bin/Inventory.DataObjects.dll">
-      <publishTime>03/11/2020 13:59:45</publishTime>
+      <publishTime>03/12/2020 09:35:09</publishTime>
     </File>
     <File Include="bin/Inventory.DataObjects.dll.config">
       <publishTime>02/14/2020 16:00:51</publishTime>
     </File>
     <File Include="bin/Inventory.DataObjects.pdb">
-      <publishTime>03/11/2020 13:59:45</publishTime>
+      <publishTime>03/12/2020 09:35:09</publishTime>
     </File>
     <File Include="bin/Inventory.WebApplication.dll">
-      <publishTime>03/11/2020 14:14:50</publishTime>
+      <publishTime>03/12/2020 09:35:11</publishTime>
     </File>
     <File Include="bin/Inventory.WebApplication.pdb">
-      <publishTime>03/11/2020 14:14:50</publishTime>
+      <publishTime>03/12/2020 09:35:11</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>02/14/2020 16:01:03</publishTime>
@@ -17620,7 +17620,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/17/2020 14:08:44</publishTime>
     </File>
     <File Include="Views/Home/RecentTransactionsPartial.cshtml">
-      <publishTime>02/23/2020 15:00:57</publishTime>
+      <publishTime>03/12/2020 09:33:39</publishTime>
     </File>
     <File Include="Views/Home/Transactions.cshtml">
       <publishTime>02/23/2020 15:36:15</publishTime>
