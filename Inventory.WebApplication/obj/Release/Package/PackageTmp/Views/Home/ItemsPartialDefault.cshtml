@@ -66,6 +66,7 @@
                         <th>
                         </th>
                         <th> @Translation.GetStringValue("ItemName") </th>
+                        <th> @Translation.GetStringValue("Category") </th>
                         <th> @Translation.GetStringValue("Availability") </th>
                         <th> @Translation.GetStringValue("ExpiryDate") </th>
                         <th> @Translation.GetStringValue("Quantity") </th>
@@ -96,52 +97,56 @@
                                     break;
                             }
 
-                            <tr class="odd gradeX">
-                                <td>
-                                    <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-                                        <input type="checkbox" class="checkboxes"
-                                               data-itemsIDs="@item.ItemsIDs"
-                                               data-Name="@item.Name"
-                                               data-AvailabilityStatusID="@item.AvailabilityStatusID"
-                                               data-ItemStatusID="@item.ItemStatusID"
-                                               data-ExpiryDate="@item.ExpiryDate"
-                                               data-LocationInStock="@item.LocationInStock"
-                                               data-ReceivedOn="@item.ReceivedOn"
-                                               data-Description="@item.Description"
-                                               data-UnitID="@item.UnitID"
-                                               data-UnitAmount="@item.UnitAmount" />
-                                        <span></span>
-                                    </label>
-                                </td>
-                                <td>
-                                    <span class="english">@item.Name</span>
-                                    <span class="arabic">@item.Name_Arabic</span>
-                                </td>
-                                <td>
-                                    <span class="label label-sm label-@AvailabilityStatusColor">
-                                        <span class="english">@item.AvailabilityStatus</span>
-                                        <span class="arabic">@item.AvailabilityStatus_Arabic</span>
-                                    </span>
-                                </td>
-                                <td>
-                                    @item.ExpiryDate
-                                </td>
-                                <td>
-                                    @item.Quantity
-                                </td>
-                                <td>
-                                    @item.UnitAmount @item.Unit
-                                </td>
-                                <td class="center">
-                                    @item.LocationInStock
-                                </td>
-                                <td>
-                                    @item.Description
-                                </td>
-                                <td>
-                                    @item.ReceivedOn
-                                </td>
-                            </tr>
+                                        <tr class="odd gradeX">
+                                            <td>
+                                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                                    <input type="checkbox" class="checkboxes"
+                                                           data-itemsIDs="@item.ItemsIDs"
+                                                           data-Name="@item.Name"
+                                                           data-AvailabilityStatusID="@item.AvailabilityStatusID"
+                                                           data-ItemStatusID="@item.ItemStatusID"
+                                                           data-ExpiryDate="@item.ExpiryDate"
+                                                           data-LocationInStock="@item.LocationInStock"
+                                                           data-ReceivedOn="@item.ReceivedOn"
+                                                           data-Description="@item.Description"
+                                                           data-UnitID="@item.UnitID"
+                                                           data-UnitAmount="@item.UnitAmount" />
+                                                    <span></span>
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <span class="english">@item.Name</span>
+                                                <span class="arabic">@item.Name_Arabic</span>
+                                            </td>
+                                            <td>
+                                                <span class="english">@item.Category</span>
+                                                <span class="arabic">@item.Category_Arabic</span>
+                                            </td>
+                                            <td>
+                                                <span class="label label-sm label-@AvailabilityStatusColor">
+                                                    <span class="english">@item.AvailabilityStatus</span>
+                                                    <span class="arabic">@item.AvailabilityStatus_Arabic</span>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                @item.ExpiryDate
+                                            </td>
+                                            <td>
+                                                @item.Quantity
+                                            </td>
+                                            <td>
+                                                @item.UnitAmount @item.Unit
+                                            </td>
+                                            <td class="center">
+                                                @item.LocationInStock
+                                            </td>
+                                            <td>
+                                                @item.Description
+                                            </td>
+                                            <td>
+                                                @item.ReceivedOn
+                                            </td>
+                                        </tr>
                         }
                     }
                 </tbody>

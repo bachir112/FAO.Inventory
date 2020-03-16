@@ -17182,10 +17182,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/12/2020 09:35:09</publishTime>
     </File>
     <File Include="bin/Inventory.WebApplication.dll">
-      <publishTime>03/12/2020 09:35:11</publishTime>
+      <publishTime>03/15/2020 12:03:21</publishTime>
     </File>
     <File Include="bin/Inventory.WebApplication.pdb">
-      <publishTime>03/12/2020 09:35:11</publishTime>
+      <publishTime>03/15/2020 12:03:21</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>02/14/2020 16:01:03</publishTime>
@@ -17611,7 +17611,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/28/2020 00:22:23</publishTime>
     </File>
     <File Include="Views/Home/ItemsPartialDefault.cshtml">
-      <publishTime>03/11/2020 12:07:07</publishTime>
+      <publishTime>03/15/2020 11:57:55</publishTime>
     </File>
     <File Include="Views/Home/ItemsPartialPricing.cshtml">
       <publishTime>02/28/2020 00:17:54</publishTime>
@@ -17635,7 +17635,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/11/2020 11:49:38</publishTime>
     </File>
     <File Include="Views/Items/Create.cshtml">
-      <publishTime>02/27/2020 23:02:49</publishTime>
+      <publishTime>03/15/2020 11:34:04</publishTime>
     </File>
     <File Include="Views/Items/Delete.cshtml">
       <publishTime>02/23/2020 20:07:34</publishTime>
@@ -17695,7 +17695,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/28/2020 00:19:19</publishTime>
     </File>
     <File Include="Views/Reports/Index.cshtml">
-      <publishTime>02/24/2020 16:34:55</publishTime>
+      <publishTime>03/15/2020 11:35:11</publishTime>
     </File>
     <File Include="Views/Reports/InventoryGeneralReport.cshtml">
       <publishTime>02/28/2020 00:19:19</publishTime>

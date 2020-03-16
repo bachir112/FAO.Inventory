@@ -253,7 +253,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="control-label col-md-2" for="UnitAmount">@Translation.GetStringValue("Amount")</label>
+                                                <label class="control-label col-md-2" id="amountText" for="UnitAmount">@Translation.GetStringValue("Amount")</label>
                                                 <div class="col-md-10">
                                                     @Html.EditorFor(model => model.UnitAmount, new { htmlAttributes = new { @class = "form-control" } })
                                                     @Html.ValidationMessageFor(model => model.UnitAmount, "", new { @class = "text-danger" })
@@ -363,8 +363,10 @@
             var unitValue = $(this).val();
             if (unitValue != 1) {
                 $('#quantityContainer').show();
+                $('#amountText').text('@Translation.GetStringValue("Scale")');
             } else {
                 $('#quantityContainer').hide();
+                $('#amountText').text('@Translation.GetStringValue("Amount")');
             }
 
         });
