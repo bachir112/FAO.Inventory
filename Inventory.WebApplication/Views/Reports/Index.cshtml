@@ -20,6 +20,20 @@
     }
 </style>
 
+<div id="sendEmailModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <input id="user_email" type="text" class="form-control" placeholder="Your email">
+            </div>
+            <div class="modal-footer">
+                <button id="sendEmail" class="btn btn-primary" data-dismiss="modal">
+                    @Translation.GetStringValue("SendAsEmail")
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="reportSettingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -221,7 +235,7 @@
                                                 <a href="@Url.Action("InventoryGeneralReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:sendEmail('InventoryGeneralReport');">@Translation.GetStringValue("SendAsEmail")</a>
+                                                <a href="javascript:openEmailModal('InventoryGeneralReport');">@Translation.GetStringValue("SendAsEmail")</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -255,7 +269,7 @@
                                                 <a href="@Url.Action("ItemsInReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:sendEmail('ItemsInReport');">@Translation.GetStringValue("SendAsEmail")</a>
+                                                <a href="javascript:openEmailModal('ItemsInReport');">@Translation.GetStringValue("SendAsEmail")</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -289,7 +303,7 @@
                                                 <a href="@Url.Action("SearchForNonConsumableReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:sendEmail('SearchForNonConsumableReport');">@Translation.GetStringValue("SendAsEmail")</a>
+                                                <a href="javascript:openEmailModal('SearchForNonConsumableReport');">@Translation.GetStringValue("SendAsEmail")</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -323,7 +337,7 @@
                                                 <a href="@Url.Action("DailyReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:sendEmail('DailyReport');">@Translation.GetStringValue("SendAsEmail")</a>
+                                                <a href="javascript:openEmailModal('DailyReport');">@Translation.GetStringValue("SendAsEmail")</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -357,7 +371,7 @@
                                                 <a href="@Url.Action("ConsumableItemsReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:sendEmail('ConsumableItemsReport');">@Translation.GetStringValue("SendAsEmail")</a>
+                                                <a href="javascript:openEmailModal('ConsumableItemsReport');">@Translation.GetStringValue("SendAsEmail")</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -391,7 +405,7 @@
                                                 <a href="@Url.Action("NonConsumableItemsReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:sendEmail('NonConsumableItemsReport');">@Translation.GetStringValue("SendAsEmail")</a>
+                                                <a href="javascript:openEmailModal('NonConsumableItemsReport');">@Translation.GetStringValue("SendAsEmail")</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -425,7 +439,7 @@
                                                 <a href="@Url.Action("FullInventoryGeneralReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:sendEmail('FullInventoryGeneralReport');">@Translation.GetStringValue("SendAsEmail")</a>
+                                                <a href="javascript:openEmailModal('FullInventoryGeneralReport');">@Translation.GetStringValue("SendAsEmail")</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -459,7 +473,7 @@
                                                 <a href="@Url.Action("BudgetLineStatementOfAccountReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:sendEmail('BudgetLineStatementOfAccountReport');">@Translation.GetStringValue("SendAsEmail")</a>
+                                                <a href="javascript:openEmailModal('BudgetLineStatementOfAccountReport');">@Translation.GetStringValue("SendAsEmail")</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -493,7 +507,7 @@
                                                 <a href="@Url.Action("QuantityReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:sendEmail('QuantityReport');">@Translation.GetStringValue("SendAsEmail")</a>
+                                                <a href="javascript:openEmailModal('QuantityReport');">@Translation.GetStringValue("SendAsEmail")</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -523,7 +537,7 @@
                                                 <a href="@Url.Action("SchoolTransferReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             <li>
-                                                <a href="javascript:sendEmail('SchoolTransferReport');">@Translation.GetStringValue("SendAsEmail")</a>
+                                                <a href="javascript:openEmailModal('SchoolTransferReport');">@Translation.GetStringValue("SendAsEmail")</a>
                                             </li>
                                             <li class="divider"> </li>
                                             <li>
@@ -785,16 +799,39 @@
         });
     });
 
-    function sendEmail(reportName) {
-        var url = reportName + '_Email';
-        $.ajax({
-            url: url,
-            type: "POST",
-            success: function (data) {
-                $('#success_tic').modal('show');
-            }
+    var reportNameGlobal = '';
+    function openEmailModal(reportName) {
+        reportNameGlobal = reportName;
+        $('#sendEmailModal').modal('show');
+        console.log('reportNameGlobal = ' + reportNameGlobal);
+    }
+
+    $(document).ready(function () {
+
+        $('#sendEmail').click(function () {
+            var url = reportNameGlobal + '_Email?email=' + $('#user_email').val();
+            console.log('url = ' + url);
+            $.ajax({
+                url: url,
+                type: "POST",
+                success: function (data) {
+                    $('#success_tic').modal('show');
+                }
+            });
         });
 
-    }
+    });
+
+    //function sendEmail() {
+    //    var url = reportName + '_Email?email=' + $('#user_email').val();
+    //    console.log('url = ' + url);
+    //    $.ajax({
+    //        url: url,
+    //        type: "POST",
+    //        success: function (data) {
+    //            $('#success_tic').modal('show');
+    //        }
+    //    });
+    //}
 
 </script>

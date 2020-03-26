@@ -187,7 +187,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
         
-        public void InventoryGeneralReport_Email(string usersListID = null, string queryReport = null)
+        public void InventoryGeneralReport_Email(string email, string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
@@ -223,8 +223,7 @@ namespace Inventory.WebApplication.Controllers
                 if (usersListID == null)
                 {
                     string userID = User.Identity.GetUserId();
-                    sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                    Global.Global.sendEmail("Inventory General Report", emailBody, sendToEmail);
+                    Global.Global.sendEmail("Inventory General Report", emailBody, email);
                 }
                 else
                 {
@@ -232,8 +231,7 @@ namespace Inventory.WebApplication.Controllers
                     List<string> usersList = usersListID.Split(',').ToList();
                     foreach (var userID in usersList)
                     {
-                        sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                        Global.Global.sendEmail("Inventory General Report", emailBody, sendToEmail);
+                        Global.Global.sendEmail("Inventory General Report", emailBody, email);
                     }
                 }
             }
@@ -273,7 +271,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
 
-        public void ItemsInReport_Email(string usersListID = null, string queryReport = null)
+        public void ItemsInReport_Email(string email, string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
@@ -309,7 +307,7 @@ namespace Inventory.WebApplication.Controllers
                 {
                     string userID = User.Identity.GetUserId();
                     sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                    Global.Global.sendEmail("Items In Report", emailBody, sendToEmail);
+                    Global.Global.sendEmail("Items In Report", emailBody, email);
                 }
                 else
                 {
@@ -318,7 +316,7 @@ namespace Inventory.WebApplication.Controllers
                     foreach (var userID in usersList)
                     {
                         sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                        Global.Global.sendEmail("Items In Report", emailBody, sendToEmail);
+                        Global.Global.sendEmail("Items In Report", emailBody, email);
                     }
                 }
             }
@@ -350,7 +348,7 @@ namespace Inventory.WebApplication.Controllers
             return View(result);
         }
 
-        public void SearchForNonConsumableReport_Email(string usersListID = null, string queryReport = null)
+        public void SearchForNonConsumableReport_Email(string email, string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<TransactionDTO> result = new List<TransactionDTO>();
@@ -378,7 +376,7 @@ namespace Inventory.WebApplication.Controllers
                 {
                     string userID = User.Identity.GetUserId();
                     sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                    Global.Global.sendEmail("Search For Non Consumable Report", emailBody, sendToEmail);
+                    Global.Global.sendEmail("Search For Non Consumable Report", emailBody, email);
                 }
                 else
                 {
@@ -387,7 +385,7 @@ namespace Inventory.WebApplication.Controllers
                     foreach (var userID in usersList)
                     {
                         sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                        Global.Global.sendEmail("Search For Non Consumable Report", emailBody, sendToEmail);
+                        Global.Global.sendEmail("Search For Non Consumable Report", emailBody, email);
                     }
                 }
             }
@@ -406,7 +404,7 @@ namespace Inventory.WebApplication.Controllers
             return View(transactionsReminders);
         }
 
-        public void DailyReport_Email(string usersListID = null, string queryReport = null)
+        public void DailyReport_Email(string email, string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<TransactionsReminder> transactionsReminders = new List<TransactionsReminder>();
@@ -422,7 +420,7 @@ namespace Inventory.WebApplication.Controllers
                 {
                     string userID = User.Identity.GetUserId();
                     sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                    Global.Global.sendEmail("Daily Report", emailBody, sendToEmail);
+                    Global.Global.sendEmail("Daily Report", emailBody, email);
                 }
                 else
                 {
@@ -431,7 +429,7 @@ namespace Inventory.WebApplication.Controllers
                     foreach(var userID in usersList)
                     {
                         sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                        Global.Global.sendEmail("Daily Report", emailBody, sendToEmail);
+                        Global.Global.sendEmail("Daily Report", emailBody, email);
                     }
                 }
             }
@@ -487,7 +485,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInReportQuery);
         }
 
-        public void ConsumableItemsReport_Email(string usersListID = null, string queryReport = null)
+        public void ConsumableItemsReport_Email(string email, string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsInReportQuery> itemsInReportQuery = new List<ItemsInReportQuery>();
@@ -539,7 +537,7 @@ namespace Inventory.WebApplication.Controllers
                 {
                     string userID = User.Identity.GetUserId();
                     sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                    Global.Global.sendEmail("Consumable Items Report", emailBody, sendToEmail);
+                    Global.Global.sendEmail("Consumable Items Report", emailBody, email);
                 }
                 else
                 {
@@ -548,7 +546,7 @@ namespace Inventory.WebApplication.Controllers
                     foreach (var userID in usersList)
                     {
                         sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                        Global.Global.sendEmail("Consumable Items Report", emailBody, sendToEmail);
+                        Global.Global.sendEmail("Consumable Items Report", emailBody, email);
                     }
                 }
             }
@@ -605,7 +603,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInReportQuery);
         }
 
-        public void NonConsumableItemsReport_Email(string usersListID = null, string queryReport = null)
+        public void NonConsumableItemsReport_Email(string email, string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsInReportQuery> itemsInReportQuery = new List<ItemsInReportQuery>();
@@ -657,7 +655,7 @@ namespace Inventory.WebApplication.Controllers
                 {
                     string userID = User.Identity.GetUserId();
                     sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                    Global.Global.sendEmail("Non Consumable Items Report", emailBody, sendToEmail);
+                    Global.Global.sendEmail("Non Consumable Items Report", emailBody, email);
                 }
                 else
                 {
@@ -666,7 +664,7 @@ namespace Inventory.WebApplication.Controllers
                     foreach (var userID in usersList)
                     {
                         sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                        Global.Global.sendEmail("Non Consumable Items Report", emailBody, sendToEmail);
+                        Global.Global.sendEmail("Non Consumable Items Report", emailBody, email);
                     }
                 }
             }
@@ -713,7 +711,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
 
-        public void FullInventoryGeneralReport_Email(string usersListID = null, string queryReport = null)
+        public void FullInventoryGeneralReport_Email(string email, string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
@@ -755,7 +753,7 @@ namespace Inventory.WebApplication.Controllers
                 {
                     string userID = User.Identity.GetUserId();
                     sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                    Global.Global.sendEmail("Full Inventory General Report", emailBody, sendToEmail);
+                    Global.Global.sendEmail("Full Inventory General Report", emailBody, email);
                 }
                 else
                 {
@@ -764,7 +762,7 @@ namespace Inventory.WebApplication.Controllers
                     foreach (var userID in usersList)
                     {
                         sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                        Global.Global.sendEmail("Full Inventory General Report", emailBody, sendToEmail);
+                        Global.Global.sendEmail("Full Inventory General Report", emailBody, email);
                     }
                 }
             }
@@ -809,7 +807,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
 
-        public void BudgetLineStatementOfAccountReport_Email(string usersListID = null, string queryReport = null)
+        public void BudgetLineStatementOfAccountReport_Email(string email, string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
@@ -849,7 +847,7 @@ namespace Inventory.WebApplication.Controllers
                 {
                     string userID = User.Identity.GetUserId();
                     sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                    Global.Global.sendEmail("BudgetLine Statement Of Account Report", emailBody, sendToEmail);
+                    Global.Global.sendEmail("BudgetLine Statement Of Account Report", emailBody, email);
                 }
                 else
                 {
@@ -858,7 +856,7 @@ namespace Inventory.WebApplication.Controllers
                     foreach (var userID in usersList)
                     {
                         sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                        Global.Global.sendEmail("BudgetLine Statement Of Account Report", emailBody, sendToEmail);
+                        Global.Global.sendEmail("BudgetLine Statement Of Account Report", emailBody, email);
                     }
                 }
             }
@@ -903,7 +901,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
 
-        public void QuantityReport_Email(string usersListID = null, string queryReport = null)
+        public void QuantityReport_Email(string email, string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
@@ -942,7 +940,7 @@ namespace Inventory.WebApplication.Controllers
                 {
                     string userID = User.Identity.GetUserId();
                     sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                    Global.Global.sendEmail("Quantity Report", emailBody, sendToEmail);
+                    Global.Global.sendEmail("Quantity Report", emailBody, email);
                 }
                 else
                 {
@@ -951,7 +949,7 @@ namespace Inventory.WebApplication.Controllers
                     foreach (var userID in usersList)
                     {
                         sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                        Global.Global.sendEmail("Quantity Report", emailBody, sendToEmail);
+                        Global.Global.sendEmail("Quantity Report", emailBody, email);
                     }
                 }
             }
@@ -990,7 +988,7 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
 
-        public void SchoolTransferReport_Email(string usersListID = null, string queryReport = null)
+        public void SchoolTransferReport_Email(string email, string usersListID = null, string queryReport = null)
         {
             string sendToEmail = string.Empty;
             List<TransactionDTO> itemsInStock = new List<TransactionDTO>();
@@ -1024,7 +1022,7 @@ namespace Inventory.WebApplication.Controllers
                 {
                     string userID = User.Identity.GetUserId();
                     sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                    Global.Global.sendEmail("School Transfer Report", emailBody, sendToEmail);
+                    Global.Global.sendEmail("School Transfer Report", emailBody, email);
                 }
                 else
                 {
@@ -1033,7 +1031,7 @@ namespace Inventory.WebApplication.Controllers
                     foreach (var userID in usersList)
                     {
                         sendToEmail = db.AspNetUsers.First(x => x.Id == userID).Email;
-                        Global.Global.sendEmail("School Transfer Report", emailBody, sendToEmail);
+                        Global.Global.sendEmail("School Transfer Report", emailBody, email);
                     }
                 }
             }

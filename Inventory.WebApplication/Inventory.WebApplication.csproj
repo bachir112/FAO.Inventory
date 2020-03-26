@@ -5366,6 +5366,7 @@
     <Content Include="Images\in_stock.png" />
     <Content Include="Images\laboratory-tools.png" />
     <Content Include="Images\logo\ministry-logo.jpg" />
+    <Content Include="Images\logo\ministry-logo.png" />
     <Content Include="Images\miscellanious.png" />
     <Content Include="Images\new-items.png" />
     <Content Include="Images\office-supplies.png" />

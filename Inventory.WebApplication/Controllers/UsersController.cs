@@ -191,33 +191,72 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             string response = Global.Global.EnumsError;
 
-            using (var context = new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))
+            if (User.IsInRole("Admin"))
             {
-                var userStore = new UserStore<ApplicationUser>(context);
-                var userManager = new UserManager<ApplicationUser>(userStore);
-                
-                userID = userID == null ? User.Identity.GetUserId() : userID;
-                string hashedNewPassword = userManager.PasswordHasher.HashPassword(newPassword);
-
-                ApplicationUser cUser = await userStore.FindByIdAsync(userID);
-                await userStore.SetPasswordHashAsync(cUser, hashedNewPassword);
-                await userStore.UpdateAsync(cUser);
-
-
-                ApplicationUser user = userManager.FindByName(User.Identity.Name);
-                string mail = user.Email;
-
-                bool emailSent = Global.Global.sendEmail(
-                            User.Identity.Name + " your password has been reset",
-
-                            "Your new password is: " + newPassword,
-
-                            mail
-                          );
-
-                if (emailSent)
+                foreach (var school in Global.Global.iterateThroughDatabases)
                 {
-                    response = Global.Global.EnumsSuccess;
+                    using (var context = new ApplicationDbContext(school))
+                    {
+                        var userStore = new UserStore<ApplicationUser>(context);
+                        var userManager = new UserManager<ApplicationUser>(userStore);
+
+                        userID = userID == null ? User.Identity.GetUserId() : userID;
+                        string hashedNewPassword = userManager.PasswordHasher.HashPassword(newPassword);
+
+                        ApplicationUser cUser = await userStore.FindByIdAsync(userID);
+                        await userStore.SetPasswordHashAsync(cUser, hashedNewPassword);
+                        await userStore.UpdateAsync(cUser);
+
+
+                        ApplicationUser user = userManager.FindByName(User.Identity.Name);
+                        string mail = user.Email;
+
+                        bool emailSent = Global.Global.sendEmail(
+                                    User.Identity.Name + " your password has been reset",
+
+                                    "Your new password is: " + newPassword,
+
+                                    mail
+                                  );
+
+                        if (emailSent)
+                        {
+                            response = Global.Global.EnumsSuccess;
+                        }
+                    }
+                }
+
+            }
+            else
+            {
+                using (var context = new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))
+                {
+                    var userStore = new UserStore<ApplicationUser>(context);
+                    var userManager = new UserManager<ApplicationUser>(userStore);
+
+                    userID = userID == null ? User.Identity.GetUserId() : userID;
+                    string hashedNewPassword = userManager.PasswordHasher.HashPassword(newPassword);
+
+                    ApplicationUser cUser = await userStore.FindByIdAsync(userID);
+                    await userStore.SetPasswordHashAsync(cUser, hashedNewPassword);
+                    await userStore.UpdateAsync(cUser);
+
+
+                    ApplicationUser user = userManager.FindByName(User.Identity.Name);
+                    string mail = user.Email;
+
+                    bool emailSent = Global.Global.sendEmail(
+                                User.Identity.Name + " your password has been reset",
+
+                                "Your new password is: " + newPassword,
+
+                                mail
+                              );
+
+                    if (emailSent)
+                    {
+                        response = Global.Global.EnumsSuccess;
+                    }
                 }
             }
 
