@@ -191,6 +191,7 @@
     <EntitySetMapping Name="Items">
       <EntityTypeMapping TypeName="InventoryModel.Item">
         <MappingFragment StoreEntitySet="Items">
+          <ScalarProperty Name="PendingTransferApproval" ColumnName="PendingTransferApproval" />
           <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
           <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />

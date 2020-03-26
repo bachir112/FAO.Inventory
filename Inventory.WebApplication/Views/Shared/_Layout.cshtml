@@ -686,6 +686,15 @@
                                         </li>
                                     }
 
+                                    if (Convert.ToBoolean(PageManagement.FirstOrDefault(x => x.PageName == "TransferApproval")?.Allowed))
+                                    {
+                                        <li id="itemsTransferApprovalTab" class="nav-item">
+                                            <a href="@Url.Action("ApproveTransferPage","Items")" class="nav-link ">
+                                                <span class="title">@Translation.GetStringValue("ApproveTransfer")</span>
+                                            </a>
+                                        </li>
+                                    }
+
                                     if (Convert.ToBoolean(PageManagement.FirstOrDefault(x => x.PageName == "Deteriorated")?.Allowed))
                                     {
                                         <li id="categoriesTab" class="nav-item">

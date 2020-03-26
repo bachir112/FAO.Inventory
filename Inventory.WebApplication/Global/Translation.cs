@@ -272,7 +272,12 @@ namespace Inventory.WebApplication.Global
 
             { "IsASchool-english", "Is a School"},
             { "IsASchool-arabic", "هل هو مدرسة؟"},
-                        
+
+            { "ApproveTransfer-english", "Approve Transfer"},
+            { "ApproveTransfer-arabic", "الموافقة على النقل"},
+
+            { "Approve-english", "Approve"},
+            { "Approve-arabic", "الموافقة"},
 
             { "Suppliers-english", "Suppliers"},
             { "Suppliers-arabic", "الموردين"},

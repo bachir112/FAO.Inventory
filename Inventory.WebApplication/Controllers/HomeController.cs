@@ -200,6 +200,44 @@ namespace Inventory.WebApplication.Controllers
             return View(itemsInStock);
         }
 
+        public ActionResult ItemsPartialApproval(Nullable<int> categoryID = null, Nullable<DateTime> fromDate = null, Nullable<DateTime> toDate = null)
+        {
+            List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
+
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            {
+                List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
+                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Unit> units = db.Units.ToList();
+
+                itemsInStock = (from item in db.Items
+                                where item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
+                                && (fromDate == null ? true : item.ReceivedOn >= fromDate)
+                                && (toDate == null ? true : item.ReceivedOn <= toDate)
+                                && item.AvailabilityStatusID == 1002
+                                && item.PendingTransferApproval == "waiting"
+                                group item by new { item.Name, item.ExpiryDate, item.UnitID, item.UnitAmount, item.SupplierID, item.ReceivedOn, item.Description } into items
+                                select items).AsEnumerable().Select(
+                                items => new ItemsGroupedDTO()
+                                {
+                                    ItemsIDs = string.Join(",", items.Select(x => x.Id).ToList()),
+                                    Name = items.Key.Name,
+                                    Name_Arabic = items.First().Name_Arabic,
+                                    Description = items.Key.Description,
+                                    Supplier = suppliers.FirstOrDefault(x => x.Id == items.Key.SupplierID)?.Supplier1,
+                                    Quantity = items.Count(),
+                                    ExpiryDate = items.Key.ExpiryDate,
+                                    UnitID = items.Key.UnitID,
+                                    UnitAmount = items.Key.UnitAmount,
+                                    ReceivedOn = items.Key.ReceivedOn,
+                                    Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID)?.Name
+                                }).ToList();
+            }
+
+            return View(itemsInStock);
+        }
+
+
         public ActionResult Transactions()
         {
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
@@ -423,6 +461,11 @@ namespace Inventory.WebApplication.Controllers
 
                     itemInDB.ForEach(x => x.AvailabilityStatusID = AvailabilityStatusID);
                     itemInDB.ForEach(x => x.Description = Description);
+
+                    if(AvailabilityStatusID == 1002)
+                    {
+                        itemInDB.ForEach(x => x.PendingTransferApproval = "waiting");
+                    }
 
                     Transaction newTransaction = new Transaction();
                     newTransaction.ItemName = itemInDB.FirstOrDefault() != null ? itemInDB.First().Name : string.Empty;

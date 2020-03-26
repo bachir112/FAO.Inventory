@@ -104,6 +104,7 @@
     <Property Name="SupplierID" Type="int" Nullable="false" />
     <Property Name="ModifiedBy" Type="nvarchar" MaxLength="250" />
     <Property Name="ModifiedOn" Type="date" />
+    <Property Name="PendingTransferApproval" Type="nvarchar" MaxLength="15" />
   </EntityType>
   <EntityType Name="ItemsSearchValues">
     <Key>

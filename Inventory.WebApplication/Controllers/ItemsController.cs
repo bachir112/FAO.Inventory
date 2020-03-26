@@ -46,6 +46,29 @@ namespace Inventory.WebApplication.Controllers
             }
         }
 
+        public ActionResult ApproveTransferPage()
+        {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            if (Global.Global.isAllowed(User.Identity.GetUserId(), "ApproveTransfer"))
+            {
+                ViewBag.Categories = db.Categories
+                        .Select(x => new CategoryDTO
+                        {
+                            Id = x.Id,
+                            Name = x.Name,
+                            Name_Arabic = x.Name_Arabic,
+                            Picture = x.Picture,
+                            ParentCategory = x.ParentCategory
+                        }).ToList();
+
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("NotAuthorized", "Home");
+            }
+        }
+
         // GET: Items
         public ActionResult Index()
         {
@@ -97,6 +120,43 @@ namespace Inventory.WebApplication.Controllers
                 db.SaveChanges();
             }
             catch(Exception ex)
+            {
+                result = "Error";
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ApproveTransfer(string listOfIDs)
+        {
+            string result = "Error";
+
+            try
+            {
+                List<string> listOfItemsNames = new List<string>();
+                List<int> listOfItemsIDs = listOfIDs.Split(',').Select(Int32.Parse).ToList();
+                foreach (var ID in listOfItemsIDs)
+                {
+                    Item item = db.Items.FirstOrDefault(x => x.Id == ID);
+                    if (item != null)
+                    {
+                        listOfItemsNames.Add(item.Name + "(" + item.Name_Arabic + ")");
+                        item.PendingTransferApproval = "approved";
+                    }
+                    db.SaveChanges();
+
+                    result = "Success";
+                }
+
+                listOfItemsNames = listOfItemsNames.Distinct().Select(x => x).ToList();
+                var itemsNames = string.Join(",", listOfItemsNames);
+                Logging logging = new Logging();
+                logging.UserID = User.Identity.GetUserId();
+                logging.Action = "User " + User.Identity.Name + " approved the transfer of these items " + listOfItemsIDs.Count().ToString() + " on " + DateTime.Now.ToString();
+                db.Loggings.Add(logging);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
             {
                 result = "Error";
             }

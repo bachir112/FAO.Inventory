@@ -5817,6 +5817,8 @@
     <Content Include="Views\Users\Profile.cshtml" />
     <Content Include="Views\Home\NotAuthorized.cshtml" />
     <Content Include="Views\Shared\_SchoolsDropdown.cshtml" />
+    <Content Include="Views\Items\ApproveTransferPage.cshtml" />
+    <Content Include="Views\Home\ItemsPartialApproval.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

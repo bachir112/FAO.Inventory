@@ -258,6 +258,7 @@
     <Property Name="SupplierID" Type="Int32" Nullable="false" />
     <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
+    <Property Name="PendingTransferApproval" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Logging">
     <Key>

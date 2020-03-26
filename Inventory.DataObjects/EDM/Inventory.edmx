@@ -109,6 +109,7 @@
           <Property Name="SupplierID" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="250" />
           <Property Name="ModifiedOn" Type="date" />
+          <Property Name="PendingTransferApproval" Type="nvarchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="ItemsSearchValues">
           <Key>
@@ -349,7 +350,7 @@
           <EntitySet Name="Items" EntityType="InventoryModel.Item" />
           <EntitySet Name="Loggings" EntityType="InventoryModel.Logging" />
           <EntitySet Name="TransactionsReminders" EntityType="InventoryModel.TransactionsReminder" />
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -576,6 +577,7 @@
           <Property Name="SupplierID" Type="Int32" Nullable="false" />
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
+          <Property Name="PendingTransferApproval" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Logging">
           <Key>
@@ -792,6 +794,7 @@
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="InventoryModel.Item">
               <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="PendingTransferApproval" ColumnName="PendingTransferApproval" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />

@@ -24,7 +24,7 @@ namespace Inventory.DataObjects.EDM
         public int UnitID { get; set; }
         public Nullable<int> UnitAmount { get; set; }
         public Nullable<decimal> Price { get; set; }
-        public Nullable<decimal> Quantity { get; set; }
+        public Nullable<double> Quantity { get; set; }
         public Nullable<bool> Expandable { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> ReceivedOn { get; set; }
@@ -32,5 +32,6 @@ namespace Inventory.DataObjects.EDM
         public int SupplierID { get; set; }
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public string PendingTransferApproval { get; set; }
     }
 }
