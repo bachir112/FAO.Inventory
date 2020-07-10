@@ -29,9 +29,32 @@
                 <h4 id="assignItemName" style="color:red;">@Translation.GetStringValue("Name")</h4>
                 <hr />
                 <div class="form-group">
-                    <div class="input-icon">
-                        <i class="fa fa-tasks font-green" aria-hidden="true"></i>
-                        <input id="itemPrice" type="number" class="form-control" placeholder="@Translation.GetStringValue("PricePerItem")">
+                    <div id="pricingContainer">
+                        <div class="input-icon">
+                            <i class="fa fa-tasks font-green" aria-hidden="true"></i>
+                            <input id="itemPrice" type="number" class="form-control" placeholder="@Translation.GetStringValue("PricePerItem")">
+                        </div>
+                        <hr />
+                    </div>
+                    <h3>
+                        Maintenance?
+                        <button id="yesMaintenance" class="btn btn-primary">
+                            Yes
+                        </button>
+                        <button id="noMaintenance" class="btn btn-primary" style="display:none;">
+                            No
+                        </button>
+                    </h3>
+                    <div id="maintenanceContainer" style="display:none;">
+                        <div class="input-icon">
+                            <i class="fa fa-tasks font-green" aria-hidden="true"></i>
+                            <input id="numberOfItems" type="number" class="form-control" placeholder="@Translation.GetStringValue("NumberOfItems")">
+                        </div>
+                        <hr />
+                        <div class="input-icon">
+                            <i class="fa fa-tasks font-green" aria-hidden="true"></i>
+                            <input id="maintenancePrice" type="number" class="form-control" placeholder="@Translation.GetStringValue("MaintenancePricePerItem")">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -164,12 +187,15 @@
     $(document).on('click', '#assignItemPrice', function () {
         var itemPrice = $('#itemPrice').val();
         var listOfIDs = $(this).attr('data-ItemsIDs');
-        
+
+        var maintenanceItems = $('#numberOfItems').val();
+        var maintenancePrice = $('#maintenancePrice').val();
+
         $.ajax({
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             type: 'POST',
-            url: "@Url.Action("EditPrice","Items")?itemPrice=" + itemPrice + '&listOfIDs=' + listOfIDs,
+            url: "@Url.Action("EditPrice","Items")?itemPrice=" + itemPrice + '&listOfIDs=' + listOfIDs + '&maintenanceItems=' + maintenanceItems + '&maintenancePrice=' + maintenancePrice,
             success: function (response) {
                 $('#itemPrice').val('');
                 $('#itemPriceModal').modal('hide');
@@ -177,6 +203,22 @@
             }
         });
     });
+
+    $(document).on('click', '#yesMaintenance', function () {
+        $('#noMaintenance').show();
+        $('#yesMaintenance').hide();
+        $('#maintenanceContainer').toggle();
+        $('#pricingContainer').toggle();
+    });
+
+    $(document).on('click', '#noMaintenance', function () {
+        $('#noMaintenance').hide();
+        $('#yesMaintenance').show();
+        $('#maintenanceContainer').toggle();
+        $('#pricingContainer').toggle();
+    });
+
+    //noMaintenance
 
     function formatState(opt) {
         if (!opt.id) {

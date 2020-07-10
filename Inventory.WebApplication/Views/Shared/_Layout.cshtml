@@ -491,6 +491,16 @@
         }
     </style>
 
+    <style>
+        .page-sidebar .page-sidebar-menu > li > a > i[class*=icon-], .page-sidebar .page-sidebar-menu > li > a > i[class^=icon-], .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i[class*=icon-], .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i[class^=icon-]{
+            color:white;
+        }
+
+        .page-sidebar .page-sidebar-menu > li > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i{
+            color:white;
+        }
+    </style>
+
 
     <script src="@Url.Content("~/assets/global/plugins/jquery.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/assets/global/plugins/bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
@@ -561,11 +571,11 @@
                     <a id="chooseArabic" style="text-decoration:none; color:white;">عربية</a>
                 </div>
                 <div class="top-menu">
-                    <div style="width:200px;float:right;">
+                    <div style="width:350px;float:right;">
                         <img style="width:70px; float:right;" src="@Url.Content("~/Images/logo/ministry-logo.png")" />
                         <p style="float:right; margin:15px 5px;font-weight:bold;">
                             الجمهورية اللبنانية
-                            <br />
+
                             وزارة الزراعة
                         </p>
                     </div>

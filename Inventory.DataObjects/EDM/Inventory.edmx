@@ -102,6 +102,7 @@
           <Property Name="UnitID" Type="int" Nullable="false" />
           <Property Name="UnitAmount" Type="int" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="MaintenancePrice" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Expandable" Type="bit" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
           <Property Name="ReceivedOn" Type="date" />
@@ -570,6 +571,7 @@
           <Property Name="UnitID" Type="Int32" Nullable="false" />
           <Property Name="UnitAmount" Type="Int32" />
           <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MaintenancePrice" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Expandable" Type="Boolean" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ReceivedOn" Type="DateTime" Precision="0" />
@@ -802,6 +804,7 @@
                 <ScalarProperty Name="ReceivedOn" ColumnName="ReceivedOn" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Expandable" ColumnName="Expandable" />
+                <ScalarProperty Name="MaintenancePrice" ColumnName="MaintenancePrice" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="UnitAmount" ColumnName="UnitAmount" />
                 <ScalarProperty Name="UnitID" ColumnName="UnitID" />

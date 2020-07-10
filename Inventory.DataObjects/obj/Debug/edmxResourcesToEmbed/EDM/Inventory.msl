@@ -199,6 +199,7 @@
           <ScalarProperty Name="ReceivedOn" ColumnName="ReceivedOn" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Expandable" ColumnName="Expandable" />
+          <ScalarProperty Name="MaintenancePrice" ColumnName="MaintenancePrice" />
           <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="UnitAmount" ColumnName="UnitAmount" />
           <ScalarProperty Name="UnitID" ColumnName="UnitID" />

@@ -5359,11 +5359,13 @@
     <Content Include="Images\cleaning.png" />
     <Content Include="Images\delete-items.png" />
     <Content Include="Images\edit-items.png" />
+    <Content Include="Images\electrical.png" />
     <Content Include="Images\furniture.jpg" />
     <Content Include="Images\generator.jpg" />
     <Content Include="Images\health.jpg" />
     <Content Include="Images\heating.png" />
     <Content Include="Images\in_stock.png" />
+    <Content Include="Images\it-parts.png" />
     <Content Include="Images\laboratory-tools.png" />
     <Content Include="Images\logo\ministry-logo.jpg" />
     <Content Include="Images\logo\ministry-logo.png" />

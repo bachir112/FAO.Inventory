@@ -179,7 +179,7 @@ namespace Inventory.WebApplication.Controllers
                                 where item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
                                 && (fromDate == null ? true : item.ReceivedOn >= fromDate)
                                 && (toDate == null ? true : item.ReceivedOn <= toDate)
-                                group item by new { item.Name, item.ExpiryDate, item.UnitID, item.UnitAmount, item.SupplierID, item.ReceivedOn, item.Price } into items
+                                group item by new { item.Name, item.ExpiryDate, item.UnitID, item.UnitAmount, item.SupplierID, item.ReceivedOn, item.Price, item.MaintenancePrice } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
                                 {
@@ -190,6 +190,7 @@ namespace Inventory.WebApplication.Controllers
                                     Supplier = suppliers.FirstOrDefault(x => x.Id == items.Key.SupplierID)?.Supplier1,
                                     Quantity = items.Count(),
                                     ExpiryDate = items.Key.ExpiryDate,
+                                    MaintenancePrice = items.Key.MaintenancePrice,
                                     UnitID = items.Key.UnitID,
                                     UnitAmount = items.Key.UnitAmount,
                                     ReceivedOn = items.Key.ReceivedOn,

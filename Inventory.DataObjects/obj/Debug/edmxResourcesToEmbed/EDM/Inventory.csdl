@@ -251,6 +251,7 @@
     <Property Name="UnitID" Type="Int32" Nullable="false" />
     <Property Name="UnitAmount" Type="Int32" />
     <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="MaintenancePrice" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="Expandable" Type="Boolean" />
     <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="ReceivedOn" Type="DateTime" Precision="0" />

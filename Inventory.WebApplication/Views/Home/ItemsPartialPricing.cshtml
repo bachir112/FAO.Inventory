@@ -17,6 +17,7 @@
                         <th> @Translation.GetStringValue("ItemName") </th>
                         <th> @Translation.GetStringValue("Supplier") </th>
                         <th> @Translation.GetStringValue("Price") </th>
+                        <th> @Translation.GetStringValue("MaintenanceAmount") </th>
                         <th> @Translation.GetStringValue("ExpiryDate") </th>
                         <th> @Translation.GetStringValue("Quantity") </th>
                         <th> @Translation.GetStringValue("Amount") </th>
@@ -56,6 +57,12 @@
                                 price = item.Price.ToString() + " L.L.";
                             }
 
+                            string maintenancePrice = string.Empty;
+                            if(item.MaintenancePrice != null)
+                            {
+                                maintenancePrice = item.MaintenancePrice + "L.L.";
+                            }
+
                             <tr style="@rowColor" class="odd gradeX">
                                 <td style="text-align:center;">
                                     <span class="setPriceForItem"
@@ -72,6 +79,9 @@
                                 </td>
                                 <td>
                                     @(price)
+                                </td>
+                                <td>
+                                    @(maintenancePrice)
                                 </td>
                                 <td>
                                     @item.ExpiryDate

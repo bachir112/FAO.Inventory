@@ -19,3 +19,14 @@ C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.DataOb
 C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.csproj.CopyComplete
 C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.dll
 C:\Users\Hp\Documents\Visual Studio 2019\Projects\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.pdb
+C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Debug\Inventory.DataObjects.dll.config
+C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Debug\Inventory.DataObjects.dll
+C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Debug\Inventory.DataObjects.pdb
+C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Debug\EntityFramework.dll
+C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Debug\EntityFramework.xml
+C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.csproj.CoreCompileInputs.cache
+C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.csproj.CopyComplete
+C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.dll
+C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.pdb

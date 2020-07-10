@@ -456,14 +456,21 @@ namespace Inventory.WebApplication.Global
         static public string GetLanguageCookieValue(string cookieName = "language")
         {
             string schoolCookieValue = string.Empty;
-            try
-            {
-                schoolCookieValue = HttpContext.Current.Request.Cookies[cookieName].Value;
-            }
-            catch (Exception ex)
+            if(HttpContext.Current.Request.Cookies[cookieName] == null)
             {
                 schoolCookieValue = "english";
             }
+            else
+            {
+                schoolCookieValue = HttpContext.Current.Request.Cookies[cookieName].Value;
+            }
+
+            //try
+            //{
+            //}
+            //catch (Exception ex)
+            //{
+            //}
 
             return schoolCookieValue;
         }

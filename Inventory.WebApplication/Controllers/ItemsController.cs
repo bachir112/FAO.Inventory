@@ -90,34 +90,65 @@ namespace Inventory.WebApplication.Controllers
             return View(item);
         }
 
-        public JsonResult EditPrice(decimal itemPrice, string listOfIDs)
+        public JsonResult EditPrice( string listOfIDs, 
+            Nullable<decimal> itemPrice, 
+            Nullable<int> maintenanceItems = null, 
+            Nullable<decimal> maintenancePrice = null)
         {
             string result = "Error";
 
             try
             {
-                List<string> listOfItemsNames = new List<string>();
-                List<int> listOfItemsIDs = listOfIDs.Split(',').Select(Int32.Parse).ToList();
-                foreach (var ID in listOfItemsIDs)
+                if (itemPrice != null)
                 {
-                    Item item = db.Items.FirstOrDefault(x => x.Id == ID);
-                    if(item != null)
+                    List<string> listOfItemsNames = new List<string>();
+                    List<int> listOfItemsIDs = listOfIDs.Split(',').Select(Int32.Parse).ToList();
+                    foreach (var ID in listOfItemsIDs)
                     {
-                        listOfItemsNames.Add(item.Name + "(" + item.Name_Arabic + ")");
-                        item.Price = itemPrice;
+                        Item item = db.Items.FirstOrDefault(x => x.Id == ID);
+                        if (item != null)
+                        {
+                            listOfItemsNames.Add(item.Name + "(" + item.Name_Arabic + ")");
+                            item.Price = itemPrice;
+                        }
+                        db.SaveChanges();
+
+                        result = "Success";
                     }
+
+                    listOfItemsNames = listOfItemsNames.Distinct().Select(x => x).ToList();
+                    var itemsNames = string.Join(",", listOfItemsNames);
+                    Logging logging = new Logging();
+                    logging.UserID = User.Identity.GetUserId();
+                    logging.Action = "User " + User.Identity.Name + " changed the price of " + listOfItemsIDs.Count().ToString() + " " + itemsNames + " to LL" + itemPrice.ToString() + " on " + DateTime.Now.ToString();
+                    db.Loggings.Add(logging);
                     db.SaveChanges();
-
-                    result = "Success";
                 }
+                else
+                {
+                    List<string> listOfItemsNames = new List<string>();
+                    List<int> listOfItemsIDs = listOfIDs.Split(',').Select(Int32.Parse).Take(Convert.ToInt32(maintenanceItems)).ToList();
+                    foreach (var ID in listOfItemsIDs)
+                    {
+                        Item item = db.Items.FirstOrDefault(x => x.Id == ID);
+                        if (item != null)
+                        {
+                            listOfItemsNames.Add(item.Name + "(" + item.Name_Arabic + ")");
+                            item.MaintenancePrice = maintenancePrice;
+                        }
+                        db.SaveChanges();
 
-                listOfItemsNames = listOfItemsNames.Distinct().Select(x => x).ToList();
-                var itemsNames = string.Join(",", listOfItemsNames);
-                Logging logging = new Logging();
-                logging.UserID = User.Identity.GetUserId();
-                logging.Action = "User " + User.Identity.Name + " changed the price of " + listOfItemsIDs.Count().ToString() + " " + itemsNames + " to LL" + itemPrice.ToString() + " on " + DateTime.Now.ToString();
-                db.Loggings.Add(logging);
-                db.SaveChanges();
+                        result = "Success";
+                    }
+
+                    listOfItemsNames = listOfItemsNames.Distinct().Select(x => x).ToList();
+                    var itemsNames = string.Join(",", listOfItemsNames);
+                    Logging logging = new Logging();
+                    logging.UserID = User.Identity.GetUserId();
+                    logging.Action = "User " + User.Identity.Name + " changed the maintenance price of " + listOfItemsIDs.Count().ToString() + " " + itemsNames + " to LL" + maintenancePrice.ToString() + " on " + DateTime.Now.ToString();
+                    db.Loggings.Add(logging);
+                    db.SaveChanges();
+                }
             }
             catch(Exception ex)
             {
