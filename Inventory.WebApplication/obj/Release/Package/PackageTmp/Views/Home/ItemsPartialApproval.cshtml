@@ -1,0 +1,212 @@
+﻿@using Inventory.DataObjects.DTO
+@using Inventory.WebApplication.Global
+@model List<ItemsGroupedDTO>
+
+@{
+    Layout = null;
+}
+
+<div class="col-md-12">
+    <div class="portlet light bordered">
+        <div class="portlet-body">
+            <table id="itemsTable" class="table table-striped table-bordered table-hover table-checkable order-column">
+                <thead>
+                    <tr>
+                        <th>
+                        </th>
+                        <th> @Translation.GetStringValue("ItemName") </th>
+                        <th> @Translation.GetStringValue("Supplier") </th>
+                        <th> @Translation.GetStringValue("Description") </th>
+                        <th> @Translation.GetStringValue("ExpiryDate") </th>
+                        <th> @Translation.GetStringValue("Quantity") </th>
+                        <th> @Translation.GetStringValue("Amount") </th>
+                        <th> @Translation.GetStringValue("ReceivedOn") </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        foreach (ItemsGroupedDTO item in Model)
+                        {
+                            string AvailabilityStatusColor = string.Empty;
+                            switch (item.AvailabilityStatusID)
+                            {
+                                case 1:
+                                    AvailabilityStatusColor = "success";
+                                    break;
+                                case 2:
+                                    AvailabilityStatusColor = "danger";
+                                    break;
+                                case 3:
+                                    AvailabilityStatusColor = "warning";
+                                    break;
+                                default:
+                                    AvailabilityStatusColor = "default";
+                                    break;
+                            }
+
+                            <tr class="odd gradeX">
+                                <td style="text-align:center;">
+                                    <span class="setPriceForItem"
+                                          style="cursor:pointer; color:#36c6d3; font-weight:bold"
+                                          data-ItemName="@item.Name"
+                                          data-itemsIDs="@item.ItemsIDs">@Translation.GetStringValue("Approve")</span>
+                                    </td>
+                                    <td>
+                                        <span class="english">@item.Name</span>
+                                        <span class="arabic">@item.Name_Arabic</span>
+                                    </td>
+                                    <td>
+                                        @item.Supplier
+                                    </td>
+                                    <td>
+                                        @item.Description
+                                    </td>
+                                    <td>
+                                        @item.ExpiryDate
+                                    </td>
+                                    <td>
+                                        @item.Quantity
+                                    </td>
+                                    <td>
+                                        @item.UnitAmount @item.Unit
+                                    </td>
+                                    <td>
+                                        @item.ReceivedOn
+                                    </td>
+                                </tr>
+                            }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var table = $('#itemsTable');
+
+
+        var cookieVal = $.cookie("language");
+
+        if (cookieVal == 'arabic') {
+
+            var oTable = table.dataTable({
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "لا يوجد",
+                    "info": "عرض _START_ الى _END_ من _TOTAL_ ",
+                    "infoEmpty": "لا يوجد",
+                    "infoFiltered": "(filtered1 من _MAX_ العدد)",
+                    "lengthMenu": "_MENU_ العدد",
+                    "search": "بحث:",
+                    "zeroRecords": "لا يوجد"
+                },
+                "order": [
+                    [0, 'asc']
+                ],
+                "lengthMenu": [
+                    [5, 10, 15, 20, -1],
+                    [5, 10, 15, 20, "كل"] // change per page values here
+                ],
+                "pageLength": 10,
+                "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+                buttons: [
+                    {
+                        extend: 'print',
+                        className: 'btn dark btn-outline',
+                        message: '',
+                        customize: function (win)
+                        {
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية</h2>');
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
+                            $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
+                        }
+                    },
+                    { extend: 'pdf', className: 'btn green btn-outline' },
+                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                ]
+                //,
+                //responsive: true
+            });
+
+        }
+        else {
+
+            var oTable = table.dataTable({
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "No data available in table",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "infoEmpty": "No entries found",
+                    "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                    "lengthMenu": "_MENU_ entries",
+                    "search": "Search:",
+                    "zeroRecords": "No matching records found"
+                },
+                "order": [
+                    [0, 'asc']
+                ],
+                "lengthMenu": [
+                    [5, 10, 15, 20, -1],
+                    [5, 10, 15, 20, "All"] // change per page values here
+                ],
+                "pageLength": 10,
+                "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+                buttons: [
+                    {
+                        extend: 'print',
+                        className: 'btn dark btn-outline',
+                        message: '',
+                        customize: function (win)
+                        {
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية</h2>');
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
+                            $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
+                        }
+                    },
+                    { extend: 'pdf', className: 'btn green btn-outline' },
+                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                ]
+                //,
+                //responsive: true
+            });
+
+
+        }
+    });
+
+</script>
+
+
+<script>
+
+    function searchItems() {
+        var categoryID = $('#categories').val();
+        var fromDate = $('#fromDate').val();
+        var toDate = $('#toDate').val();
+
+        $.ajax({
+            url: '@Url.Action("ItemsPartialApproval", "Home")',
+            data: { categoryID: categoryID, fromDate: fromDate, toDate: toDate },
+            type: "POST",
+            success: function (data) {
+                $('#itemsPartialView').show();
+                $('#itemsPartialView').html(data);
+                $('html, body').animate({
+                    scrollTop: $("#itemsPartialView").offset().top
+                }, 2000);
+            }
+        });
+    }
+</script>

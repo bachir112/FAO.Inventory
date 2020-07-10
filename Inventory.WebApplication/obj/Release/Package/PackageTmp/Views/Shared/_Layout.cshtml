@@ -41,6 +41,18 @@
 
     <style type="text/css">
 
+        body{
+            background-color:#2e8b57;
+        }
+
+        .page-sidebar{
+            background-color:#2e8b57;
+        }
+
+        .page-header.navbar{
+            background-color:#2e8b57;
+        }
+
         /*.portlet.light .dataTables_wrapper .dt-buttons{
             margin-top:-86px;
         }*/
@@ -479,6 +491,16 @@
         }
     </style>
 
+    <style>
+        .page-sidebar .page-sidebar-menu > li > a > i[class*=icon-], .page-sidebar .page-sidebar-menu > li > a > i[class^=icon-], .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i[class*=icon-], .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i[class^=icon-]{
+            color:white;
+        }
+
+        .page-sidebar .page-sidebar-menu > li > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i{
+            color:white;
+        }
+    </style>
+
 
     <script src="@Url.Content("~/assets/global/plugins/jquery.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/assets/global/plugins/bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
@@ -533,7 +555,7 @@
 
         </div>
 
-        <div class="page-header navbar navbar-fixed-top">
+        <div class="page-header navbar navbar-fixed-top" style="height:70px;">
             <div class="page-header-inner ">
                 <div class="page-logo">
                     <div class="menu-toggler sidebar-toggler">
@@ -549,6 +571,14 @@
                     <a id="chooseArabic" style="text-decoration:none; color:white;">عربية</a>
                 </div>
                 <div class="top-menu">
+                    <div style="width:350px;float:right;">
+                        <img style="width:70px; float:right;" src="@Url.Content("~/Images/logo/ministry-logo.png")" />
+                        <p style="float:right; margin:15px 5px;font-weight:bold;">
+                            الجمهورية اللبنانية
+
+                            وزارة الزراعة
+                        </p>
+                    </div>
                     <ul class="nav navbar-nav pull-right">
                         <li class="dropdown dropdown-user">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
@@ -662,6 +692,15 @@
                                         <li id="itemsPricingTab" class="nav-item">
                                             <a href="@Url.Action("Pricing","Items")" class="nav-link ">
                                                 <span class="title">@Translation.GetStringValue("Pricing")</span>
+                                            </a>
+                                        </li>
+                                    }
+
+                                    if (Convert.ToBoolean(PageManagement.FirstOrDefault(x => x.PageName == "TransferApproval")?.Allowed))
+                                    {
+                                        <li id="itemsTransferApprovalTab" class="nav-item">
+                                            <a href="@Url.Action("ApproveTransferPage","Items")" class="nav-link ">
+                                                <span class="title">@Translation.GetStringValue("ApproveTransfer")</span>
                                             </a>
                                         </li>
                                     }

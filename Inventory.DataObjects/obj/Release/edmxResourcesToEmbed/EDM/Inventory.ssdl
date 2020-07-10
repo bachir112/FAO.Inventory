@@ -97,6 +97,7 @@
     <Property Name="UnitID" Type="int" Nullable="false" />
     <Property Name="UnitAmount" Type="int" />
     <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="MaintenancePrice" Type="decimal" Precision="18" Scale="0" />
     <Property Name="Expandable" Type="bit" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
     <Property Name="ReceivedOn" Type="date" />
@@ -104,6 +105,7 @@
     <Property Name="SupplierID" Type="int" Nullable="false" />
     <Property Name="ModifiedBy" Type="nvarchar" MaxLength="250" />
     <Property Name="ModifiedOn" Type="date" />
+    <Property Name="PendingTransferApproval" Type="nvarchar" MaxLength="15" />
   </EntityType>
   <EntityType Name="ItemsSearchValues">
     <Key>

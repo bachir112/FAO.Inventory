@@ -1096,5 +1096,41 @@ namespace Inventory.WebApplication.Controllers
             return View(abcReportItems);
         }
 
+        public ActionResult MaintenanceReport()
+        {
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
+
+            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            {
+                List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
+                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Unit> units = db.Units.ToList();
+
+                itemsInStock = (from item in db.Items
+                                group item by new { item.Name, item.AvailabilityStatusID, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice } into items
+                                select items).AsEnumerable().Select(
+                                items => new ItemsGroupedDTO()
+                                {
+                                    GroupedId = items.FirstOrDefault().Id,
+                                    Name = items.Key.Name,
+                                    Name_Arabic = items.First().Name_Arabic,
+                                    AvailabilityStatus = availabilityStatuses.FirstOrDefault(x => x.Id == items.Key.AvailabilityStatusID).Status,
+                                    AvailabilityStatusID = items.Key.AvailabilityStatusID,
+                                    Quantity = items.Count(),
+                                    MaintenancePrice = items.Key.MaintenancePrice,
+                                    //LocationInStock = string.Join(", ", items.Where(x => !string.IsNullOrEmpty(x.LocationInStock)).Select(x => x.LocationInStock + " (" + items.Where(y => y.LocationInStock == x.LocationInStock).Select(y => y).Count().ToString() + ")").Distinct()),
+                                    //Description = string.Join(",", items.Where(x => !string.IsNullOrEmpty(x.Description)).Select(x => x.Description)),
+                                    ExpiryDate = items.Key.ExpiryDate,
+                                    UnitID = items.Key.UnitID,
+                                    UnitAmount = items.Key.UnitAmount,
+                                    ItemStatusID = items.Key.ItemStatusID,
+                                    Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
+                                }).ToList();
+            }
+
+            return View(itemsInStock);
+        }
+
     }
 }

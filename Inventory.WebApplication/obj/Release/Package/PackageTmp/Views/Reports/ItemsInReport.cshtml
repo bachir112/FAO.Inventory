@@ -126,7 +126,18 @@
                 "pageLength": 10,
                 "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
                 buttons: [
-                    { extend: 'print', className: 'btn dark btn-outline' },
+                    {
+                        extend: 'print',
+                        className: 'btn dark btn-outline',
+                        message: '',
+                        customize: function (win)
+                        {
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية</h2>');
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
+                            $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
+                        }
+                    },
                     { extend: 'pdf', className: 'btn green btn-outline' },
                     { extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
@@ -161,7 +172,18 @@
                 "pageLength": 10,
                 "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
                 buttons: [
-                    { extend: 'print', className: 'btn dark btn-outline' },
+                    {
+                        extend: 'print',
+                        className: 'btn dark btn-outline',
+                        message: '',
+                        customize: function (win)
+                        {
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية</h2>');
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
+                            $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
+                        }
+                    },
                     { extend: 'pdf', className: 'btn green btn-outline' },
                     { extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]

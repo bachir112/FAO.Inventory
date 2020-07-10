@@ -5821,6 +5821,7 @@
     <Content Include="Views\Shared\_SchoolsDropdown.cshtml" />
     <Content Include="Views\Items\ApproveTransferPage.cshtml" />
     <Content Include="Views\Home\ItemsPartialApproval.cshtml" />
+    <Content Include="Views\Reports\MaintenanceReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

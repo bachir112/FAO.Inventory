@@ -249,6 +249,40 @@
                             <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
                                 <div class="input-group">
                                     <div class="input-group-control">
+                                        <label class="english" style="font-weight:bold;font-size:16px;">Maintenance Report</label>
+                                        <label class="arabic" style="font-weight:bold;font-size:16px;">تقرير الصيانة</label>
+                                        <br />
+                                        <label class="english" style="color:darkgrey">
+                                            Maintenance prices by items.
+                                        </label>
+                                        <label class="arabic" style="color:darkgrey">
+                                            تقرير الصيانة
+                                        </label>
+                                    </div>
+                                    <span class="input-group-btn btn-right">
+                                        <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            @Translation.GetStringValue("Action")
+                                            <i class="fa fa-angle-down"></i>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li>
+                                                <a href="@Url.Action("MaintenanceReport","Reports")">@Translation.GetStringValue("Generate")</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:openEmailModal('MaintenanceReport');">@Translation.GetStringValue("SendAsEmail")</a>
+                                            </li>
+                                            <li class="divider"> </li>
+                                            <li>
+                                                <a href="javascript:reportSettings('11','Maintenance Report');">@Translation.GetStringValue("ReportSettings")</a>
+                                            </li>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
+                                <div class="input-group">
+                                    <div class="input-group-control">
                                         <label class="english" style="font-weight:bold;font-size:16px;">Items In Report</label>
                                         <label class="arabic" style="font-weight:bold;font-size:16px;"> تقرير عناصر في المخزون</label>
                                         <br />
@@ -572,12 +606,12 @@
                                                 <a href="@Url.Action("ABCAnalysisReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             @*<li>
-                                                    <a href="javascript:sendEmail('ABCAnalysisReport');">@Translation.GetStringValue("SendAsEmail")</a>
-                                                </li>*@
+                            <a href="javascript:sendEmail('ABCAnalysisReport');">@Translation.GetStringValue("SendAsEmail")</a>
+                        </li>*@
                                             @*<li class="divider"> </li>
-                                                <li>
-                                                    <a href="@Url.Action("ReportSettings","Reports", new { Id = "11" });">@Translation.GetStringValue("ReportSettings")</a>
-                                                </li>*@
+                        <li>
+                            <a href="@Url.Action("ReportSettings","Reports", new { Id = "11" });">@Translation.GetStringValue("ReportSettings")</a>
+                        </li>*@
                                         </ul>
                                     </span>
                                 </div>
