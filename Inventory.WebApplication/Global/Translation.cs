@@ -420,7 +420,7 @@ namespace Inventory.WebApplication.Global
             { "ReturnToStock-english", "Return Items To Stock"},
             { "ReturnToStock-arabic", "اعادة الى المستودع"},
 
-            { "TakeOutOfStock-english", "Take Items Out f Stock"},
+            { "TakeOutOfStock-english", "Take Items Out of Stock"},
             { "TakeOutOfStock-arabic", "اخراج من المستودع"},
 
             { "DeleteOne-english", "Delete One"},

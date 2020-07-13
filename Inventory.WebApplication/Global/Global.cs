@@ -80,15 +80,25 @@ namespace Inventory.WebApplication.Global
         static public string GetSchoolCookieValue(string cookieName = "schoolDB")
         {
             string schoolCookieValue = string.Empty;
-            try
+
+            if(HttpContext.Current.Request.Cookies[cookieName] != null)
             {
                 schoolCookieValue = HttpContext.Current.Request.Cookies[cookieName].Value;
             }
-            catch(Exception ex)
+            else
             {
-                //FormsAuthentication.SignOut();
-                //HttpContext.Current.Session.Abandon();
+
             }
+
+            //try
+            //{
+            //    schoolCookieValue = HttpContext.Current.Request.Cookies[cookieName].Value;
+            //}
+            //catch(Exception ex)
+            //{
+            //    //FormsAuthentication.SignOut();
+            //    //HttpContext.Current.Session.Abandon();
+            //}
 
             return schoolCookieValue;
         }
