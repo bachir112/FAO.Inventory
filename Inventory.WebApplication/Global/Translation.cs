@@ -77,7 +77,7 @@ namespace Inventory.WebApplication.Global
             { "ItemInGroup-english", "Item In Group"},
             { "ItemInGroup-arabic", "القطعة في المجموعة"},
             
-            { "Deteriorated-english", "Useless"},
+            { "Deteriorated-english", "Deteriorated"},
             { "Deteriorated-arabic", "غير صالح للاستخدام"},
 
             { "Management-english", "Management"},

@@ -19,8 +19,8 @@ namespace Inventory.DataObjects.EDM
             : base("name=InventoryEntities")
         {
         }
-        public InventoryEntities(string schoolDB)
-            : base("name=InventoryEntities_" + schoolDB)
+        public InventoryEntities(string school)
+            : base("name=InventoryEntities_" + school)
         {
         }
 

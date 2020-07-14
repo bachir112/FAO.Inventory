@@ -41,16 +41,16 @@
 
     <style type="text/css">
 
-        body{
-            background-color:#2e8b57;
+        body {
+            background-color: #2e8b57;
         }
 
-        .page-sidebar{
-            background-color:#2e8b57;
+        .page-sidebar {
+            background-color: #2e8b57;
         }
 
-        .page-header.navbar{
-            background-color:#2e8b57;
+        .page-header.navbar {
+            background-color: #2e8b57;
         }
 
         /*.portlet.light .dataTables_wrapper .dt-buttons{
@@ -58,7 +58,17 @@
         }*/
 
         .widget-thumb.bordered {
-            min-height: 200px;
+            min-height: 300px;
+        }
+
+        .widget-thumb .widget-thumb-heading {
+            height: 50px;
+        }
+
+        .widget-thumb .widget-thumb-body {
+            overflow: hidden;
+            position: absolute;
+            bottom: 80px;
         }
 
         .widget-thumb-wrap img {
@@ -101,9 +111,9 @@
 
     <style type="text/css">
 
-        .widget-thumb.bordered {
+        /*.widget-thumb.bordered {
             min-height: 200px;
-        }
+        }*/
 
         .widget-thumb-wrap img {
             width: 50px;
@@ -353,7 +363,6 @@
         }
     </style>
 
-
     <style id="right_to_left_direction" type="text/css">
 
         .page-sidebar-reversed .page-logo {
@@ -492,6 +501,7 @@
     </style>
 
     <style>
+
         .page-sidebar .page-sidebar-menu > li > a > i[class*=icon-], .page-sidebar .page-sidebar-menu > li > a > i[class^=icon-], .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i[class*=icon-], .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i[class^=icon-]{
             color:white;
         }
@@ -499,6 +509,18 @@
         .page-sidebar .page-sidebar-menu > li > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a > i{
             color:white;
         }
+
+        .widget-thumb .widget-thumb-wrap {
+            overflow: hidden;
+            text-align: center;
+            display: grid;
+        }
+
+        .widget-thumb-wrap img{
+            width: 85px!important;
+            margin:auto!important;
+        }
+
     </style>
 
 
@@ -976,6 +998,28 @@
             $('#transactionsParentTab .sub-menu').css('display', 'block');
             $('#transactionsHistoryTab').addClass('active');
         }
+
+
+        $(document).ready(function () {
+
+            $('.categoryContainer').mouseenter(function () {
+                console.log('Mouse In');
+
+                var element = $(this);
+                element.find('.category-image').hide();
+
+                element.find('.category-description').show();
+            }).mouseleave(function () {
+                console.log('Mouse Out');
+
+                var element = $(this);
+                element.find('.category-image').show();
+
+                element.find('.category-description').hide();
+            });
+
+        });
+
 
     </script>
 

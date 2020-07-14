@@ -100,6 +100,12 @@
     .select2-selection__clear {
         display: none;
     }
+
+    .wizard-card .choice .icon{
+        width:160px;
+        height:160px;
+        padding:15px;
+    }
 </style>
 
 <div class="page-content-wrapper">
@@ -149,13 +155,24 @@
                                         @{
                                             foreach (CategoryDTO category in categoriesList)
                                             {
-                                                <div class="col-sm-4">
-                                                    <div class="choice category btn-next" data-categoryID="@category.Id" data-toggle="wizard-radio" rel="tooltip" title="" data-original-title="Select this option if @category.Name.">
+                                                <div class="col-sm-4 categoryContainer" style="margin-bottom:20px;">
+                                                    <div id="category-@(category.Id)" class="choice category btn-next category-image" data-categoryID="@category.Id" data-toggle="wizard-radio" rel="tooltip" title="" data-original-title="Select this option if @category.Name.">
                                                         <div class="icon">
-                                                            <img src="@Url.Content("~/images/" + category.Picture)" style="width:50px;margin:29px;" />
+                                                            <img src="@Url.Content("~/images/" + category.Picture)" style="width: 90px;margin: auto;" />
                                                         </div>
-                                                        <h6 class="english">@category.Name</h6>
-                                                        <h6 class="arabic">@category.Name_Arabic</h6>
+                                                        <h6 style="white-space: nowrap;" class="english">@category.Name</h6>
+                                                        <h6 style="white-space: nowrap;" class="arabic">@category.Name_Arabic</h6>
+                                                    </div>
+                                                    <div data-Click="category-@(category.Id)"
+                                                         style="display:none;" 
+                                                         class="choice category category-description" 
+                                                         data-categoryID="@category.Id" 
+                                                         data-toggle="wizard-radio" 
+                                                         rel="tooltip" 
+                                                         title="" 
+                                                         data-original-title="Select this option if @category.Name.">
+                                                        <h4 class="english">@(category.Description)</h4>
+                                                        <h4 class="arabic">@(category.Description_Arabic)</h4>
                                                     </div>
                                                 </div>
                                             }
@@ -281,7 +298,7 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-2" for="ExpiryDate">@Translation.GetStringValue("ExpiryDate")</label>
                                                 <div class="col-md-10">
-                                                    <input id="expiryDate" name="ExpiryDate" style="width:100%!important;" class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="">
+                                                    <input id="expiryDate" name="ExpiryDate" style="width: 100% !important;" class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="">
                                                     @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
@@ -431,8 +448,12 @@
         });
 
         function getItemsInCategory(selectedItem) {
-
-            $('#itemsInCategory').select2('destroy');
+            try {
+                $('#itemsInCategory').select2('destroy');
+            }
+            catch (err) {
+                //document.getElementById("demo").innerHTML = err.message;
+            }
             $('#itemsInCategory').html('');
 
             $.ajax({
@@ -475,6 +496,16 @@
 
 </script>
 
+<script>
+
+    $(document).on('click', '.category-description', function () {
+
+        var id = $(this).attr('data-Click');
+        $('#' + id).click();
+
+    });
+
+</script>
 
 @{
     if (ViewBag.NewItem == true)

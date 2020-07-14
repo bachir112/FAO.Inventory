@@ -208,7 +208,9 @@ namespace Inventory.WebApplication.Controllers
                                         Name = x.Name,
                                         Name_Arabic = x.Name_Arabic,
                                         Picture = x.Picture,
-                                        ParentCategory = x.ParentCategory
+                                        ParentCategory = x.ParentCategory,
+                                        Description = x.Description,
+                                        Description_Arabic = x.Description_Arabic
                                     }).ToList();
 
                 List<Supplier> suppliersList = db.Suppliers.ToList();

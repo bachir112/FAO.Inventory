@@ -80,7 +80,9 @@ namespace Inventory.WebApplication.Controllers
                                         Name = x.Name,
                                         Name_Arabic = x.Name_Arabic,
                                         Picture = x.Picture,
-                                        ParentCategory = x.ParentCategory
+                                        ParentCategory = x.ParentCategory,
+                                        Description_Arabic = x.Description_Arabic,
+                                        Description = x.Description
                                     }).ToList();
 
                 var itemsList = (from items in db.Items

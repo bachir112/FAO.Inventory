@@ -16,5 +16,7 @@ namespace Inventory.DataObjects.DTO
         public int ParentCategory { get; set; }
         public int ItemTypeInCategoryCount { get; set; }
         public int ItemInCategoryCount { get; set; }
+        public string Description { get; set; }
+        public string Description_Arabic { get; set; }
     }
 }

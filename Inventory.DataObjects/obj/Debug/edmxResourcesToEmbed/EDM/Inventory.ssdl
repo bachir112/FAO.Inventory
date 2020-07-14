@@ -82,6 +82,8 @@
     <Property Name="Name_Arabic" Type="nvarchar" MaxLength="250" />
     <Property Name="Picture" Type="nvarchar" MaxLength="250" Nullable="false" />
     <Property Name="ParentCategory" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Description_Arabic" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Items">
     <Key>

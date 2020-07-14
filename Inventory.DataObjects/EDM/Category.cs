@@ -19,5 +19,7 @@ namespace Inventory.DataObjects.EDM
         public string Picture { get; set; }
         public int ParentCategory { get; set; }
         public string Name_Arabic { get; set; }
+        public string Description { get; set; }
+        public string Description_Arabic { get; set; }
     }
 }

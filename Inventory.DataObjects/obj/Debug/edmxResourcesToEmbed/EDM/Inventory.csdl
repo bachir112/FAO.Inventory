@@ -112,6 +112,8 @@
     <Property Name="Picture" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="ParentCategory" Type="Int32" Nullable="false" />
     <Property Name="Name_Arabic" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description_Arabic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="ItemsSearchValue">
     <Key>
