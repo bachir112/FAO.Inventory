@@ -51,8 +51,8 @@
                                         <thead>
                                             <tr>
                                                 <th> @Translation.GetStringValue("ItemName") </th>
-                                                <th> @Translation.GetStringValue("ToWhom") </th>
-                                                <th> @Translation.GetStringValue("Quantity") </th>
+                                                <th> @Translation.GetStringValue("Description") </th>
+                                                <th> @Translation.GetStringValue("Location") </th>
                                                 <th> @Translation.GetStringValue("DateOut") </th>
                                                 <th> @Translation.GetStringValue("ReturnDate") </th>
                                             </tr>
@@ -67,10 +67,10 @@
                                                             <span class="arabic">@transaction.ItemName_Arabic</span>
                                                         </td>
                                                         <td>
-                                                            @transaction.ToWhom
+                                                            @transaction.Description
                                                         </td>
                                                         <td class="center">
-                                                            <span> @transaction.Quantity </span>
+                                                            <span> @transaction.ToWhom </span>
                                                         </td>
                                                         <td>
                                                             @transaction.TransactionDate

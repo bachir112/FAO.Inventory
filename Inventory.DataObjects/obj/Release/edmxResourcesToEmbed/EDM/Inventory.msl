@@ -72,6 +72,8 @@
     <EntitySetMapping Name="Categories">
       <EntityTypeMapping TypeName="InventoryModel.Category">
         <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="Description_Arabic" ColumnName="Description_Arabic" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Name_Arabic" ColumnName="Name_Arabic" />
           <ScalarProperty Name="ParentCategory" ColumnName="ParentCategory" />
           <ScalarProperty Name="Picture" ColumnName="Picture" />

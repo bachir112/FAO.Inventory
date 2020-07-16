@@ -1,6 +1,7 @@
 ﻿using Inventory.DataObjects.DTO;
 using Inventory.DataObjects.EDM;
 using Inventory.WebApplication.Models;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -162,17 +163,35 @@ namespace Inventory.WebApplication.Controllers
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
                 List<Unit> units = db.Units.ToList();
+                List<Category> categories = db.Categories.ToList();
 
                 itemsInStock = (from item in db.Items
-                                group item by new { item.Name, item.AvailabilityStatusID, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID } into items
+                                group item by new 
+                                { item.Name, 
+                                    item.AvailabilityStatusID, 
+                                    item.ExpiryDate, 
+                                    item.Expandable, 
+                                    item.UnitID, 
+                                    item.UnitAmount, 
+                                    item.ItemStatusID,
+                                    item.ReceivedOn,
+                                    item.CategoryID,
+                                    item.SupplierID
+                                } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
                                 {
                                     GroupedId = items.FirstOrDefault().Id,
                                     Name = items.Key.Name,
                                     Name_Arabic = items.First().Name_Arabic,
+                                    ReceivedOn = items.Key.ReceivedOn,
+                                    CategoryID = items.Key.CategoryID,
+                                    Category = categories.FirstOrDefault(x => x.Id == items.Key.CategoryID)?.Name,
+                                    Supplier = suppliers.FirstOrDefault(x => x.Id == items.Key.SupplierID)?.Supplier1,
                                     AvailabilityStatus = availabilityStatuses.FirstOrDefault(x => x.Id == items.Key.AvailabilityStatusID).Status,
+                                    AvailabilityStatus_Arabic = availabilityStatuses.FirstOrDefault(x => x.Id == items.Key.AvailabilityStatusID).Status_Arabic,
                                     AvailabilityStatusID = items.Key.AvailabilityStatusID,
+                                    Expandable = items.Key.Expandable,
                                     Quantity = items.Count(),
                                     LocationInStock = string.Join(", ", items.Where(x => !string.IsNullOrEmpty(x.LocationInStock)).Select(x => x.LocationInStock + " (" + items.Where(y => y.LocationInStock == x.LocationInStock).Select(y => y).Count().ToString() + ")").Distinct()),
                                     Description = string.Join(",", items.Where(x => !string.IsNullOrEmpty(x.Description)).Select(x => x.Description)),
@@ -180,8 +199,16 @@ namespace Inventory.WebApplication.Controllers
                                     UnitID = items.Key.UnitID,
                                     UnitAmount = items.Key.UnitAmount,
                                     ItemStatusID = items.Key.ItemStatusID,
+                                    Price = items.Select(x => x.Price).Count(),
                                     Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
                                 }).ToList();
+
+                List<Transaction> transactions = db.Transactions.OrderByDescending(x => x.TransactionDate).ToList();
+
+                foreach(var item in itemsInStock.Where(x => x.AvailabilityStatusID != 1).Select(x => x).ToList())
+                {
+                    item.DateOn = transactions.FirstOrDefault(x => x.ItemName == item.Name)?.TransactionDate;
+                }
             }
 
             return View(itemsInStock);
@@ -251,13 +278,14 @@ namespace Inventory.WebApplication.Controllers
 
                 itemsInStock = (from item in db.Items
                                 where item.AvailabilityStatusID == 1
-                                group item by new { item.Name, item.AvailabilityStatusID, item.UnitID, item.UnitAmount, item.Description } into items
+                                group item by new { item.Name, item.AvailabilityStatusID, item.UnitID, item.UnitAmount, item.Description, item.ReceivedOn } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
                                 {
                                     GroupedId = items.FirstOrDefault().Id,
                                     Name = items.Key.Name,
                                     Name_Arabic = items.First().Name_Arabic,
+                                    ReceivedOn = items.Key.ReceivedOn,
                                     AvailabilityStatus = availabilityStatuses.FirstOrDefault(x => x.Id == items.Key.AvailabilityStatusID).Status,
                                     AvailabilityStatusID = items.Key.AvailabilityStatusID,
                                     Quantity = items.Count(),
@@ -330,8 +358,9 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
             {
+                List<string> nonExpandables = db.Items.Where(x => x.Expandable != true).Select(x => x.Name).ToList(); 
                 List<Transaction> transactions = db.Transactions.ToList();
-                result = transactions.Select(x => new TransactionDTO
+                result = transactions.Where(x => nonExpandables.Contains(x.ItemName)).Select(x => new TransactionDTO
                 {
                     Id = x.Id,
                     ItemName = x.ItemName,

@@ -28,7 +28,7 @@
                                 <div class="widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered">
                                     <h4 class="widget-thumb-heading english">@cat.Name</h4>
                                     <h4 class="widget-thumb-heading arabic" style="display:none;">@cat.Name_Arabic</h4>
-                                    <div class="widget-thumb-wrap">
+                                    <div class="widget-thumb-wrap category-image">
                                         <img src="@Url.Content("~/images/" + cat.Picture)" style="width:50px;" />
                                         <div class="widget-thumb-body">
                                             <p style="float:left;margin:0;width:100%;">
@@ -40,6 +40,14 @@
                                                 <span style="font-size:14px;margin-left:10px;" class="widget-thumb-body-stat pull-left" data-counter="counterup" data-value="@cat.ItemInCategoryCount">0</span>
                                             </p>
                                         </div>
+                                    </div>
+                                    <div class="widget-thumb-wrap category-description" style="display:none;">
+                                        <h4 class="english">
+                                            @(cat.Description)
+                                        </h4>
+                                        <h4 class="arabic">
+                                            @(cat.Description_Arabic)
+                                        </h4>
                                     </div>
                                     <div class="col-md-12 goToButton">
                                         <a class="btn btn-circle red" href="javascript:getItemsInCategory(@cat.Id);">@Translation.GetStringValue("Goto")</a>

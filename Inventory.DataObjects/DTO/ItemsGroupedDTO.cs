@@ -20,6 +20,7 @@ namespace Inventory.DataObjects.DTO
         public string LocationInStock { get; set; }
         public Nullable<System.DateTime> ExpiryDate { get; set; }
         public int UnitID { get; set; }
+        public Nullable<bool> Expandable { get; set; }
         public string Unit { get; set; }
         public Nullable<int> UnitAmount { get; set; }
         public Nullable<decimal> Price { get; set; }
@@ -35,5 +36,6 @@ namespace Inventory.DataObjects.DTO
         public Nullable<int> QuantityIn { get; set; }
         public Nullable<int> QuantityOut { get; set; }
         public Nullable<System.DateTime> ReceivedOn { get; set; }
+        public Nullable<System.DateTime> DateOn { get; set; }
     }
 }

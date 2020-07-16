@@ -55,6 +55,7 @@
                                                 <th>@Translation.GetStringValue("Code")</th>
                                                 <th>@Translation.GetStringValue("Category")</th>
                                                 <th>@Translation.GetStringValue("Source")</th>
+                                                <th>@Translation.GetStringValue("Status")</th>
                                                 <th>@Translation.GetStringValue("ConsumableNonConsumable")</th>
                                                 <th>@Translation.GetStringValue("Location")</th>
                                                 <th>@Translation.GetStringValue("DateOut")</th>
@@ -86,11 +87,17 @@
                                                             @item.Supplier
                                                         </td>
                                                         <td>
+                                                            <span class="english">@item.AvailabilityStatus</span>
+                                                            <span class="arabic">@item.AvailabilityStatus_Arabic</span>
+                                                        </td>
+                                                        <td>
+                                                            @item.Expandable
                                                         </td>
                                                         <td>
                                                             @item.LocationInStock
                                                         </td>
                                                         <td>
+                                                            @item.DateOn
                                                         </td>
                                                         <td>
                                                             @item.Price L.L.
