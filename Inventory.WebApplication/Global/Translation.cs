@@ -53,6 +53,27 @@ namespace Inventory.WebApplication.Global
             { "QuantityIn-english", "Quantity In"},
             { "QuantityIn-arabic", "الكمية في"},
 
+            { "MaintenanceAmount-english", "Maintenance Amount"},
+            { "MaintenanceAmount-arabic", "مبلغ الصيانة"},
+
+            { "MaintenancePrice-english", "Maintenance Amount"},
+            { "MaintenancePrice-arabic", "مبلغ الصيانة"},
+
+            { "MaintenanceReport-english", "Maintenance Report"},
+            { "MaintenanceReport-arabic", "تقرير صيانة"},
+
+            { "Consumable-english", "Consumable"},
+            { "Consumable-arabic", "مستهلك"},
+
+            { "Expandables-english", "Consumable"},
+            { "Expandables-arabic", "مستهلك"},
+
+            { "Available-english", "Available"},
+            { "Available-arabic", "متوفر"},
+
+            { "From-english", "From"},
+            { "From-arabic", "من"},
+
             { "QuantityOut-english", "Quantity Out"},
             { "QuantityOut-arabic", "الكمية خارج"},
 

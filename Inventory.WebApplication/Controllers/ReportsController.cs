@@ -365,6 +365,7 @@ namespace Inventory.WebApplication.Controllers
                 {
                     Id = x.Id,
                     ItemName = x.ItemName,
+                    ItemName_Arabic = x.ItemName_Arabic,
                     Quantity = x.Quantity,
                     NewAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus).Status : string.Empty,
                     OldAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus).Status : string.Empty,
