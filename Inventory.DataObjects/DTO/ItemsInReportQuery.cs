@@ -11,6 +11,9 @@ namespace Inventory.DataObjects.DTO
         public Nullable<int> GroupedId { get; set; }
         public string Name { get; set; }
         public string Name_Arabic { get; set; }
+        public string Category { get; set; }
+        public string Category_Arabic { get; set; }
+        public Nullable<bool> Expandable { get; set; }
         public int AvailabilityStatusID { get; set; }
         public string AvailabilityStatus { get; set; }
         public int ItemStatusID { get; set; }
@@ -23,7 +26,6 @@ namespace Inventory.DataObjects.DTO
         public Nullable<decimal> Price { get; set; }
         public string Description { get; set; }
         public int CategoryID { get; set; }
-        public string Category { get; set; }
         public int SupplierID { get; set; }
         public string Supplier { get; set; }
         public Nullable<int> Quantity { get; set; }

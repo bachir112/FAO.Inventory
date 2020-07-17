@@ -23,12 +23,12 @@
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
-                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Reports")</a>
+                    <a href="@Url.Action("Index","Reports")">@Translation.GetStringValue("Reports")</a>
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span class="english">Full Inventory General Report</span>
-                    <span class="arabic">التقرير العام للمخزون الكامل</span>
+                    <span class="english">Detailed Stock Report</span>
+                    <span class="arabic">تقرير المخزون المفصل</span>
                 </li>
             </ul>
         </div>
@@ -52,6 +52,8 @@
                                             <tr>
                                                 <th>@Translation.GetStringValue("ItemName")</th>
                                                 <th>@Translation.GetStringValue("Category")</th>
+                                                <th>@Translation.GetStringValue("Expandables")</th>
+                                                <th>@Translation.GetStringValue("Status")</th>
                                                 <th>@Translation.GetStringValue("Description")</th>
                                                 <th>@Translation.GetStringValue("Quantity")</th>
                                                 <th>@Translation.GetStringValue("CostPerItem")</th>
@@ -68,6 +70,13 @@
                                                         </td>
                                                         <td>
                                                             @item.Category
+                                                        </td>
+                                                        <td>
+                                                            @item.Expandable
+                                                        </td>
+                                                        <td>
+                                                            <span class="english">@item.AvailabilityStatus</span>
+                                                            <span class="arabic">@item.AvailabilityStatus_Arabic</span>                                                            
                                                         </td>
                                                         <td>
                                                             @item.Description

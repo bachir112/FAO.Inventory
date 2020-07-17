@@ -39,8 +39,8 @@
                     <div class="portlet-title tabbable-line">
                         <div class="caption">
                             <i class="icon-bubbles font-dark hide"></i>
-                            <span class="caption-subject font-dark bold uppercase english">Consumable Item Report</span>
-                            <span class="caption-subject font-dark bold uppercase arabic">تقرير المواد الاستهلاكية</span>
+                            <span class="caption-subject font-dark bold uppercase english">Available Inventory Report</span>
+                            <span class="caption-subject font-dark bold uppercase arabic">تقرير السلع المتوفرة</span>
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -51,6 +51,8 @@
                                         <thead>
                                             <tr>
                                                 <th>@Translation.GetStringValue("ItemName")</th>
+                                                <th>@Translation.GetStringValue("Category")</th>
+                                                <th>@Translation.GetStringValue("Consumable")</th>
                                                 <th>@Translation.GetStringValue("Description")</th>
                                                 <th>@Translation.GetStringValue("MaxQuantity")</th>
                                                 <th>@Translation.GetStringValue("MinQuantity")</th>
@@ -64,6 +66,13 @@
                                                     <tr class="odd gradeX">
                                                         <td>
                                                             @item.Name @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
+                                                        </td>
+                                                        <td>
+                                                            <span class="english">@item.Category</span>
+                                                            <span class="arabic">@item.Category_Arabic</span>
+                                                        </td>
+                                                        <td>
+                                                            @item.Expandable
                                                         </td>
                                                         <td>
                                                             @item.Description
