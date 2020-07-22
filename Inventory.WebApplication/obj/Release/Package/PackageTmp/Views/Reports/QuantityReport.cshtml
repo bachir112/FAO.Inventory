@@ -1,7 +1,7 @@
 ﻿@using Inventory.DataObjects.DTO
 @using Inventory.WebApplication.Global
 
-@model List<ItemsGroupedDTO>
+@model List<TransactionDTO>
 
 @{
     ViewBag.Title = "Quantity Report";
@@ -27,8 +27,8 @@
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span class="english">Quantity Report</span>
-                    <span class="arabic">تقرير الكمية</span>
+                    <span class="english">Inventory Movement Report</span>
+                    <span class="arabic">تقرير حركة السلع</span>
                 </li>
             </ul>
         </div>
@@ -53,17 +53,19 @@
                                                 <th>@Translation.GetStringValue("ItemName")</th>
                                                 <th>@Translation.GetStringValue("Category")</th>
                                                 <th>@Translation.GetStringValue("QuantityIn")</th>
+                                                <th>@Translation.GetStringValue("DateIn")</th>
                                                 <th>@Translation.GetStringValue("QuantityOut")</th>
+                                                <th>@Translation.GetStringValue("DateOut")</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @{
-                                                foreach (ItemsGroupedDTO item in Model)
+                                                foreach (TransactionDTO item in Model)
                                                 {
                                                     <tr class="odd gradeX">
                                                         <td>
-                                                            <span class="english">@item.Name</span>  
-                                                            <span class="arabic">@item.Name_Arabic</span>  
+                                                            <span class="english">@item.ItemName</span>  
+                                                            <span class="arabic">@item.ItemName_Arabic</span>  
                                                             @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
                                                         </td>
                                                         <td>
@@ -71,10 +73,36 @@
                                                             <span class="arabic">@item.Category_Arabic</span>
                                                         </td>
                                                         <td>
-                                                            @item.QuantityIn
+                                                            @{ 
+                                                                if(item.NewAvailabilityStatusID == 1)
+                                                                {
+                                                                    <span>@item.Quantity</span>
+                                                                }
+                                                            }
                                                         </td>
                                                         <td>
-                                                            @item.QuantityOut
+                                                            @{
+                                                                if (item.NewAvailabilityStatusID == 1)
+                                                                {
+                                                                    <span>@item.TransactionDate</span>
+                                                                }
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            @{
+                                                                if (item.NewAvailabilityStatusID != 1)
+                                                                {
+                                                                    <span>@item.Quantity</span>
+                                                                }
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            @{
+                                                                if (item.NewAvailabilityStatusID != 1)
+                                                                {
+                                                                    <span>@item.TransactionDate</span>
+                                                                }
+                                                            }
                                                         </td>
                                                     </tr>
                                                 }
