@@ -212,6 +212,31 @@
                 <div class="portlet light bordered" style="padding-top:0px;padding-bottom:0px;">
                     <div class="portlet-body">
                         <div class="row widget-row">
+
+                            <div class="form-horizontal form-bordered">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3">@Translation.GetStringValue("ReportDates")</label>
+                                        <div class="col-md-4">
+                                            <div class="input-group input-large date-picker input-daterange" data-date="10/11/2012" data-date-format="mm/dd/yyyy">
+                                                <input id="fromDate" type="text" class="form-control" name="from" placeholder="@Translation.GetStringValue("FromDate")">
+                                                <span class="input-group-addon"> to </span>
+                                                <input id="toDate" type="text" class="form-control" name="to" placeholder="@Translation.GetStringValue("ToDate")">
+                                            </div>
+                                            <!-- /input-group -->
+                                            <span class="help-block"> @Translation.GetStringValue("SelectDateRange") </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3"></label>
+                                        <div class="col-md-4">
+                                            <button id="searchItems" type="button" class="btn btn-circle btn-success pull-right">@Translation.GetStringValue("Search")</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
                                 <div class="input-group">
                                     <div class="input-group-control">
@@ -232,7 +257,7 @@
                                         </button>
                                         <ul class="dropdown-menu pull-right" role="menu">
                                             <li>
-                                                <a href="@Url.Action("InventoryGeneralReport","Reports")">@Translation.GetStringValue("Generate")</a>
+                                                <a class="goToReport" href="@Url.Action("InventoryGeneralReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             <li>
                                                 <a href="javascript:openEmailModal('InventoryGeneralReport');">@Translation.GetStringValue("SendAsEmail")</a>
@@ -245,6 +270,7 @@
                                     </span>
                                 </div>
                             </div>
+
 
                             <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
                                 <div class="input-group">
@@ -266,7 +292,7 @@
                                         </button>
                                         <ul class="dropdown-menu pull-right" role="menu">
                                             <li>
-                                                <a href="@Url.Action("MaintenanceReport","Reports")">@Translation.GetStringValue("Generate")</a>
+                                                <a class="goToReport" href="@Url.Action("MaintenanceReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             <li>
                                                 <a href="javascript:openEmailModal('MaintenanceReport');">@Translation.GetStringValue("SendAsEmail")</a>
@@ -280,39 +306,41 @@
                                 </div>
                             </div>
 
-                            <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
-                                <div class="input-group">
-                                    <div class="input-group-control">
-                                        <label class="english" style="font-weight:bold;font-size:16px;">Items In Report</label>
-                                        <label class="arabic" style="font-weight:bold;font-size:16px;"> تقرير عناصر في المخزون</label>
-                                        <br />
-                                        <label class="english" style="color:darkgrey">
-                                            It shows the exact date and time of items entering the stock system.
-                                        </label>
-                                        <label class="arabic" style="color:darkgrey">
-                                            يعرض التاريخ والوقت الدقيق للعناصر التي تدخل نظام المخزون.
-                                        </label>
-                                    </div>
-                                    <span class="input-group-btn btn-right">
-                                        <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                            @Translation.GetStringValue("Action")
-                                            <i class="fa fa-angle-down"></i>
-                                        </button>
-                                        <ul class="dropdown-menu pull-right" role="menu">
-                                            <li>
-                                                <a href="@Url.Action("ItemsInReport","Reports")">@Translation.GetStringValue("Generate")</a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:openEmailModal('ItemsInReport');">@Translation.GetStringValue("SendAsEmail")</a>
-                                            </li>
-                                            <li class="divider"> </li>
-                                            <li>
-                                                <a href="javascript:reportSettings('2','Items In Report');">@Translation.GetStringValue("ReportSettings")</a>
-                                            </li>
-                                        </ul>
-                                    </span>
-                                </div>
-                            </div>
+
+                            @*<div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
+            <div class="input-group">
+                <div class="input-group-control">
+                    <label class="english" style="font-weight:bold;font-size:16px;">Items In Report</label>
+                    <label class="arabic" style="font-weight:bold;font-size:16px;"> تقرير عناصر في المخزون</label>
+                    <br />
+                    <label class="english" style="color:darkgrey">
+                        It shows the exact date and time of items entering the stock system.
+                    </label>
+                    <label class="arabic" style="color:darkgrey">
+                        يعرض التاريخ والوقت الدقيق للعناصر التي تدخل نظام المخزون.
+                    </label>
+                </div>
+                <span class="input-group-btn btn-right">
+                    <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        @Translation.GetStringValue("Action")
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu pull-right" role="menu">
+                        <li>
+                            <a href="@Url.Action("ItemsInReport","Reports")">@Translation.GetStringValue("Generate")</a>
+                        </li>
+                        <li>
+                            <a href="javascript:openEmailModal('ItemsInReport');">@Translation.GetStringValue("SendAsEmail")</a>
+                        </li>
+                        <li class="divider"> </li>
+                        <li>
+                            <a href="javascript:reportSettings('2','Items In Report');">@Translation.GetStringValue("ReportSettings")</a>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+        </div>*@
+
 
                             <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
                                 <div class="input-group">
@@ -335,7 +363,7 @@
                                         </button>
                                         <ul class="dropdown-menu pull-right" role="menu">
                                             <li>
-                                                <a href="@Url.Action("SearchForNonConsumableReport","Reports")">@Translation.GetStringValue("Generate")</a>
+                                                <a class="goToReport" href="@Url.Action("SearchForNonConsumableReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             <li>
                                                 <a href="javascript:openEmailModal('SearchForNonConsumableReport');">@Translation.GetStringValue("SendAsEmail")</a>
@@ -350,44 +378,45 @@
                             </div>
 
                             @*<div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
-                                <div class="input-group">
-                                    <div class="input-group-control">
-                                        <label class="english" style="font-weight:bold;font-size:16px;">Daily Report </label>
-                                        <label class="arabic" style="font-weight:bold;font-size:16px;">تقرير يومي </label>
-                                        <br />
-                                        <label class="english" style="color:darkgrey">
-                                            This report remind stock keepers of the items date of return.
-                                        </label>
-                                        <label class="arabic" style="color:darkgrey">
-                                            هذا التقرير تذكير حفظة الأسهم من البنود تاريخ العودة.
-                                        </label>
-                                    </div>
-                                    <span class="input-group-btn btn-right">
-                                        <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                            @Translation.GetStringValue("Action")
-                                            <i class="fa fa-angle-down"></i>
-                                        </button>
-                                        <ul class="dropdown-menu pull-right" role="menu">
-                                            <li>
-                                                <a href="@Url.Action("DailyReport","Reports")">@Translation.GetStringValue("Generate")</a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:openEmailModal('DailyReport');">@Translation.GetStringValue("SendAsEmail")</a>
-                                            </li>
-                                            <li class="divider"> </li>
-                                            <li>
-                                                <a href="javascript:reportSettings('4','Daily Report');">@Translation.GetStringValue("ReportSettings")</a>
-                                            </li>
-                                        </ul>
-                                    </span>
-                                </div>
-                            </div>*@
+            <div class="input-group">
+                <div class="input-group-control">
+                    <label class="english" style="font-weight:bold;font-size:16px;">Daily Report </label>
+                    <label class="arabic" style="font-weight:bold;font-size:16px;">تقرير يومي </label>
+                    <br />
+                    <label class="english" style="color:darkgrey">
+                        This report remind stock keepers of the items date of return.
+                    </label>
+                    <label class="arabic" style="color:darkgrey">
+                        هذا التقرير تذكير حفظة الأسهم من البنود تاريخ العودة.
+                    </label>
+                </div>
+                <span class="input-group-btn btn-right">
+                    <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        @Translation.GetStringValue("Action")
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu pull-right" role="menu">
+                        <li>
+                            <a href="@Url.Action("DailyReport","Reports")">@Translation.GetStringValue("Generate")</a>
+                        </li>
+                        <li>
+                            <a href="javascript:openEmailModal('DailyReport');">@Translation.GetStringValue("SendAsEmail")</a>
+                        </li>
+                        <li class="divider"> </li>
+                        <li>
+                            <a href="javascript:reportSettings('4','Daily Report');">@Translation.GetStringValue("ReportSettings")</a>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+        </div>*@
+
 
                             <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
                                 <div class="input-group">
                                     <div class="input-group-control">
-                                        <label class="english" style="font-weight:bold;font-size:16px;">Available Inventory Report</label>
-                                        <label class="arabic" style="font-weight:bold;font-size:16px;">تقرير السلع الموجودة</label>
+                                        <label class="english" style="font-weight:bold;font-size:16px;margin-bottom:20px;">Available Inventory Report</label>
+                                        <label class="arabic" style="font-weight:bold;font-size:16px;margin-bottom:20px;">تقرير السلع الموجودة</label>
                                         <br />
                                         <label class="english" style="color:darkgrey">
                                             This report shows the movement of both consumable and non-consumable items.by
@@ -404,7 +433,7 @@
                                         </button>
                                         <ul class="dropdown-menu pull-right" role="menu">
                                             <li>
-                                                <a href="@Url.Action("ConsumableItemsReport","Reports")">@Translation.GetStringValue("Generate")</a>
+                                                <a class="goToReport" href="@Url.Action("ConsumableItemsReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             <li>
                                                 <a href="javascript:openEmailModal('ConsumableItemsReport');">@Translation.GetStringValue("SendAsEmail")</a>
@@ -418,39 +447,41 @@
                                 </div>
                             </div>
 
-                            <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
-                                <div class="input-group">
-                                    <div class="input-group-control">
-                                        <label class="english" style="font-weight:bold;font-size:16px;">Non-Consumable Item Report</label>
-                                        <label class="arabic" style="font-weight:bold;font-size:16px;">تقرير المواد غير المستهلكة</label>
-                                        <br />
-                                        <label class="english" style="color:darkgrey">
-                                            It shows the movement of non-consumable items.
-                                        </label>
-                                        <label class="arabic" style="color:darkgrey">
-                                            فإنه يدل على حركة العناصر غير الاستهلاكية.
-                                        </label>
-                                    </div>
-                                    <span class="input-group-btn btn-right">
-                                        <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                            @Translation.GetStringValue("Action")
-                                            <i class="fa fa-angle-down"></i>
-                                        </button>
-                                        <ul class="dropdown-menu pull-right" role="menu">
-                                            <li>
-                                                <a href="@Url.Action("NonConsumableItemsReport","Reports")">@Translation.GetStringValue("Generate")</a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:openEmailModal('NonConsumableItemsReport');">@Translation.GetStringValue("SendAsEmail")</a>
-                                            </li>
-                                            <li class="divider"> </li>
-                                            <li>
-                                                <a href="javascript:reportSettings('6','Non-Consumable Item Report');">@Translation.GetStringValue("ReportSettings")</a>
-                                            </li>
-                                        </ul>
-                                    </span>
-                                </div>
-                            </div>
+
+                            @*<div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
+            <div class="input-group">
+                <div class="input-group-control">
+                    <label class="english" style="font-weight:bold;font-size:16px;">Non-Consumable Item Report</label>
+                    <label class="arabic" style="font-weight:bold;font-size:16px;">تقرير المواد غير المستهلكة</label>
+                    <br />
+                    <label class="english" style="color:darkgrey">
+                        It shows the movement of non-consumable items.
+                    </label>
+                    <label class="arabic" style="color:darkgrey">
+                        فإنه يدل على حركة العناصر غير الاستهلاكية.
+                    </label>
+                </div>
+                <span class="input-group-btn btn-right">
+                    <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        @Translation.GetStringValue("Action")
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu pull-right" role="menu">
+                        <li>
+                            <a href="@Url.Action("NonConsumableItemsReport","Reports")">@Translation.GetStringValue("Generate")</a>
+                        </li>
+                        <li>
+                            <a href="javascript:openEmailModal('NonConsumableItemsReport');">@Translation.GetStringValue("SendAsEmail")</a>
+                        </li>
+                        <li class="divider"> </li>
+                        <li>
+                            <a href="javascript:reportSettings('6','Non-Consumable Item Report');">@Translation.GetStringValue("ReportSettings")</a>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+        </div>*@
+
 
                             <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
                                 <div class="input-group">
@@ -475,7 +506,7 @@
                                         </button>
                                         <ul class="dropdown-menu pull-right" role="menu">
                                             <li>
-                                                <a href="@Url.Action("FullInventoryGeneralReport","Reports")">@Translation.GetStringValue("Generate")</a>
+                                                <a class="goToReport" href="@Url.Action("FullInventoryGeneralReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             <li>
                                                 <a href="javascript:openEmailModal('FullInventoryGeneralReport');">@Translation.GetStringValue("SendAsEmail")</a>
@@ -489,39 +520,41 @@
                                 </div>
                             </div>
 
-                            <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
-                                <div class="input-group">
-                                    <div class="input-group-control">
-                                        <label class="english" style="font-weight:bold;font-size:16px;">Budget Line / Statement of Account</label>
-                                        <label class="arabic" style="font-weight:bold;font-size:16px;">بند الميزانية / بيان الحساب</label>
-                                        <br />
-                                        <label class="english" style="color:darkgrey">
-                                            It shows the movement of all items in one category at a time.
-                                        </label>
-                                        <label class="arabic" style="color:darkgrey">
-                                            فإنه يدل على حركة جميع العناصر في فئة واحدة في وقت واحد.
-                                        </label>
-                                    </div>
-                                    <span class="input-group-btn btn-right">
-                                        <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                            @Translation.GetStringValue("Action")
-                                            <i class="fa fa-angle-down"></i>
-                                        </button>
-                                        <ul class="dropdown-menu pull-right" role="menu">
-                                            <li>
-                                                <a href="@Url.Action("BudgetLineStatementOfAccountReport","Reports")">@Translation.GetStringValue("Generate")</a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:openEmailModal('BudgetLineStatementOfAccountReport');">@Translation.GetStringValue("SendAsEmail")</a>
-                                            </li>
-                                            <li class="divider"> </li>
-                                            <li>
-                                                <a href="javascript:reportSettings('8','Budget Line Report');">@Translation.GetStringValue("ReportSettings")</a>
-                                            </li>
-                                        </ul>
-                                    </span>
-                                </div>
-                            </div>
+
+                            @*<div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
+            <div class="input-group">
+                <div class="input-group-control">
+                    <label class="english" style="font-weight:bold;font-size:16px;">Budget Line / Statement of Account</label>
+                    <label class="arabic" style="font-weight:bold;font-size:16px;">بند الميزانية / بيان الحساب</label>
+                    <br />
+                    <label class="english" style="color:darkgrey">
+                        It shows the movement of all items in one category at a time.
+                    </label>
+                    <label class="arabic" style="color:darkgrey">
+                        فإنه يدل على حركة جميع العناصر في فئة واحدة في وقت واحد.
+                    </label>
+                </div>
+                <span class="input-group-btn btn-right">
+                    <button type="button" class="btn green-haze dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        @Translation.GetStringValue("Action")
+                        <i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu pull-right" role="menu">
+                        <li>
+                            <a href="@Url.Action("BudgetLineStatementOfAccountReport","Reports")">@Translation.GetStringValue("Generate")</a>
+                        </li>
+                        <li>
+                            <a href="javascript:openEmailModal('BudgetLineStatementOfAccountReport');">@Translation.GetStringValue("SendAsEmail")</a>
+                        </li>
+                        <li class="divider"> </li>
+                        <li>
+                            <a href="javascript:reportSettings('8','Budget Line Report');">@Translation.GetStringValue("ReportSettings")</a>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+        </div>*@
+
 
                             <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
                                 <div class="input-group">
@@ -543,7 +576,7 @@
                                         </button>
                                         <ul class="dropdown-menu pull-right" role="menu">
                                             <li>
-                                                <a href="@Url.Action("QuantityReport","Reports")">@Translation.GetStringValue("Generate")</a>
+                                                <a class="goToReport" href="@Url.Action("QuantityReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             <li>
                                                 <a href="javascript:openEmailModal('QuantityReport');">@Translation.GetStringValue("SendAsEmail")</a>
@@ -556,6 +589,7 @@
                                     </span>
                                 </div>
                             </div>
+
 
                             <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
                                 <div class="input-group">
@@ -575,7 +609,7 @@
                                         </button>
                                         <ul class="dropdown-menu pull-right" role="menu">
                                             <li>
-                                                <a href="@Url.Action("SchoolTransferReport","Reports")">@Translation.GetStringValue("Generate")</a>
+                                                <a class="goToReport" href="@Url.Action("SchoolTransferReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
                                             <li>
                                                 <a href="javascript:openEmailModal('SchoolTransferReport');">@Translation.GetStringValue("SendAsEmail")</a>
@@ -589,15 +623,27 @@
                                 </div>
                             </div>
 
+
                             <div class="form-group form-md-line-input form-md-floating-label" style="padding:20px;">
                                 <div class="input-group">
                                     <div class="input-group-control">
-                                        <label class="english" style="font-weight:bold;font-size:16px;">ABC Analysis</label>
-                                        <label class="arabic" style="font-weight:bold;font-size:16px;">تحليل ABC</label>
+                                        <label class="english" style="font-weight:bold;font-size:16px;margin-bottom:20px;">ABC Analysis</label>
+                                        <label class="arabic" style="font-weight:bold;font-size:16px;margin-bottom:20px;">تحليل ABC</label>
 
                                         <br />
                                         <label class="english" style="color:darkgrey">
                                             It is used to compare items vale/ cost and quantity for future decisions.
+                                            <ul>
+                                                <li>
+                                                    Items of high value and small in numbers are termed as “A”
+                                                </li>
+                                                <li>
+                                                    Items of moderate value and moderate in number are termed as “B”
+                                                </li>
+                                                <li>
+                                                    Items of small in value and large in number are termed as “C”
+                                                </li>
+                                            </ul>
                                         </label>
                                         <label class="arabic" style="color:darkgrey">
                                             يتم استخدامه لمقارنة تكلفة العناصر والكمية للقرارات المستقبلية.
@@ -610,15 +656,8 @@
                                         </button>
                                         <ul class="dropdown-menu pull-right" role="menu">
                                             <li>
-                                                <a href="@Url.Action("ABCAnalysisReport","Reports")">@Translation.GetStringValue("Generate")</a>
+                                                <a class="goToReport" href="@Url.Action("ABCAnalysisReport","Reports")">@Translation.GetStringValue("Generate")</a>
                                             </li>
-                                            @*<li>
-                            <a href="javascript:sendEmail('ABCAnalysisReport');">@Translation.GetStringValue("SendAsEmail")</a>
-                        </li>*@
-                                            @*<li class="divider"> </li>
-                        <li>
-                            <a href="@Url.Action("ReportSettings","Reports", new { Id = "11" });">@Translation.GetStringValue("ReportSettings")</a>
-                        </li>*@
                                         </ul>
                                     </span>
                                 </div>
@@ -689,7 +728,7 @@
                         break;
                 }
             });
-            
+
             $('#queryIDContainer label input:checked').each(function () {
                 queriesID.push($(this).val());
             });
@@ -734,8 +773,8 @@
             url: '@Url.Action("CreateQuery","Reports")?itemName=' + itemName +
                 '&reportID=' + reportID +
                 '&itemAvailability=' + itemAvailability +
-                '&minQuantity=' + minQuantity + 
-                '&maxQuantity=' + maxQuantity + 
+                '&minQuantity=' + minQuantity +
+                '&maxQuantity=' + maxQuantity +
                 '&minPrice=' + minPrice +
                 '&maxPrice=' + maxPrice,
             success: function (response) {
@@ -835,7 +874,7 @@
 
         var queryID = $(this).attr('data-ID');
         $(this).parent().parent().parent().remove();
-        
+
         $.ajax({
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
@@ -869,16 +908,28 @@
 
     });
 
-    //function sendEmail() {
-    //    var url = reportName + '_Email?email=' + $('#user_email').val();
-    //    console.log('url = ' + url);
-    //    $.ajax({
-    //        url: url,
-    //        type: "POST",
-    //        success: function (data) {
-    //            $('#success_tic').modal('show');
-    //        }
-    //    });
-    //}
+    $(document).on('change', '#fromDate', function () {
+        var fromDate = $('#fromDate').val();
+        var toDate = $('#toDate').val();
+
+        $('.goToReport').each(function () {
+            var url = $(this).attr('href');
+            url = url.split('?')[0];
+            url = url + '?fromDate=' + fromDate + '&toDate=' + toDate;
+            $(this).attr('href', url);
+        });
+    });
+
+    $(document).on('change', '#toDate', function () {
+        var fromDate = $('#fromDate').val();
+        var toDate = $('#toDate').val();
+
+        $('.goToReport').each(function () {
+            var url = $(this).attr('href');
+            url = url.split('?')[0];
+            url = url + '?fromDate=' + fromDate + '&toDate=' + toDate;
+            $(this).attr('href', url);
+        });
+    });
 
 </script>

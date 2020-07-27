@@ -25,6 +25,7 @@ namespace Inventory.DataObjects.DTO
         public Nullable<int> UnitAmount { get; set; }
         public System.DateTime TransactionDate { get; set; }
         public int Quantity { get; set; }
+        public int QuantityAvailable { get; set; }
         public string ToWhom { get; set; }
     }
 }

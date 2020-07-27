@@ -110,6 +110,7 @@ namespace Inventory.WebApplication.Controllers
                         {
                             listOfItemsNames.Add(item.Name + "(" + item.Name_Arabic + ")");
                             item.Price = itemPrice;
+                            item.ModifiedOn = DateTime.Now;
                         }
                         db.SaveChanges();
 
@@ -135,6 +136,7 @@ namespace Inventory.WebApplication.Controllers
                         {
                             listOfItemsNames.Add(item.Name + "(" + item.Name_Arabic + ")");
                             item.MaintenancePrice = maintenancePrice;
+                            item.ModifiedOn = DateTime.Now;
                         }
                         db.SaveChanges();
 
@@ -173,6 +175,7 @@ namespace Inventory.WebApplication.Controllers
                     {
                         listOfItemsNames.Add(item.Name + "(" + item.Name_Arabic + ")");
                         item.PendingTransferApproval = "approved";
+                        item.ModifiedOn = DateTime.Now;
                     }
                     db.SaveChanges();
 
@@ -275,6 +278,7 @@ namespace Inventory.WebApplication.Controllers
                     newItem.Expandable = expandable;
                     newItem.ReceivedOn = DateTime.Now;
                     newItem.ModifiedBy = User.Identity.GetUserId();
+                    newItem.ModifiedOn = DateTime.Now;
 
                     db.Items.Add(newItem);
                     db.SaveChanges();

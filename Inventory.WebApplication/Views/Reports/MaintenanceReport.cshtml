@@ -51,14 +51,8 @@
                                         <thead>
                                             <tr>
                                                 <th>@Translation.GetStringValue("ItemName")</th>
-                                                @*<th>@Translation.GetStringValue("DateIn")</th>*@
-                                                @*<th>@Translation.GetStringValue("Code")</th>*@
-                                                @*<th>@Translation.GetStringValue("Category")</th>
-                                                <th>@Translation.GetStringValue("Source")</th>*@
-                                                @*<th>@Translation.GetStringValue("ConsumableNonConsumable")</th>*@
-                                                @*<th>@Translation.GetStringValue("Location")</th>*@
                                                 <th>@Translation.GetStringValue("MaintenancePrice") (LBP)</th>
-                                                <th>@Translation.GetStringValue("Code") (LBP)</th>
+                                                <th>@Translation.GetStringValue("Value") (LBP)</th>
                                                 <th>@Translation.GetStringValue("Quantity")</th>
                                             </tr>
                                         </thead>
@@ -72,24 +66,6 @@
                                                             <span class="arabic">@item.Name_Arabic</span>
                                                             @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
                                                         </td>
-                                                        @*<td>
-                                                            @item.ReceivedOn
-                                                        </td>*@
-                                                        @*<td>
-                                                            <span class="english">@(item.Category?.Substring(0, 2))@(item.GroupedId)</span>
-                                                            <span class="arabic">@(item.Category_Arabic?.Substring(0, 2))@(item.GroupedId)</span>
-                                                        </td>*@
-                                                        @*<td>
-                                                            @item.Category
-                                                        </td>
-                                                        <td>
-                                                            @item.Supplier
-                                                        </td>*@
-                                                        @*<td>
-                                                        </td>*@
-                                                        @*<td>
-                                                            @item.LocationInStock
-                                                        </td>*@
                                                         <td>
                                                             @(item.MaintenancePrice == null ? "0 L.L." : (item.MaintenancePrice + "L.L."))
                                                         </td>

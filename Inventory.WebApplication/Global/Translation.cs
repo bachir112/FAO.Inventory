@@ -471,7 +471,10 @@ namespace Inventory.WebApplication.Global
             { "ChangePassword-english", "Change Password"},
             { "ChangePassword-arabic", "تغيير كلمة السر"},
 
-            
+            { "Value-english", "Value"},
+            { "Value-arabic", "القيمة"},
+
+
         }; 
 
         static public string GetLanguageCookieValue(string cookieName = "language")

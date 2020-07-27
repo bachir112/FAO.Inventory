@@ -396,6 +396,7 @@ namespace Inventory.WebApplication.Controllers
                     if(item != null)
                     {
                         item.Description = description;
+                        item.ModifiedOn = DateTime.Now;
                         db.SaveChanges();
                     }
                 }
@@ -464,8 +465,9 @@ namespace Inventory.WebApplication.Controllers
 
                     itemInDB.ForEach(x => x.AvailabilityStatusID = AvailabilityStatusID);
                     itemInDB.ForEach(x => x.Description = Description);
+                    itemInDB.ForEach(x => x.ModifiedOn = DateTime.Now);
 
-                    if(AvailabilityStatusID == 1002)
+                    if (AvailabilityStatusID == 1002)
                     {
                         itemInDB.ForEach(x => x.PendingTransferApproval = "waiting");
                     }

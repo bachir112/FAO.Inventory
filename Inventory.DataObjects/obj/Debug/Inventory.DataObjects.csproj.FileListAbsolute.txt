@@ -30,3 +30,4 @@ C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\D
 C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.csproj.CopyComplete
 C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.dll
 C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.pdb
+C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.csprojAssemblyReference.cache

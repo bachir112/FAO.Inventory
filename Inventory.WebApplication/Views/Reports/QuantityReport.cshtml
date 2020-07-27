@@ -56,6 +56,7 @@
                                                 <th>@Translation.GetStringValue("DateIn")</th>
                                                 <th>@Translation.GetStringValue("QuantityOut")</th>
                                                 <th>@Translation.GetStringValue("DateOut")</th>
+                                                <th>@Translation.GetStringValue("AvailableQuantity")</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -103,6 +104,9 @@
                                                                     <span>@item.TransactionDate</span>
                                                                 }
                                                             }
+                                                        </td>
+                                                        <td>
+                                                            <span>@item.QuantityAvailable</span>
                                                         </td>
                                                     </tr>
                                                 }
