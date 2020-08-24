@@ -1,24 +1,87 @@
 ﻿@using Inventory.WebApplication.Global
+@using Inventory.DataObjects.DTO
 
 @{
     ViewBag.Title = "Dashboard";
+
+    List<TransactionDTO> returnItems = ViewBag.ReturnItems as List<TransactionDTO>;
 }
 
 <style type="text/css">
 
-    #itemsTable thead tr th:first-child{
-        display:none;
+    #itemsTable thead tr th:first-child {
+        display: none;
     }
 
-    #itemsTable tbody tr td:first-child{
-        display:none;
+    #itemsTable tbody tr td:first-child {
+        display: none;
     }
 
-    .widget-thumb .widget-thumb-wrap{
-        margin-top:20px;
+    .widget-thumb .widget-thumb-wrap {
+        margin-top: 20px;
     }
 
+    #reminderTable th {
+        width: 25%;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    #reminderTable td {
+        width: 25%;
+        text-align: center;
+        padding: 10px 0;
+    }
 </style>
+
+
+
+<div class="modal fade" id="reminderModal" tabindex="-1" role="dialog" aria-labelledby="reminderModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="reminderModalLabel">@Translation.GetStringValue("Reminder")</h5>
+            </div>
+            <div class="modal-body">
+                <table id="reminderTable" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th>@Translation.GetStringValue("ItemName")</th>
+                            <th>@Translation.GetStringValue("Location")</th>
+                            <th>@Translation.GetStringValue("Description")</th>
+                            <th>@Translation.GetStringValue("DateOut")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in returnItems)
+                            {
+                                <tr>
+                                    <td>
+                                        <span class="english">@item.ItemName</span>
+                                        <span class="arabic">@item.ItemName_Arabic</span>
+                                    </td>
+                                    <td>
+                                        @item.ToWhom
+                                    </td>
+                                    <td>
+                                        @item.Description
+                                    </td>
+                                    <td>
+                                        @item.TransactionDate
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" type="button" class="btn btn-primary">@Translation.GetStringValue("Okay")</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="page-content-wrapper">
     <div class="page-content">
@@ -57,5 +120,52 @@
     $(window).load(function () {
         $('#categoriesFilterContainer').click();
     });
+
+    @{
+        if (returnItems.Count() > 0)
+        {
+            <text>
+    $(document).ready(function () {
+
+                    $('#reminderModal').modal('show');
+
+
+                    //var table = $('#reminderTable');
+                    //var oTable = table.dataTable({
+                    //    "language": {
+                    //        "aria": {
+                    //            "sortAscending": ": activate to sort column ascending",
+                    //            "sortDescending": ": activate to sort column descending"
+                    //        },
+                    //        "emptyTable": "لا يوجد",
+                    //        "info": "عرض _START_ الى _END_ من _TOTAL_ ",
+                    //        "infoEmpty": "لا يوجد",
+                    //        "infoFiltered": "(filtered1 من _MAX_ العدد)",
+                    //        "lengthMenu": "_MENU_ العدد",
+                    //        "search": "بحث:",
+                    //        "zeroRecords": "لا يوجد"
+                    //    },
+                    //    "order": [
+                    //        [0, 'asc']
+                    //    ],
+                    //    "lengthMenu": [
+                    //        [5, 10, 15, 20, -1],
+                    //        [5, 10, 15, 20, "كل"] // change per page values here
+                    //    ],
+                    //    "pageLength": 10,
+                    //    "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+                    //    buttons: [
+                    //        { extend: 'print', className: 'btn dark btn-outline' },
+                    //        { extend: 'pdf', className: 'btn green btn-outline' },
+                    //        { extend: 'excel', className: 'btn yellow btn-outline ' }
+                    //    ]
+                    //    //,
+                    //    //responsive: true
+                    //});
+
+                });
+            </text>
+        }
+    }
 
 </script>

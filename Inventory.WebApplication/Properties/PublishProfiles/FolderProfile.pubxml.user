@@ -17173,19 +17173,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/18/2020 10:45:07</publishTime>
     </File>
     <File Include="bin/Inventory.DataObjects.dll">
-      <publishTime>07/17/2020 16:05:58</publishTime>
+      <publishTime>07/29/2020 23:44:36</publishTime>
     </File>
     <File Include="bin/Inventory.DataObjects.dll.config">
       <publishTime>06/18/2020 10:44:50</publishTime>
     </File>
     <File Include="bin/Inventory.DataObjects.pdb">
-      <publishTime>07/17/2020 16:05:58</publishTime>
+      <publishTime>07/29/2020 23:44:36</publishTime>
     </File>
     <File Include="bin/Inventory.WebApplication.dll">
-      <publishTime>07/17/2020 16:06:00</publishTime>
+      <publishTime>07/29/2020 23:44:39</publishTime>
     </File>
     <File Include="bin/Inventory.WebApplication.pdb">
-      <publishTime>07/17/2020 16:06:00</publishTime>
+      <publishTime>07/29/2020 23:44:39</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>06/18/2020 10:45:07</publishTime>
@@ -17617,7 +17617,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/18/2020 10:44:50</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>07/17/2020 15:50:20</publishTime>
+      <publishTime>07/29/2020 23:40:25</publishTime>
     </File>
     <File Include="Views/Home/ItemsPartialApproval.cshtml">
       <publishTime>06/18/2020 10:44:50</publishTime>
@@ -17710,28 +17710,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/17/2020 14:22:55</publishTime>
     </File>
     <File Include="Views/Reports/Index.cshtml">
-      <publishTime>07/17/2020 15:58:08</publishTime>
+      <publishTime>07/27/2020 15:54:13</publishTime>
     </File>
     <File Include="Views/Reports/InventoryGeneralReport.cshtml">
-      <publishTime>07/17/2020 14:20:04</publishTime>
+      <publishTime>07/27/2020 15:43:10</publishTime>
     </File>
     <File Include="Views/Reports/ItemsInReport.cshtml">
       <publishTime>06/18/2020 10:44:50</publishTime>
     </File>
     <File Include="Views/Reports/MaintenanceReport.cshtml">
-      <publishTime>07/10/2020 09:47:50</publishTime>
+      <publishTime>07/27/2020 15:55:44</publishTime>
     </File>
     <File Include="Views/Reports/NonConsumableItemsReport.cshtml">
       <publishTime>06/18/2020 10:44:50</publishTime>
     </File>
     <File Include="Views/Reports/QuantityReport.cshtml">
-      <publishTime>07/17/2020 15:03:20</publishTime>
+      <publishTime>07/27/2020 15:49:58</publishTime>
     </File>
     <File Include="Views/Reports/SchoolTransferReport.cshtml">
       <publishTime>06/18/2020 10:44:50</publishTime>
     </File>
     <File Include="Views/Reports/SearchForNonConsumableReport.cshtml">
-      <publishTime>07/16/2020 19:50:56</publishTime>
+      <publishTime>07/27/2020 15:46:34</publishTime>
     </File>
     <File Include="Views/Roles/Index.cshtml">
       <publishTime>06/18/2020 10:44:50</publishTime>
@@ -17743,7 +17743,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/18/2020 10:44:50</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>07/14/2020 19:38:50</publishTime>
+      <publishTime>07/29/2020 23:16:46</publishTime>
     </File>
     <File Include="Views/Shared/_LoginLayout.cshtml">
       <publishTime>06/18/2020 10:44:50</publishTime>

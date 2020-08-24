@@ -206,7 +206,7 @@ namespace Inventory.WebApplication.Controllers
                                         UnitID = items.Key.UnitID,
                                         UnitAmount = items.Key.UnitAmount,
                                         ItemStatusID = items.Key.ItemStatusID,
-                                        Price = items.Select(x => x.Price).Count(),
+                                        Price = items.Sum(x => x.Price),
                                         Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
                                     }).ToList();
                 }
@@ -249,7 +249,7 @@ namespace Inventory.WebApplication.Controllers
                                         UnitID = items.Key.UnitID,
                                         UnitAmount = items.Key.UnitAmount,
                                         ItemStatusID = items.Key.ItemStatusID,
-                                        Price = items.Select(x => x.Price).Count(),
+                                        Price = items.Sum(x => x.Price),
                                         Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
                                     }).ToList();
                 }
@@ -1415,7 +1415,7 @@ namespace Inventory.WebApplication.Controllers
                 if(fromDate == null && toDate == null)
                 {
                     itemsInStock = (from item in db.Items
-                                    group item by new { item.Name, item.AvailabilityStatusID, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice } into items
+                                    group item by new { item.Name, item.AvailabilityStatusID, item.Price, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice } into items
                                     select items).AsEnumerable().Select(
                                     items => new ItemsGroupedDTO()
                                     {
@@ -1426,9 +1426,8 @@ namespace Inventory.WebApplication.Controllers
                                         AvailabilityStatusID = items.Key.AvailabilityStatusID,
                                         Quantity = items.Count(),
                                         MaintenancePrice = items.Key.MaintenancePrice,
-                                    //LocationInStock = string.Join(", ", items.Where(x => !string.IsNullOrEmpty(x.LocationInStock)).Select(x => x.LocationInStock + " (" + items.Where(y => y.LocationInStock == x.LocationInStock).Select(y => y).Count().ToString() + ")").Distinct()),
-                                    //Description = string.Join(",", items.Where(x => !string.IsNullOrEmpty(x.Description)).Select(x => x.Description)),
-                                    ExpiryDate = items.Key.ExpiryDate,
+                                        Price = items.Key.Price,
+                                        ExpiryDate = items.Key.ExpiryDate,
                                         UnitID = items.Key.UnitID,
                                         UnitAmount = items.Key.UnitAmount,
                                         ItemStatusID = items.Key.ItemStatusID,
@@ -1439,7 +1438,7 @@ namespace Inventory.WebApplication.Controllers
                 {
                     itemsInStock = (from item in db.Items
                                     where item.ModifiedOn >= fromDate && item.ModifiedOn <= toDate
-                                    group item by new { item.Name, item.AvailabilityStatusID, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice } into items
+                                    group item by new { item.Name, item.AvailabilityStatusID, item.Price, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice } into items
                                     select items).AsEnumerable().Select(
                                     items => new ItemsGroupedDTO()
                                     {
@@ -1450,9 +1449,8 @@ namespace Inventory.WebApplication.Controllers
                                         AvailabilityStatusID = items.Key.AvailabilityStatusID,
                                         Quantity = items.Count(),
                                         MaintenancePrice = items.Key.MaintenancePrice,
-                                    //LocationInStock = string.Join(", ", items.Where(x => !string.IsNullOrEmpty(x.LocationInStock)).Select(x => x.LocationInStock + " (" + items.Where(y => y.LocationInStock == x.LocationInStock).Select(y => y).Count().ToString() + ")").Distinct()),
-                                    //Description = string.Join(",", items.Where(x => !string.IsNullOrEmpty(x.Description)).Select(x => x.Description)),
-                                    ExpiryDate = items.Key.ExpiryDate,
+                                        Price = items.Key.Price,
+                                        ExpiryDate = items.Key.ExpiryDate,
                                         UnitID = items.Key.UnitID,
                                         UnitAmount = items.Key.UnitAmount,
                                         ItemStatusID = items.Key.ItemStatusID,

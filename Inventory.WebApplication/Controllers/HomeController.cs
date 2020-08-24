@@ -18,6 +18,8 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (Global.Global.isAllowed(User.Identity.GetUserId(), "Home"))
             {
+                List<TransactionDTO> transactions = new List<TransactionDTO>();
+
                 using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
                 {
                     string userID = User.Identity.GetUserId();
@@ -27,7 +29,32 @@ namespace Inventory.WebApplication.Controllers
                         user.LastLogin = DateTime.Now;
                         db.SaveChanges();
                     }
+
+                    //returnItems = db.Items.Where(x => x.Expandable != true && (x.AvailabilityStatusID == 2 || x.AvailabilityStatusID == 4)).Select(x => x).ToList();
+
+                    List<string> nonExpandablesItems = db.Items.Where(x => x.Expandable != true && (x.AvailabilityStatusID == 2 || x.AvailabilityStatusID == 4)).Select(x => x.Name).ToList(); 
+                    transactions = db.Transactions
+                                     .Where(x => nonExpandablesItems.Contains(x.ItemName) && (x.NewAvailabilityStatus == 2 || x.NewAvailabilityStatus == 4))
+                                     .ToList()
+                                     .Select(x => new TransactionDTO
+                                     {
+                                         Id = x.Id,
+                                         ItemName = x.ItemName,
+                                         ItemName_Arabic = x.ItemName_Arabic,
+                                         Quantity = x.Quantity,
+                                         NewAvailabilityStatusID = x.NewAvailabilityStatus,
+                                         NewAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus).Status : string.Empty,
+                                         NewAvailabilityStatus_Arabic = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus).Status_Arabic : string.Empty,
+                                         OldAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus).Status : string.Empty,
+                                         OldAvailabilityStatus_Arabic = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.OldAvailabilityStatus).Status_Arabic : string.Empty,
+                                         StockKeeper = db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper) != null ? db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper).FullName : string.Empty,
+                                         Description = x.Description,
+                                         ToWhom = x.ToWhom,
+                                         TransactionDate = x.TransactionDate
+                                     }).ToList();
                 }
+
+                ViewBag.ReturnItems = transactions;
 
                 return View();
             }

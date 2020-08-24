@@ -66,10 +66,10 @@
                                                             <span class="arabic">@item.Name_Arabic</span>
                                                             @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
                                                         </td>
-                                                        <td>
+                                                        <td class="price">
                                                             @(item.MaintenancePrice == null ? "0 L.L." : (item.MaintenancePrice + "L.L."))
                                                         </td>
-                                                        <td>
+                                                        <td class="price">
                                                             @(item.Price == null ? "Not Set" : (item.Price + "L.L."))
                                                         </td>
                                                         <td>

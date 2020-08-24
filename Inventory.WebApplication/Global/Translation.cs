@@ -50,6 +50,9 @@ namespace Inventory.WebApplication.Global
             { "MaxPrice-english", "Max. Price"},
             { "MaxPrice-arabic", "السعر الاقصى"},
 
+            { "ReportDates-english", "Report Dates"},
+            { "ReportDates-arabic", "تواريخ التقرير"},
+
             { "QuantityIn-english", "Quantity In"},
             { "QuantityIn-arabic", "الكمية في"},
 
@@ -276,7 +279,7 @@ namespace Inventory.WebApplication.Global
             { "Allowed-english", "Allowed"},
             { "Allowed-arabic", "سماح"},
 
-            { "NotAllowed-english", "Allowed"},
+            { "NotAllowed-english", "Not Allowed"},
             { "NotAllowed-arabic", "غير مسموح"},
 
             { "NoSettingsAssigned-english", "No Settings Assigned"},
@@ -404,6 +407,9 @@ namespace Inventory.WebApplication.Global
             
             { "Unit-english", "Unit"},
             { "Unit-arabic", "وحدة"},
+
+            { "Reminder-english", "Reminder"},
+            { "Reminder-arabic", "تذكير"},
 
             { "Description-english", "Description"},
             { "Description-arabic", "تفاصيل"},
