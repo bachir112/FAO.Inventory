@@ -210,6 +210,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\amcharts\animated.js" />
+    <Content Include="assets\amcharts\charts.js" />
+    <Content Include="assets\amcharts\core.js" />
     <Content Include="assets\apps\css\inbox.css" />
     <Content Include="assets\apps\css\inbox.min.css" />
     <Content Include="assets\apps\css\ticket.css" />
