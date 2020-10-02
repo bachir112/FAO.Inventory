@@ -488,6 +488,11 @@ namespace Inventory.WebApplication.Controllers
                                                     )
                                                     ).Select(x => x).Take(quantity).ToList();
 
+                    if(itemInDB.Count() < quantity)
+                    {
+                        throw new NullReferenceException(Global.Translation.GetStringValue("QuantityError"));
+                    }
+
                     itemInDB = itemInDB.Take(quantity).ToList();
 
                     itemInDB.ForEach(x => x.AvailabilityStatusID = AvailabilityStatusID);

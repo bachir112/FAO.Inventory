@@ -376,6 +376,12 @@ namespace Inventory.WebApplication.Controllers
         {
             string result = "Error";
 
+            var itemsAvailableCount = listOfIDs.Split(',').Select(Int32.Parse).ToList().Count();
+            if (itemsAvailableCount < quantityToDelete)
+            {
+                throw new NullReferenceException(Global.Translation.GetStringValue("QuantityError"));
+            }
+
             try
             {
                 List<string> listOfItemsNames = new List<string>();

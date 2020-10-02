@@ -5339,6 +5339,8 @@
     <Content Include="assets\pages\scripts\v,..min.js" />
     <Content Include="assets\pages\scripts\widgets.js" />
     <Content Include="assets\pages\scripts\widgets.min.js" />
+    <Content Include="assets\select2.css" />
+    <Content Include="assets\select2.full.js" />
     <Content Include="assets\wizard\demo.css" />
     <Content Include="assets\wizard\gsdk-bootstrap-wizard.css" />
     <Content Include="assets\wizard\gsdk-bootstrap-wizard.js" />

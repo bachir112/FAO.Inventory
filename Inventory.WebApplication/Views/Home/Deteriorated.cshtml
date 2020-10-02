@@ -153,6 +153,10 @@
             success: function (response) {
                 $('#assignItemModal').modal('hide');
                 refreshItemsTable();
+            },
+            error: function (err) {
+                alert('Error');
+                console.log(err);
             }
         });
 

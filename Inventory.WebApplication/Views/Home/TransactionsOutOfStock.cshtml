@@ -168,7 +168,7 @@
             $('#assignQuantity').prop('disabled', false);
         }
     });
-    
+
 
     $(document).on('click', '#changeDescriptionActionSelector', function () {
         console.log('open box');
@@ -186,7 +186,7 @@
         var listIDs = itemsIDs.split(',');
         $('#changeDescriptionItem').attr('data-ItemID', listIDs[0]);
     });
-    
+
 
 
     $(document).on('click', '#changeDescriptionItem', function () {
@@ -245,6 +245,9 @@
             success: function (response) {
                 $('#assignItemModal').modal('hide');
                 refreshItemsTable();
+            },
+            error: function (err) {
+                alert('@Translation.GetStringValue("QuantityError")');
             }
         });
 

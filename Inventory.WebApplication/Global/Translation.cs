@@ -8,6 +8,10 @@ namespace Inventory.WebApplication.Global
     public class Translation
     {
         public static Dictionary<string, string> LanguageDictionary = new Dictionary<string, string>() {
+
+            { "QuantityError-english", "Please specify a correct quantity." },
+            { "QuantityError-arabic", "الرجاء تحديد الكمية الصحيحة."},
+
             { "Home-english", "Home" },
             { "Home-arabic", "قائمة الرئيسة"},
 

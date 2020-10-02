@@ -178,7 +178,7 @@
             $('#deleteItemButton').hide();
             $('#deleteAllItemButton').show();
         });
-        
+
         $(document).on('click', '.deleteItems', function () {
 
             var ids = $(this).attr('data-SelectedIDs');
@@ -191,18 +191,22 @@
                 url: "@Url.Action("DeleteItems","Items")?listOfIDs=" + ids + '&quantityToDelete=' + quantity,
                 success: function (response) {
                     $('#deleteItemModal').modal('hide');
-                    refreshItemsTable();
+                    //refreshItemsTable();
                     $('#success_tic').modal('show');
+                    window.location.reload();
+                },
+                error: function (err) {
+                    alert('@Translation.GetStringValue("QuantityError")');
                 }
             });
 
         });
 
-        
+
 
     });
 
-    
+
 
     function refreshItemsTable() {
         $.ajax({

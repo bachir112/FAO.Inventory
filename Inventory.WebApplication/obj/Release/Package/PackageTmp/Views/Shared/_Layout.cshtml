@@ -968,14 +968,6 @@
             $('#pageManagementTab').addClass('active');
         }
 
-        function pageManagementActive() {
-            $('#usersParentTab').addClass('active');
-            $('#usersParentTab').addClass('open');
-            $('#usersParentTab .arrow').addClass('open');
-            $('#usersParentTab .sub-menu').css('display', 'block');
-            $('#suppliersTab').addClass('active');
-        }
-
         function rolesActive() {
             $('#usersParentTab').addClass('active');
             $('#usersParentTab').addClass('open');
@@ -1021,6 +1013,15 @@
 
         });
 
+        $(document).ready(function () {
+            $(".price").digits();
+        });
+
+        $.fn.digits = function () {
+            return this.each(function () {
+                $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+            })
+        }
 
     </script>
 
