@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Inventory.WebApplication.Controllers
 {
-    [Authorize(Roles = "Admin, SchoolManager, SchoolStockKeeper")]
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()

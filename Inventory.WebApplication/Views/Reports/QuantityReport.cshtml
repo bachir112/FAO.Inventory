@@ -85,7 +85,7 @@
                                                             @{
                                                                 if (item.NewAvailabilityStatusID == 1)
                                                                 {
-                                                                    <span>@item.TransactionDate</span>
+                                                                    <span>@item.TransactionDate.ToString("dd-MMM-yyyy")</span>
                                                                 }
                                                             }
                                                         </td>
@@ -101,7 +101,7 @@
                                                             @{
                                                                 if (item.NewAvailabilityStatusID != 1)
                                                                 {
-                                                                    <span>@item.TransactionDate</span>
+                                                                    <span>@item.TransactionDate.ToString("dd-MMM-yyyy")</span>
                                                                 }
                                                             }
                                                         </td>

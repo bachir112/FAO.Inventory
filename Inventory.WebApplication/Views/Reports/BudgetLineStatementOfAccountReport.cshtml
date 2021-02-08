@@ -74,7 +74,7 @@
                                                             <span class="arabic">@item.Category</span>                                                            
                                                         </td>
                                                         <td>
-                                                            @item.ReceivedOn
+                                                            @(item.ReceivedOn?.ToString("dd-MMM-yyyy"))
                                                         </td>
                                                         <td>
                                                             @*@item.Quantity*@

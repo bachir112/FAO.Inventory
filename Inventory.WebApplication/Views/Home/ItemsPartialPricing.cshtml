@@ -68,6 +68,7 @@
                                     <span class="setPriceForItem"
                                           style="cursor:pointer; color:#36c6d3; font-weight:bold" 
                                           data-ItemName="@item.Name"
+                                          data-ItemAmount="@item.Quantity"
                                           data-itemsIDs="@item.ItemsIDs">@Translation.GetStringValue("Set")</span>
                                 </td>
                                 <td>
@@ -84,7 +85,7 @@
                                     @(maintenancePrice)
                                 </td>
                                 <td>
-                                    @item.ExpiryDate
+                                    @(item.ExpiryDate?.ToString("dd-MMM-yyyy"))
                                 </td>
                                 <td>
                                     @item.Quantity

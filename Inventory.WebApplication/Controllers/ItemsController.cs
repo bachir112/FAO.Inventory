@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Inventory.WebApplication.Controllers
 {
-    [Authorize(Roles = "Admin, SchoolManager, SchoolStockKeeper")]
+    [Authorize]
     public class ItemsController : Controller
     {
         private InventoryEntities db = new InventoryEntities(Global.Global.GetSchoolCookieValue());

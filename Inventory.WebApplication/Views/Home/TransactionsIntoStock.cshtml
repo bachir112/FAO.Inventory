@@ -101,6 +101,7 @@
 <script type="text/javascript">
 
     var selectedItems = [];
+    var maxAllowed = 0;
 
     $(document).ready(function () {
         transactionsActive();
@@ -133,7 +134,7 @@
             $('#locationInStock').html('');
             $('#locationInStock').append(html);
 
-            
+
             var description = $(this).attr('data-description');
             description = description.replace(/\(.*?\)/, '').replace('(', '').replace(')', '');
             $('#assignDescription').append(description);
@@ -154,6 +155,8 @@
         selectedItems = [];
 
         $('#itemsTable tbody label input:checked').each(function () {
+            maxAllowed = $(this).attr('data-Quantity');
+
             var item = {
                 Name: $(this).attr('data-Name'),
                 AvailabilityStatusID: $(this).attr('data-AvailabilityStatusID'),
@@ -172,24 +175,34 @@
         selectedItems = JSON.stringify(selectedItems);
         console.log(selectedItems);
 
-        $.ajax({
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            type: 'POST',
-            url: "@Url.Action("AssignItems","Home")?quantity=" + $('#assignQuantity').val()
-                + '&AvailabilityStatusID=' + $('#assignStatus').val()
-                + '&LocationInStock=' + $('#locationInStock').val()
-                + '&Description=' + $('#assignDescription').val()
-                + '&ToWhom=' + $('#toWhom').val(),
-            data: selectedItems,
-            success: function (response) {
-                $('#assignItemModal').modal('hide');
-                refreshItemsTable();
-            },
-            error: function (err) {
-                alert('@Translation.GetStringValue("QuantityError")');
-            }
-        });
+        var transferingQuantity = $('#assignQuantity').val();
+
+        console.log('transferingQuantity = ' + transferingQuantity);
+        console.log('maxAllowed = ' + maxAllowed);
+
+        if (transferingQuantity > maxAllowed) {
+            alert(@Translation.GetStringValue("NumberHigherThanStock"));
+        } else {
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "@Url.Action("AssignItems","Home")?quantity=" + transferingQuantity
+                    + '&AvailabilityStatusID=' + $('#assignStatus').val()
+                    + '&LocationInStock=' + $('#locationInStock').val()
+                    + '&Description=' + $('#assignDescription').val()
+                    + '&ToWhom=' + $('#toWhom').val(),
+                data: selectedItems,
+                success: function (response) {
+                    $('#assignItemModal').modal('hide');
+                    refreshItemsTable();
+                },
+                error: function (err) {
+                    alert('@Translation.GetStringValue("QuantityError")');
+                }
+            });
+        }
+
 
     });
 

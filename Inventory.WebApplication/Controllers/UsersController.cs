@@ -15,7 +15,7 @@ using Inventory.WebApplication.Global;
 
 namespace Inventory.WebApplication.Controllers
 {
-    [Authorize(Roles = "Admin, SchoolManager, SchoolStockKeeper")]
+    [Authorize]
     public class UsersController : Controller
     {
         private InventoryEntities db = new InventoryEntities(Global.Global.GetSchoolCookieValue());

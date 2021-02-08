@@ -159,6 +159,7 @@
 
 <script type="text/javascript">
 
+    var maxAllowed = 0;
     var selectedItems = [];
 
     $(document).ready(function () {
@@ -177,6 +178,7 @@
     $(document).on('click', '.setPriceForItem', function () {
         var itemName = $(this).attr('data-ItemName');
         var itemsIDs = $(this).attr('data-ItemsIDs');
+        maxAllowed = $(this).attr('data-ItemAmount');
 
         $('#assignItemName').text('Price for ' + itemName);
         $('#assignItemPrice').attr('data-ItemsIDs', itemsIDs);
@@ -191,17 +193,25 @@
         var maintenanceItems = $('#numberOfItems').val();
         var maintenancePrice = $('#maintenancePrice').val();
 
-        $.ajax({
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            type: 'POST',
-            url: "@Url.Action("EditPrice","Items")?itemPrice=" + itemPrice + '&listOfIDs=' + listOfIDs + '&maintenanceItems=' + maintenanceItems + '&maintenancePrice=' + maintenancePrice,
-            success: function (response) {
-                $('#itemPrice').val('');
-                $('#itemPriceModal').modal('hide');
-                searchItems();
-            }
-        });
+        console.log('maintenanceItems = ' + maintenanceItems);
+        console.log('maxAllowed = ' + maxAllowed);
+
+        if (maintenanceItems > maxAllowed) {
+            alert(@Translation.GetStringValue("NumberHigherThanStock"));
+        } else {
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "@Url.Action("EditPrice","Items")?itemPrice=" + itemPrice + '&listOfIDs=' + listOfIDs + '&maintenanceItems=' + maintenanceItems + '&maintenancePrice=' + maintenancePrice,
+                success: function (response) {
+                    $('#itemPrice').val('');
+                    $('#itemPriceModal').modal('hide');
+                    searchItems();
+                }
+            });
+        }
+
     });
 
     $(document).on('click', '#yesMaintenance', function () {

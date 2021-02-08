@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Inventory.WebApplication.Controllers
 {
+    [Authorize]
     public class PageManagementController : Controller
     {
         // GET: PageManagement

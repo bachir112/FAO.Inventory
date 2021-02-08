@@ -74,7 +74,7 @@
                                                             @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
                                                         </td>
                                                         <td>
-                                                            @item.ReceivedOn
+                                                            @(item.ReceivedOn?.ToString("dd-MMM-yyyy"))
                                                         </td>
                                                         <td>
                                                             <span class="english">@(item.Category?.Substring(0, 2))@(item.GroupedId)</span>
@@ -97,7 +97,7 @@
                                                             @item.LocationInStock
                                                         </td>
                                                         <td>
-                                                            @item.DateOn
+                                                            @(item.DateOn?.ToString("dd-MMM-yyyy"))
                                                         </td>
                                                         <td class="price">
                                                             @item.Price L.L.

@@ -13,6 +13,7 @@ using System.Web.Security;
 
 namespace Inventory.WebApplication.Controllers
 {
+    [Authorize]
     public class ReportsController : Controller
     {
         // GET: Reports

@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 
 namespace Inventory.WebApplication.Controllers
 {
+    [Authorize]
     public class SuppliersController : Controller
     {
         private InventoryEntities db = new InventoryEntities(Global.Global.GetSchoolCookieValue());
