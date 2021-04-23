@@ -32,7 +32,9 @@ namespace Inventory.WebApplication.Controllers
 
                     //returnItems = db.Items.Where(x => x.Expandable != true && (x.AvailabilityStatusID == 2 || x.AvailabilityStatusID == 4)).Select(x => x).ToList();
 
-                    List<string> nonExpandablesItems = db.Items.Where(x => x.Expandable != true && (x.AvailabilityStatusID == 2 || x.AvailabilityStatusID == 4)).Select(x => x.Name).ToList(); 
+                    Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+
+                    List<string> nonExpandablesItems = db.Items.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.Expandable != true && (x.AvailabilityStatusID == 2 || x.AvailabilityStatusID == 4)).Select(x => x.Name).ToList(); 
                     transactions = db.Transactions
                                      .Where(x => nonExpandablesItems.Contains(x.ItemName) && (x.NewAvailabilityStatus == 2 || x.NewAvailabilityStatus == 4))
                                      .ToList()
@@ -115,7 +117,7 @@ namespace Inventory.WebApplication.Controllers
                                     }).ToList();
 
                 var itemsList = (from items in db.Items
-                                 where items.SchoolID == schoolID
+                                 where (schoolID == 0 ? true : items.SchoolID == schoolID)
                                 group items by items.CategoryID into itemsGroup
                                 select new { 
                                     GroupID = itemsGroup.Key,
@@ -153,7 +155,7 @@ namespace Inventory.WebApplication.Controllers
                 List<Category> categories = db.Categories.ToList();
 
                 itemsInStock = (from item in db.Items
-                                where item.SchoolID == schoolID 
+                                where (schoolID == 0 ? true : item.SchoolID == schoolID)
                                 && item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
                                 && item.AvailabilityStatusID == (queryID == -1 ? item.AvailabilityStatusID : queryID)
                                 && (queryID == 2 ? (item.Expandable != true) : true)
@@ -213,7 +215,7 @@ namespace Inventory.WebApplication.Controllers
                 List<Unit> units = db.Units.ToList();
 
                 itemsInStock = (from item in db.Items
-                                where item.SchoolID == schoolID
+                                where (schoolID == 0 ? true : item.SchoolID == schoolID)
                                 && item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
                                 && (fromDate == null ? true : item.ReceivedOn >= fromDate)
                                 && (toDate == null ? true : item.ReceivedOn <= toDate)
@@ -252,7 +254,7 @@ namespace Inventory.WebApplication.Controllers
                 List<Unit> units = db.Units.ToList();
 
                 itemsInStock = (from item in db.Items
-                                where item.SchoolID == schoolID
+                                where (schoolID == 0 ? true : item.SchoolID == schoolID)
                                 && item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
                                 && (fromDate == null ? true : item.ReceivedOn >= fromDate)
                                 && (toDate == null ? true : item.ReceivedOn <= toDate)
