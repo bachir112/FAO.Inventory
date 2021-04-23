@@ -77,28 +77,18 @@ namespace Inventory.WebApplication.Global
             return result;
         }
 
-        static public string GetSchoolCookieValue(string cookieName = "schoolDB")
+        static public int GetSchoolCookieValue(string cookieName = "schoolDB")
         {
-            string schoolCookieValue = string.Empty;
+            int schoolCookieValue = -1;
 
             if(HttpContext.Current.Request.Cookies[cookieName] != null)
             {
-                schoolCookieValue = HttpContext.Current.Request.Cookies[cookieName].Value;
+                schoolCookieValue = Convert.ToInt32(HttpContext.Current.Request.Cookies[cookieName].Value);
             }
             else
             {
 
             }
-
-            //try
-            //{
-            //    schoolCookieValue = HttpContext.Current.Request.Cookies[cookieName].Value;
-            //}
-            //catch(Exception ex)
-            //{
-            //    //FormsAuthentication.SignOut();
-            //    //HttpContext.Current.Session.Abandon();
-            //}
 
             return schoolCookieValue;
         }
@@ -162,7 +152,7 @@ namespace Inventory.WebApplication.Global
 
                 using (var db = new InventoryEntities())
                 {
-                    Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                    Nullable<int> schoolID = Global.GetSchoolCookieValue();
 
                     result = db.PageManagements.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) &&
                                                            x.RoleName == roleName &&
@@ -199,7 +189,7 @@ namespace Inventory.WebApplication.Global
 
                 using (var db = new InventoryEntities())
                 {
-                    Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                    Nullable<int> schoolID = Global.GetSchoolCookieValue();
 
                     result = db.PageManagements.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.RoleName == roleName && x.Allowed).Select(x => x).ToList();
                 }

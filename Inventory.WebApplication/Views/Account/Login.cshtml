@@ -25,7 +25,10 @@
 
         <div class="form-group">
             <label style="color:#edf4f8; font-weight:bold;">School name</label>
-            @Html.Partial("_SchoolsDropdown")
+            @{
+                Html.RenderAction("SchoolsMenu", "Home");
+            }
+            @*@Html.Partial("_SchoolsDropdown")*@
         </div>
 
         @Html.AntiForgeryToken()

@@ -13,6 +13,18 @@ namespace Inventory.WebApplication.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        [AllowAnonymous]
+        public ActionResult SchoolsMenu()
+        {
+            List<School> schools = new List<School>();
+            using (var db = new InventoryEntities())
+            {
+                schools = db.Schools.ToList();
+            }
+
+            return PartialView("_SchoolsDropdown", schools);
+        }
+
         public ActionResult Index()
         {
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
@@ -32,7 +44,7 @@ namespace Inventory.WebApplication.Controllers
 
                     //returnItems = db.Items.Where(x => x.Expandable != true && (x.AvailabilityStatusID == 2 || x.AvailabilityStatusID == 4)).Select(x => x).ToList();
 
-                    Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                    Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
 
                     List<string> nonExpandablesItems = db.Items.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.Expandable != true && (x.AvailabilityStatusID == 2 || x.AvailabilityStatusID == 4)).Select(x => x.Name).ToList(); 
                     transactions = db.Transactions
@@ -81,8 +93,8 @@ namespace Inventory.WebApplication.Controllers
 
         public ActionResult NotAuthorized()
         {
-            string schoolCookieValue = Global.Global.GetSchoolCookieValue();
-            if (schoolCookieValue == string.Empty || schoolCookieValue == null)
+            int schoolCookieValue = Global.Global.GetSchoolCookieValue();
+            if (schoolCookieValue == -1)
             {
                 return RedirectToAction("LogOff", "Account");
             }
@@ -102,8 +114,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string userID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 categoriesList = db.Categories
                                     .Select(x => new CategoryDTO
                                     {
@@ -147,8 +158,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string userID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
@@ -210,8 +220,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string userID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
@@ -250,8 +259,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string userID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
@@ -304,8 +312,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             using (var db = new InventoryEntities())
             {
-                string userID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
 
                 ViewBag.ToWhom = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.ToWhom != null && x.ToWhom.Trim() != string.Empty)
                                                 .Select(x => x.ToWhom)
@@ -330,8 +337,7 @@ namespace Inventory.WebApplication.Controllers
             {
                 using (var db = new InventoryEntities())
                 {
-                    string userID = User.Identity.GetUserId();
-                    Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                    Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
 
                     ViewBag.ToWhom = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.ToWhom != null && x.ToWhom.Trim() != string.Empty)
                                                     .Select(x => x.ToWhom)
@@ -374,8 +380,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string userID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<Transaction> transactions = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 result = transactions.Select(x => new TransactionDTO
                 {
@@ -410,8 +415,7 @@ namespace Inventory.WebApplication.Controllers
 
                 using (var db = new InventoryEntities())
                 {
-                    string userID = User.Identity.GetUserId();
-                    Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                    Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                     List<Transaction> transactions = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                     result = transactions.Select(x => new TransactionDTO
                     {
@@ -445,8 +449,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string userID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
 
                 try
                 {
@@ -481,8 +484,8 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string userID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
+
                 foreach (var item in selectedItemsList)
                 {
                     try
@@ -567,8 +570,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string userID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
 
                 List<SearchItemsDTO>  items = db.Items
                                                 .Where(x => ((schoolID == 0 ? true : x.SchoolID == schoolID)) && (categoryID == null) ? true : x.CategoryID == categoryID)

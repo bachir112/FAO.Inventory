@@ -77,8 +77,8 @@ namespace Inventory.WebApplication.Controllers
                 return View(model);
             }
 
-            string schoolCookieValue = Global.Global.GetSchoolCookieValue();
-            if (schoolCookieValue == string.Empty || schoolCookieValue == null)
+            int schoolCookieValue = Global.Global.GetSchoolCookieValue();
+            if (schoolCookieValue == -1)
             {
                 ModelState.AddModelError("", "Please choose schoold to continue.");
                 return View(model);
@@ -190,8 +190,7 @@ namespace Inventory.WebApplication.Controllers
 
                     using (var db = new InventoryEntities())
                     {
-                        string userID = User.Identity.GetUserId();
-                        Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                        Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                         Logging logging = new Logging();
                         logging.UserID = user.Id;
                         logging.Action = "New user has registered " + user.Email + " on " + DateTime.Now.ToString();
@@ -228,7 +227,7 @@ namespace Inventory.WebApplication.Controllers
                         logging.UserID = User.Identity.GetUserId();
                         logging.Action = "User " + User.Identity.Name + " created a new user " + model.Email + " on " + DateTime.Now.ToString();
 
-                        Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == logging.UserID)?.SchoolID;
+                        Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                         logging.SchoolID = schoolID;
                         db.Loggings.Add(logging);
                         db.SaveChanges();

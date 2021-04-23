@@ -1,21 +1,37 @@
-﻿
+﻿@using Inventory.DataObjects.EDM
+
+@model List<School>
+
 @{ 
     string hide = "display:none;";
     if (User.IsInRole("Admin") || !User.Identity.IsAuthenticated)
     {
         hide = "";
     }
+
+    string hideForNonAdmin = "display:none;";
+    if (User.IsInRole("Admin"))
+    {
+        hideForNonAdmin = "";
+    }
 }
 
 <div id="schoolsContainer" style="@hide">
     <select id="schools" style="width:100%;">
-        <option value="s1">Fanar | الفنار</option>
-        <option value="s2">Abdeh | العبده</option>
-        <option value="s3">Batroun | البترون</option>
-        <option value="s4">Baakleen | بعقلين</option>
-        <option value="s5">Nassriet Rizik | ناصرية رزق</option>
-        <option value="s6">Nabatieh | النبطية</option>
-        <option value="s7">Khiam | الخيام</option>
+        <option value="0" style="@hideForNonAdmin">All</option>
+        @{
+            foreach (var school in Model)
+            {
+                <option value="@(school.ID)">@(school.SchoolName_En) | @(school.SchoolName_Ar)</option>
+            }
+        }
+        @*<option value="1">Fanar | الفنار</option>
+        <option value="2">Abdeh | العبده</option>
+        <option value="3">Batroun | البترون</option>
+        <option value="4">Baakleen | بعقلين</option>
+        <option value="5">Nassriet Rizik | ناصرية رزق</option>
+        <option value="6">Nabatieh | النبطية</option>
+        <option value="7">Khiam | الخيام</option>*@
     </select>
 </div>
 

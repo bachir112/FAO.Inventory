@@ -19,8 +19,7 @@ namespace Inventory.WebApplication.Controllers
         // GET: Suppliers
         public ActionResult Index()
         {
-            string suserID = User.Identity.GetUserId();
-            Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+            Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (Global.Global.isAllowed(User.Identity.GetUserId(), "Suppliers"))
             {

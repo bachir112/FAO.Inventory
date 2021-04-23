@@ -24,8 +24,7 @@ namespace Inventory.WebApplication.Controllers
             {
                 using (var db = new InventoryEntities())
                 {
-                    string userID = User.Identity.GetUserId();
-                    Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                    Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
 
                     ViewBag.ItemsNames = db.Items.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).Select(x => new ItemNames
                                                               {
@@ -52,8 +51,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string userID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
 
                 ReportSetting reportSettings = db.ReportSettings.FirstOrDefault(x => x.ReportID == ReportID && (schoolID == 0 ? true : x.SchoolID == schoolID));
 
@@ -99,8 +97,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string userID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
 
                 ReportQuery newReportQuery = new ReportQuery();
                 newReportQuery.ReportID = reportID;
@@ -129,8 +126,7 @@ namespace Inventory.WebApplication.Controllers
             {
                 using (var db = new InventoryEntities())
                 {
-                    string userID = User.Identity.GetUserId();
-                    Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                    Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
 
                     ReportQuery query = db.ReportQueries.First(x => x.Id == queryID && (schoolID == 0 ? true : x.SchoolID == schoolID));
                     db.ReportQueries.Remove(query);
@@ -157,8 +153,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string userID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
 
                 reportSettings = db.ReportSettings.FirstOrDefault(x => x.ReportID == reportID && (schoolID == 0 ? true : x.SchoolID == schoolID));
                 listOfReportQuery = db.ReportQueries.Where(x => x.ReportID == reportID && (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
@@ -180,8 +175,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string userID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
 
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
@@ -294,8 +288,8 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
+
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
@@ -350,8 +344,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string userID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
@@ -386,8 +379,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
@@ -442,8 +434,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string userID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<string> nonExpandables = db.Items.Where(x => x.Expandable != true && (schoolID == 0 ? true : x.SchoolID == schoolID)).Select(x => x.Name).ToList(); 
                 List<Transaction> transactions = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).Select(x => x).ToList();
                 if(fromDate == null || toDate == null)
@@ -493,8 +484,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<Transaction> transactions = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).Select(x => x).ToList();
                 result = transactions.Select(x => new TransactionDTO
                 {
@@ -540,8 +530,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string userID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 transactionsReminders.AddRange(db.TransactionsReminders.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList());
             }
 
@@ -555,8 +544,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 transactionsReminders.AddRange(db.TransactionsReminders.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList());
 
                 Global.Global.ExportDataSetToExcel(transactionsReminders);
@@ -590,8 +578,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
@@ -699,8 +686,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Unit> units = db.Units.ToList();
 
@@ -771,8 +757,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Unit> units = db.Units.ToList();
 
@@ -823,8 +808,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Unit> units = db.Units.ToList();
 
@@ -895,8 +879,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
@@ -996,8 +979,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
                 List<Unit> units = db.Units.ToList();
@@ -1059,8 +1041,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
@@ -1100,8 +1081,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
                 List<Unit> units = db.Units.ToList();
@@ -1162,8 +1142,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
@@ -1238,8 +1217,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
@@ -1298,8 +1276,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
@@ -1352,8 +1329,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
@@ -1412,8 +1388,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
 
                 if (fromDate == null || toDate == null)
                 {
@@ -1475,8 +1450,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
 
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();

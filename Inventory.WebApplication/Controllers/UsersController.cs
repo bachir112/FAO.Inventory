@@ -26,8 +26,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (Global.Global.isAllowed(User.Identity.GetUserId(), "Users"))
             {
-                string suserID = User.Identity.GetUserId();
-                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AspNetUser> listAspNetUser = db.AspNetUsers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
 
                 using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
