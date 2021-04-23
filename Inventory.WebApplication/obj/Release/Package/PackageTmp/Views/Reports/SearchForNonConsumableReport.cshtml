@@ -27,8 +27,8 @@
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span class="english">Search for Non-Consumable Report</span>
-                    <span class="english">البحث عن تقرير غير مستهلك</span>
+                    <span class="english">Non-consumable items report</span>
+                    <span class="english">تقرير السلع الغير الاستهلاكية</span>
                 </li>
             </ul>
         </div>
@@ -73,10 +73,10 @@
                                                             <span> @transaction.ToWhom </span>
                                                         </td>
                                                         <td>
-                                                            @transaction.TransactionDate
+                                                            @(transaction.TransactionDate.ToString("dd-MMM-yyyy"))
                                                         </td>
                                                         <td>
-                                                            @transaction.TransactionDate
+                                                            @(transaction.TransactionDate.ToString("dd-MMM-yyyy"))
                                                         </td>
                                                     </tr>
                                                 }
@@ -130,7 +130,7 @@
                 buttons: [
                     { extend: 'print', className: 'btn dark btn-outline' },
                     { extend: 'pdf', className: 'btn green btn-outline' },
-                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
                 //,
                 //responsive: true
@@ -176,7 +176,7 @@
                         }
                     },
                     { extend: 'pdf', className: 'btn green btn-outline' },
-                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
                 //,
                 //responsive: true

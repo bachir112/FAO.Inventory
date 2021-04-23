@@ -18,7 +18,7 @@ namespace Inventory.WebApplication.Controllers
     [Authorize]
     public class UsersController : Controller
     {
-        private InventoryEntities db = new InventoryEntities(Global.Global.GetSchoolCookieValue());
+        private InventoryEntities db = new InventoryEntities();
 
         // GET: AspNetUsers
         public async Task<ActionResult> Index()
@@ -26,9 +26,11 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (Global.Global.isAllowed(User.Identity.GetUserId(), "Users"))
             {
-                List<AspNetUser> listAspNetUser = db.AspNetUsers.ToList();
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                List<AspNetUser> listAspNetUser = db.AspNetUsers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
 
-                using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))))
+                using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
                 {
                     foreach (var user in listAspNetUser)
                     {
@@ -51,7 +53,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<AspNetUser> listAspNetUser = db.AspNetUsers.ToList();
 
-            using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))))
+            using (var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
             {
                 foreach (var user in listAspNetUser)
                 {
@@ -116,7 +118,7 @@ namespace Inventory.WebApplication.Controllers
                 return HttpNotFound();
             }
 
-            using (var context = new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))
+            using (var context = new ApplicationDbContext())
             {
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
@@ -141,7 +143,7 @@ namespace Inventory.WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var context = new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))
+                using (var context = new ApplicationDbContext())
                 {
                     var userStore = new UserStore<ApplicationUser>(context);
                     var userManager = new UserManager<ApplicationUser>(userStore);
@@ -193,43 +195,40 @@ namespace Inventory.WebApplication.Controllers
 
             if (User.IsInRole("Admin"))
             {
-                foreach (var school in Global.Global.iterateThroughDatabases)
+                using (var context = new ApplicationDbContext())
                 {
-                    using (var context = new ApplicationDbContext(school))
+                    var userStore = new UserStore<ApplicationUser>(context);
+                    var userManager = new UserManager<ApplicationUser>(userStore);
+
+                    userID = userID == null ? User.Identity.GetUserId() : userID;
+                    string hashedNewPassword = userManager.PasswordHasher.HashPassword(newPassword);
+
+                    ApplicationUser cUser = await userStore.FindByIdAsync(userID);
+                    await userStore.SetPasswordHashAsync(cUser, hashedNewPassword);
+                    await userStore.UpdateAsync(cUser);
+
+
+                    ApplicationUser user = userManager.FindByName(User.Identity.Name);
+                    string mail = user.Email;
+
+                    bool emailSent = Global.Global.sendEmail(
+                                User.Identity.Name + " your password has been reset",
+
+                                "Your new password is: " + newPassword,
+
+                                mail
+                              );
+
+                    if (emailSent)
                     {
-                        var userStore = new UserStore<ApplicationUser>(context);
-                        var userManager = new UserManager<ApplicationUser>(userStore);
-
-                        userID = userID == null ? User.Identity.GetUserId() : userID;
-                        string hashedNewPassword = userManager.PasswordHasher.HashPassword(newPassword);
-
-                        ApplicationUser cUser = await userStore.FindByIdAsync(userID);
-                        await userStore.SetPasswordHashAsync(cUser, hashedNewPassword);
-                        await userStore.UpdateAsync(cUser);
-
-
-                        ApplicationUser user = userManager.FindByName(User.Identity.Name);
-                        string mail = user.Email;
-
-                        bool emailSent = Global.Global.sendEmail(
-                                    User.Identity.Name + " your password has been reset",
-
-                                    "Your new password is: " + newPassword,
-
-                                    mail
-                                  );
-
-                        if (emailSent)
-                        {
-                            response = Global.Global.EnumsSuccess;
-                        }
+                        response = Global.Global.EnumsSuccess;
                     }
                 }
 
             }
             else
             {
-                using (var context = new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))
+                using (var context = new ApplicationDbContext())
                 {
                     var userStore = new UserStore<ApplicationUser>(context);
                     var userManager = new UserManager<ApplicationUser>(userStore);

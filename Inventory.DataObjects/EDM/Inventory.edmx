@@ -68,6 +68,7 @@
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="Verified" Type="bit" Nullable="false" />
           <Property Name="LastLogin" Type="datetime" />
+          <Property Name="SchoolID" Type="int" />
         </EntityType>
         <EntityType Name="AvailabilityStatus">
           <Key>
@@ -113,6 +114,7 @@
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="250" />
           <Property Name="ModifiedOn" Type="date" />
           <Property Name="PendingTransferApproval" Type="nvarchar" MaxLength="15" />
+          <Property Name="SchoolID" Type="int" />
         </EntityType>
         <EntityType Name="ItemsSearchValues">
           <Key>
@@ -139,6 +141,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserID" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Action" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="SchoolID" Type="int" />
         </EntityType>
         <EntityType Name="PageManagement">
           <Key>
@@ -148,6 +151,7 @@
           <Property Name="PageName" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Allowed" Type="bit" Nullable="false" />
+          <Property Name="SchoolID" Type="int" />
         </EntityType>
         <EntityType Name="ReportQueries">
           <Key>
@@ -161,6 +165,7 @@
           <Property Name="MaximumPrice" Type="int" />
           <Property Name="AvailabilityStatusID" Type="int" />
           <Property Name="ReportID" Type="int" />
+          <Property Name="SchoolID" Type="int" />
         </EntityType>
         <EntityType Name="ReportSettings">
           <Key>
@@ -178,6 +183,15 @@
           <Property Name="QueryBasis" Type="bit" Nullable="false" />
           <Property Name="QueryID" Type="int" />
           <Property Name="LastSent" Type="datetime" />
+          <Property Name="SchoolID" Type="int" />
+        </EntityType>
+        <EntityType Name="Schools">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SchoolName_En" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="SchoolName_Ar" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="Suppliers">
           <Key>
@@ -186,6 +200,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Supplier" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="IsSchool" Type="bit" />
+          <Property Name="SchoolID" Type="int" />
         </EntityType>
         <EntityType Name="Transaction">
           <Key>
@@ -205,6 +220,7 @@
           <Property Name="ToWhom" Type="nvarchar" MaxLength="500" />
           <Property Name="ShouldReturn" Type="bit" />
           <Property Name="ChildOfTransaction" Type="int" />
+          <Property Name="SchoolID" Type="int" />
         </EntityType>
         <EntityType Name="TransactionsReminder">
           <Key>
@@ -216,6 +232,7 @@
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
           <Property Name="DateOut" Type="datetime" Nullable="false" />
           <Property Name="DateIn" Type="datetime" Nullable="false" />
+          <Property Name="SchoolID" Type="int" />
         </EntityType>
         <EntityType Name="Unit">
           <Key>
@@ -297,6 +314,7 @@
           <EntitySet Name="PageManagement" EntityType="Self.PageManagement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReportQueries" EntityType="Self.ReportQueries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReportSettings" EntityType="Self.ReportSettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schools" EntityType="Self.Schools" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TransactionsReminder" EntityType="Self.TransactionsReminder" Schema="dbo" store:Type="Tables" />
@@ -352,6 +370,7 @@
           <EntitySet Name="ReportSettings" EntityType="InventoryModel.ReportSetting" />
           <EntitySet Name="Items" EntityType="InventoryModel.Item" />
           <EntitySet Name="Loggings" EntityType="InventoryModel.Logging" />
+          <EntitySet Name="Schools" EntityType="InventoryModel.School" />
           <EntitySet Name="TransactionsReminders" EntityType="InventoryModel.TransactionsReminder" />
           </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -415,6 +434,7 @@
           <NavigationProperty Name="AspNetUserLogins" Relationship="InventoryModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
           <NavigationProperty Name="AspNetRoles" Relationship="InventoryModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
           <Property Name="LastLogin" Type="DateTime" Precision="3" />
+          <Property Name="SchoolID" Type="Int32" />
         </EntityType>
         <EntityType Name="AvailabilityStatu">
           <Key>
@@ -462,6 +482,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Supplier1" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="IsSchool" Type="Boolean" />
+          <Property Name="SchoolID" Type="Int32" />
         </EntityType>
         <EntityType Name="Transaction">
           <Key>
@@ -481,6 +502,7 @@
           <Property Name="ShouldReturn" Type="Boolean" />
           <Property Name="ChildOfTransaction" Type="Int32" />
           <Property Name="ItemName_Arabic" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolID" Type="Int32" />
         </EntityType>
         <EntityType Name="Unit">
           <Key>
@@ -530,6 +552,7 @@
           <Property Name="PageName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="RoleName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Allowed" Type="Boolean" Nullable="false" />
+          <Property Name="SchoolID" Type="Int32" />
         </EntityType>
         <EntityType Name="ReportQuery">
           <Key>
@@ -543,6 +566,7 @@
           <Property Name="MaximumPrice" Type="Int32" />
           <Property Name="AvailabilityStatusID" Type="Int32" />
           <Property Name="ReportID" Type="Int32" />
+          <Property Name="SchoolID" Type="Int32" />
         </EntityType>
         <EntityType Name="ReportSetting">
           <Key>
@@ -560,6 +584,7 @@
           <Property Name="QueryBasis" Type="Boolean" Nullable="false" />
           <Property Name="QueryID" Type="Int32" />
           <Property Name="LastSent" Type="DateTime" Precision="3" />
+          <Property Name="SchoolID" Type="Int32" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
@@ -584,6 +609,7 @@
           <Property Name="ModifiedBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="0" />
           <Property Name="PendingTransferApproval" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolID" Type="Int32" />
         </EntityType>
         <EntityType Name="Logging">
           <Key>
@@ -592,6 +618,15 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Action" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="School">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SchoolName_En" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolName_Ar" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TransactionsReminder">
           <Key>
@@ -603,6 +638,7 @@
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="DateOut" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateIn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SchoolID" Type="Int32" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -650,6 +686,7 @@
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="InventoryModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
                 <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
                 <ScalarProperty Name="Verified" ColumnName="Verified" />
                 <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
@@ -714,6 +751,7 @@
           <EntitySetMapping Name="Suppliers">
             <EntityTypeMapping TypeName="InventoryModel.Supplier">
               <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
                 <ScalarProperty Name="IsSchool" ColumnName="IsSchool" />
                 <ScalarProperty Name="Supplier1" ColumnName="Supplier" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -723,6 +761,7 @@
           <EntitySetMapping Name="Transactions">
             <EntityTypeMapping TypeName="InventoryModel.Transaction">
               <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
                 <ScalarProperty Name="ItemName_Arabic" ColumnName="ItemName_Arabic" />
                 <ScalarProperty Name="ChildOfTransaction" ColumnName="ChildOfTransaction" />
                 <ScalarProperty Name="ShouldReturn" ColumnName="ShouldReturn" />
@@ -760,6 +799,7 @@
           <EntitySetMapping Name="PageManagements">
             <EntityTypeMapping TypeName="InventoryModel.PageManagement">
               <MappingFragment StoreEntitySet="PageManagement">
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
                 <ScalarProperty Name="Allowed" ColumnName="Allowed" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="PageName" ColumnName="PageName" />
@@ -770,6 +810,7 @@
           <EntitySetMapping Name="ReportQueries">
             <EntityTypeMapping TypeName="InventoryModel.ReportQuery">
               <MappingFragment StoreEntitySet="ReportQueries">
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
                 <ScalarProperty Name="ReportID" ColumnName="ReportID" />
                 <ScalarProperty Name="AvailabilityStatusID" ColumnName="AvailabilityStatusID" />
                 <ScalarProperty Name="MaximumPrice" ColumnName="MaximumPrice" />
@@ -784,6 +825,7 @@
           <EntitySetMapping Name="ReportSettings">
             <EntityTypeMapping TypeName="InventoryModel.ReportSetting">
               <MappingFragment StoreEntitySet="ReportSettings">
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
                 <ScalarProperty Name="LastSent" ColumnName="LastSent" />
                 <ScalarProperty Name="QueryID" ColumnName="QueryID" />
                 <ScalarProperty Name="QueryBasis" ColumnName="QueryBasis" />
@@ -802,6 +844,7 @@
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="InventoryModel.Item">
               <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
                 <ScalarProperty Name="PendingTransferApproval" ColumnName="PendingTransferApproval" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -827,15 +870,26 @@
           <EntitySetMapping Name="Loggings">
             <EntityTypeMapping TypeName="InventoryModel.Logging">
               <MappingFragment StoreEntitySet="Logging">
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
                 <ScalarProperty Name="Action" ColumnName="Action" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Schools">
+            <EntityTypeMapping TypeName="InventoryModel.School">
+              <MappingFragment StoreEntitySet="Schools">
+                <ScalarProperty Name="SchoolName_Ar" ColumnName="SchoolName_Ar" />
+                <ScalarProperty Name="SchoolName_En" ColumnName="SchoolName_En" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TransactionsReminders">
             <EntityTypeMapping TypeName="InventoryModel.TransactionsReminder">
               <MappingFragment StoreEntitySet="TransactionsReminder">
+                <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
                 <ScalarProperty Name="DateIn" ColumnName="DateIn" />
                 <ScalarProperty Name="DateOut" ColumnName="DateOut" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

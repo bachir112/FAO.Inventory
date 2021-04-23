@@ -90,7 +90,7 @@ namespace Inventory.WebApplication.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+                    using (var db = new InventoryEntities())
                     {
                         AspNetUser user = db.AspNetUsers.FirstOrDefault(x => x.Email == model.Email);
                         if(user != null)
@@ -175,7 +175,7 @@ namespace Inventory.WebApplication.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    using (var context = new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))
+                    using (var context = new ApplicationDbContext())
                     {
                         UserManager.AddToRole(user.Id, "Guest");
                     }
@@ -188,11 +188,14 @@ namespace Inventory.WebApplication.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+                    using (var db = new InventoryEntities())
                     {
+                        string userID = User.Identity.GetUserId();
+                        Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
                         Logging logging = new Logging();
                         logging.UserID = user.Id;
                         logging.Action = "New user has registered " + user.Email + " on " + DateTime.Now.ToString();
+                        logging.SchoolID = schoolID;
                         db.Loggings.Add(logging);
                         db.SaveChanges();
                     }
@@ -219,11 +222,14 @@ namespace Inventory.WebApplication.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+                    using (var db = new InventoryEntities())
                     {
                         Logging logging = new Logging();
                         logging.UserID = User.Identity.GetUserId();
                         logging.Action = "User " + User.Identity.Name + " created a new user " + model.Email + " on " + DateTime.Now.ToString();
+
+                        Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == logging.UserID)?.SchoolID;
+                        logging.SchoolID = schoolID;
                         db.Loggings.Add(logging);
                         db.SaveChanges();
                     }
@@ -455,7 +461,7 @@ namespace Inventory.WebApplication.Controllers
         {
             List<ApplicationUser> usersList = new List<ApplicationUser>();
 
-            using (var context = new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))
+            using (var context = new ApplicationDbContext())
             {
                 usersList = UserManager.Users.ToList();
             }
@@ -467,7 +473,7 @@ namespace Inventory.WebApplication.Controllers
         {
             string response = string.Empty;
 
-            using (var context = new ApplicationDbContext(Global.Global.GetSchoolCookieValue()))
+            using (var context = new ApplicationDbContext())
             {
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);

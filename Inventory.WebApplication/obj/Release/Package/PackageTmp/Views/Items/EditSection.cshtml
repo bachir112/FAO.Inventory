@@ -132,6 +132,8 @@
 
 <script type="text/javascript">
 
+    var maxAllowed = 0;
+
     $(document).ready(function () {
 
         $('#editActionContainer').show();
@@ -173,36 +175,49 @@
             $('#itemsTable tbody label input:checked').each(function () {
                 var selectedIDs = $(this).attr('data-itemsIDs');
                 $('#deleteAllItemButton').attr('data-SelectedIDs', selectedIDs);
+
+                maxAllowed = $(this).attr('data-ItemAmount');
             });
 
             $('#deleteItemButton').hide();
             $('#deleteAllItemButton').show();
         });
-        
+
         $(document).on('click', '.deleteItems', function () {
 
             var ids = $(this).attr('data-SelectedIDs');
             var quantity = $('#quantityToDelete').val();
 
-            $.ajax({
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                type: 'POST',
-                url: "@Url.Action("DeleteItems","Items")?listOfIDs=" + ids + '&quantityToDelete=' + quantity,
-                success: function (response) {
-                    $('#deleteItemModal').modal('hide');
-                    refreshItemsTable();
-                    $('#success_tic').modal('show');
-                }
-            });
+            console.log('quantity = ' + quantity);
+            console.log('maxAllowed = ' + maxAllowed);
+
+            if (quantity > maxAllowed) {
+            alert(@Translation.GetStringValue("NumberHigherThanStock"));
+            } else {
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: "@Url.Action("DeleteItems","Items")?listOfIDs=" + ids + '&quantityToDelete=' + quantity,
+                    success: function (response) {
+                        $('#deleteItemModal').modal('hide');
+                        //refreshItemsTable();
+                        $('#success_tic').modal('show');
+                        window.location.reload();
+                    },
+                    error: function (err) {
+                        alert('@Translation.GetStringValue("QuantityError")');
+                    }
+                });
+            }
 
         });
 
-        
+
 
     });
 
-    
+
 
     function refreshItemsTable() {
         $.ajax({

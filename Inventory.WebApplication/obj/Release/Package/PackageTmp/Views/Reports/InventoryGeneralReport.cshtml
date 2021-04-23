@@ -27,8 +27,8 @@
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span class="english">Inventory General Report (yearly)</span>
-                    <span class="arabic">تقرير المخزون السنوي</span>
+                    <span class="english">Annual stock report</span>
+                    <span class="arabic">تقرير المخزون السنوي </span>
                 </li>
             </ul>
         </div>
@@ -74,7 +74,7 @@
                                                             @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
                                                         </td>
                                                         <td>
-                                                            @item.ReceivedOn
+                                                            @(item.ReceivedOn?.ToString("dd-MMM-yyyy"))
                                                         </td>
                                                         <td>
                                                             <span class="english">@(item.Category?.Substring(0, 2))@(item.GroupedId)</span>
@@ -97,7 +97,7 @@
                                                             @item.LocationInStock
                                                         </td>
                                                         <td>
-                                                            @item.DateOn
+                                                            @(item.DateOn?.ToString("dd-MMM-yyyy"))
                                                         </td>
                                                         <td class="price">
                                                             @item.Price L.L.
@@ -169,7 +169,7 @@
                         }
                     },
                     { extend: 'pdf', className: 'btn green btn-outline' },
-                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
                 //,
                 //responsive: true
@@ -215,7 +215,7 @@
                         }
                     },
                     { extend: 'pdf', className: 'btn green btn-outline' },
-                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
                 //,
                 //responsive: true

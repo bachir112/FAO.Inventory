@@ -32,3 +32,15 @@ C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\R
 C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Release\Inventory.DataObjects.csproj.CopyComplete
 C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Release\Inventory.DataObjects.dll
 C:\Users\Bachir\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Release\Inventory.DataObjects.pdb
+C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Release\Inventory.DataObjects.dll.config
+C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Release\Inventory.DataObjects.dll
+C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Release\Inventory.DataObjects.pdb
+C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Release\EntityFramework.dll
+C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Release\EntityFramework.xml
+C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Release\Inventory.DataObjects.csprojAssemblyReference.cache
+C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Release\Inventory.DataObjects.csproj.CoreCompileInputs.cache
+C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Release\Inventory.DataObjects.csproj.CopyComplete
+C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Release\Inventory.DataObjects.dll
+C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Release\Inventory.DataObjects.pdb

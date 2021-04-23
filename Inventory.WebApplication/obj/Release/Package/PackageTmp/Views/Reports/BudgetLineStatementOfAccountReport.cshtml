@@ -74,7 +74,7 @@
                                                             <span class="arabic">@item.Category</span>                                                            
                                                         </td>
                                                         <td>
-                                                            @item.ReceivedOn
+                                                            @(item.ReceivedOn?.ToString("dd-MMM-yyyy"))
                                                         </td>
                                                         <td>
                                                             @*@item.Quantity*@
@@ -152,7 +152,7 @@
                         }
                     },
                     { extend: 'pdf', className: 'btn green btn-outline' },
-                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
                 //,
                 //responsive: true
@@ -198,7 +198,7 @@
                         }
                     },
                     { extend: 'pdf', className: 'btn green btn-outline' },
-                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
                 //,
                 //responsive: true

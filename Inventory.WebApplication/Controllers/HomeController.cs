@@ -20,7 +20,7 @@ namespace Inventory.WebApplication.Controllers
             {
                 List<TransactionDTO> transactions = new List<TransactionDTO>();
 
-                using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+                using (var db = new InventoryEntities())
                 {
                     string userID = User.Identity.GetUserId();
                     AspNetUser user = db.AspNetUsers.FirstOrDefault(x => x.Id == userID);
@@ -98,8 +98,10 @@ namespace Inventory.WebApplication.Controllers
 
             int queryID = (query == "IN" ? 1 : query == "OUT" ? 2 : query == "TRASH" ? 3 : -1);
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string userID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
                 categoriesList = db.Categories
                                     .Select(x => new CategoryDTO
                                     {
@@ -113,6 +115,7 @@ namespace Inventory.WebApplication.Controllers
                                     }).ToList();
 
                 var itemsList = (from items in db.Items
+                                 where items.SchoolID == schoolID
                                 group items by items.CategoryID into itemsGroup
                                 select new { 
                                     GroupID = itemsGroup.Key,
@@ -140,15 +143,18 @@ namespace Inventory.WebApplication.Controllers
 
             int queryID = (query == "IN" ? 1 : query == "OUT" ? 2 : query == "TRASH" ? 3 : -1);
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string userID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
-                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
 
                 itemsInStock = (from item in db.Items
-                                where item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
+                                where item.SchoolID == schoolID 
+                                && item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
                                 && item.AvailabilityStatusID == (queryID == -1 ? item.AvailabilityStatusID : queryID)
                                 && (queryID == 2 ? (item.Expandable != true) : true)
                                 group item by new 
@@ -198,14 +204,17 @@ namespace Inventory.WebApplication.Controllers
         {
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string userID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
-                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
 
                 itemsInStock = (from item in db.Items
-                                where item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
+                                where item.SchoolID == schoolID
+                                && item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
                                 && (fromDate == null ? true : item.ReceivedOn >= fromDate)
                                 && (toDate == null ? true : item.ReceivedOn <= toDate)
                                 group item by new { item.Name, item.ExpiryDate, item.UnitID, item.UnitAmount, item.SupplierID, item.ReceivedOn, item.Price, item.MaintenancePrice } into items
@@ -234,14 +243,17 @@ namespace Inventory.WebApplication.Controllers
         {
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string userID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
-                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
 
                 itemsInStock = (from item in db.Items
-                                where item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
+                                where item.SchoolID == schoolID
+                                && item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
                                 && (fromDate == null ? true : item.ReceivedOn >= fromDate)
                                 && (toDate == null ? true : item.ReceivedOn <= toDate)
                                 && item.AvailabilityStatusID == 1002
@@ -284,14 +296,17 @@ namespace Inventory.WebApplication.Controllers
         public ActionResult TransactionsIntoStock()
         {
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
-                ViewBag.ToWhom = db.Transactions.Where(x => x.ToWhom != null && x.ToWhom.Trim() != string.Empty)
+                string userID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+
+                ViewBag.ToWhom = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.ToWhom != null && x.ToWhom.Trim() != string.Empty)
                                                 .Select(x => x.ToWhom)
                                                 .Distinct()
                                                 .ToList();
 
-                ViewBag.Description = db.Transactions.Where(x => x.Description != null && x.Description.Trim() != string.Empty)
+                ViewBag.Description = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.Description != null && x.Description.Trim() != string.Empty)
                                                 .Select(x => x.Description)
                                                 .Distinct()
                                                 .ToList();
@@ -307,14 +322,17 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (Global.Global.isAllowed(User.Identity.GetUserId(), "Reports"))
             {
-                using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+                using (var db = new InventoryEntities())
                 {
-                    ViewBag.ToWhom = db.Transactions.Where(x => x.ToWhom != null && x.ToWhom.Trim() != string.Empty)
+                    string userID = User.Identity.GetUserId();
+                    Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+
+                    ViewBag.ToWhom = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.ToWhom != null && x.ToWhom.Trim() != string.Empty)
                                                     .Select(x => x.ToWhom)
                                                     .Distinct()
                                                     .ToList();
 
-                    ViewBag.Description = db.Transactions.Where(x => x.Description != null && x.Description.Trim() != string.Empty)
+                    ViewBag.Description = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.Description != null && x.Description.Trim() != string.Empty)
                                                     .Select(x => x.Description)
                                                     .Distinct()
                                                     .ToList();
@@ -348,9 +366,11 @@ namespace Inventory.WebApplication.Controllers
         {
             List<TransactionDTO> result = new List<TransactionDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
-                List<Transaction> transactions = db.Transactions.ToList();
+                string userID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                List<Transaction> transactions = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 result = transactions.Select(x => new TransactionDTO
                 {
                     Id = x.Id,
@@ -382,9 +402,11 @@ namespace Inventory.WebApplication.Controllers
             {
                 List<TransactionDTO> result = new List<TransactionDTO>();
 
-                using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+                using (var db = new InventoryEntities())
                 {
-                    List<Transaction> transactions = db.Transactions.ToList();
+                    string userID = User.Identity.GetUserId();
+                    Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                    List<Transaction> transactions = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                     result = transactions.Select(x => new TransactionDTO
                     {
                         Id = x.Id,
@@ -415,11 +437,14 @@ namespace Inventory.WebApplication.Controllers
         {
             string result = "success";
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string userID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+
                 try
                 {
-                    var item = db.Items.FirstOrDefault(x => x.Id == itemID);
+                    var item = db.Items.FirstOrDefault(x => x.SchoolID == x.SchoolID && x.Id == itemID);
                     if(item != null)
                     {
                         item.Description = description;
@@ -448,9 +473,11 @@ namespace Inventory.WebApplication.Controllers
             var selectedItemsJSON = JsonConvert.SerializeObject(selectedItems);
             List<ItemsGroupedDTO> selectedItemsList = JsonConvert.DeserializeObject<List<ItemsGroupedDTO>>(selectedItemsJSON);
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
-                foreach(var item in selectedItemsList)
+                string userID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                foreach (var item in selectedItemsList)
                 {
                     try
                     {
@@ -466,7 +493,8 @@ namespace Inventory.WebApplication.Controllers
 
                     }
 
-                    var itemInDB = db.Items.Where(x => x.Name == item.Name && 
+                    var itemInDB = db.Items.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) &&
+                                                    x.Name == item.Name && 
                                                     x.AvailabilityStatusID == item.AvailabilityStatusID && 
                                                     x.ItemStatusID == item.ItemStatusID &&
                                                     x.ExpiryDate == item.ExpiryDate && 
@@ -516,6 +544,7 @@ namespace Inventory.WebApplication.Controllers
                     newTransaction.UnitID = item.UnitID;
                     newTransaction.UnitAmount = item.UnitAmount;
                     newTransaction.TransactionDate = DateTime.Now;
+                    newTransaction.SchoolID = schoolID;
 
                     db.Transactions.Add(newTransaction);
 
@@ -530,10 +559,13 @@ namespace Inventory.WebApplication.Controllers
         {
             List<SearchItemsDTO> result = new List<SearchItemsDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string userID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+
                 List<SearchItemsDTO>  items = db.Items
-                                                .Where(x => (categoryID == null) ? true : x.CategoryID == categoryID)
+                                                .Where(x => ((schoolID == 0 ? true : x.SchoolID == schoolID)) && (categoryID == null) ? true : x.CategoryID == categoryID)
                                                 .Select(x => new SearchItemsDTO
                                                 {
                                                     EnglishName = x.Name == null ? string.Empty : x.Name,
@@ -560,25 +592,22 @@ namespace Inventory.WebApplication.Controllers
         {
             string result = "error";
 
-            foreach(var school in Global.Global.iterateThroughDatabases)
+            try
             {
-                try
+                using (var db = new InventoryEntities())
                 {
-                    using (var db = new InventoryEntities(school))
-                    {
-                        ItemsSearchValue newItem = new ItemsSearchValue();
-                        newItem.ItemName = itemName;
-                        newItem.ItemName_Arabic = itemName_Arabic;
-                        newItem.CategoryID = categoryID;
+                    ItemsSearchValue newItem = new ItemsSearchValue();
+                    newItem.ItemName = itemName;
+                    newItem.ItemName_Arabic = itemName_Arabic;
+                    newItem.CategoryID = categoryID;
 
-                        db.ItemsSearchValues.Add(newItem);
-                        db.SaveChanges();
-                    }
+                    db.ItemsSearchValues.Add(newItem);
+                    db.SaveChanges();
                 }
-                catch
-                {
+            }
+            catch
+            {
 
-                }
             }
 
             result = "success";

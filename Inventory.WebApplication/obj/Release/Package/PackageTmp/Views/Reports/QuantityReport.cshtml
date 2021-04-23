@@ -27,7 +27,7 @@
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span class="english">Inventory Movement Report</span>
+                    <span class="english">Items movement report</span>
                     <span class="arabic">تقرير حركة السلع</span>
                 </li>
             </ul>
@@ -85,7 +85,7 @@
                                                             @{
                                                                 if (item.NewAvailabilityStatusID == 1)
                                                                 {
-                                                                    <span>@item.TransactionDate</span>
+                                                                    <span>@item.TransactionDate.ToString("dd-MMM-yyyy")</span>
                                                                 }
                                                             }
                                                         </td>
@@ -101,7 +101,7 @@
                                                             @{
                                                                 if (item.NewAvailabilityStatusID != 1)
                                                                 {
-                                                                    <span>@item.TransactionDate</span>
+                                                                    <span>@item.TransactionDate.ToString("dd-MMM-yyyy")</span>
                                                                 }
                                                             }
                                                         </td>
@@ -172,7 +172,7 @@
                         }
                     },
                     { extend: 'pdf', className: 'btn green btn-outline' },
-                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
                 //,
                 //responsive: true
@@ -218,7 +218,7 @@
                         }
                     },
                     { extend: 'pdf', className: 'btn green btn-outline' },
-                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
                 //,
                 //responsive: true

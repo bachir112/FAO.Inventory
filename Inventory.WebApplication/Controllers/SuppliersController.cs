@@ -14,15 +14,17 @@ namespace Inventory.WebApplication.Controllers
     [Authorize]
     public class SuppliersController : Controller
     {
-        private InventoryEntities db = new InventoryEntities(Global.Global.GetSchoolCookieValue());
+        private InventoryEntities db = new InventoryEntities();
 
         // GET: Suppliers
         public ActionResult Index()
         {
+            string suserID = User.Identity.GetUserId();
+            Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (Global.Global.isAllowed(User.Identity.GetUserId(), "Suppliers"))
             {
-                return View(db.Suppliers.ToList());
+                return View(db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList());
             }
             else
             {
@@ -57,7 +59,7 @@ namespace Inventory.WebApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Supplier1,IsSchool")] Supplier supplier)
+        public ActionResult Create([Bind(Include = "Id,Supplier1,IsSchool,SchoolID")] Supplier supplier)
         {
             if (ModelState.IsValid)
             {

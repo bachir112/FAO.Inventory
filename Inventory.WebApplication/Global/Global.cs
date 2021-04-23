@@ -151,7 +151,7 @@ namespace Inventory.WebApplication.Global
             try
             {
                 string roleName = "";
-                using (var context = new ApplicationDbContext(Global.GetSchoolCookieValue()))
+                using (var context = new ApplicationDbContext())
                 {
                     var userStore = new UserStore<ApplicationUser>(context);
                     var userManager = new UserManager<ApplicationUser>(userStore);
@@ -160,9 +160,12 @@ namespace Inventory.WebApplication.Global
                     roleName = userManager.GetRoles(user.Id).FirstOrDefault();
                 }
 
-                using (var db = new InventoryEntities(Global.GetSchoolCookieValue()))
+                using (var db = new InventoryEntities())
                 {
-                    result = db.PageManagements.Where(x => x.RoleName == roleName &&
+                    Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+
+                    result = db.PageManagements.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) &&
+                                                           x.RoleName == roleName &&
                                                            x.PageName == pageName &&
                                                            x.Allowed
                                                      )
@@ -185,7 +188,7 @@ namespace Inventory.WebApplication.Global
             try
             {
                 string roleName = "";
-                using (var context = new ApplicationDbContext(Global.GetSchoolCookieValue()))
+                using (var context = new ApplicationDbContext())
                 {
                     var userStore = new UserStore<ApplicationUser>(context);
                     var userManager = new UserManager<ApplicationUser>(userStore);
@@ -194,9 +197,11 @@ namespace Inventory.WebApplication.Global
                     roleName = userManager.GetRoles(user.Id).FirstOrDefault();
                 }
 
-                using (var db = new InventoryEntities(Global.GetSchoolCookieValue()))
+                using (var db = new InventoryEntities())
                 {
-                    result = db.PageManagements.Where(x => x.RoleName == roleName && x.Allowed).Select(x => x).ToList();
+                    Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+
+                    result = db.PageManagements.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.RoleName == roleName && x.Allowed).Select(x => x).ToList();
                 }
             }
             catch(Exception ex)

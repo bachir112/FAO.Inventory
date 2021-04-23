@@ -110,6 +110,7 @@
                                                            data-ReceivedOn="@item.ReceivedOn"
                                                            data-Description="@item.Description"
                                                            data-UnitID="@item.UnitID"
+                                                           data-Quantity="@item.Quantity"
                                                            data-UnitAmount="@item.UnitAmount" />
                                                     <span></span>
                                                 </label>
@@ -129,7 +130,7 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                @item.ExpiryDate
+                                                @(item.ExpiryDate?.ToString("dd-MMM-yyyy"))
                                             </td>
                                             <td>
                                                 @item.Quantity
@@ -213,7 +214,7 @@
                         }
                     },
                     { extend: 'pdf', className: 'btn green btn-outline' },
-                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
                 //,
                 //responsive: true
@@ -259,7 +260,7 @@
                         }
                     },
                     { extend: 'pdf', className: 'btn green btn-outline' },
-                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
                 //,
                 //responsive: true

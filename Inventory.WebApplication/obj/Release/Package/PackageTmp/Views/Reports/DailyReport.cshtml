@@ -72,10 +72,10 @@
                                                             @reminder.Description
                                                         </td>
                                                         <td>
-                                                            @reminder.DateOut
+                                                            @reminder.DateOut.ToString("dd-MMM-yyyy")
                                                         </td>
                                                         <td>
-                                                            @reminder.DateIn
+                                                            @reminder.DateIn.ToString("dd-MMM-yyyy")
                                                         </td>
                                                     </tr>
                                                 }
@@ -141,7 +141,7 @@
                         }
                     },
                     { extend: 'pdf', className: 'btn green btn-outline' },
-                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
                 //,
                 //responsive: true
@@ -176,7 +176,7 @@
                 buttons: [
                     { extend: 'print', className: 'btn dark btn-outline' },
                     { extend: 'pdf', className: 'btn green btn-outline' },
-                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
                 //,
                 //responsive: true

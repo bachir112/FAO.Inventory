@@ -22,5 +22,6 @@ namespace Inventory.DataObjects.EDM
         public Nullable<int> MaximumPrice { get; set; }
         public Nullable<int> AvailabilityStatusID { get; set; }
         public Nullable<int> ReportID { get; set; }
+        public Nullable<int> SchoolID { get; set; }
     }
 }

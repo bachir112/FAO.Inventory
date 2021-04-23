@@ -26,5 +26,6 @@ namespace Inventory.DataObjects.EDM
         public bool QueryBasis { get; set; }
         public Nullable<int> QueryID { get; set; }
         public Nullable<System.DateTime> LastSent { get; set; }
+        public Nullable<int> SchoolID { get; set; }
     }
 }

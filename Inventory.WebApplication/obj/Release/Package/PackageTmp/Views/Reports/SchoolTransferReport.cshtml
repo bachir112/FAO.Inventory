@@ -27,8 +27,8 @@
                     <i class="fa fa-angle-right"></i>
                 </li>
                 <li>
-                    <span class="english">School Transfer Report</span>
-                    <span class="arabic">تقرير نقل المدرسة</span>
+                    <span class="english">School to school transfer report</span>
+                    <span class="arabic">تقرير تحويل السلع من مدرسة إلى أخرى </span>
                 </li>
             </ul>
         </div>
@@ -74,7 +74,7 @@
                                                             <span class="arabic">@item.ItemName_Arabic</span>                                                            
                                                         </td>
                                                         <td>
-                                                            @item.TransactionDate
+                                                            @item.TransactionDate.ToString("dd-MMM-yyyy")
                                                         </td>
                                                         <td>
                                                             @item.Quantity
@@ -146,7 +146,7 @@
                         }
                     },
                     { extend: 'pdf', className: 'btn green btn-outline' },
-                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
                 //,
                 //responsive: true
@@ -181,7 +181,7 @@
                 buttons: [
                     { extend: 'print', className: 'btn dark btn-outline' },
                     { extend: 'pdf', className: 'btn green btn-outline' },
-                    { extend: 'excel', className: 'btn yellow btn-outline ' }
+                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
                 //,
                 //responsive: true

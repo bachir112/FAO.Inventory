@@ -14,7 +14,7 @@ namespace Inventory.WebApplication.Controllers
     [Authorize]
     public class RolesController : Controller
     {
-        private InventoryEntities db = new InventoryEntities(Global.Global.GetSchoolCookieValue());
+        private InventoryEntities db = new InventoryEntities();
 
         // GET: Roles
         public ActionResult Index()

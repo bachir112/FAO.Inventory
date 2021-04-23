@@ -22,9 +22,12 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (Global.Global.isAllowed(User.Identity.GetUserId(), "Reports"))
             {
-                using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+                using (var db = new InventoryEntities())
                 {
-                    ViewBag.ItemsNames = db.Items.Select(x => new ItemNames
+                    string userID = User.Identity.GetUserId();
+                    Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+
+                    ViewBag.ItemsNames = db.Items.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).Select(x => new ItemNames
                                                               {
                                                                   ItemName = x.Name,
                                                                   ItemName_Arabic = x.Name_Arabic
@@ -47,9 +50,12 @@ namespace Inventory.WebApplication.Controllers
         {
             string result = "error";
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
-                ReportSetting reportSettings = db.ReportSettings.FirstOrDefault(x => x.ReportID == ReportID);
+                string userID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+
+                ReportSetting reportSettings = db.ReportSettings.FirstOrDefault(x => x.ReportID == ReportID && (schoolID == 0 ? true : x.SchoolID == schoolID));
 
                 if(reportSettings == null)
                 {
@@ -91,8 +97,11 @@ namespace Inventory.WebApplication.Controllers
         {
             string result = "error";
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string userID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+
                 ReportQuery newReportQuery = new ReportQuery();
                 newReportQuery.ReportID = reportID;
                 newReportQuery.ItemName = itemName;
@@ -101,6 +110,7 @@ namespace Inventory.WebApplication.Controllers
                 newReportQuery.MaximumPrice = maxPrice;
                 newReportQuery.MinimumQuantity = minQuantity;
                 newReportQuery.MaximumQuantity = maxQuantity;
+                newReportQuery.SchoolID = schoolID;
 
                 db.ReportQueries.Add(newReportQuery);
                 db.SaveChanges();
@@ -117,9 +127,12 @@ namespace Inventory.WebApplication.Controllers
 
             try
             {
-                using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+                using (var db = new InventoryEntities())
                 {
-                    ReportQuery query = db.ReportQueries.First(x => x.Id == queryID);
+                    string userID = User.Identity.GetUserId();
+                    Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+
+                    ReportQuery query = db.ReportQueries.First(x => x.Id == queryID && (schoolID == 0 ? true : x.SchoolID == schoolID));
                     db.ReportQueries.Remove(query);
                     db.SaveChanges();
 
@@ -142,10 +155,13 @@ namespace Inventory.WebApplication.Controllers
             ReportSetting reportSettings = new ReportSetting();
             List<ReportQuery> listOfReportQuery = new List<ReportQuery>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
-                reportSettings = db.ReportSettings.FirstOrDefault(x => x.ReportID == reportID);
-                listOfReportQuery = db.ReportQueries.Where(x => x.ReportID == reportID).ToList();
+                string userID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+
+                reportSettings = db.ReportSettings.FirstOrDefault(x => x.ReportID == reportID && (schoolID == 0 ? true : x.SchoolID == schoolID));
+                listOfReportQuery = db.ReportQueries.Where(x => x.ReportID == reportID && (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
 
                 reportSettingsDict.Add("reportSettings", reportSettings);
                 reportSettingsDict.Add("listOfReportQuery", listOfReportQuery);
@@ -162,16 +178,20 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string userID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
-                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
 
                 if(fromDate == null || toDate == null)
                 {
                     itemsInStock = (from item in db.Items
+                                    where item.SchoolID == schoolID
                                     group item by new
                                     {
                                         item.Name,
@@ -214,7 +234,7 @@ namespace Inventory.WebApplication.Controllers
                 else
                 {
                     itemsInStock = (from item in db.Items
-                                    where item.ReceivedOn >= fromDate && item.ReceivedOn <= toDate
+                                    where item.ReceivedOn >= fromDate && item.ReceivedOn <= toDate && item.SchoolID == schoolID
                                     group item by new
                                     {
                                         item.Name,
@@ -256,7 +276,7 @@ namespace Inventory.WebApplication.Controllers
                 }
 
 
-                List<Transaction> transactions = db.Transactions.OrderByDescending(x => x.TransactionDate).ToList();
+                List<Transaction> transactions = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).Select(x => x).OrderByDescending(x => x.TransactionDate).ToList();
 
                 foreach(var item in itemsInStock.Where(x => x.AvailabilityStatusID != 1).Select(x => x).ToList())
                 {
@@ -272,13 +292,16 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
-                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
 
                 itemsInStock = (from item in db.Items
+                                where item.SchoolID == schoolID
                                 group item by new { item.Name, item.AvailabilityStatusID, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
@@ -325,14 +348,16 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string userID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
-                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
 
                 itemsInStock = (from item in db.Items
-                                where item.AvailabilityStatusID == 1
+                                where item.AvailabilityStatusID == 1 && item.SchoolID == schoolID
                                 group item by new { item.Name, item.AvailabilityStatusID, item.UnitID, item.UnitAmount, item.Description, item.ReceivedOn } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
@@ -359,14 +384,16 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
-                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
 
                 itemsInStock = (from item in db.Items
-                                where item.AvailabilityStatusID == 1
+                                where item.AvailabilityStatusID == 1 && item.SchoolID == schoolID
                                 group item by new { item.Name, item.AvailabilityStatusID, item.UnitID, item.UnitAmount, item.Description } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
@@ -413,10 +440,12 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<TransactionDTO> result = new List<TransactionDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
-                List<string> nonExpandables = db.Items.Where(x => x.Expandable != true).Select(x => x.Name).ToList(); 
-                List<Transaction> transactions = db.Transactions.ToList();
+                string userID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                List<string> nonExpandables = db.Items.Where(x => x.Expandable != true && (schoolID == 0 ? true : x.SchoolID == schoolID)).Select(x => x.Name).ToList(); 
+                List<Transaction> transactions = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).Select(x => x).ToList();
                 if(fromDate == null || toDate == null)
                 {
                     result = transactions.Where(x => nonExpandables.Contains(x.ItemName)).Select(x => new TransactionDTO
@@ -462,9 +491,11 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<TransactionDTO> result = new List<TransactionDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
-                List<Transaction> transactions = db.Transactions.ToList();
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                List<Transaction> transactions = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).Select(x => x).ToList();
                 result = transactions.Select(x => new TransactionDTO
                 {
                     Id = x.Id,
@@ -507,9 +538,11 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<TransactionsReminder> transactionsReminders = new List<TransactionsReminder>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
-                transactionsReminders.AddRange(db.TransactionsReminders.ToList());
+                string userID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                transactionsReminders.AddRange(db.TransactionsReminders.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList());
             }
 
             return View(transactionsReminders);
@@ -520,9 +553,11 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<TransactionsReminder> transactionsReminders = new List<TransactionsReminder>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
-                transactionsReminders.AddRange(db.TransactionsReminders.ToList());
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+                transactionsReminders.AddRange(db.TransactionsReminders.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList());
 
                 Global.Global.ExportDataSetToExcel(transactionsReminders);
                 string emailBody = "Please find attached to this email a copy of the Daily Report";
@@ -553,8 +588,10 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsInReportQuery> itemsInReportQuery = new List<ItemsInReportQuery>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
@@ -562,7 +599,7 @@ namespace Inventory.WebApplication.Controllers
                 if(fromDate == null || toDate == null)
                 {
                     List<ItemsGroupedDTO> itemsInStock = (from item in db.Items
-                                                          where (item.Expandable == true) && (item.AvailabilityStatusID == 1 || item.AvailabilityStatusID == 2)
+                                                          where (item.SchoolID == schoolID) && (item.Expandable == true) && (item.AvailabilityStatusID == 1 || item.AvailabilityStatusID == 2)
                                                           group item by new { item.Name, item.UnitID, item.UnitAmount, item.CategoryID, item.Expandable } into items
                                                           select items).AsEnumerable().Select(
                                                           items => new ItemsGroupedDTO()
@@ -606,6 +643,7 @@ namespace Inventory.WebApplication.Controllers
                 {
                     List<ItemsGroupedDTO> itemsInStock = (from item in db.Items
                                                           where 
+                                                                (item.SchoolID == schoolID) &&
                                                                 (item.Expandable == true) && 
                                                                 (item.AvailabilityStatusID == 1 || item.AvailabilityStatusID == 2) &&
                                                                 (item.ModifiedOn >= fromDate && item.ModifiedOn <= toDate)
@@ -659,14 +697,16 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<ItemsInReportQuery> itemsInReportQuery = new List<ItemsInReportQuery>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Unit> units = db.Units.ToList();
 
 
                 List<ItemsGroupedDTO> itemsInStock = (from item in db.Items
-                                                      where (item.Expandable == true) && (item.AvailabilityStatusID == 1 || item.AvailabilityStatusID == 2)
+                                                      where (item.SchoolID == schoolID) && (item.Expandable == true) && (item.AvailabilityStatusID == 1 || item.AvailabilityStatusID == 2)
                                                       group item by new { item.Name, item.UnitID, item.UnitAmount } into items
                                                       select items).AsEnumerable().Select(
                                                       items => new ItemsGroupedDTO()
@@ -729,14 +769,16 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsInReportQuery> itemsInReportQuery = new List<ItemsInReportQuery>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Unit> units = db.Units.ToList();
 
 
                 List<ItemsGroupedDTO> itemsInStock = (from item in db.Items
-                                                      where (item.Expandable != true) && (item.AvailabilityStatusID == 1 || item.AvailabilityStatusID == 2)
+                                                      where (item.SchoolID == schoolID) && (item.Expandable != true) && (item.AvailabilityStatusID == 1 || item.AvailabilityStatusID == 2)
                                                       group item by new { item.Name, item.UnitID, item.UnitAmount } into items
                                                       select items).AsEnumerable().Select(
                                                       items => new ItemsGroupedDTO()
@@ -779,14 +821,16 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<ItemsInReportQuery> itemsInReportQuery = new List<ItemsInReportQuery>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Unit> units = db.Units.ToList();
 
 
                 List<ItemsGroupedDTO> itemsInStock = (from item in db.Items
-                                                      where (item.Expandable != true) && (item.AvailabilityStatusID == 1 || item.AvailabilityStatusID == 2)
+                                                      where (item.SchoolID == schoolID) && (item.Expandable != true) && (item.AvailabilityStatusID == 1 || item.AvailabilityStatusID == 2)
                                                       group item by new { item.Name, item.UnitID, item.UnitAmount } into items
                                                       select items).AsEnumerable().Select(
                                                       items => new ItemsGroupedDTO()
@@ -849,16 +893,19 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
-                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
 
                 if(fromDate == null || toDate == null)
                 {
                     itemsInStock = (from item in db.Items
+                                    where item.SchoolID == schoolID
                                     group item by new
                                     {
                                         item.Name,
@@ -898,6 +945,7 @@ namespace Inventory.WebApplication.Controllers
                 else
                 {
                     itemsInStock = (from item in db.Items
+                                    where item.SchoolID == schoolID
                                     where item.ModifiedOn >= fromDate && item.ModifiedOn <= toDate
                                     group item by new
                                     {
@@ -946,14 +994,17 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
 
                 itemsInStock = (from item in db.Items
+                                where item.SchoolID == schoolID
                                 group item by new { item.Name, item.AvailabilityStatusID, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.Price, item.CategoryID } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
@@ -1006,14 +1057,17 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
-                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
 
                 itemsInStock = (from item in db.Items
+                                where item.SchoolID == schoolID
                                 group item by new { item.Name, item.AvailabilityStatusID, item.UnitID, item.UnitAmount, item.Price, item.CategoryID } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
@@ -1044,14 +1098,17 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
 
                 itemsInStock = (from item in db.Items
+                                where item.SchoolID == schoolID
                                 group item by new { item.Name, item.AvailabilityStatusID, item.UnitID, item.UnitAmount, item.Price, item.CategoryID } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
@@ -1103,16 +1160,18 @@ namespace Inventory.WebApplication.Controllers
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
             List<TransactionDTO> transactions = new List<TransactionDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
-                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
 
                 if(fromDate == null || toDate == null)
                 {
-                    transactions = db.Transactions
+                    transactions = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID))
                                      .ToList()
                                      .Select(x => new TransactionDTO
                                      {
@@ -1135,7 +1194,7 @@ namespace Inventory.WebApplication.Controllers
                 {
 
                     transactions = db.Transactions
-                                     .Where(x => x.TransactionDate >= fromDate && x.TransactionDate <= toDate)
+                                     .Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.TransactionDate >= fromDate && x.TransactionDate <= toDate)
                                      .ToList()
                                      .Select(x => new TransactionDTO
                                      {
@@ -1157,7 +1216,7 @@ namespace Inventory.WebApplication.Controllers
 
                 foreach(var t in transactions)
                 {
-                    Item item = db.Items.FirstOrDefault(x => x.Name == t.ItemName);
+                    Item item = db.Items.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).FirstOrDefault(x => x.Name == t.ItemName);
                     if(item != null)
                     {
                         Category category = db.Categories.FirstOrDefault(x => x.Id == item.CategoryID);
@@ -1177,14 +1236,17 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
-                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
 
                 itemsInStock = (from item in db.Items
+                                where item.SchoolID == schoolID
                                 group item by new { item.Name, item.UnitID, item.UnitAmount, item.CategoryID } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
@@ -1234,35 +1296,34 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<TransactionDTO> itemsInStock = new List<TransactionDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
-                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
 
                 if(fromDate == null || toDate == null)
                 {
-                    itemsInStock = db.Transactions.Where(x => x.NewAvailabilityStatus == 1002).Select(
+                    itemsInStock = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.NewAvailabilityStatus == 1002 && (schoolID == 0 ? true : x.SchoolID == schoolID)).Select(
                                     items => new TransactionDTO()
                                     {
                                         Id = items.Id,
                                         Description = items.Description,
                                         ItemName = items.ItemName,
-                                    //NewAvailabilityStatus = availabilityStatuses.FirstOrDefault(x => x.Id == items.NewAvailabilityStatus).Status,
-                                    //OldAvailabilityStatus = availabilityStatuses.FirstOrDefault(x => x.Id == items.OldAvailabilityStatus).Status,
-                                    Quantity = items.Quantity,
+                                        Quantity = items.Quantity,
                                         StockKeeper = items.StockKeeper,
                                         ToWhom = items.ToWhom,
                                         TransactionDate = items.TransactionDate,
-                                    //Unit = units.FirstOrDefault(x => x.Id == items.UnitID).Name,
-                                    UnitAmount = items.UnitAmount
+                                        UnitAmount = items.UnitAmount
                                     }).ToList();
                 }
                 else
                 {
                     itemsInStock = db.Transactions
-                                    .Where(x => x.NewAvailabilityStatus == 1002 && 
+                                    .Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.NewAvailabilityStatus == 1002 && 
                                                 (x.TransactionDate >= fromDate && x.TransactionDate <= toDate)
                                                 )
                                     .Select(
@@ -1289,14 +1350,16 @@ namespace Inventory.WebApplication.Controllers
             string sendToEmail = string.Empty;
             List<TransactionDTO> itemsInStock = new List<TransactionDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
-                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
 
-                itemsInStock = db.Transactions.Where(x => x.NewAvailabilityStatus == 1002).Select(
+                itemsInStock = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.NewAvailabilityStatus == 1002).Select(
                                 items => new TransactionDTO()
                                 {
                                     Id = items.Id,
@@ -1347,11 +1410,14 @@ namespace Inventory.WebApplication.Controllers
             emptyItem.itemName = "";
             abcReportItems.Add(emptyItem);
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
-                if(fromDate == null || toDate == null)
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+
+                if (fromDate == null || toDate == null)
                 {
-                    List<Item> items = db.Items.OrderByDescending(x => x.Price).ToList();
+                    List<Item> items = db.Items.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).OrderByDescending(x => x.Price).ToList();
 
                     double itemsCount = 0;
                     int totalItemsCount = db.Items.Count();
@@ -1374,7 +1440,7 @@ namespace Inventory.WebApplication.Controllers
                 }
                 else
                 {
-                    List<Item> items = db.Items.Where(x => x.ModifiedOn >= fromDate && x.ModifiedOn <= toDate).OrderByDescending(x => x.Price).ToList();
+                    List<Item> items = db.Items.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.ModifiedOn >= fromDate && x.ModifiedOn <= toDate).OrderByDescending(x => x.Price).ToList();
 
                     double itemsCount = 0;
                     int totalItemsCount = db.Items.Count();
@@ -1407,15 +1473,19 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             List<ItemsGroupedDTO> itemsInStock = new List<ItemsGroupedDTO>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
+                string suserID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == suserID)?.SchoolID;
+
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
-                List<Supplier> suppliers = db.Suppliers.ToList();
+                List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
 
                 if(fromDate == null && toDate == null)
                 {
                     itemsInStock = (from item in db.Items
+                                    where item.SchoolID == schoolID
                                     group item by new { item.Name, item.AvailabilityStatusID, item.Price, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice } into items
                                     select items).AsEnumerable().Select(
                                     items => new ItemsGroupedDTO()
@@ -1438,6 +1508,7 @@ namespace Inventory.WebApplication.Controllers
                 else
                 {
                     itemsInStock = (from item in db.Items
+                                    where item.SchoolID == schoolID
                                     where item.ModifiedOn >= fromDate && item.ModifiedOn <= toDate
                                     group item by new { item.Name, item.AvailabilityStatusID, item.Price, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice } into items
                                     select items).AsEnumerable().Select(

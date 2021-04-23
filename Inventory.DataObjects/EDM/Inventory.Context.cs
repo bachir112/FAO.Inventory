@@ -19,11 +19,7 @@ namespace Inventory.DataObjects.EDM
             : base("name=InventoryEntities")
         {
         }
-        public InventoryEntities(string school)
-            : base("name=InventoryEntities_" + school)
-        {
-        }
-
+    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -46,6 +42,7 @@ namespace Inventory.DataObjects.EDM
         public virtual DbSet<ReportSetting> ReportSettings { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<Logging> Loggings { get; set; }
+        public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<TransactionsReminder> TransactionsReminders { get; set; }
     }
 }

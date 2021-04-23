@@ -20,5 +20,6 @@ namespace Inventory.DataObjects.EDM
         public string Description { get; set; }
         public System.DateTime DateOut { get; set; }
         public System.DateTime DateIn { get; set; }
+        public Nullable<int> SchoolID { get; set; }
     }
 }

@@ -19,9 +19,11 @@ namespace Inventory.WebApplication.Controllers
             {
                 List<PageManagement> pageManagement = new List<PageManagement>();
 
-                using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+                using (var db = new InventoryEntities())
                 {
-                    pageManagement = db.PageManagements.OrderBy(x => x.RoleName).ToList();
+                    string userID = User.Identity.GetUserId();
+                    Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+                    pageManagement = db.PageManagements.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).Select(x => x).OrderBy(x => x.RoleName).ToList();
 
                     ViewBag.AspNetRoles = db.AspNetRoles.ToList();
                 }
@@ -39,9 +41,12 @@ namespace Inventory.WebApplication.Controllers
         {
             List<string> result = new List<string>();
 
-            using (var db = new InventoryEntities(Global.Global.GetSchoolCookieValue()))
+            using (var db = new InventoryEntities())
             {
-                List<PageManagement> pageManagements = db.PageManagements.Where(x => x.PageName == pageName && x.RoleName == userRole).ToList();
+                string userID = User.Identity.GetUserId();
+                Nullable<int> schoolID = db.AspNetUsers.FirstOrDefault(x => x.Id == userID)?.SchoolID;
+
+                List<PageManagement> pageManagements = db.PageManagements.Where(x => x.PageName == pageName && x.RoleName == userRole && (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
 
                 if(pageManagements.Count() == 0)
                 {

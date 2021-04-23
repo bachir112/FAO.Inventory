@@ -34,5 +34,6 @@ namespace Inventory.DataObjects.EDM
         public string ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public string PendingTransferApproval { get; set; }
+        public Nullable<int> SchoolID { get; set; }
     }
 }
