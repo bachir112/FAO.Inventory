@@ -484,6 +484,9 @@ namespace Inventory.WebApplication.Global
             { "Value-english", "Value"},
             { "Value-arabic", "القيمة"},
 
+            { "ChangeDescription-english", "Change Description"},
+            { "ChangeDescription-arabic", "تغيير الوصف"},
+
             { "NumberHigherThanStock-english", "Number entered is greater than item is stock."},
             { "NumberHigherThanStock-arabic", "الرقم الذي تم إدخاله أكبر من العنصر هو المخزون."}
 

@@ -166,7 +166,8 @@
                 ReceivedOn: $(this).attr('data-ReceivedOn'),
                 Description: $(this).attr('data-Description'),
                 UnitID: $(this).attr('data-UnitID'),
-                UnitAmount: $(this).attr('data-UnitAmount')
+                UnitAmount: $(this).attr('data-UnitAmount'),
+                SchoolID: $(this).attr('data-SchoolID')
             };
 
             selectedItems.push(item);
@@ -181,7 +182,7 @@
         console.log('maxAllowed = ' + maxAllowed);
 
         if (transferingQuantity > maxAllowed) {
-            alert(@Translation.GetStringValue("NumberHigherThanStock"));
+            alert('@Translation.GetStringValue("NumberHigherThanStock")');
         } else {
             $.ajax({
                 contentType: 'application/json; charset=utf-8',

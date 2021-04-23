@@ -168,7 +168,8 @@ namespace Inventory.WebApplication.Controllers
                                     item.UnitID, 
                                     item.UnitAmount, 
                                     item.ItemStatusID, 
-                                    item.Description 
+                                    item.Description ,
+                                    item.SchoolID
                                 } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
@@ -189,6 +190,7 @@ namespace Inventory.WebApplication.Controllers
                                     UnitID = items.Key.UnitID,
                                     UnitAmount = items.Key.UnitAmount,
                                     ItemStatusID = items.Key.ItemStatusID,
+                                    SchoolID = items.Key.SchoolID,
                                     Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
                                 }).ToList();
 
@@ -219,7 +221,7 @@ namespace Inventory.WebApplication.Controllers
                                 && item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
                                 && (fromDate == null ? true : item.ReceivedOn >= fromDate)
                                 && (toDate == null ? true : item.ReceivedOn <= toDate)
-                                group item by new { item.Name, item.ExpiryDate, item.UnitID, item.UnitAmount, item.SupplierID, item.ReceivedOn, item.Price, item.MaintenancePrice } into items
+                                group item by new { item.Name, item.ExpiryDate, item.UnitID, item.UnitAmount, item.SupplierID, item.ReceivedOn, item.Price, item.MaintenancePrice, item.SchoolID } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
                                 {
@@ -234,6 +236,7 @@ namespace Inventory.WebApplication.Controllers
                                     UnitID = items.Key.UnitID,
                                     UnitAmount = items.Key.UnitAmount,
                                     ReceivedOn = items.Key.ReceivedOn,
+                                    SchoolID = items.Key.SchoolID,
                                     Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID)?.Name
                                 }).ToList();
             }
@@ -260,7 +263,7 @@ namespace Inventory.WebApplication.Controllers
                                 && (toDate == null ? true : item.ReceivedOn <= toDate)
                                 && item.AvailabilityStatusID == 1002
                                 && item.PendingTransferApproval == "waiting"
-                                group item by new { item.Name, item.ExpiryDate, item.UnitID, item.UnitAmount, item.SupplierID, item.ReceivedOn, item.Description } into items
+                                group item by new { item.Name, item.ExpiryDate, item.UnitID, item.UnitAmount, item.SupplierID, item.ReceivedOn, item.Description, item.SchoolID } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
                                 {
@@ -274,6 +277,7 @@ namespace Inventory.WebApplication.Controllers
                                     UnitID = items.Key.UnitID,
                                     UnitAmount = items.Key.UnitAmount,
                                     ReceivedOn = items.Key.ReceivedOn,
+                                    SchoolID = items.Key.SchoolID,
                                     Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID)?.Name
                                 }).ToList();
             }
@@ -546,7 +550,7 @@ namespace Inventory.WebApplication.Controllers
                     newTransaction.UnitID = item.UnitID;
                     newTransaction.UnitAmount = item.UnitAmount;
                     newTransaction.TransactionDate = DateTime.Now;
-                    newTransaction.SchoolID = schoolID;
+                    newTransaction.SchoolID = item.SchoolID;
 
                     db.Transactions.Add(newTransaction);
 

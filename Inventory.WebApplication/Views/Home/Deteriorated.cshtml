@@ -149,7 +149,7 @@
         console.log('maxAllowed = ' + maxAllowed);
 
         if (transferingQuantity > maxAllowed) {
-            alert(@Translation.GetStringValue("NumberHigherThanStock"));
+            alert('@Translation.GetStringValue("NumberHigherThanStock")');
         } else {
             $.ajax({
                 contentType: 'application/json; charset=utf-8',
