@@ -41,6 +41,11 @@
 
     <style type="text/css">
 
+        .text-danger {
+            color: black;
+            font-weight: bold;
+        }
+
         body {
             background-color: #2e8b57;
         }
@@ -966,6 +971,14 @@
             $('#usersParentTab .arrow').addClass('open');
             $('#usersParentTab .sub-menu').css('display', 'block');
             $('#pageManagementTab').addClass('active');
+        }
+
+        function suppliersActive() {
+            $('#usersParentTab').addClass('active');
+            $('#usersParentTab').addClass('open');
+            $('#usersParentTab .arrow').addClass('open');
+            $('#usersParentTab .sub-menu').css('display', 'block');
+            $('#suppliersTab').addClass('active');
         }
 
         function rolesActive() {

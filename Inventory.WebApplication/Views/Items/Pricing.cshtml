@@ -197,7 +197,7 @@
         console.log('maxAllowed = ' + maxAllowed);
 
         if (maintenanceItems > maxAllowed) {
-            alert(@Translation.GetStringValue("NumberHigherThanStock"));
+            alert('@Translation.GetStringValue("NumberHigherThanStock")');
         } else {
             $.ajax({
                 contentType: 'application/json; charset=utf-8',

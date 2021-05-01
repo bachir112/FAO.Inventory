@@ -26,6 +26,7 @@ namespace Inventory.WebApplication.Controllers
                     pageManagement = db.PageManagements.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).Select(x => x).OrderBy(x => x.RoleName).ToList();
 
                     ViewBag.AspNetRoles = db.AspNetRoles.ToList();
+                    ViewBag.Schools = db.Schools.ToList();
                 }
 
                 return View(pageManagement);
@@ -37,13 +38,13 @@ namespace Inventory.WebApplication.Controllers
         }
 
 
-        public JsonResult AssignPageManagement(string pageName, string userRole, bool allowed)
+        public JsonResult AssignPageManagement(string pageName, string userRole, bool allowed, int schoolID)
         {
             List<string> result = new List<string>();
 
             using (var db = new InventoryEntities())
             {
-                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
+                //Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
 
                 List<PageManagement> pageManagements = db.PageManagements.Where(x => x.PageName == pageName && x.RoleName == userRole && (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
 
@@ -53,6 +54,7 @@ namespace Inventory.WebApplication.Controllers
                     newPageManagement.PageName = pageName;
                     newPageManagement.RoleName = userRole;
                     newPageManagement.Allowed = allowed;
+                    newPageManagement.SchoolID = schoolID;
 
                     db.PageManagements.Add(newPageManagement);
                     db.SaveChanges();
@@ -61,6 +63,7 @@ namespace Inventory.WebApplication.Controllers
                 {
                     PageManagement pageManagement = pageManagements.FirstOrDefault();
                     pageManagement.Allowed = allowed;
+                    pageManagement.SchoolID = schoolID;
 
                     db.SaveChanges();
                 }

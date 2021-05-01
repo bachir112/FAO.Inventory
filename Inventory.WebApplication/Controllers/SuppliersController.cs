@@ -23,6 +23,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (Global.Global.isAllowed(User.Identity.GetUserId(), "Suppliers"))
             {
+                ViewBag.Schools = db.Schools.ToList();
                 return View(db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList());
             }
             else
@@ -91,7 +92,7 @@ namespace Inventory.WebApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Supplier1,IsSchool")] Supplier supplier)
+        public ActionResult Edit([Bind(Include = "Id,Supplier1,IsSchool,SchoolID")] Supplier supplier)
         {
             if (ModelState.IsValid)
             {

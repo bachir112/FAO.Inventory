@@ -14,6 +14,7 @@
                     <tr>
                         <th>
                         </th>
+                        <th> @Translation.GetStringValue("School") </th>
                         <th> @Translation.GetStringValue("ItemName") </th>
                         <th> @Translation.GetStringValue("Supplier") </th>
                         <th> @Translation.GetStringValue("Price") </th>
@@ -70,6 +71,9 @@
                                           data-ItemName="@item.Name"
                                           data-ItemAmount="@item.Quantity"
                                           data-itemsIDs="@item.ItemsIDs">@Translation.GetStringValue("Set")</span>
+                                </td>
+                                <td>
+                                    <span class="">@item.SchoolName</span>
                                 </td>
                                 <td>
                                     <span class="english">@item.Name</span>

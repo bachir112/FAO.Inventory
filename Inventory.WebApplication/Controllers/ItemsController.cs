@@ -216,7 +216,10 @@ namespace Inventory.WebApplication.Controllers
                                         Description_Arabic = x.Description_Arabic
                                     }).ToList();
 
-                List<Supplier> suppliersList = db.Suppliers.ToList();
+                string userID = User.Identity.GetUserId();
+                int schoolID = Convert.ToInt32(db.AspNetUsers.First(x => x.Id == userID).SchoolID);
+
+                List<Supplier> suppliersList = db.Suppliers.Where(x => (schoolID == 0) ? true : (x.SchoolID == schoolID)).ToList();
                 List<AvailabilityStatu> availabilityStatusList = db.AvailabilityStatus.ToList();
                 List<ItemStatu> itemStatusList = db.ItemStatus.ToList();
                 List<Unit> unitList = db.Units.ToList();
@@ -237,6 +240,9 @@ namespace Inventory.WebApplication.Controllers
                 ViewBag.ItemStatusList = itemStatusList;
                 ViewBag.UnitList = unitList;
                 ViewBag.NewItem = newItem;
+                ViewBag.Schools = db.Schools.ToList();
+
+                ViewBag.UserSchool = db.AspNetUsers.First(x => x.Id == userID).SchoolID;
 
                 return View();
             }
@@ -251,7 +257,7 @@ namespace Inventory.WebApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Name_Arabic,AvailabilityStatusID,ItemStatusID,LocationInStock,UnitID,UnitAmount,ExpiryDate,Description,SupplierID,CategoryID,Quantity")] Item item)
+        public ActionResult Create([Bind(Include = "Id,Name,Name_Arabic,AvailabilityStatusID,ItemStatusID,LocationInStock,UnitID,UnitAmount,ExpiryDate,Description,SupplierID,CategoryID,Quantity,SchoolID")] Item item)
         {
             if (ModelState.IsValid)
             {
@@ -279,6 +285,7 @@ namespace Inventory.WebApplication.Controllers
                     newItem.ReceivedOn = DateTime.Now;
                     newItem.ModifiedBy = User.Identity.GetUserId();
                     newItem.ModifiedOn = DateTime.Now;
+                    newItem.SchoolID = item.SchoolID;
 
                     db.Items.Add(newItem);
                     db.SaveChanges();

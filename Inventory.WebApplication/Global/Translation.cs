@@ -470,7 +470,7 @@ namespace Inventory.WebApplication.Global
             { "DeleteItemsFromStock-arabic", "ازالة من المخزن"},
 
             { "CreateNew-english", "Create New"},
-            { "CreateNew-arabic", "خلق جديد إبداع جديد"},
+            { "CreateNew-arabic", "خلق إبداع جديد"},
 
             { "Edit-english", "Edit"},
             { "Edit-arabic", "تعديل"},
@@ -488,7 +488,12 @@ namespace Inventory.WebApplication.Global
             { "ChangeDescription-arabic", "تغيير الوصف"},
 
             { "NumberHigherThanStock-english", "Number entered is greater than item is stock."},
-            { "NumberHigherThanStock-arabic", "الرقم الذي تم إدخاله أكبر من العنصر هو المخزون."}
+            { "NumberHigherThanStock-arabic", "الرقم الذي تم إدخاله أكبر من العنصر هو المخزون."},
+
+            { "School-english", "School"},
+            { "School-arabic", "المدرسة"}
+
+            
 
 
         }; 

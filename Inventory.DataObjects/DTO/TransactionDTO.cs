@@ -9,6 +9,7 @@ namespace Inventory.DataObjects.DTO
     public class TransactionDTO
     {
         public int Id { get; set; }
+        public string SchoolName { get; set; }
         public string ItemName { get; set; }
         public string ItemName_Arabic { get; set; }
         public string Category { get; set; }

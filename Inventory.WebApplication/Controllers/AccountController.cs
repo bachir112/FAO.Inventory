@@ -84,6 +84,23 @@ namespace Inventory.WebApplication.Controllers
                 return View(model);
             }
 
+            try
+            {
+                using (var db = new InventoryEntities())
+                {
+                    AspNetUser user = db.AspNetUsers.FirstOrDefault(x => x.Email == model.Email);
+                    if (user.SchoolID != schoolCookieValue)
+                    {
+                        ModelState.AddModelError("", "You are not part of this school. Please login to your school.");
+                        return View(model);
+                    }
+                }
+            }
+            catch
+            {
+                ModelState.AddModelError("", "User does not exist.");
+            }
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -230,6 +247,10 @@ namespace Inventory.WebApplication.Controllers
                         Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                         logging.SchoolID = schoolID;
                         db.Loggings.Add(logging);
+
+                        AspNetUser newUser = db.AspNetUsers.First(x => x.Id == user.Id);
+                        newUser.SchoolID = model.SchoolID;
+
                         db.SaveChanges();
                     }
 
@@ -237,7 +258,8 @@ namespace Inventory.WebApplication.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "Users");
+            //ViewBag.Error = "User was not created, the user already exists.";
+            return RedirectToAction("Create", "Users", new { errorOccured = true });
         }
 
         //

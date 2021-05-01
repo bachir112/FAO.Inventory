@@ -38,6 +38,8 @@ namespace Inventory.WebApplication.Controllers
                     }
                 }
 
+                ViewBag.Schools = db.Schools.ToList();
+
                 return View(listAspNetUser);
             }
             else
@@ -80,9 +82,15 @@ namespace Inventory.WebApplication.Controllers
         }
 
         // GET: AspNetUsers/Create
-        public ActionResult Create()
+        public ActionResult Create(Nullable<bool> errorOccured)
         {
+            string userID = User.Identity.GetUserId();
+            ViewBag.UserSchool = db.AspNetUsers.First(x => x.Id == userID).SchoolID;
+
+            ViewBag.Schools = db.Schools.ToList();
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+
+            ViewBag.Error = errorOccured;
             return View();
         }
 
@@ -91,7 +99,7 @@ namespace Inventory.WebApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,FullName")] AspNetUser aspNetUser)
+        public ActionResult Create([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,FullName,SchoolID")] AspNetUser aspNetUser)
         {
             if (ModelState.IsValid)
             {
@@ -138,7 +146,7 @@ namespace Inventory.WebApplication.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,UserRole")] AspNetUser aspNetUser)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,UserRole,SchoolID")] AspNetUser aspNetUser)
         {
             if (ModelState.IsValid)
             {

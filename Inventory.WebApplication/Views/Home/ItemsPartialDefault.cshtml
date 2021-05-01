@@ -65,6 +65,7 @@
                     <tr>
                         <th>
                         </th>
+                        <th> @Translation.GetStringValue("School") </th>
                         <th> @Translation.GetStringValue("ItemName") </th>
                         <th> @Translation.GetStringValue("Category") </th>
                         <th> @Translation.GetStringValue("Availability") </th>
@@ -115,6 +116,9 @@
                                                            data-UnitAmount="@item.UnitAmount" />
                                                     <span></span>
                                                 </label>
+                                            </td>
+                                            <td>
+                                                @item.SchoolName
                                             </td>
                                             <td>
                                                 <span class="english">@item.Name</span>

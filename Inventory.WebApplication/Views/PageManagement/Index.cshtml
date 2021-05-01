@@ -6,6 +6,7 @@
 @{
     ViewBag.Title = "Index";
     List<AspNetRole> aspNetRoles = ViewBag.AspNetRoles as List<AspNetRole>;
+    List<School> schools = ViewBag.Schools as List<School>;
 }
 
 <style type="text/css">
@@ -28,6 +29,17 @@
             <div class="modal-body">
                 <h4 id="assignItem" style="color:red;">@Translation.GetStringValue("ManagePagesByRoles")</h4>
                 <hr />
+                <div class="form-group">
+                    <label>@Translation.GetStringValue("School")</label>
+                    <select id="schoolsPageManagement" name="SchoolID" style="width:100%;">
+                        @{
+                            foreach (var school in schools)
+                            {
+                                <option value="@school.ID">@school.SchoolName_En | @school.SchoolName_Ar</option>
+                            }
+                        }
+                    </select>
+                </div>
                 <div class="form-group">
                     <label>@Translation.GetStringValue("Page")</label>
                     <select id="pageName" class="form-control" style="width:100%;">
@@ -55,7 +67,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Role</label>
+                    <label>@Translation.GetStringValue("Role")</label>
                     <select id="userRole" name="UserRole" style="width:100%;">
                         @{
                             foreach (var role in aspNetRoles)
@@ -137,6 +149,9 @@
                                                 <th>
                                                     @Translation.GetStringValue("Allowed")                                                    
                                                 </th>
+                                                <th>
+                                                    @Translation.GetStringValue("School")                                                    
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -167,6 +182,9 @@
                                                             </td>
                                                             <td>
                                                                 @page.Allowed
+                                                            </td>
+                                                            <td>
+                                                                @(page.SchoolID == 0 ? "All" : schools.First(x => x.ID == page.SchoolID).SchoolName_Ar)
                                                             </td>
                                                         </tr>
                                                     }
@@ -217,7 +235,8 @@
             type: 'POST',
             url: "@Url.Action("AssignPageManagement","PageManagement")?pageName=" + $('#pageName').val()
                 + '&userRole=' + $('#userRole').val()
-                + '&allowed=' + $('#allowed').val(),
+                + '&allowed=' + $('#allowed').val()
+                + '&schoolID=' + $('#schoolsPageManagement').val(),
             success: function (response) {
                 $('#assignPageAuthorizationModal').modal('hide');
                 location.reload();

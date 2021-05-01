@@ -21,6 +21,7 @@ namespace Inventory.DataObjects.DTO
         public Nullable<System.DateTime> ExpiryDate { get; set; }
         public int UnitID { get; set; }
         public Nullable<int> SchoolID { get; set; }
+        public string SchoolName { get; set; }
         public Nullable<bool> Expandable { get; set; }
         public string Unit { get; set; }
         public Nullable<int> UnitAmount { get; set; }
