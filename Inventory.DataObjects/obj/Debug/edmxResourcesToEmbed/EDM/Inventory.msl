@@ -116,6 +116,7 @@
     <EntitySetMapping Name="Transactions">
       <EntityTypeMapping TypeName="InventoryModel.Transaction">
         <MappingFragment StoreEntitySet="Transaction">
+          <ScalarProperty Name="NewSchoolID" ColumnName="NewSchoolID" />
           <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
           <ScalarProperty Name="ItemName_Arabic" ColumnName="ItemName_Arabic" />
           <ScalarProperty Name="ChildOfTransaction" ColumnName="ChildOfTransaction" />

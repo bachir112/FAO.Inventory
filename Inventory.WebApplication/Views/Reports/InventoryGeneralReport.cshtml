@@ -50,6 +50,7 @@
                                     <table id="inventoryGeneralReportTable">
                                         <thead>
                                             <tr>
+                                                <th>@Translation.GetStringValue("SchoolName")</th>
                                                 <th>@Translation.GetStringValue("ItemName")</th>
                                                 <th>@Translation.GetStringValue("DateIn")</th>
                                                 <th>@Translation.GetStringValue("Code")</th>
@@ -68,6 +69,9 @@
                                                 foreach (ItemsGroupedDTO item in Model)
                                                 {
                                                     <tr class="odd gradeX">
+                                                        <td>
+                                                            @item.SchoolName
+                                                        </td>
                                                         <td>
                                                             <span class="english">@item.Name</span>
                                                             <span class="arabic">@item.Name_Arabic</span>

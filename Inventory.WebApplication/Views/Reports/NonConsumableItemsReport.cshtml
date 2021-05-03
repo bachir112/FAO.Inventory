@@ -50,6 +50,7 @@
                                     <table id="itemsInReportTable">
                                         <thead>
                                             <tr>
+                                                <th>@Translation.GetStringValue("School")</th>
                                                 <th>@Translation.GetStringValue("ItemName")</th>
                                                 <th>@Translation.GetStringValue("Description")</th>
                                                 <th>@Translation.GetStringValue("MaxQuantity")</th>
@@ -62,6 +63,9 @@
                                                 foreach (ItemsInReportQuery item in Model)
                                                 {
                                                     <tr class="odd gradeX">
+                                                        <td>
+                                                            @item.SchoolName
+                                                        </td>
                                                         <td>
                                                             <span class="english">@item.Name</span>
                                                             <span class="arabic">@item.Name_Arabic</span>

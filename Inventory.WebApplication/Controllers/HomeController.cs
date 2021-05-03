@@ -330,6 +330,8 @@ namespace Inventory.WebApplication.Controllers
                                                 .ToList();
 
                 ViewBag.AvailabilityStatus = db.AvailabilityStatus.Where(x => x.Id != 2).ToList();
+
+                ViewBag.Schools = db.Schools.ToList();
             }
 
             return View();
@@ -355,6 +357,8 @@ namespace Inventory.WebApplication.Controllers
                                                     .ToList();
 
                     ViewBag.AvailabilityStatus = db.AvailabilityStatus.Where(x => x.Id != 1).ToList();
+
+                    ViewBag.Schools = db.Schools.ToList();
                 }
 
                 return View();
@@ -481,6 +485,7 @@ namespace Inventory.WebApplication.Controllers
             string LocationInStock, 
             string Description,
             string ToWhom, 
+            Nullable<int> NewSchoolID,
             IEnumerable<Dictionary<string, object>> selectedItems)
         {
             List<string> result = new List<string>();
@@ -560,6 +565,7 @@ namespace Inventory.WebApplication.Controllers
                     newTransaction.UnitAmount = item.UnitAmount;
                     newTransaction.TransactionDate = DateTime.Now;
                     newTransaction.SchoolID = item.SchoolID;
+                    newTransaction.NewSchoolID = NewSchoolID;
 
                     db.Transactions.Add(newTransaction);
 

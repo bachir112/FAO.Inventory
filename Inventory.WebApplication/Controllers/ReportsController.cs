@@ -181,8 +181,9 @@ namespace Inventory.WebApplication.Controllers
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
+                List<School> schools = db.Schools.ToList();
 
-                if(fromDate == null || toDate == null)
+                if (fromDate == null || toDate == null)
                 {
                     itemsInStock = (from item in db.Items
                                     where (schoolID == 0 ? true : item.SchoolID == schoolID)
@@ -197,7 +198,8 @@ namespace Inventory.WebApplication.Controllers
                                         item.ItemStatusID,
                                         item.ReceivedOn,
                                         item.CategoryID,
-                                        item.SupplierID
+                                        item.SupplierID,
+                                        item.SchoolID
                                     } into items
                                     select items).AsEnumerable().Select(
                                     items => new ItemsGroupedDTO()
@@ -222,7 +224,8 @@ namespace Inventory.WebApplication.Controllers
                                         UnitAmount = items.Key.UnitAmount,
                                         ItemStatusID = items.Key.ItemStatusID,
                                         Price = items.Sum(x => x.Price),
-                                        Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
+                                        Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name,
+                                        SchoolName = schools.FirstOrDefault(x => x.ID == items.Key.SchoolID)?.SchoolName_Ar
                                     }).ToList();
                 }
                 else
@@ -240,7 +243,8 @@ namespace Inventory.WebApplication.Controllers
                                         item.ItemStatusID,
                                         item.ReceivedOn,
                                         item.CategoryID,
-                                        item.SupplierID
+                                        item.SupplierID,
+                                        item.SchoolID
                                     } into items
                                     select items).AsEnumerable().Select(
                                     items => new ItemsGroupedDTO()
@@ -265,7 +269,8 @@ namespace Inventory.WebApplication.Controllers
                                         UnitAmount = items.Key.UnitAmount,
                                         ItemStatusID = items.Key.ItemStatusID,
                                         Price = items.Sum(x => x.Price),
-                                        Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
+                                        Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name,
+                                        SchoolName = schools.FirstOrDefault(x => x.ID == items.Key.SchoolID)?.SchoolName_Ar
                                     }).ToList();
                 }
 
@@ -293,6 +298,7 @@ namespace Inventory.WebApplication.Controllers
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
+                List<School> schools = db.Schools.ToList();
 
                 itemsInStock = (from item in db.Items
                                 where (schoolID == 0 ? true : item.SchoolID == schoolID)
@@ -348,10 +354,11 @@ namespace Inventory.WebApplication.Controllers
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
+                List<School> schools = db.Schools.ToList();
 
                 itemsInStock = (from item in db.Items
                                 where item.AvailabilityStatusID == 1 && (schoolID == 0 ? true : item.SchoolID == schoolID)
-                                group item by new { item.Name, item.AvailabilityStatusID, item.UnitID, item.UnitAmount, item.Description, item.ReceivedOn } into items
+                                group item by new { item.Name, item.AvailabilityStatusID, item.UnitID, item.UnitAmount, item.Description, item.ReceivedOn, item.SchoolID } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
                                 {
@@ -365,7 +372,8 @@ namespace Inventory.WebApplication.Controllers
                                     Description = items.Key.Description,
                                     UnitID = items.Key.UnitID,
                                     UnitAmount = items.Key.UnitAmount,
-                                    Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
+                                    Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name,
+                                    SchoolName = schools.FirstOrDefault(x => x.ID == items.Key.SchoolID)?.SchoolName_Ar
                                 }).ToList();
             }
 
@@ -434,6 +442,7 @@ namespace Inventory.WebApplication.Controllers
 
             using (var db = new InventoryEntities())
             {
+                List<School> schools = db.Schools.ToList();
                 Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<string> nonExpandables = db.Items.Where(x => x.Expandable != true && (schoolID == 0 ? true : x.SchoolID == schoolID)).Select(x => x.Name).ToList(); 
                 List<Transaction> transactions = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).Select(x => x).ToList();
@@ -450,7 +459,8 @@ namespace Inventory.WebApplication.Controllers
                         StockKeeper = db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper) != null ? db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper).FullName : string.Empty,
                         Description = x.Description,
                         ToWhom = x.ToWhom,
-                        TransactionDate = x.TransactionDate
+                        TransactionDate = x.TransactionDate,
+                        SchoolName = schools.FirstOrDefault(y => y.ID == x.SchoolID)?.SchoolName_Ar
                     }).ToList();
                 }
                 else
@@ -469,8 +479,9 @@ namespace Inventory.WebApplication.Controllers
                         StockKeeper = db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper) != null ? db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper).FullName : string.Empty,
                         Description = x.Description,
                         ToWhom = x.ToWhom,
-                        TransactionDate = x.TransactionDate
-                    }).ToList();
+                        TransactionDate = x.TransactionDate,
+                        SchoolName = schools.FirstOrDefault(y => y.ID == x.SchoolID)?.SchoolName_Ar
+                        }).ToList();
                 }
             }
 
@@ -582,12 +593,13 @@ namespace Inventory.WebApplication.Controllers
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
+                List<School> schools = db.Schools.ToList();
 
-                if(fromDate == null || toDate == null)
+                if (fromDate == null || toDate == null)
                 {
                     List<ItemsGroupedDTO> itemsInStock = (from item in db.Items
                                                           where (schoolID == 0 ? true : item.SchoolID == schoolID) && (item.Expandable == true) && (item.AvailabilityStatusID == 1 || item.AvailabilityStatusID == 2)
-                                                          group item by new { item.Name, item.UnitID, item.UnitAmount, item.CategoryID, item.Expandable } into items
+                                                          group item by new { item.Name, item.UnitID, item.UnitAmount, item.CategoryID, item.Expandable, item.SchoolID } into items
                                                           select items).AsEnumerable().Select(
                                                           items => new ItemsGroupedDTO()
                                                           {
@@ -602,7 +614,9 @@ namespace Inventory.WebApplication.Controllers
                                                               Description = string.Join(",", items.Where(x => !string.IsNullOrEmpty(x.Description)).Select(x => x.Description)),
                                                               UnitID = items.Key.UnitID,
                                                               UnitAmount = items.Key.UnitAmount,
-                                                              Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
+                                                              Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name,
+                                                              SchoolName = schools.FirstOrDefault(y => y.ID == items.Key.SchoolID)?.SchoolName_Ar,
+                                                              SchoolID = items.Key.SchoolID
                                                           }).ToList();
 
                     itemsInReportQuery = (from item in itemsInStock
@@ -623,7 +637,9 @@ namespace Inventory.WebApplication.Controllers
                                               MaximumQuantity = q != null ? q.MaximumQuantity : null,
                                               Description = item.Description,
                                               AvailabilityStatus = item.AvailabilityStatus,
-                                              Unit = item.Unit
+                                              Unit = item.Unit,
+                                              SchoolName = item.SchoolName,
+                                              SchoolID = item.SchoolID
                                           }).ToList();
                 }
                 else
@@ -634,7 +650,7 @@ namespace Inventory.WebApplication.Controllers
                                                                 (item.Expandable == true) && 
                                                                 (item.AvailabilityStatusID == 1 || item.AvailabilityStatusID == 2) &&
                                                                 (item.ModifiedOn >= fromDate && item.ModifiedOn <= toDate)
-                                                          group item by new { item.Name, item.UnitID, item.UnitAmount, item.CategoryID, item.Expandable } into items
+                                                          group item by new { item.Name, item.UnitID, item.UnitAmount, item.CategoryID, item.Expandable, item.SchoolID } into items
                                                           select items).AsEnumerable().Select(
                                                           items => new ItemsGroupedDTO()
                                                           {
@@ -649,7 +665,9 @@ namespace Inventory.WebApplication.Controllers
                                                               Description = string.Join(",", items.Where(x => !string.IsNullOrEmpty(x.Description)).Select(x => x.Description)),
                                                               UnitID = items.Key.UnitID,
                                                               UnitAmount = items.Key.UnitAmount,
-                                                              Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
+                                                              Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name,
+                                                              SchoolName = schools.FirstOrDefault(y => y.ID == items.Key.SchoolID)?.SchoolName_Ar,
+                                                              SchoolID = items.Key.SchoolID
                                                           }).ToList();
 
                     itemsInReportQuery = (from item in itemsInStock
@@ -670,7 +688,9 @@ namespace Inventory.WebApplication.Controllers
                                               MaximumQuantity = q != null ? q.MaximumQuantity : null,
                                               Description = item.Description,
                                               AvailabilityStatus = item.AvailabilityStatus,
-                                              Unit = item.Unit
+                                              Unit = item.Unit,
+                                              SchoolID = item.SchoolID,
+                                              SchoolName = item.SchoolName
                                           }).ToList();
                 }
 
@@ -760,11 +780,12 @@ namespace Inventory.WebApplication.Controllers
                 Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Unit> units = db.Units.ToList();
+                List<School> schools = db.Schools.ToList();
 
 
                 List<ItemsGroupedDTO> itemsInStock = (from item in db.Items
                                                       where (schoolID == 0 ? true : item.SchoolID == schoolID) && (item.Expandable != true) && (item.AvailabilityStatusID == 1 || item.AvailabilityStatusID == 2)
-                                                      group item by new { item.Name, item.UnitID, item.UnitAmount } into items
+                                                      group item by new { item.Name, item.UnitID, item.UnitAmount, item.SchoolID } into items
                                                       select items).AsEnumerable().Select(
                                                       items => new ItemsGroupedDTO()
                                                       {
@@ -776,7 +797,9 @@ namespace Inventory.WebApplication.Controllers
                                                           Description = string.Join(",", items.Where(x => !string.IsNullOrEmpty(x.Description)).Select(x => x.Description)),
                                                           UnitID = items.Key.UnitID,
                                                           UnitAmount = items.Key.UnitAmount,
-                                                          Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
+                                                          Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name,
+                                                          SchoolID = items.Key.SchoolID,
+                                                          SchoolName = schools.FirstOrDefault(x => x.ID == items.Key.SchoolID)?.SchoolName_Ar
                                                       }).ToList();
 
                 itemsInReportQuery = (from item in itemsInStock
@@ -794,7 +817,9 @@ namespace Inventory.WebApplication.Controllers
                                           MaximumQuantity = q != null ? q.MaximumQuantity : null,
                                           Description = item.Description,
                                           AvailabilityStatus = item.AvailabilityStatus,
-                                          Unit = item.Unit
+                                          Unit = item.Unit,
+                                          SchoolID = item.SchoolID,
+                                          SchoolName = item.SchoolName
                                       }).ToList();
             }
 
@@ -884,8 +909,9 @@ namespace Inventory.WebApplication.Controllers
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
+                List<School> schools = db.Schools.ToList();
 
-                if(fromDate == null || toDate == null)
+                if (fromDate == null || toDate == null)
                 {
                     itemsInStock = (from item in db.Items
                                     where (schoolID == 0 ? true : item.SchoolID == schoolID)
@@ -899,7 +925,8 @@ namespace Inventory.WebApplication.Controllers
                                         item.ItemStatusID,
                                         item.Price,
                                         item.CategoryID,
-                                        item.Expandable
+                                        item.Expandable,
+                                        item.SchoolID
                                     } into items
                                     select items).AsEnumerable().Select(
                                     items => new ItemsGroupedDTO()
@@ -922,7 +949,9 @@ namespace Inventory.WebApplication.Controllers
                                         ItemStatusID = items.Key.ItemStatusID,
                                         Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name,
                                         Price = items.Key.Price,
-                                        TotalPrice = items.Key.Price * items.Count()
+                                        TotalPrice = items.Key.Price * items.Count(),
+                                        SchoolID = items.Key.SchoolID,
+                                        SchoolName = schools.FirstOrDefault(x => x.ID == items.Key.SchoolID)?.SchoolName_Ar
                                     }).ToList();
                 }
                 else
@@ -940,7 +969,8 @@ namespace Inventory.WebApplication.Controllers
                                         item.ItemStatusID,
                                         item.Price,
                                         item.CategoryID,
-                                        item.Expandable
+                                        item.Expandable,
+                                        item.SchoolID
                                     } into items
                                     select items).AsEnumerable().Select(
                                     items => new ItemsGroupedDTO()
@@ -963,7 +993,9 @@ namespace Inventory.WebApplication.Controllers
                                         ItemStatusID = items.Key.ItemStatusID,
                                         Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name,
                                         Price = items.Key.Price,
-                                        TotalPrice = items.Key.Price * items.Count()
+                                        TotalPrice = items.Key.Price * items.Count(),
+                                        SchoolID = items.Key.SchoolID,
+                                        SchoolName = schools.FirstOrDefault(x => x.ID == items.Key.SchoolID)?.SchoolName_Ar
                                     }).ToList();
                 }
 
@@ -1046,10 +1078,11 @@ namespace Inventory.WebApplication.Controllers
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
+                List<School> schools = db.Schools.ToList();
 
                 itemsInStock = (from item in db.Items
                                 where (schoolID == 0 ? true : item.SchoolID == schoolID)
-                                group item by new { item.Name, item.AvailabilityStatusID, item.UnitID, item.UnitAmount, item.Price, item.CategoryID } into items
+                                group item by new { item.Name, item.AvailabilityStatusID, item.UnitID, item.UnitAmount, item.Price, item.CategoryID, item.SchoolID } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
                                 {
@@ -1067,7 +1100,9 @@ namespace Inventory.WebApplication.Controllers
                                     UnitAmount = items.Key.UnitAmount,
                                     Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name,
                                     Price = items.Key.Price,
-                                    TotalPrice = items.Key.Price * items.Count()
+                                    TotalPrice = items.Key.Price * items.Count(),
+                                    SchoolID = items.Key.SchoolID,
+                                    SchoolName = schools.FirstOrDefault(x => x.ID == items.Key.SchoolID)?.SchoolName_Ar
                                 }).ToList();
             }
 
@@ -1147,8 +1182,9 @@ namespace Inventory.WebApplication.Controllers
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
+                List<School> schools = db.Schools.ToList();
 
-                if(fromDate == null || toDate == null)
+                if (fromDate == null || toDate == null)
                 {
                     transactions = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID))
                                      .ToList()
@@ -1166,7 +1202,8 @@ namespace Inventory.WebApplication.Controllers
                                          StockKeeper = db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper) != null ? db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper).FullName : string.Empty,
                                          Description = x.Description,
                                          ToWhom = x.ToWhom,
-                                         TransactionDate = x.TransactionDate
+                                         TransactionDate = x.TransactionDate,
+                                         SchoolName = schools.FirstOrDefault(y => y.ID == x.SchoolID)?.SchoolName_Ar
                                      }).ToList();
                 }
                 else
@@ -1189,7 +1226,8 @@ namespace Inventory.WebApplication.Controllers
                                          StockKeeper = db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper) != null ? db.AspNetUsers.FirstOrDefault(y => y.Id == x.StockKeeper).FullName : string.Empty,
                                          Description = x.Description,
                                          ToWhom = x.ToWhom,
-                                         TransactionDate = x.TransactionDate
+                                         TransactionDate = x.TransactionDate,
+                                         SchoolName = schools.FirstOrDefault(y => y.ID == x.SchoolID)?.SchoolName_Ar
                                      }).ToList();
                 }
 
@@ -1202,7 +1240,7 @@ namespace Inventory.WebApplication.Controllers
                         t.Category = category.Name;
                         t.Category_Arabic = category.Name_Arabic;
                     }
-                    t.QuantityAvailable = db.Items.Where(x => x.AvailabilityStatusID != 3 && x.AvailabilityStatusID != 1002).Select(x => x).Count();
+                    t.QuantityAvailable = db.Items.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.AvailabilityStatusID != 3 && x.AvailabilityStatusID != 1002).Select(x => x).Count();
                 }
 
             }
@@ -1225,7 +1263,7 @@ namespace Inventory.WebApplication.Controllers
 
                 itemsInStock = (from item in db.Items
                                 where (schoolID == 0 ? true : item.SchoolID == schoolID)
-                                group item by new { item.Name, item.UnitID, item.UnitAmount, item.CategoryID } into items
+                                group item by new { item.Name, item.UnitID, item.UnitAmount, item.CategoryID, item.SchoolID } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
                                 {
@@ -1281,8 +1319,9 @@ namespace Inventory.WebApplication.Controllers
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
                 List<Category> categories = db.Categories.ToList();
+                List<School> schools = db.Schools.ToList();
 
-                if(fromDate == null || toDate == null)
+                if (fromDate == null || toDate == null)
                 {
                     itemsInStock = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.NewAvailabilityStatus == 1002 && (schoolID == 0 ? true : x.SchoolID == schoolID)).Select(
                                     items => new TransactionDTO()
@@ -1294,7 +1333,9 @@ namespace Inventory.WebApplication.Controllers
                                         StockKeeper = items.StockKeeper,
                                         ToWhom = items.ToWhom,
                                         TransactionDate = items.TransactionDate,
-                                        UnitAmount = items.UnitAmount
+                                        UnitAmount = items.UnitAmount,
+                                        SchoolID = items.SchoolID,
+                                        NewSchoolID = items.NewSchoolID
                                     }).ToList();
                 }
                 else
@@ -1313,10 +1354,18 @@ namespace Inventory.WebApplication.Controllers
                                         StockKeeper = items.StockKeeper,
                                         ToWhom = items.ToWhom,
                                         TransactionDate = items.TransactionDate,
-                                        UnitAmount = items.UnitAmount
+                                        UnitAmount = items.UnitAmount,
+                                        SchoolID = items.SchoolID,
+                                        NewSchoolID = items.NewSchoolID
                                     }).ToList();
                 }
 
+
+                foreach(var tr in itemsInStock)
+                {
+                    tr.SchoolName = schools.FirstOrDefault(x => x.ID == tr.SchoolID)?.SchoolName_Ar;
+                    tr.ToSchoolName = schools.FirstOrDefault(x => x.ID == tr.NewSchoolID)?.SchoolName_Ar;
+                }
             }
 
             return View(itemsInStock);
@@ -1455,12 +1504,13 @@ namespace Inventory.WebApplication.Controllers
                 List<AvailabilityStatu> availabilityStatuses = db.AvailabilityStatus.ToList();
                 List<Supplier> suppliers = db.Suppliers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
                 List<Unit> units = db.Units.ToList();
+                List<School> schools = db.Schools.ToList();
 
-                if(fromDate == null && toDate == null)
+                if (fromDate == null && toDate == null)
                 {
                     itemsInStock = (from item in db.Items
                                     where (schoolID == 0 ? true : item.SchoolID == schoolID)
-                                    group item by new { item.Name, item.AvailabilityStatusID, item.Price, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice } into items
+                                    group item by new { item.Name, item.AvailabilityStatusID, item.Price, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice, item.SchoolID } into items
                                     select items).AsEnumerable().Select(
                                     items => new ItemsGroupedDTO()
                                     {
@@ -1476,7 +1526,8 @@ namespace Inventory.WebApplication.Controllers
                                         UnitID = items.Key.UnitID,
                                         UnitAmount = items.Key.UnitAmount,
                                         ItemStatusID = items.Key.ItemStatusID,
-                                        Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
+                                        Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name,
+                                        SchoolName = schools.FirstOrDefault(x => x.ID == items.Key.SchoolID)?.SchoolName_Ar
                                     }).ToList();
                 }
                 else
@@ -1484,7 +1535,7 @@ namespace Inventory.WebApplication.Controllers
                     itemsInStock = (from item in db.Items
                                     where (schoolID == 0 ? true : item.SchoolID == schoolID)
                                     where item.ModifiedOn >= fromDate && item.ModifiedOn <= toDate
-                                    group item by new { item.Name, item.AvailabilityStatusID, item.Price, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice } into items
+                                    group item by new { item.Name, item.AvailabilityStatusID, item.Price, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice, item.SchoolID } into items
                                     select items).AsEnumerable().Select(
                                     items => new ItemsGroupedDTO()
                                     {
@@ -1500,7 +1551,8 @@ namespace Inventory.WebApplication.Controllers
                                         UnitID = items.Key.UnitID,
                                         UnitAmount = items.Key.UnitAmount,
                                         ItemStatusID = items.Key.ItemStatusID,
-                                        Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name
+                                        Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name,
+                                        SchoolName = schools.FirstOrDefault(x => x.ID == items.Key.SchoolID)?.SchoolName_Ar
                                     }).ToList();
                 }
             }

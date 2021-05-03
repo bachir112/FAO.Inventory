@@ -29,5 +29,6 @@ namespace Inventory.DataObjects.EDM
         public Nullable<int> ChildOfTransaction { get; set; }
         public string ItemName_Arabic { get; set; }
         public Nullable<int> SchoolID { get; set; }
+        public Nullable<int> NewSchoolID { get; set; }
     }
 }

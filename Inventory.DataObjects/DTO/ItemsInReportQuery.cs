@@ -31,7 +31,9 @@ namespace Inventory.DataObjects.DTO
         public Nullable<int> Quantity { get; set; }
         public Nullable<System.DateTime> ReceivedOn { get; set; }
         public int QueryId { get; set; }
+        public Nullable<int> SchoolID { get; set; }
         public string ItemName { get; set; }
+        public string SchoolName { get; set; }
         public Nullable<int> MinimumQuantity { get; set; }
         public Nullable<int> MaximumQuantity { get; set; }
         public Nullable<int> MinimumPrice { get; set; }

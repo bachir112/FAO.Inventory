@@ -50,6 +50,7 @@
                                     <table id="inventoryGeneralReportTable">
                                         <thead>
                                             <tr>
+                                                <th>@Translation.GetStringValue("School")</th>
                                                 <th>@Translation.GetStringValue("From")</th>
                                                 <th>@Translation.GetStringValue("To")</th>
                                                 <th>@Translation.GetStringValue("Code")</th>
@@ -64,10 +65,13 @@
                                                 {
                                                     <tr class="odd gradeX">
                                                         <td>
-                                                            This School Name
+                                                            @item.SchoolName
                                                         </td>
                                                         <td>
-                                                            To School Name
+                                                            @item.SchoolName
+                                                        </td>
+                                                        <td>
+                                                            @item.ToSchoolName
                                                         </td>
                                                         <td>
                                                             <span class="english">@item.ItemName</span>

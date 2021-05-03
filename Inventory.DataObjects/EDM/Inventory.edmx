@@ -221,6 +221,7 @@
           <Property Name="ShouldReturn" Type="bit" />
           <Property Name="ChildOfTransaction" Type="int" />
           <Property Name="SchoolID" Type="int" />
+          <Property Name="NewSchoolID" Type="int" />
         </EntityType>
         <EntityType Name="TransactionsReminder">
           <Key>
@@ -503,6 +504,7 @@
           <Property Name="ChildOfTransaction" Type="Int32" />
           <Property Name="ItemName_Arabic" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="SchoolID" Type="Int32" />
+          <Property Name="NewSchoolID" Type="Int32" />
         </EntityType>
         <EntityType Name="Unit">
           <Key>
@@ -761,6 +763,7 @@
           <EntitySetMapping Name="Transactions">
             <EntityTypeMapping TypeName="InventoryModel.Transaction">
               <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="NewSchoolID" ColumnName="NewSchoolID" />
                 <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
                 <ScalarProperty Name="ItemName_Arabic" ColumnName="ItemName_Arabic" />
                 <ScalarProperty Name="ChildOfTransaction" ColumnName="ChildOfTransaction" />

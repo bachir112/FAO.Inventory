@@ -28,5 +28,8 @@ namespace Inventory.DataObjects.DTO
         public int Quantity { get; set; }
         public int QuantityAvailable { get; set; }
         public string ToWhom { get; set; }
+        public Nullable<int> SchoolID { get; set; }
+        public Nullable<int> NewSchoolID { get; set; }
+        public string ToSchoolName { get; set; }
     }
 }

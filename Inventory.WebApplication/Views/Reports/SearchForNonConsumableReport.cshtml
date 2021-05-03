@@ -50,6 +50,7 @@
                                     <table id="transactionsHistoryTable" class="table table-striped table-bordered table-hover table-checkable order-column">
                                         <thead>
                                             <tr>
+                                                <th>@Translation.GetStringValue("School")</th>
                                                 <th> @Translation.GetStringValue("ItemName") </th>
                                                 <th> @Translation.GetStringValue("Description") </th>
                                                 <th> @Translation.GetStringValue("Location") </th>
@@ -62,6 +63,9 @@
                                                 foreach (TransactionDTO transaction in Model)
                                                 {
                                                     <tr class="odd gradeX">
+                                                        <td>
+                                                            @transaction.SchoolName
+                                                        </td>
                                                         <td>
                                                             <span class="english">@transaction.ItemName</span>
                                                             <span class="arabic">@transaction.ItemName_Arabic</span>

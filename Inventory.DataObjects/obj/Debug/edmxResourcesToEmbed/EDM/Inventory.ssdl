@@ -216,6 +216,7 @@
     <Property Name="ShouldReturn" Type="bit" />
     <Property Name="ChildOfTransaction" Type="int" />
     <Property Name="SchoolID" Type="int" />
+    <Property Name="NewSchoolID" Type="int" />
   </EntityType>
   <EntityType Name="TransactionsReminder">
     <Key>
