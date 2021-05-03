@@ -787,6 +787,24 @@
                                             </a>
                                         </li>
                                     }
+
+                                    if (Convert.ToBoolean(PageManagement.FirstOrDefault(x => x.PageName == "Statuses")?.Allowed))
+                                    {
+                                        <li id="statusesTab" class="nav-item">
+                                            <a href="@Url.Action("Index","AvailabilityStatus")" class="nav-link ">
+                                                <span class="title">@Translation.GetStringValue("Status")</span>
+                                            </a>
+                                        </li>
+                                    }
+
+                                    if (Convert.ToBoolean(PageManagement.FirstOrDefault(x => x.PageName == "Units")?.Allowed))
+                                    {
+                                        <li id="unitTab" class="nav-item">
+                                            <a href="@Url.Action("Index","Units")" class="nav-link ">
+                                                <span class="title">@Translation.GetStringValue("Unit")</span>
+                                            </a>
+                                        </li>
+                                    }
                                 }
                             </ul>
                         </li>
@@ -971,6 +989,22 @@
             $('#usersParentTab .arrow').addClass('open');
             $('#usersParentTab .sub-menu').css('display', 'block');
             $('#pageManagementTab').addClass('active');
+        }
+
+        function pageStatusesActive() {
+            $('#usersParentTab').addClass('active');
+            $('#usersParentTab').addClass('open');
+            $('#usersParentTab .arrow').addClass('open');
+            $('#usersParentTab .sub-menu').css('display', 'block');
+            $('#statusesTab').addClass('active');
+        }
+
+        function pageUnitsActive() {
+            $('#usersParentTab').addClass('active');
+            $('#usersParentTab').addClass('open');
+            $('#usersParentTab .arrow').addClass('open');
+            $('#usersParentTab .sub-menu').css('display', 'block');
+            $('#unitTab').addClass('active');
         }
 
         function suppliersActive() {

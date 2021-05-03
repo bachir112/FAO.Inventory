@@ -45,8 +45,6 @@
                                     @Html.AntiForgeryToken()
 
                                     <div class="form-horizontal">
-                                        <h4>AvailabilityStatu</h4>
-                                        <hr />
                                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                         <div class="form-group">
                                             @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -93,7 +91,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        pageManagementActive();
+        pageStatusesActive();
         $('select').select2();
     });
 
