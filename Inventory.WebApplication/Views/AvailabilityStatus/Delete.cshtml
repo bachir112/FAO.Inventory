@@ -1,0 +1,76 @@
+﻿@model Inventory.DataObjects.EDM.AvailabilityStatu
+
+@using Inventory.WebApplication.Global
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        @*@Html.Partial("_ThemeColors")*@
+
+        <h1 class="page-title"> @Translation.GetStringValue("Suppliers") </h1>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Suppliers")</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <span>@Translation.GetStringValue("Delete")</span>
+                </li>
+            </ul>
+        </div>
+        @*Content starts here*@
+        <div class="form-horizontal">
+            <h3>@Translation.GetStringValue("AreYouSureYouWantToDeleteThisSupplier")</h3>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Status)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Status)
+                </dd>
+
+                <dt>
+                    @Html.DisplayFor(model => model.Status_Arabic)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Status_Arabic)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+            </dl>
+        </div>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" />
+                <div style="float:right;">
+                    @Html.ActionLink(Translation.GetStringValue("BackToList"), "Index")
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        pageManagementActive();
+    });
+
+</script>
