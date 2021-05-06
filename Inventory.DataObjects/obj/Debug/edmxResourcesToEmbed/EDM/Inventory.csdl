@@ -164,6 +164,7 @@
     <Property Name="ItemName_Arabic" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="SchoolID" Type="Int32" />
     <Property Name="NewSchoolID" Type="Int32" />
+    <Property Name="ItemID" Type="Int32" />
   </EntityType>
   <EntityType Name="Unit">
     <Key>

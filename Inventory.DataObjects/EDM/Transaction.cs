@@ -30,5 +30,6 @@ namespace Inventory.DataObjects.EDM
         public string ItemName_Arabic { get; set; }
         public Nullable<int> SchoolID { get; set; }
         public Nullable<int> NewSchoolID { get; set; }
+        public Nullable<int> ItemID { get; set; }
     }
 }

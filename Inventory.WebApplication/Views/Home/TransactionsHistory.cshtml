@@ -39,6 +39,7 @@
                                 <tr>
                                     <th> @Translation.GetStringValue("School") </th>
                                     <th> @Translation.GetStringValue("ItemName") </th>
+                                    <th> @Translation.GetStringValue("SerialCode") </th>
                                     <th> @Translation.GetStringValue("Quantity") </th>
                                     <th> @Translation.GetStringValue("FromStatus") </th>
                                     <th> @Translation.GetStringValue("ToStatus") </th>
@@ -59,6 +60,9 @@
                                             <td>
                                                 <span class="english">@transaction.ItemName</span>
                                                 <span class="arabic">@transaction.ItemName_Arabic</span>
+                                            </td>
+                                            <td>
+                                                @((transaction.ItemName.Count() > 2 ? transaction.ItemName.Substring(0,3) : transaction.ItemName) + transaction.ItemID)
                                             </td>
                                             <td class="center">
                                                 <span> @transaction.Quantity </span>

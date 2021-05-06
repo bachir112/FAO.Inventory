@@ -186,7 +186,7 @@ namespace Inventory.WebApplication.Controllers
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
                                 {
-                                    ItemsIDs = string.Join(",", items.Select(x => x.Id).ToList()),
+                                    ItemsIDs = items.Key.Id.ToString(),
                                     Category = categories.FirstOrDefault(x => x.Id == items.Key.CategoryID)?.Name,
                                     Category_Arabic = categories.FirstOrDefault(x => x.Id == items.Key.CategoryID)?.Name_Arabic,
                                     Name = items.Key.Name,
@@ -197,7 +197,6 @@ namespace Inventory.WebApplication.Controllers
                                     Quantity = items.Count(),
                                     LocationInStock = string.Join(", ", items.Where(x => !string.IsNullOrEmpty(x.LocationInStock)).Select(x => x.LocationInStock + " (" + items.Where(y => y.LocationInStock == x.LocationInStock).Select(y => y).Count().ToString() + ")").Distinct()),
                                     Description = string.Join(", ", items.Where(x => !string.IsNullOrEmpty(x.Description)).Select(x => x.Description + " (" + items.Where(y => y.Description == x.Description).Select(y => y).Count().ToString() + ")").Distinct()),
-                                    //Description = string.Join(",", items.Where(x => !string.IsNullOrEmpty(x.Description)).Select(x => x.Description)),
                                     ExpiryDate = items.Key.ExpiryDate,
                                     UnitID = items.Key.UnitID,
                                     UnitAmount = items.Key.UnitAmount,
@@ -205,6 +204,7 @@ namespace Inventory.WebApplication.Controllers
                                     SchoolID = items.Key.SchoolID,
                                     Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name,
                                     SchoolName = schools.FirstOrDefault(x => x.ID == items.Key.SchoolID)?.SchoolName_Ar
+                                    //ItemsIDs = string.Join(",", items.Select(x => x.Id).ToList()),
                                 }).ToList();
 
                 ViewBag.CategoryName = categoryID == null ? null : db.Categories.First(x => x.Id == categoryID).Name;
@@ -234,7 +234,7 @@ namespace Inventory.WebApplication.Controllers
                                 && item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
                                 && (fromDate == null ? true : item.ReceivedOn >= fromDate)
                                 && (toDate == null ? true : item.ReceivedOn <= toDate)
-                                group item by new { item.Name, item.ExpiryDate, item.UnitID, item.UnitAmount, item.SupplierID, item.ReceivedOn, item.Price, item.MaintenancePrice, item.SchoolID } into items
+                                group item by new { item.Id, item.Name, item.ExpiryDate, item.UnitID, item.UnitAmount, item.SupplierID, item.ReceivedOn, item.Price, item.MaintenancePrice, item.SchoolID } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
                                 {
@@ -396,6 +396,7 @@ namespace Inventory.WebApplication.Controllers
                     Id = x.Id,
                     ItemName = x.ItemName,
                     ItemName_Arabic = x.ItemName_Arabic,
+                    ItemID = x.ItemID.ToString(),
                     Quantity = x.Quantity,
                     Unit = db.Units.FirstOrDefault(y => y.Id == x.UnitID) != null ? db.Units.FirstOrDefault(y => y.Id == x.UnitID).Name : string.Empty,
                     UnitAmount = x.UnitAmount,
@@ -431,6 +432,7 @@ namespace Inventory.WebApplication.Controllers
                         Id = x.Id,
                         SchoolName = db.Schools.FirstOrDefault(y => y.ID == x.SchoolID)?.SchoolName_Ar,
                         ItemName = x.ItemName,
+                        ItemID = x.ItemID.ToString(),
                         ItemName_Arabic = x.ItemName_Arabic,
                         Quantity = x.Quantity,
                         NewAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus).Status : string.Empty,
@@ -555,6 +557,7 @@ namespace Inventory.WebApplication.Controllers
                     Transaction newTransaction = new Transaction();
                     newTransaction.ItemName = itemInDB.FirstOrDefault() != null ? itemInDB.First().Name : string.Empty;
                     newTransaction.ItemName_Arabic = itemInDB.FirstOrDefault() != null ? itemInDB.First().Name_Arabic : string.Empty;
+                    newTransaction.ItemID = Convert.ToInt32(item.ItemsIDs);
                     newTransaction.OldAvailabilityStatus = item.AvailabilityStatusID;
                     newTransaction.NewAvailabilityStatus = AvailabilityStatusID;
                     newTransaction.StockKeeper = User.Identity.GetUserId();

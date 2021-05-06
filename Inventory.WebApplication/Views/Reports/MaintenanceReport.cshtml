@@ -52,6 +52,7 @@
                                             <tr>
                                                 <th>@Translation.GetStringValue("School")</th>
                                                 <th>@Translation.GetStringValue("ItemName")</th>
+                                                <th>@Translation.GetStringValue("SerialCode")</th>
                                                 <th>@Translation.GetStringValue("MaintenancePrice") (LBP)</th>
                                                 <th>@Translation.GetStringValue("Value") (LBP)</th>
                                                 <th>@Translation.GetStringValue("Quantity")</th>
@@ -69,6 +70,9 @@
                                                             <span class="english">@item.Name</span>
                                                             <span class="arabic">@item.Name_Arabic</span>
                                                             @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
+                                                        </td>
+                                                        <td>
+                                                            @((item.Name.Count() > 2 ? item.Name.Substring(0,3) : item.Name) + item.ItemsIDs)
                                                         </td>
                                                         <td class="price">
                                                             @(item.MaintenancePrice == null ? "0 L.L." : (item.MaintenancePrice + "L.L."))

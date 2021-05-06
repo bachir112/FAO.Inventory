@@ -425,6 +425,8 @@ C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\In
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\ClosedXML.pdb
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\ClosedXML.xml
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\DocumentFormat.OpenXml.xml
+C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\EntityFramework.xml
+C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\EntityFramework.SqlServer.xml
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\ExcelNumberFormat.xml
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\System.Web.Helpers.xml
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\System.Web.Mvc.xml
@@ -435,8 +437,6 @@ C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\Sy
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\System.Web.WebPages.Razor.xml
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\Newtonsoft.Json.xml
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\Antlr3.Runtime.pdb
-C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\EntityFramework.xml
-C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\EntityFramework.SqlServer.xml
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\Microsoft.AspNet.Identity.Core.xml
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\Microsoft.AspNet.Identity.Owin.xml
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.WebApplication\bin\Microsoft.AspNet.Identity.EntityFramework.xml

@@ -491,10 +491,10 @@ namespace Inventory.WebApplication.Global
             { "NumberHigherThanStock-arabic", "الرقم الذي تم إدخاله أكبر من العنصر هو المخزون."},
 
             { "School-english", "School"},
-            { "School-arabic", "المدرسة"}
+            { "School-arabic", "المدرسة"},
 
-            
-
+            { "SerialCode-english", "Serial Code"},
+            { "SerialCode-arabic", "رمز التسلسل"}
 
         }; 
 
