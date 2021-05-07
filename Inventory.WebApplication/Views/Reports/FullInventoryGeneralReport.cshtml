@@ -52,6 +52,7 @@
                                             <tr>
                                                 <th>@Translation.GetStringValue("School")</th>
                                                 <th>@Translation.GetStringValue("ItemName")</th>
+                                                <th> @Translation.GetStringValue("SerialNumber") </th>
                                                 <th>@Translation.GetStringValue("Category")</th>
                                                 <th>@Translation.GetStringValue("Expandables")</th>
                                                 <th>@Translation.GetStringValue("Status")</th>
@@ -71,6 +72,9 @@
                                                         </td>
                                                         <td>
                                                             @item.Name  @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
+                                                        </td>
+                                                        <td>
+                                                            @((item.Name.Count() > 2 ? item.Name.Substring(0,3) : item.Name) + item.GroupedId)
                                                         </td>
                                                         <td>
                                                             @item.Category

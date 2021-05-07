@@ -917,6 +917,7 @@ namespace Inventory.WebApplication.Controllers
                                     where (schoolID == 0 ? true : item.SchoolID == schoolID)
                                     group item by new
                                     {
+                                        item.Id,
                                         item.Name,
                                         item.AvailabilityStatusID,
                                         item.ExpiryDate,
@@ -931,7 +932,7 @@ namespace Inventory.WebApplication.Controllers
                                     select items).AsEnumerable().Select(
                                     items => new ItemsGroupedDTO()
                                     {
-                                        GroupedId = items.FirstOrDefault().Id,
+                                        GroupedId = items.Key.Id,
                                         Name = items.Key.Name,
                                         Name_Arabic = items.First().Name_Arabic,
                                         AvailabilityStatus = availabilityStatuses.FirstOrDefault(x => x.Id == items.Key.AvailabilityStatusID).Status,
@@ -961,6 +962,7 @@ namespace Inventory.WebApplication.Controllers
                                     where item.ModifiedOn >= fromDate && item.ModifiedOn <= toDate
                                     group item by new
                                     {
+                                        item.Id,
                                         item.Name,
                                         item.AvailabilityStatusID,
                                         item.ExpiryDate,
@@ -975,7 +977,7 @@ namespace Inventory.WebApplication.Controllers
                                     select items).AsEnumerable().Select(
                                     items => new ItemsGroupedDTO()
                                     {
-                                        GroupedId = items.FirstOrDefault().Id,
+                                        GroupedId = items.Key.Id,
                                         Name = items.Key.Name,
                                         Name_Arabic = items.First().Name_Arabic,
                                         AvailabilityStatus = availabilityStatuses.FirstOrDefault(x => x.Id == items.Key.AvailabilityStatusID).Status,
@@ -1240,7 +1242,7 @@ namespace Inventory.WebApplication.Controllers
                         t.Category = category.Name;
                         t.Category_Arabic = category.Name_Arabic;
                     }
-                    t.QuantityAvailable = db.Items.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.AvailabilityStatusID != 3 && x.AvailabilityStatusID != 1002).Select(x => x).Count();
+                    t.QuantityAvailable = db.Items.Where(x => x.AvailabilityStatusID != 3 && x.AvailabilityStatusID != 1002 && x.SchoolID == t.SchoolID).Select(x => x).Count();
                 }
 
             }
