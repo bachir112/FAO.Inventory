@@ -494,7 +494,27 @@ namespace Inventory.WebApplication.Global
             { "School-arabic", "المدرسة"},
 
             { "SerialCode-english", "Serial Code"},
-            { "SerialCode-arabic", "رمز التسلسل"}
+            { "SerialCode-arabic", "رمز التسلسل"},
+
+            { "Maintenance-english", "Maintenance"},
+            { "Maintenance-arabic", "صيانة"},
+
+            { "Yes-english", "Yes"},
+            { "Yes-arabic", "نعم"},
+
+            { "No-english", "No"},
+            { "No-arabic", "كلا"},
+
+            { "PricePerItem-english", "Price Per Item"},
+            { "PricePerItem-arabic", "السعر للسلعة الواحدة"},
+
+            { "NumberOfItems-english", "Number Of Items"},
+            { "NumberOfItems-arabic", "عدد العناصر"},
+
+            { "MaintenancePricePerItem-english", "Maintenance Price Per Item"},
+            { "MaintenancePricePerItem-arabic", "سعر الصيانة لكل عنصر"}
+
+
 
         }; 
 

@@ -37,18 +37,18 @@
                         <hr />
                     </div>
                     <h3>
-                        Maintenance?
+                        @Translation.GetStringValue("Maintenance")?
                         <button id="yesMaintenance" class="btn btn-primary">
-                            Yes
+                            @Translation.GetStringValue("Yes")
                         </button>
                         <button id="noMaintenance" class="btn btn-primary" style="display:none;">
-                            No
+                            @Translation.GetStringValue("No")
                         </button>
                     </h3>
                     <div id="maintenanceContainer" style="display:none;">
                         <div class="input-icon">
                             <i class="fa fa-tasks font-green" aria-hidden="true"></i>
-                            <input id="numberOfItems" type="number" class="form-control" placeholder="@Translation.GetStringValue("NumberOfItems")">
+                            <input id="numberOfItems" value="1" readonly type="number" class="form-control" placeholder="@Translation.GetStringValue("NumberOfItems")">
                         </div>
                         <hr />
                         <div class="input-icon">
@@ -72,7 +72,7 @@
 
         @Html.Partial("_ThemeColors")
 
-        <h1 class="page-title"> Items </h1>
+        <h1 class="page-title"> @Translation.GetStringValue("Items") </h1>
         <div class="page-bar">
             <ul class="page-breadcrumb">
                 <li>
