@@ -43,7 +43,7 @@
                         @{
                             foreach (var availability in AvailabilityStatus)
                             {
-                                <option value="@availability.Id">@availability.Status</option>
+                                <option value="@availability.Id">@availability.Status | @availability.Status_Arabic</option>
                             }
                         }
                     </select>

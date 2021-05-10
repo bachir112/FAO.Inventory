@@ -468,6 +468,10 @@
             float: right !important;
         }
 
+        #editActionContainer{
+            display:none;
+        }
+
         .page-sidebar-reversed #editActionContainer {
             float: right !important;
         }
@@ -788,11 +792,11 @@
                                         </li>
                                     }
 
-                                    if (Convert.ToBoolean(PageManagement.FirstOrDefault(x => x.PageName == "Statuses")?.Allowed))
+                                    if (Convert.ToBoolean(PageManagement.FirstOrDefault(x => x.PageName == "Availability")?.Allowed))
                                     {
                                         <li id="statusesTab" class="nav-item">
                                             <a href="@Url.Action("Index","AvailabilityStatus")" class="nav-link ">
-                                                <span class="title">@Translation.GetStringValue("Status")</span>
+                                                <span class="title">@Translation.GetStringValue("Availability")</span>
                                             </a>
                                         </li>
                                     }

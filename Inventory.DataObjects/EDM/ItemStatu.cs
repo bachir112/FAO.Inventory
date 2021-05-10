@@ -17,5 +17,6 @@ namespace Inventory.DataObjects.EDM
         public int Id { get; set; }
         public string Status { get; set; }
         public string Description { get; set; }
+        public string Status_ar { get; set; }
     }
 }

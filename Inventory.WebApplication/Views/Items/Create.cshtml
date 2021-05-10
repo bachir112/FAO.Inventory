@@ -231,7 +231,7 @@
                                                                     @{
                                                                         foreach (var school in schools)
                                                                         {
-                                                                            <option value="@(school.ID)">@(school.SchoolName_Ar)</option>
+                                                                            <option value="@(school.ID)">@(school.SchoolName_En) | @(school.SchoolName_Ar)</option>
                                                                         }
                                                                     }
                                                                 </select>
@@ -272,16 +272,36 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-2" for="AvailabilityStatusID">@Translation.GetStringValue("Availability")</label>
                                                 <div class="col-md-10">
-                                                    @Html.DropDownListFor(m => m.AvailabilityStatusID, new SelectList(availabilityStatusList, "Id", "Status"), new { @name = "AvailabilityStatusID", @id = "availabilityStatus", @style = "width:100%;" })
-                                                    @Html.ValidationMessageFor(model => model.AvailabilityStatusID, "", new { @class = "text-danger" })
+                                                    <select id="availabilityStatus" name="AvailabilityStatusID" style="width:100%;">
+                                                        @{ 
+                                                            foreach(var avaiStatus in availabilityStatusList)
+                                                            {
+                                                                <option value="@(avaiStatus.Id)">
+                                                                    @(avaiStatus.Status) - @(avaiStatus.Status_Arabic)
+                                                                </option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                    @*@Html.DropDownListFor(m => m.AvailabilityStatusID, new SelectList(availabilityStatusList, "Id", "Status"), new { @name = "AvailabilityStatusID", @id = "availabilityStatus", @style = "width:100%;" })
+                                                    @Html.ValidationMessageFor(model => model.AvailabilityStatusID, "", new { @class = "text-danger" })*@
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-2" for="ItemStatusID">@Translation.GetStringValue("Status")</label>
                                                 <div class="col-md-10">
-                                                    @Html.DropDownListFor(m => m.ItemStatusID, new SelectList(itemStatusList, "Id", "Status"), new { @name = "ItemStatusID", @id = "itemStatusID", @style = "width:100%;" })
-                                                    @Html.ValidationMessageFor(model => model.ItemStatusID, "", new { @class = "text-danger" })
+                                                    <select id="itemStatusID" name="ItemStatusID" style="width:100%;">
+                                                        @{
+                                                            foreach (var status in itemStatusList)
+                                                            {
+                                                                <option value="@(status.Id)">
+                                                                    @(status.Status) - @(status.Status_ar)
+                                                                </option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                    @*@Html.DropDownListFor(m => m.ItemStatusID, new SelectList(itemStatusList, "Id", "Status"), new { @name = "ItemStatusID", @id = "itemStatusID", @style = "width:100%;" })
+                                                    @Html.ValidationMessageFor(model => model.ItemStatusID, "", new { @class = "text-danger" })*@
                                                 </div>
                                             </div>
 
@@ -304,8 +324,18 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-2" for="UnitID">@Translation.GetStringValue("Unit")</label>
                                                 <div class="col-md-10">
-                                                    @Html.DropDownListFor(m => m.UnitID, new SelectList(unitList, "Id", "Name"), new { @name = "UnitID", @id = "unitID", @style = "width:100%;" })
-                                                    @Html.ValidationMessageFor(model => model.UnitID, "", new { @class = "text-danger" })
+                                                    <select id="unitID" name="UnitID" style="width:100%;">
+                                                        @{
+                                                            foreach (var unit in unitList)
+                                                            {
+                                                                <option value="@(unit.Id)">
+                                                                    @(unit.Name) - @(unit.Name_ar)
+                                                                </option>
+                                                            }
+                                                        }
+                                                    </select>
+                                                    @*@Html.DropDownListFor(m => m.UnitID, new SelectList(unitList, "Id", "Name"), new { @name = "UnitID", @id = "unitID", @style = "width:100%;" })
+                                                    @Html.ValidationMessageFor(model => model.UnitID, "", new { @class = "text-danger" })*@
                                                 </div>
                                             </div>
 
@@ -352,9 +382,16 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-2" for="SupplierID">@Translation.GetStringValue("Supplier")</label>
                                                 <div class="col-md-10">
-                                                    @Html.DropDownListFor(m => m.SupplierID, new SelectList(suppliersList, "Id", "Supplier1"), new { @name = "SupplierID", @id = "supplierID", @style = "width:100%;" })
-                                                    @*@Html.EditorFor(model => model.SupplierID, new { htmlAttributes = new { @id = "SupplierID", @class = "form-control" } })*@
-                                                    @Html.ValidationMessageFor(model => model.SupplierID, "", new { @class = "text-danger" })
+                                                    <select id="Supplier1" name="SupplierID" style="width:100%;">
+                                                        @{ 
+                                                            foreach (var sup in suppliersList)
+                                                            {
+                                                                <option value="@(sup.Id)" data-SchoolID="@(sup.SchoolID)">@(sup.Supplier1)</option>
+                                                            }
+                                                         }
+                                                        </select>
+                                                    @*@Html.DropDownListFor(m => m.SupplierID, new SelectList(suppliersList, "Id", "Supplier1"), new { @name = "SupplierID", @id = "supplierID", @style = "width:100%;" })
+                                                    @Html.ValidationMessageFor(model => model.SupplierID, "", new { @class = "text-danger" })*@
                                                 </div>
                                             </div>
 
@@ -399,6 +436,18 @@
     var categoryID = -1;
 
     $(document).ready(function () {
+        var schoolID = $('#createItemsSchool').val();
+        $('#Supplier1').find('option').hide();
+        $('#Supplier1').find('option[data-SchoolID="' + schoolID + '"]').show();
+    });
+
+    $(document).on('change', '#createItemsSchool', function () {
+        var schoolID = $(this).val();
+        $('#Supplier1').find('option').hide();
+        $('#Supplier1').find('option[data-SchoolID="' + schoolID + '"]').show();
+    });
+
+    $(document).ready(function () {
 
         //$("#expiryDate").datepicker("setDate", new Date());
 
@@ -412,7 +461,7 @@
 
         $('#availabilityStatus').select2();
         $('#itemStatusID').select2();
-        $('#supplierID').select2();
+        //$('#supplierID').select2();
         $('#unitID').select2();
 
         $('#unitID').change(function () {

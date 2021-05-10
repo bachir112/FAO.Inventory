@@ -43,27 +43,27 @@
                 <div class="form-group">
                     <label>@Translation.GetStringValue("Page")</label>
                     <select id="pageName" class="form-control" style="width:100%;">
-                        <optgroup label="Home">
+                        <optgroup label="@Translation.GetStringValue("Home")">
                             <option value="Home">@Translation.GetStringValue("Home")</option>
                             <option value="Reports">@Translation.GetStringValue("Reports")</option>
                         </optgroup>
-                        <optgroup label="Transactions">
+                        <optgroup label="@Translation.GetStringValue("Transactions")">
                             <option value="Transactions">@Translation.GetStringValue("Transactions")</option>
                             <option value="TransactionsHistory">@Translation.GetStringValue("TransactionsHistory")</option>
                         </optgroup>
-                        <optgroup label="Items">
+                        <optgroup label="@Translation.GetStringValue("Items")">
                             <option value="AddItems">@Translation.GetStringValue("AddItems")</option>
                             <option value="DeleteItems">@Translation.GetStringValue("DeleteItems")</option>
                             <option value="Pricing">@Translation.GetStringValue("Pricing")</option>
                             <option value="Deteriorated">@Translation.GetStringValue("Deteriorated")</option>
                             <option value="TransferApproval">@Translation.GetStringValue("TransferApproval")</option>
                         </optgroup>
-                        <optgroup label="Management">
+                        <optgroup label="@Translation.GetStringValue("Management")">
                             <option value="Users">@Translation.GetStringValue("Users")</option>
                             <option value="Roles">@Translation.GetStringValue("Roles")</option>
                             <option value="PageManagement">@Translation.GetStringValue("PageManagement")</option>
                             <option value="Suppliers">@Translation.GetStringValue("Suppliers")</option>
-                            <option value="Statuses">@Translation.GetStringValue("Status")</option>
+                            <option value="Availability">@Translation.GetStringValue("Availability")</option>
                             <option value="Units">@Translation.GetStringValue("Unit")</option>
                         </optgroup>
                     </select>
@@ -163,7 +163,7 @@
                                                     List<PageManagement> pagesInRole = Model.Where(x => x.RoleName == role.Name).Select(x => x).ToList();
 
                                                     <tr style="background:#f3f4f6!important;">
-                                                        <td colspan="3" style="font-weight:bold;font-size:16px;">@role.Name</td>
+                                                        <td colspan="4" style="font-weight:bold;font-size:16px;">@role.Name</td>
                                                     </tr>
 
                                                     if (pagesInRole.Count() == 0)

@@ -97,6 +97,7 @@
     <EntitySetMapping Name="ItemStatus">
       <EntityTypeMapping TypeName="InventoryModel.ItemStatu">
         <MappingFragment StoreEntitySet="ItemStatus">
+          <ScalarProperty Name="Status_ar" ColumnName="Status_ar" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="Id" ColumnName="Id" />
@@ -139,6 +140,7 @@
     <EntitySetMapping Name="Units">
       <EntityTypeMapping TypeName="InventoryModel.Unit">
         <MappingFragment StoreEntitySet="Unit">
+          <ScalarProperty Name="Name_ar" ColumnName="Name_ar" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Id" ColumnName="Id" />
