@@ -46,6 +46,7 @@
                 <table id="reminderTable" style="width:100%;">
                     <thead>
                         <tr>
+                            <th>@Translation.GetStringValue("School")</th>
                             <th>@Translation.GetStringValue("ItemName")</th>
                             <th>@Translation.GetStringValue("Location")</th>
                             <th>@Translation.GetStringValue("Description")</th>
@@ -57,6 +58,9 @@
                             foreach (var item in returnItems)
                             {
                                 <tr>
+                                    <td>
+                                        @item.SchoolName
+                                    </td>
                                     <td>
                                         <span class="english">@item.ItemName</span>
                                         <span class="arabic">@item.ItemName_Arabic</span>

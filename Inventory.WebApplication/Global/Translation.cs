@@ -370,8 +370,8 @@ namespace Inventory.WebApplication.Global
             { "Thrown-english", "Thrown"},
             { "Thrown-arabic", "رمى"},
 
-            { "Nothing-english", "Nothing"},
-            { "Nothing-arabic", "لا شيء"},
+            { "Nothing-english", "Modified"},
+            { "Nothing-arabic", "عدّل" },
 
             { "To-english", "To"},
             { "To-arabic", "الى"},

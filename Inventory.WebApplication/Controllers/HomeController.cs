@@ -36,6 +36,8 @@ namespace Inventory.WebApplication.Controllers
                 {
                     string userID = User.Identity.GetUserId();
                     AspNetUser user = db.AspNetUsers.FirstOrDefault(x => x.Id == userID);
+                    List<School> schools = db.Schools.ToList();
+
                     if (user != null)
                     {
                         user.LastLogin = DateTime.Now;
@@ -56,6 +58,7 @@ namespace Inventory.WebApplication.Controllers
                                          ItemName = x.ItemName,
                                          ItemName_Arabic = x.ItemName_Arabic,
                                          Quantity = x.Quantity,
+                                         SchoolName = x.SchoolID == null ? "" : schools.First(y => y.ID == x.SchoolID).SchoolName_Ar,
                                          NewAvailabilityStatusID = x.NewAvailabilityStatus,
                                          NewAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus).Status : string.Empty,
                                          NewAvailabilityStatus_Arabic = db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus) != null ? db.AvailabilityStatus.FirstOrDefault(y => y.Id == x.NewAvailabilityStatus).Status_Arabic : string.Empty,
