@@ -115,7 +115,28 @@
                                                 </div>
                                             </div>
                                             <div class="cont-col2">
-                                                <div class="desc"> @transaction.StockKeeper @Translation.GetStringValue(actionName) @transaction.Quantity <span class="english">@transaction.ItemName</span> <span class="arabic">@transaction.ItemName_Arabic</span> @unitAmout@unit @Translation.GetStringValue("To") @transaction.ToWhom. </div>
+                                                <div class="desc"> 
+                                                    @transaction.StockKeeper 
+                                                    @Translation.GetStringValue(actionName) 
+                                                    @transaction.Quantity 
+                                                    <span class="english">
+                                                        @transaction.ItemName
+                                                    </span> 
+                                                    <span class="arabic">
+                                                        @transaction.ItemName_Arabic
+                                                    </span> 
+                                                    @unitAmout@unit 
+                                                    @{ 
+                                                        if (!string.IsNullOrEmpty(transaction.ToWhom))
+                                                        {
+                                                            <span>
+                                                                @Translation.GetStringValue("To") 
+                                                                @transaction.ToWhom
+                                                            </span>
+                                                        }
+                                                    }
+                                                    .
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

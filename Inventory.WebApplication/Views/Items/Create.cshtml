@@ -342,7 +342,7 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-2" id="amountText" for="UnitAmount">@Translation.GetStringValue("Amount")</label>
                                                 <div class="col-md-10">
-                                                    @Html.EditorFor(model => model.UnitAmount, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.EditorFor(model => model.UnitAmount, new { htmlAttributes = new { @class = "form-control", @required= "required" } })
                                                     @Html.ValidationMessageFor(model => model.UnitAmount, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>

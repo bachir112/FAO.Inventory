@@ -1,17 +1,18 @@
 ﻿@using Inventory.WebApplication.Global
+@using Inventory.DataObjects.EDM
 
 @model IEnumerable<Inventory.DataObjects.EDM.Supplier>
 
 @{
     ViewBag.Title = "Index";
+    List<School> schools = ViewBag.Schools as List<School>;
 }
 
 <style type="text/css">
 
-    .dt-buttons{
-        display:none!important;
+    .dt-buttons {
+        display: none !important;
     }
-
 </style>
 
 <div class="page-content-wrapper">
@@ -41,7 +42,7 @@
                             <span class="caption-subject font-dark bold uppercase">@Translation.GetStringValue("Suppliers")</span>
                         </div>
                         <div class="caption createNew" style="float:right;">
-                            @Html.ActionLink("Create New", "Create")
+                            @Html.ActionLink(Translation.GetStringValue("CreateNew"), "Create")
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -52,12 +53,13 @@
                                         <thead>
                                             <tr>
                                                 <th></th>
+                                                <th>@Translation.GetStringValue("School")</th>
                                                 <th>@Translation.GetStringValue("Suppliers")</th>
                                                 <th>@Translation.GetStringValue("IsASchool")</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach(var supplier in Model)
+                                            @foreach (var supplier in Model)
                                             {
                                                 <tr>
                                                     <td>
@@ -66,12 +68,15 @@
                                                         @Html.ActionLink(Translation.GetStringValue("Delete"), "Delete", new { id = supplier.Id })
                                                     </td>
                                                     <td>
+                                                        @(supplier.SchoolID == 0 ? "All" : schools.First(x => x.ID == supplier.SchoolID).SchoolName_Ar)
+                                                    </td>
+                                                    <td>
                                                         @supplier.Supplier1
                                                     </td>
                                                     <td>
                                                         @supplier.IsSchool
                                                     </td>
-                                            </tr>
+                                                </tr>
                                             }
                                         </tbody>
                                     </table>
@@ -87,17 +92,17 @@
 </div>
 
 <script type="text/javascript">
-    
+
     $(document).ready(function () {
 
-        pageManagementActive();
+        suppliersActive();
 
         var table = $('#suppliersTable');
 
         var cookieVal = $.cookie("language");
-        
+
         if (cookieVal == 'arabic') {
-            
+
             var oTable = table.dataTable({
                 "language": {
                     "aria": {
@@ -126,8 +131,7 @@
                         extend: 'print',
                         className: 'btn dark btn-outline',
                         message: '',
-                        customize: function (win)
-                        {
+                        customize: function (win) {
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية</h2>');
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
@@ -141,9 +145,9 @@
                 //responsive: true
             });
 
-        } 
+        }
         else {
-            
+
             var oTable = table.dataTable({
                 "language": {
                     "aria": {
@@ -172,8 +176,7 @@
                         extend: 'print',
                         className: 'btn dark btn-outline',
                         message: '',
-                        customize: function (win)
-                        {
+                        customize: function (win) {
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية</h2>');
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');

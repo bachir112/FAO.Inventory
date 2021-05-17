@@ -1,0 +1,98 @@
+﻿@using Inventory.WebApplication.Global
+@model IEnumerable<Inventory.DataObjects.EDM.AvailabilityStatu>
+
+<style>
+
+    tr{
+        height:30px;
+    }
+
+</style>
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+
+        @Html.Partial("_ThemeColors")
+
+        <h1 class="page-title"> @Translation.GetStringValue("Management") </h1>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Availability")</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <span>@Translation.GetStringValue("List")</span>
+                </li>
+            </ul>
+        </div>
+        @*Content starts here*@
+        <div class="row">
+            <div class="col-lg-12 col-xs-12 col-sm-12">
+                <div class="portlet light bordered">
+                    <div class="portlet-title tabbable-line">
+                        <div class="caption">
+                            <i class="icon-bubbles font-dark hide"></i>
+                            <span class="caption-subject font-dark bold uppercase">@Translation.GetStringValue("Availability")</span>
+                        </div>
+                        <div class="caption createNew" style="float:right;">
+                            @Html.ActionLink(Translation.GetStringValue("CreateNew"), "Create")
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="portlet_comments_1">
+                                <div class="mt-comments">
+                                    <table id="suppliersTable" style="width:100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>@Translation.GetStringValue("Status")</th>
+                                                <th>@Translation.GetStringValue("Status")</th>
+                                                <th>@Translation.GetStringValue("Description")</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Status)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Status_Arabic)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Description)
+                                                    </td>
+                                                    <td>
+                                                        @{ 
+                                                            if(item.Id > 4 && item.Id != 1002)
+                                                            {
+                                                                <div>
+                                                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                                                </div>
+                                                            }
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*Content ends here*@
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        pageStatusesActive();
+    });
+</script>

@@ -1,9 +1,12 @@
 ﻿@using Inventory.WebApplication.Global
+@using Inventory.DataObjects.EDM
 
 @model IEnumerable<Inventory.DataObjects.EDM.AspNetUser>
 
 @{
     ViewBag.Title = "Index";
+
+    List<School> schools = ViewBag.Schools as List<School>;
 }
 
 
@@ -75,6 +78,7 @@
                                                     <span class="mt-comment-date">@Translation.GetStringValue("LastLogin"): @Html.DisplayFor(modelUser => user.LastLogin)</span>
                                                 </div>
                                                 <div class="mt-comment-text">
+                                                    <h5>@Translation.GetStringValue("School"): @(user.SchoolID == 0 ? "All" : schools.First(x => x.ID == user.SchoolID).SchoolName_Ar)</h5>
                                                     <h5>@Translation.GetStringValue("Role"): @user.UserRole</h5>
                                                     <h5>@Translation.GetStringValue("Phone"): @Html.DisplayFor(modelUser => user.PhoneNumber)</h5>
                                                 </div>
@@ -124,7 +128,8 @@
             url: '@Url.Action("ResetPassword", "Users")' + '?newPassword=' + newPassword + '&userID=' + userID,
             dataType: 'text',
             success: function (data) {
-                //NProgress.done();
+                alert('Password changed');
+                $('#resetPasswordModal').modal('hide');
             }
         });
 

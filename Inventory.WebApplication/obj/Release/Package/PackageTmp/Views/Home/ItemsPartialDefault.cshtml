@@ -13,11 +13,6 @@
 
 <div class="col-md-12">
     <div class="portlet light bordered">
-        @*<div class="portlet-title">
-                <div class="caption font-dark pull-right">
-                    <button type="button" class="btn btn-circle red btn-outline">View all Items</button>
-                </div>
-            </div>*@
         <div class="portlet-title">
             <div class="caption font-dark">
                 <img src="../images/all-items.png" style="width:50px;">
@@ -30,14 +25,9 @@
         </div>
         <div class="portlet-body">
             <div class="table-toolbar">
-                <div id="editActionContainer" class="row" style="display:none;">
+                <div id="editActionContainer" class="row">
                     <div class="col-md-12">
                         <div class="btn-group">
-                            @*<button id="deleteActionSelector" style="margin:5px;" class="btn sbold red" data-toggle="modal" data-target="#deleteItemModal">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                                @Translation.GetStringValue("DeleteOne")
-                            </button>*@
-
                             <button id="batchDeletedItemActionSelector" class="btn sbold red" style="margin:5px;" data-toggle="modal" data-target="#deleteItemModal">
                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                                 @Translation.GetStringValue("Delete")
@@ -65,7 +55,9 @@
                     <tr>
                         <th>
                         </th>
+                        <th> @Translation.GetStringValue("School") </th>
                         <th> @Translation.GetStringValue("ItemName") </th>
+                        <th> @Translation.GetStringValue("SerialNumber") </th>
                         <th> @Translation.GetStringValue("Category") </th>
                         <th> @Translation.GetStringValue("Availability") </th>
                         <th> @Translation.GetStringValue("ExpiryDate") </th>
@@ -97,57 +89,65 @@
                                     break;
                             }
 
-                                        <tr class="odd gradeX">
-                                            <td>
-                                                <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-                                                    <input type="checkbox" class="checkboxes"
-                                                           data-itemsIDs="@item.ItemsIDs"
-                                                           data-Name="@item.Name"
-                                                           data-AvailabilityStatusID="@item.AvailabilityStatusID"
-                                                           data-ItemStatusID="@item.ItemStatusID"
-                                                           data-ExpiryDate="@item.ExpiryDate"
-                                                           data-LocationInStock="@item.LocationInStock"
-                                                           data-ReceivedOn="@item.ReceivedOn"
-                                                           data-Description="@item.Description"
-                                                           data-UnitID="@item.UnitID"
-                                                           data-Quantity="@item.Quantity"
-                                                           data-UnitAmount="@item.UnitAmount" />
-                                                    <span></span>
-                                                </label>
-                                            </td>
-                                            <td>
-                                                <span class="english">@item.Name</span>
-                                                <span class="arabic">@item.Name_Arabic</span>
-                                            </td>
-                                            <td>
-                                                <span class="english">@item.Category</span>
-                                                <span class="arabic">@item.Category_Arabic</span>
-                                            </td>
-                                            <td>
-                                                <span class="label label-sm label-@AvailabilityStatusColor">
-                                                    <span class="english">@item.AvailabilityStatus</span>
-                                                    <span class="arabic">@item.AvailabilityStatus_Arabic</span>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                @(item.ExpiryDate?.ToString("dd-MMM-yyyy"))
-                                            </td>
-                                            <td>
-                                                @item.Quantity
-                                            </td>
-                                            <td>
-                                                @item.UnitAmount @item.Unit
-                                            </td>
-                                            <td class="center">
-                                                @item.LocationInStock
-                                            </td>
-                                            <td>
-                                                @item.Description
-                                            </td>
-                                            <td>
-                                                @item.ReceivedOn
-                                            </td>
-                                        </tr>
+                            <tr class="odd gradeX">
+                                <td>
+                                    <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
+                                        <input type="checkbox" class="checkboxes"
+                                               data-itemsIDs="@item.ItemsIDs"
+                                               data-Name="@item.Name"
+                                               data-AvailabilityStatusID="@item.AvailabilityStatusID"
+                                               data-ItemStatusID="@item.ItemStatusID"
+                                               data-ExpiryDate="@item.ExpiryDate"
+                                               data-LocationInStock="@item.LocationInStock"
+                                               data-ReceivedOn="@item.ReceivedOn"
+                                               data-Description="@item.Description"
+                                               data-UnitID="@item.UnitID"
+                                               data-Quantity="@item.Quantity"
+                                               data-SchoolID="@item.SchoolID"
+                                               data-UnitAmount="@item.UnitAmount" />
+                                        <span></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    @item.SchoolName
+                                </td>
+                                <td>
+                                    <span class="english">@item.Name</span>
+                                    <span class="arabic">@item.Name_Arabic</span>
+                                </td>
+                                <td>
+                                    @((item.Name.Count() > 2 ? item.Name.Substring(0,3) : item.Name) + item.ItemsIDs)
+                                    @*@item.ItemsIDs*@
+                                </td>
+                                <td>
+                                    <span class="english">@item.Category</span>
+                                    <span class="arabic">@item.Category_Arabic</span>
+                                </td>
+                                <td>
+                                    <span class="label label-sm label-@AvailabilityStatusColor">
+                                        <span class="english">@item.AvailabilityStatus</span>
+                                        <span class="arabic">@item.AvailabilityStatus_Arabic</span>
+                                    </span>
+                                </td>
+                                <td>
+                                    @(item.ExpiryDate?.ToString("dd-MMM-yyyy"))
+                                </td>
+                                <td>
+                                    @item.Quantity
+                                </td>
+                                <td>
+                                    @item.UnitAmount @item.Unit
+                                </td>
+                                <td class="center">
+                                    @item.LocationInStock
+                                </td>
+                                <td>
+                                    @item.Description
+                                </td>
+                                <td>
+                                    @item.ReceivedOn
+                                </td>
+                            </tr>
                         }
                     }
                 </tbody>
@@ -155,17 +155,6 @@
         </div>
     </div>
 </div>
-
-
-
-<script type="text/javascript">
-    
-        $(document).ready(function () {
-
-
-        });
-
-</script>
 
 <script type="text/javascript">
 

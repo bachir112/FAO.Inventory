@@ -8,6 +8,7 @@
     List<string> description = ViewBag.Description as List<string>;
 
     List<AvailabilityStatu> AvailabilityStatus = ViewBag.AvailabilityStatus as List<AvailabilityStatu>;
+    List<School> schools = ViewBag.Schools as List<School>;
 }
 
 <style type="text/css">
@@ -28,11 +29,12 @@
             </div>
             <div class="modal-body">
                 @*<h4 id="assignItem" style="color:red;">Assigning Router</h4>
-                    <hr />*@
+        <hr />*@
                 <div class="form-group">
+                    <label>@Translation.GetStringValue("Quantity")</label>
                     <div class="input-icon">
                         <i class="fa fa-tasks font-green" aria-hidden="true"></i>
-                        <input id="assignQuantity" type="number" class="form-control" placeholder="Quantity">
+                        <input id="assignQuantity" type="number" class="form-control" placeholder="Quantity" value="1" readonly>
                     </div>
                 </div>
                 <div class="form-group">
@@ -41,11 +43,20 @@
                         @{
                             foreach (var availability in AvailabilityStatus)
                             {
-                                <option value="@availability.Id">@availability.Status</option>
+                                <option value="@availability.Id">@availability.Status | @availability.Status_Arabic</option>
                             }
                         }
-                        @*<option value="2">Out of Stock</option>
-                            <option value="3">Out of Service</option>*@
+                    </select>
+                </div>
+                <div id="schoolTransferContainer" class="form-group" style="display:none;">
+                    <label>@Translation.GetStringValue("School")</label>
+                    <select id="schoolTransfer" class="form-control" style="width:100%;">
+                        @{
+                            foreach (var school in schools)
+                            {
+                                <option value="@school.ID">@school.SchoolName_En | @school.SchoolName_Ar</option>
+                            }
+                        }
                     </select>
                 </div>
                 <div class="form-group">
@@ -122,8 +133,11 @@
 
 <script type="text/javascript">
 
+    $('#schoolTransfer').select2();
+
     var selectedItems = [];
     var maxAllowed = 0;
+    var newSchool = null;
 
     $(document).ready(function () {
         transactionsActive();
@@ -160,14 +174,14 @@
             $('#assignDescription').append(description);
         });
 
-        if (selectedItems.length > 1) {
-            $('#assignQuantity').val('1');
-            $('#assignQuantity').prop('disabled', true);
-        } else
-        {
-            $('#assignQuantity').val('');
-            $('#assignQuantity').prop('disabled', false);
-        }
+        //if (selectedItems.length > 1) {
+        //    $('#assignQuantity').val('1');
+        //    $('#assignQuantity').prop('disabled', true);
+        //} else
+        //{
+        //    $('#assignQuantity').val('');
+        //    $('#assignQuantity').prop('disabled', false);
+        //}
     });
 
 
@@ -209,6 +223,27 @@
 
     });
 
+
+    $(document).on('change', '#assignStatus', function () {
+        var newStatus = $(this).val();
+        if (newStatus == 1002) {
+            $('#schoolTransferContainer').show();
+            newSchool = $('#schoolTransfer').val();
+        } else {
+            $('#schoolTransferContainer').hide();
+            newSchool = null;
+        }
+    });
+
+
+    $(document).on('change', '#schoolTransfer', function () {
+        var newStatus = $('#assignStatus').val();
+        if (newStatus == 1002) {
+            newSchool = $('#schoolTransfer').val();
+        }
+    });
+
+
     $(document).on('click', '#assignItem', function () {
         console.log('assign item');
         selectedItems = [];
@@ -225,7 +260,9 @@
                 ReceivedOn: $(this).attr('data-ReceivedOn'),
                 Description: $(this).attr('data-Description'),
                 UnitID: $(this).attr('data-UnitID'),
-                UnitAmount: $(this).attr('data-UnitAmount')
+                UnitAmount: $(this).attr('data-UnitAmount'),
+                SchoolID: $(this).attr('data-SchoolID'),
+                ItemsIDs: $(this).attr('data-ItemsIDs')
             };
 
             selectedItems.push(item);
@@ -241,7 +278,7 @@
         console.log('maxAllowed = ' + maxAllowed);
 
         if (transferingQuantity > maxAllowed) {
-            alert(@Translation.GetStringValue("NumberHigherThanStock"));
+            alert('@Translation.GetStringValue("NumberHigherThanStock")');
         } else {
             $.ajax({
                 contentType: 'application/json; charset=utf-8',
@@ -251,7 +288,8 @@
                     + '&AvailabilityStatusID=' + $('#assignStatus').val()
                     + '&LocationInStock=' + $('#locationInStock').val()
                     + '&Description=' + $('#assignDescription').val()
-                    + '&ToWhom=' + $('#toWhom').val(),
+                    + '&ToWhom=' + $('#toWhom').val()
+                    + '&NewSchoolID=' + newSchool,
                 data: selectedItems,
                 success: function (response) {
                     $('#assignItemModal').modal('hide');

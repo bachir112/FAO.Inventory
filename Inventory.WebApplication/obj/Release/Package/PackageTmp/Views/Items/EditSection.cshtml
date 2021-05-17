@@ -16,6 +16,12 @@
 }
 
 
+<style>
+    #editActionContainer{
+        display:block!important;
+    }
+</style>
+
 @*<div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -94,7 +100,7 @@
             <div class="modal-body">
                 <div class="form-group">
                     @Translation.GetStringValue("DeleteQuantity")
-                    <input id="quantityToDelete" class="form-control" type="number" placeholder="@Translation.GetStringValue("Quantity")" />
+                    <input id="quantityToDelete" class="form-control" type="number" value="1" readonly placeholder="@Translation.GetStringValue("Quantity")" />
                 </div>
             </div>
             <div class="modal-footer">
@@ -135,8 +141,6 @@
     var maxAllowed = 0;
 
     $(document).ready(function () {
-
-        $('#editActionContainer').show();
 
         $('#itemsInCategory').select2({
             placeholder: "Select Item"
@@ -192,7 +196,7 @@
             console.log('maxAllowed = ' + maxAllowed);
 
             if (quantity > maxAllowed) {
-            alert(@Translation.GetStringValue("NumberHigherThanStock"));
+            alert('@Translation.GetStringValue("NumberHigherThanStock")');
             } else {
                 $.ajax({
                     contentType: 'application/json; charset=utf-8',

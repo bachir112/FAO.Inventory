@@ -50,6 +50,7 @@
                                     <table id="dailyReportTable">
                                         <thead>
                                             <tr>
+                                                <th>@Translation.GetStringValue("School")</th>
                                                 <th>@Translation.GetStringValue("ItemName")</th>
                                                 <th>@Translation.GetStringValue("Location")</th>
                                                 <th>@Translation.GetStringValue("Description")</th>
@@ -62,6 +63,9 @@
                                                 foreach (TransactionsReminder reminder in Model)
                                                 {
                                                     <tr class="odd gradeX">
+                                                        <td>
+                                                            @reminder.SchoolID
+                                                        </td>
                                                         <td>
                                                             @reminder.ItemName
                                                         </td>

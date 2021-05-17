@@ -63,12 +63,13 @@
     <Property Name="AccessFailedCount" Type="int" Nullable="false" />
     <Property Name="Verified" Type="bit" Nullable="false" />
     <Property Name="LastLogin" Type="datetime" />
+    <Property Name="SchoolID" Type="int" />
   </EntityType>
   <EntityType Name="AvailabilityStatus">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Status" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Status_Arabic" Type="nvarchar" MaxLength="100" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
@@ -108,6 +109,7 @@
     <Property Name="ModifiedBy" Type="nvarchar" MaxLength="250" />
     <Property Name="ModifiedOn" Type="date" />
     <Property Name="PendingTransferApproval" Type="nvarchar" MaxLength="15" />
+    <Property Name="SchoolID" Type="int" />
   </EntityType>
   <EntityType Name="ItemsSearchValues">
     <Key>
@@ -125,6 +127,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Status_ar" Type="nvarchar" MaxLength="50" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="Logging">
@@ -134,6 +137,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserID" Type="nvarchar" MaxLength="250" Nullable="false" />
     <Property Name="Action" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="SchoolID" Type="int" />
   </EntityType>
   <EntityType Name="PageManagement">
     <Key>
@@ -143,6 +147,7 @@
     <Property Name="PageName" Type="nvarchar" MaxLength="250" Nullable="false" />
     <Property Name="RoleName" Type="nvarchar" MaxLength="250" Nullable="false" />
     <Property Name="Allowed" Type="bit" Nullable="false" />
+    <Property Name="SchoolID" Type="int" />
   </EntityType>
   <EntityType Name="ReportQueries">
     <Key>
@@ -156,6 +161,7 @@
     <Property Name="MaximumPrice" Type="int" />
     <Property Name="AvailabilityStatusID" Type="int" />
     <Property Name="ReportID" Type="int" />
+    <Property Name="SchoolID" Type="int" />
   </EntityType>
   <EntityType Name="ReportSettings">
     <Key>
@@ -173,6 +179,15 @@
     <Property Name="QueryBasis" Type="bit" Nullable="false" />
     <Property Name="QueryID" Type="int" />
     <Property Name="LastSent" Type="datetime" />
+    <Property Name="SchoolID" Type="int" />
+  </EntityType>
+  <EntityType Name="Schools">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="SchoolName_En" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="SchoolName_Ar" Type="nvarchar" MaxLength="128" Nullable="false" />
   </EntityType>
   <EntityType Name="Suppliers">
     <Key>
@@ -181,6 +196,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Supplier" Type="nvarchar" MaxLength="250" Nullable="false" />
     <Property Name="IsSchool" Type="bit" />
+    <Property Name="SchoolID" Type="int" />
   </EntityType>
   <EntityType Name="Transaction">
     <Key>
@@ -189,6 +205,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ItemName" Type="nvarchar" MaxLength="250" />
     <Property Name="ItemName_Arabic" Type="nvarchar" MaxLength="250" />
+    <Property Name="ItemID" Type="int" />
     <Property Name="OldAvailabilityStatus" Type="int" />
     <Property Name="NewAvailabilityStatus" Type="int" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
@@ -200,6 +217,8 @@
     <Property Name="ToWhom" Type="nvarchar" MaxLength="500" />
     <Property Name="ShouldReturn" Type="bit" />
     <Property Name="ChildOfTransaction" Type="int" />
+    <Property Name="SchoolID" Type="int" />
+    <Property Name="NewSchoolID" Type="int" />
   </EntityType>
   <EntityType Name="TransactionsReminder">
     <Key>
@@ -211,6 +230,7 @@
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
     <Property Name="DateOut" Type="datetime" Nullable="false" />
     <Property Name="DateIn" Type="datetime" Nullable="false" />
+    <Property Name="SchoolID" Type="int" />
   </EntityType>
   <EntityType Name="Unit">
     <Key>
@@ -218,6 +238,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name_ar" Type="nvarchar" MaxLength="50" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
   </EntityType>
   <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -292,6 +313,7 @@
     <EntitySet Name="PageManagement" EntityType="Self.PageManagement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ReportQueries" EntityType="Self.ReportQueries" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ReportSettings" EntityType="Self.ReportSettings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Schools" EntityType="Self.Schools" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TransactionsReminder" EntityType="Self.TransactionsReminder" Schema="dbo" store:Type="Tables" />

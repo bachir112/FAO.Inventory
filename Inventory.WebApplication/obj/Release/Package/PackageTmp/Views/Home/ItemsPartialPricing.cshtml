@@ -14,7 +14,9 @@
                     <tr>
                         <th>
                         </th>
+                        <th> @Translation.GetStringValue("School") </th>
                         <th> @Translation.GetStringValue("ItemName") </th>
+                        <th> @Translation.GetStringValue("SerialCode") </th>
                         <th> @Translation.GetStringValue("Supplier") </th>
                         <th> @Translation.GetStringValue("Price") </th>
                         <th> @Translation.GetStringValue("MaintenanceAmount") </th>
@@ -72,8 +74,14 @@
                                           data-itemsIDs="@item.ItemsIDs">@Translation.GetStringValue("Set")</span>
                                 </td>
                                 <td>
+                                    <span class="">@item.SchoolName</span>
+                                </td>
+                                <td>
                                     <span class="english">@item.Name</span>
                                     <span class="arabic">@item.Name_Arabic</span>
+                                </td>
+                                <td>
+                                    @((item.Name.Count() > 2 ? item.Name.Substring(0,3) : item.Name) + item.ItemsIDs)
                                 </td>
                                 <td>
                                     @item.Supplier

@@ -37,7 +37,9 @@
                         <table id="transactionsHistoryTable" class="table table-striped table-bordered table-hover table-checkable order-column">
                             <thead>
                                 <tr>
+                                    <th> @Translation.GetStringValue("School") </th>
                                     <th> @Translation.GetStringValue("ItemName") </th>
+                                    <th> @Translation.GetStringValue("SerialCode") </th>
                                     <th> @Translation.GetStringValue("Quantity") </th>
                                     <th> @Translation.GetStringValue("FromStatus") </th>
                                     <th> @Translation.GetStringValue("ToStatus") </th>
@@ -52,9 +54,15 @@
                                     foreach (TransactionDTO transaction in Model)
                                     {
                                         <tr class="odd gradeX">
+                                            <td class="center">
+                                                <span> @transaction.SchoolName </span>
+                                            </td>
                                             <td>
                                                 <span class="english">@transaction.ItemName</span>
                                                 <span class="arabic">@transaction.ItemName_Arabic</span>
+                                            </td>
+                                            <td>
+                                                @((transaction.ItemName.Count() > 2 ? transaction.ItemName.Substring(0,3) : transaction.ItemName) + transaction.ItemID)
                                             </td>
                                             <td class="center">
                                                 <span> @transaction.Quantity </span>
@@ -123,7 +131,7 @@
                     "zeroRecords": "لا يوجد"
                 },
                 "order": [
-                    [0, 'asc']
+                    [8, 'desc']
                 ],
                 "lengthMenu": [
                     [5, 10, 15, 20, -1],

@@ -50,7 +50,9 @@
                                     <table id="inventoryGeneralReportTable">
                                         <thead>
                                             <tr>
+                                                <th>@Translation.GetStringValue("School")</th>
                                                 <th>@Translation.GetStringValue("ItemName")</th>
+                                                <th> @Translation.GetStringValue("SerialNumber") </th>
                                                 <th>@Translation.GetStringValue("Category")</th>
                                                 <th>@Translation.GetStringValue("Expandables")</th>
                                                 <th>@Translation.GetStringValue("Status")</th>
@@ -66,7 +68,13 @@
                                                 {
                                                     <tr class="odd gradeX">
                                                         <td>
+                                                            @item.SchoolName
+                                                        </td>
+                                                        <td>
                                                             @item.Name  @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
+                                                        </td>
+                                                        <td>
+                                                            @((item.Name.Count() > 2 ? item.Name.Substring(0,3) : item.Name) + item.GroupedId)
                                                         </td>
                                                         <td>
                                                             @item.Category
@@ -85,10 +93,10 @@
                                                             @item.Quantity
                                                         </td>
                                                         <td class="price">
-                                                            @item.Price L.L.
+                                                            @item.Price @(item.Price != null ? "L.L." : "")
                                                         </td>
-                                                        <td>
-                                                            @item.TotalPrice
+                                                        <td class="price">
+                                                            @item.TotalPrice @(item.TotalPrice != null ? "L.L." : "")
                                                         </td>
                                                     </tr>
                                                 }

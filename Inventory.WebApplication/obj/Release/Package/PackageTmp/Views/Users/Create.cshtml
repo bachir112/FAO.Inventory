@@ -1,9 +1,12 @@
 ﻿@using Inventory.WebApplication.Global
+@using Inventory.DataObjects.EDM
 
 @model Inventory.DataObjects.EDM.AspNetUser
 
 @{
     ViewBag.Title = "Create";
+
+    List<School> schools = ViewBag.Schools as List<School>;
 }
 
 <style type="text/css">
@@ -31,49 +34,81 @@
             </ul>
         </div>
         @*Content starts here*@
-        <div class="form-horizontal">
-            @using (Html.BeginForm("CreateNewUser", "Account", FormMethod.Post, new { @class = "form-horizontal register-form", role = "form" }))
+    <div class="form-horizontal">
+        @using (Html.BeginForm("CreateNewUser", "Account", FormMethod.Post, new { @class = "form-horizontal register-form", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <p class="hint"> @Translation.GetStringValue("EnterYourPersonalDetailsBelow"): </p>
+
+            if (ViewBag.UserSchool == 0)
             {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary("", new { @class = "text-danger" })
-                <p class="hint"> @Translation.GetStringValue("EnterYourPersonalDetailsBelow"): </p>
                 <div class="form-group">
-                    <label class="control-label visible-ie8 visible-ie9">@Translation.GetStringValue("FullName")</label>
-                    <input class="form-control placeholder-no-fix" type="text" placeholder="@Translation.GetStringValue("FullName")" name="fullname" />
-                </div>
-                <div class="form-group">
-                    <label class="control-label visible-ie8 visible-ie9">@Translation.GetStringValue("Email")</label>
-                    <input class="form-control placeholder-no-fix" type="text" placeholder="@Translation.GetStringValue("Email")" name="email" />
-                </div>
-                <p class="hint"> @Translation.GetStringValue("EnterYourAccountDetailsBelow"): </p>
-                <div class="form-group">
-                    <label class="control-label visible-ie8 visible-ie9">@Translation.GetStringValue("Username")</label>
-                    <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="@Translation.GetStringValue("Username")" name="username" />
-                </div>
-                <div class="form-group">
-                    <label class="control-label visible-ie8 visible-ie9">@Translation.GetStringValue("Password")</label>
-                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="@Translation.GetStringValue("Password")" name="password" />
-                </div>
-                <div class="form-group">
-                    <label class="control-label visible-ie8 visible-ie9">@Translation.GetStringValue("RetypeYourPassword")</label>
-                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="@Translation.GetStringValue("RetypeYourPassword")" name="confirmpassword" />
-                </div>
-                <div class="form-actions">
-                    <button type="submit" id="register-submit-btn" class="btn uppercase">@Translation.GetStringValue("Create")</button>
-                    <div style="float:right;">
-                        @Html.ActionLink(Translation.GetStringValue("BackToList"), "Index")
-                    </div>
+                    <label class="control-label">@Translation.GetStringValue("School")</label>
+                    <select id="schools" name="SchoolID">
+                        <option value="0">All</option>
+                        @{
+                            foreach (var school in schools)
+                            {
+                                <option value="@(school.ID)">@(school.SchoolName_Ar)</option>
+                            }
+                        }
+                    </select>
                 </div>
             }
-        </div>
+            else
+            {
+                <input style="display:none;" name="SchoolID" value="@(ViewBag.UserSchool)" />
+            }
+
+            <div class="form-group">
+                <label class="control-label">@Translation.GetStringValue("FullName")</label>
+                <input class="form-control placeholder-no-fix" type="text" placeholder="@Translation.GetStringValue("FullName")" name="fullname" />
+            </div>
+            <p class="hint"> @Translation.GetStringValue("EnterYourAccountDetailsBelow"): </p>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">@Translation.GetStringValue("Email")</label>
+                <input class="form-control placeholder-no-fix" type="text" placeholder="@Translation.GetStringValue("Email")" name="email" />
+            </div>
+            @*<div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">@Translation.GetStringValue("Username")</label>
+                <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="@Translation.GetStringValue("Username")" name="username" />
+            </div>*@
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">@Translation.GetStringValue("Password")</label>
+                <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="@Translation.GetStringValue("Password")" name="password" />
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">@Translation.GetStringValue("RetypeYourPassword")</label>
+                <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="@Translation.GetStringValue("RetypeYourPassword")" name="confirmpassword" />
+            </div>
+            <div class="form-actions">
+                <button type="submit" id="register-submit-btn" class="btn uppercase">@Translation.GetStringValue("Create")</button>
+                <div style="float:right; padding-left:30px;">
+                    @Html.ActionLink(Translation.GetStringValue("BackToList"), "Index")
+                </div>
+            </div>
+        }
+    </div>
         @*Content ends here*@
     </div>
 </div>
 
 <script type="text/javascript">
 
+    $('#schools').select2();
+
     $(document).ready(function () {
         usersActive();
     });
 
+
+@{
+    if(ViewBag.Error == true)
+    {
+        <text>
+            alert('User was not created. User already exists.');
+        </text>
+    }
+}
 </script>

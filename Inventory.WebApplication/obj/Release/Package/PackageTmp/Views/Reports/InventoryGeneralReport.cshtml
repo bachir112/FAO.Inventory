@@ -50,9 +50,10 @@
                                     <table id="inventoryGeneralReportTable">
                                         <thead>
                                             <tr>
+                                                <th>@Translation.GetStringValue("SchoolName")</th>
                                                 <th>@Translation.GetStringValue("ItemName")</th>
                                                 <th>@Translation.GetStringValue("DateIn")</th>
-                                                <th>@Translation.GetStringValue("Code")</th>
+                                                @*<th>@Translation.GetStringValue("Code")</th>*@
                                                 <th>@Translation.GetStringValue("Category")</th>
                                                 <th>@Translation.GetStringValue("Source")</th>
                                                 <th>@Translation.GetStringValue("Status")</th>
@@ -69,6 +70,9 @@
                                                 {
                                                     <tr class="odd gradeX">
                                                         <td>
+                                                            @item.SchoolName
+                                                        </td>
+                                                        <td>
                                                             <span class="english">@item.Name</span>
                                                             <span class="arabic">@item.Name_Arabic</span>
                                                             @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
@@ -76,10 +80,10 @@
                                                         <td>
                                                             @(item.ReceivedOn?.ToString("dd-MMM-yyyy"))
                                                         </td>
-                                                        <td>
+                                                        @*<td>
                                                             <span class="english">@(item.Category?.Substring(0, 2))@(item.GroupedId)</span>
                                                             <span class="arabic">@(item.Category_Arabic?.Substring(0, 2))@(item.GroupedId)</span>
-                                                        </td>
+                                                        </td>*@
                                                         <td>
                                                             @item.Category
                                                         </td>
