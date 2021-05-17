@@ -175,17 +175,6 @@
         });
     });
 
-    $(document).on('click', '.setPriceForItem', function () {
-        var itemName = $(this).attr('data-ItemName');
-        var itemsIDs = $(this).attr('data-ItemsIDs');
-        maxAllowed = $(this).attr('data-ItemAmount');
-
-        $('#assignItemName').text('Price for ' + itemName);
-        $('#assignItemPrice').attr('data-ItemsIDs', itemsIDs);
-
-        $('#itemPriceModal').modal('show');
-    });
-
     $(document).on('click', '#assignItemPrice', function () {
         var itemPrice = $('#itemPrice').val();
         var listOfIDs = $(this).attr('data-ItemsIDs');

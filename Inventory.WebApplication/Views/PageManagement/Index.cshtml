@@ -118,6 +118,29 @@
 
         <div class="row">
             <div class="col-lg-12 col-xs-12 col-sm-12">
+                <label>@Translation.GetStringValue("Search")</label>
+                <select id="searchPageManagementRoles">
+                    <option value="0" selected>All</option>
+                    @{
+                        foreach (var role in aspNetRoles)
+                        {
+                            <option value="@role.Name">@role.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            @*<div class="col-lg-4 col-xs-4 col-sm-6">
+                <label>@Translation.GetStringValue("Search")</label>
+                <select id="searchPageManagementRoles">
+                    @{
+                        foreach (var role in aspNetRoles)
+                        {
+                            <option value="@role.Name">@role.Name</option>
+                        }
+                    }
+                </select>
+            </div>*@
+            <div class="col-lg-12 col-xs-12 col-sm-12">
                 <div class="portlet light bordered">
                     <div class="portlet-title tabbable-line">
                         <div class="caption createNew">
@@ -141,7 +164,7 @@
                                             <tr>
                                                 @*<th>
 
-                                                </th>*@
+                                            </th>*@
                                                 <th>
                                                     @Translation.GetStringValue("PageName")
                                                 </th>
@@ -149,10 +172,10 @@
                                                     @Translation.GetStringValue("Role")
                                                 </th>
                                                 <th>
-                                                    @Translation.GetStringValue("Allowed")                                                    
+                                                    @Translation.GetStringValue("Allowed")
                                                 </th>
                                                 <th>
-                                                    @Translation.GetStringValue("School")                                                    
+                                                    @Translation.GetStringValue("School")
                                                 </th>
                                             </tr>
                                         </thead>
@@ -175,7 +198,7 @@
 
                                                     foreach (var page in pagesInRole)
                                                     {
-                                                        <tr class="odd gradeX">
+                                                        <tr class="odd gradeX pageManagementRole" data-Role="@page.RoleName">
                                                             <td>
                                                                 @page.PageName
                                                             </td>
@@ -215,6 +238,25 @@
 
     });
 
+    $(document).on('change', '#searchPageManagementRoles', function () {
+        searchPage();
+    });
+
+    function searchPage() {
+        var searchRole = $('#searchPageManagementRoles').val();
+        $('#pagesManagementTable .pageManagementRole').hide();
+
+        $('#pagesManagementTable .pageManagementRole').each(function () {
+            var pagemanagementContainer = $(this);
+            var userrole = $(this).attr('data-Role');
+
+            if (searchRole == userrole || searchRole == 0) {
+                console.log('found');
+                pagemanagementContainer.show();
+            }
+        });
+    }
+
 </script>
 
 
@@ -223,7 +265,7 @@
     $(document).ready(function () {
 
         $("select").select2();
-        $('select').val('@ViewBag.UserRole').trigger('change');
+        //$('select').val('@ViewBag.UserRole').trigger('change');
         //$('#userRole').val('').trigger('change');
 
     });

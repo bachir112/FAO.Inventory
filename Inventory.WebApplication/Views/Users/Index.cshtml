@@ -52,6 +52,9 @@
         @*Content starts here*@
         <div class="row">
             <div class="col-lg-12 col-xs-12 col-sm-12">
+                <input id="searchUsers" type="text" class="form-control" placeholder="@Translation.GetStringValue("Search")">
+            </div>
+            <div class="col-lg-12 col-xs-12 col-sm-12">
                 <div class="portlet light bordered">
                     <div class="portlet-title tabbable-line">
                         <div class="caption">
@@ -64,11 +67,11 @@
                     </div>
                     <div class="portlet-body">
                         <div class="tab-content">
-                            <div class="tab-pane active" id="portlet_comments_1">
+                            <div class="tab-pane active" id="usersContainer">
                                 <div class="mt-comments">
                                     @foreach (var user in Model)
                                     {
-                                        <div class="mt-comment">
+                                        <div class="mt-comment" data-UserName="@user.UserName" data-UserRole="@user.UserRole">
                                             <div class="mt-comment-img">
                                                 <i class="img-circle fa fa-user fa-2x" style="padding:5px;"></i>
                                             </div>
@@ -108,10 +111,27 @@
 
 <script type="text/javascript">
 
+    $(document).on('input', '#searchUsers', function () {
+        var searchValue = $(this).val();
+        $('#usersContainer .mt-comment').hide();
+
+        $('#usersContainer .mt-comment').each(function () {
+            var userContainer = $(this);
+            var username = $(this).attr('data-Username');
+            var userrole = $(this).attr('data-UserRole');
+
+            if (username.toLowerCase().indexOf(searchValue) >= 0 || userrole.toLowerCase().indexOf(searchValue) >= 0) {
+                console.log('found');
+                userContainer.show();
+            }
+        });
+    });
+
+
     $(document).ready(function () {
         usersActive();
     });
-        
+
     function resetPasswordOpenModal(userID) {
         $('#resetPasswordModal #resetPassword').attr('data-userID', userID);
         $('#resetPasswordModal').modal('show');
@@ -119,7 +139,7 @@
 
 
     function resetPassword() {
-        
+
         var userID = $('#resetPasswordModal #resetPassword').attr('data-userID');
         var newPassword = $('#userPassword').val();
 

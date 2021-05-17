@@ -128,7 +128,7 @@ namespace Inventory.WebApplication.Controllers
                 else
                 {
                     List<string> listOfItemsNames = new List<string>();
-                    List<int> listOfItemsIDs = listOfIDs.Split(',').Select(Int32.Parse).Take(Convert.ToInt32(maintenanceItems)).ToList();
+                    List<int> listOfItemsIDs = listOfIDs.Split(',').Select(Int32.Parse).ToList();
                     foreach (var ID in listOfItemsIDs)
                     {
                         Item item = db.Items.FirstOrDefault(x => x.Id == ID);
