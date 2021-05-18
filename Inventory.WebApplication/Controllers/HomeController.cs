@@ -171,7 +171,12 @@ namespace Inventory.WebApplication.Controllers
                 itemsInStock = (from item in db.Items
                                 where (schoolID == 0 ? true : item.SchoolID == schoolID)
                                 && item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
-                                && item.AvailabilityStatusID == (queryID == -1 ? item.AvailabilityStatusID : queryID)
+                                && 
+                                (
+                                    item.AvailabilityStatusID == (queryID == -1 ? item.AvailabilityStatusID : queryID)
+                                    ||
+                                    (queryID == 2 ? item.AvailabilityStatusID == 2 || item.AvailabilityStatusID == 4 || item.AvailabilityStatusID > 1002 : false)
+                                )
                                 && (queryID == 2 ? (item.Expandable != true) : true)
                                 group item by new 
                                 { 
@@ -526,19 +531,7 @@ namespace Inventory.WebApplication.Controllers
                                                     //x.ReceivedOn == item.ReceivedOn &&
                                                     x.UnitID == item.UnitID &&
                                                     x.UnitAmount == item.UnitAmount &&
-                                                    (
-                                                        x.LocationInStock.Trim() == LocationInStock.Trim()
-                                                        ||
-                                                        x.LocationInStock == (LocationInStock == string.Empty ? null : string.Empty)
-                                                    )
-                                                    &&
-                                                    (
-                                                        x.Description.Trim() == (item.Description == string.Empty ? null : item.Description.Trim())
-                                                        ||
-                                                        x.Description.Trim() == (item.Description == null ? string.Empty : item.Description.Trim())
-                                                        ||
-                                                        x.Description.Trim() == item.Description.Trim()
-                                                    )
+                                                    x.Id.ToString() == item.ItemsIDs
                                                     ).Select(x => x).Take(quantity).ToList();
 
                     if(itemInDB.Count() < quantity)
