@@ -68,6 +68,8 @@ namespace Inventory.WebApplication.Models
         [Display(Name = "Full name")]
         public string FullName { get; set; }
 
+        [Required]
+        [Phone]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 

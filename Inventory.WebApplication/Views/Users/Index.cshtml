@@ -1,5 +1,6 @@
 ﻿@using Inventory.WebApplication.Global
 @using Inventory.DataObjects.EDM
+@using Microsoft.AspNet.Identity
 
 @model IEnumerable<Inventory.DataObjects.EDM.AspNetUser>
 
@@ -62,7 +63,8 @@
                             <span class="caption-subject font-dark bold uppercase">@Translation.GetStringValue("Users")</span>
                         </div>
                         <div class="caption createNew" style="float:right;">
-                            @Html.ActionLink(Translation.GetStringValue("CreateNew"), "Create")
+                            @Html.ActionLink(Translation.GetStringValue("CreateNewUser"), "Register", "Account")
+                            @*@Html.ActionLink(Translation.GetStringValue("CreateNew"), "Create")*@
                         </div>
                     </div>
                     <div class="portlet-body">
@@ -89,8 +91,15 @@
                                                     <span class="mt-comment-status mt-comment-status-pending">
                                                         @Html.ActionLink(Translation.GetStringValue("Edit"), "Edit", new { id = user.Id })
                                                         |
-                                                        @Html.ActionLink(Translation.GetStringValue("Delete"), "Delete", new { id = user.Id })
-                                                        |
+                                                        @{
+                                                            if (user.Id != User.Identity.GetUserId())
+                                                            {
+                                                                <span>
+                                                                    @Html.ActionLink(Translation.GetStringValue("Delete"), "Delete", new { id = user.Id })
+                                                                    |
+                                                                </span>
+                                                            }
+                                                        }
                                                         <a href="javascript:resetPasswordOpenModal('@user.Id')">@Translation.GetStringValue("ChangePassword")</a>
                                                     </span>
                                                 </div>

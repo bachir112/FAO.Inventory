@@ -512,10 +512,28 @@ namespace Inventory.WebApplication.Global
             { "NumberOfItems-arabic", "عدد العناصر"},
 
             { "MaintenancePricePerItem-english", "Maintenance Price Per Item"},
-            { "MaintenancePricePerItem-arabic", "سعر الصيانة لكل عنصر"}
+            { "MaintenancePricePerItem-arabic", "سعر الصيانة لكل عنصر"},
 
+            { "CreateNewUser-english", "Create New User"},
+            { "CreateNewUser-arabic", "مستخدم جديد"},
 
+            { "SupplierName-english", "Supplier Name"},
+            { "SupplierName-arabic", "اسم المورد"},
 
+            { "IsSchool-english", "Is a School"},
+            { "IsSchool-arabic", "هي مدرسة"},
+
+            { "True-english", "True"},
+            { "True-arabic", "نعم"},
+
+            { "False-english", "False"},
+            { "False-arabic", "كلا"},
+
+            { "NotSet-english", "Not Set"},
+            { "NotSet-arabic", "غير مضبوط"},
+
+            { "PhoneNumber-english", "Phone Number"},
+            { "PhoneNumber-arabic", "رقم الهاتف"}
         }; 
 
         static public string GetLanguageCookieValue(string cookieName = "language")

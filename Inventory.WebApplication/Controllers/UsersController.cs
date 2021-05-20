@@ -26,6 +26,7 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (Global.Global.isAllowed(User.Identity.GetUserId(), "Users"))
             {
+                string userID = User.Identity.GetUserId();
                 Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                 List<AspNetUser> listAspNetUser = db.AspNetUsers.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID)).ToList();
 
@@ -82,7 +83,7 @@ namespace Inventory.WebApplication.Controllers
         }
 
         // GET: AspNetUsers/Create
-        public ActionResult Create(Nullable<bool> errorOccured)
+        public ActionResult Create(RegisterViewModel model)
         {
             string userID = User.Identity.GetUserId();
             ViewBag.UserSchool = db.AspNetUsers.First(x => x.Id == userID).SchoolID;
@@ -90,8 +91,8 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.Schools = db.Schools.ToList();
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
 
-            ViewBag.Error = errorOccured;
-            return View();
+            ViewBag.Error = model;
+            return View(model);
         }
 
         // POST: AspNetUsers/Create

@@ -77,19 +77,19 @@ namespace Inventory.WebApplication.Controllers
                 return View(model);
             }
 
-            int schoolCookieValue = Global.Global.GetSchoolCookieValue();
-            if (schoolCookieValue == -1)
-            {
-                ModelState.AddModelError("", "Please choose schoold to continue.");
-                return View(model);
-            }
+            //int schoolCookieValue = Global.Global.GetSchoolCookieValue();
+            //if (schoolCookieValue == -1)
+            //{
+            //    ModelState.AddModelError("", "Please choose schoold to continue.");
+            //    return View(model);
+            //}
 
             try
             {
                 using (var db = new InventoryEntities())
                 {
                     AspNetUser user = db.AspNetUsers.FirstOrDefault(x => x.Email == model.Email);
-                    if (user.SchoolID != schoolCookieValue)
+                    if (user.SchoolID != user.SchoolID)
                     {
                         ModelState.AddModelError("", "You are not part of this school. Please login to your school.");
                         return View(model);
@@ -112,11 +112,13 @@ namespace Inventory.WebApplication.Controllers
                         AspNetUser user = db.AspNetUsers.FirstOrDefault(x => x.Email == model.Email);
                         if(user != null)
                         {
+                            Response.Cookies["schoolDB"].Value = user.SchoolID.ToString();
                             user.LastLogin = DateTime.Now;
                             db.SaveChanges();
                         }
                     }
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Home");
+                    //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -176,6 +178,15 @@ namespace Inventory.WebApplication.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            using (var db = new InventoryEntities())
+            {
+                string userID = User.Identity.GetUserId();
+                ViewBag.UserSchool = db.AspNetUsers.First(x => x.Id == userID).SchoolID;
+
+                ViewBag.Schools = db.Schools.ToList();
+                ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            }
+
             return View();
         }
 
@@ -192,35 +203,38 @@ namespace Inventory.WebApplication.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    using (var context = new ApplicationDbContext())
-                    {
-                        UserManager.AddToRole(user.Id, "Guest");
-                    }
-
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     using (var db = new InventoryEntities())
                     {
-                        Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                         Logging logging = new Logging();
-                        logging.UserID = user.Id;
-                        logging.Action = "New user has registered " + user.Email + " on " + DateTime.Now.ToString();
+                        logging.UserID = User.Identity.GetUserId();
+                        logging.Action = "User " + User.Identity.Name + " created a new user " + model.Email + " on " + DateTime.Now.ToString();
+
+                        Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
                         logging.SchoolID = schoolID;
                         db.Loggings.Add(logging);
+
+                        AspNetUser newUser = db.AspNetUsers.First(x => x.Id == user.Id);
+                        newUser.SchoolID = model.SchoolID;
+
                         db.SaveChanges();
                     }
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Users");
                 }
                 AddErrors(result);
             }
 
+            using (var db = new InventoryEntities())
+            {
+                string userID = User.Identity.GetUserId();
+                ViewBag.UserSchool = db.AspNetUsers.First(x => x.Id == userID).SchoolID;
+
+                ViewBag.Schools = db.Schools.ToList();
+                ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+            }
+            
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -259,7 +273,7 @@ namespace Inventory.WebApplication.Controllers
             }
 
             //ViewBag.Error = "User was not created, the user already exists.";
-            return RedirectToAction("Create", "Users", new { errorOccured = true });
+            return RedirectToAction("Create", "Users", new { model = model });
         }
 
         //

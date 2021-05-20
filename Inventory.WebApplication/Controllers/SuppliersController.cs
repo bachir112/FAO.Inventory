@@ -50,7 +50,12 @@ namespace Inventory.WebApplication.Controllers
         // GET: Suppliers/Create
         public ActionResult Create()
         {
+            string userID = User.Identity.GetUserId();
+            ViewBag.UserSchool = db.AspNetUsers.First(x => x.Id == userID).SchoolID;
+
+            ViewBag.Schools = db.Schools.ToList();
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+
             return View();
         }
 
@@ -68,6 +73,11 @@ namespace Inventory.WebApplication.Controllers
                 return RedirectToAction("Index");
             }
 
+            string userID = User.Identity.GetUserId();
+            ViewBag.UserSchool = db.AspNetUsers.First(x => x.Id == userID).SchoolID;
+
+            ViewBag.Schools = db.Schools.ToList();
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             return View(supplier);
         }
 

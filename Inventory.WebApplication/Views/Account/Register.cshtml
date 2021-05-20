@@ -1,12 +1,97 @@
 ﻿@model Inventory.WebApplication.Models.RegisterViewModel
+
+@using Inventory.WebApplication.Global
+@using Inventory.DataObjects.EDM
+
 @{
     ViewBag.Title = "Register";
-    Layout = null;
+    List<School> schools = ViewBag.Schools as List<School>;
 }
 
-<h2>@ViewBag.Title.</h2>
+<style type="text/css">
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    .form-horizontal .form-group {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+</style>
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <h1 class="page-title"> @Translation.GetStringValue("Home") </h1>
+        <div class="page-bar">
+            <ul class="page-breadcrumb">
+                <li>
+                    <a href="@Url.Action("Index","Home")">@Translation.GetStringValue("Users")</a>
+                    <i class="fa fa-angle-right"></i>
+                </li>
+                <li>
+                    <span>@Translation.GetStringValue("CreateUser")</span>
+                </li>
+            </ul>
+        </div>
+        <div class="form-horizontal">
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal register-form", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                <p class="hint"> @Translation.GetStringValue("EnterYourPersonalDetailsBelow"): </p>
+
+                if (ViewBag.UserSchool == 0)
+                {
+                    <div class="form-group">
+                        <label class="control-label">@Translation.GetStringValue("School")</label>
+                        <select id="schools" name="SchoolID">
+                            <option value="0">All</option>
+                            @{
+                                foreach (var school in schools)
+                                {
+                                    <option value="@(school.ID)">@(school.SchoolName_Ar)</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                }
+                else
+                {
+                    <input style="display:none;" name="SchoolID" value="@(ViewBag.UserSchool)" />
+                }
+
+                <div class="form-group">
+                    <label class="control-label">@Translation.GetStringValue("FullName")</label>
+                    <input class="form-control placeholder-no-fix" type="text" placeholder="@Translation.GetStringValue("FullName")" name="fullname" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">@Translation.GetStringValue("PhoneNumber")</label>
+                    <input class="form-control placeholder-no-fix" type="number" autocomplete="off" placeholder="@Translation.GetStringValue("PhoneNumber")" name="PhoneNumber" />
+                </div>
+                <p class="hint"> @Translation.GetStringValue("EnterYourAccountDetailsBelow"): </p>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">@Translation.GetStringValue("Email")</label>
+                    <input class="form-control placeholder-no-fix" type="text" placeholder="@Translation.GetStringValue("Email")" name="email" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">@Translation.GetStringValue("Password")</label>
+                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off" id="register_password" placeholder="@Translation.GetStringValue("Password")" name="password" />
+                </div>
+                <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">@Translation.GetStringValue("RetypeYourPassword")</label>
+                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="@Translation.GetStringValue("RetypeYourPassword")" name="confirmpassword" />
+                </div>
+                <div class="form-actions">
+                    <button type="submit" id="register-submit-btn" class="btn uppercase">@Translation.GetStringValue("Create")</button>
+                    <div style="float:right; padding-left:30px;">
+                        @Html.ActionLink(Translation.GetStringValue("BackToList"), "Index")
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@*@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <h4>Create a new account.</h4>
@@ -35,8 +120,4 @@
             <input type="submit" class="btn btn-default" value="Register" />
         </div>
     </div>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+}*@

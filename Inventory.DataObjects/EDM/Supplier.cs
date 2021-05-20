@@ -11,12 +11,19 @@ namespace Inventory.DataObjects.EDM
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Supplier
     {
         public int Id { get; set; }
+
+        [Required]
         public string Supplier1 { get; set; }
+
+        [Required]
         public Nullable<bool> IsSchool { get; set; }
+
+        [Required]
         public Nullable<int> SchoolID { get; set; }
     }
 }
