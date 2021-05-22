@@ -31,7 +31,7 @@
                     </div>
                     <div class="portlet-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4 imageContainer">
                                 <div class="mt-widget-1 intoStock">
                                     <div class="mt-img">
                                         <img src="../images/in_stock.png" style="width:100px;">
@@ -41,7 +41,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 imageContainer">
                                 <div class="mt-widget-1 outOfStock">
                                     <div class="mt-img">
                                         <img src="../images/out_of_stock.png" style="width:100px;">
@@ -73,6 +73,18 @@
             var url = '@Url.Action("TransactionsOutOfStock","Home")';
             window.location = url;
         });
+    });
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        var cookieVal = $.cookie("language");
+        if (cookieVal == 'arabic') {
+            $('.imageContainer').css('float', 'right');
+        } else {
+            $('.imageContainer').css('float', 'left');
+        }
     });
 
 </script>

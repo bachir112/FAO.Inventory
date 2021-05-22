@@ -32,7 +32,7 @@
                     </div>
                     <div class="portlet-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4 imageContainer">
                                 <div class="mt-widget-1 addNewItemsSection">
                                     <div class="mt-img">
                                         <img src="../images/new-items.png" style="width:100px;">
@@ -42,7 +42,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4 imageContainer">
                                 <div class="mt-widget-1 editItemsSection">
                                     <div class="mt-img">
                                         <img src="../images/delete-items.png" style="width:100px;">
@@ -69,11 +69,24 @@
             var url = '@Url.Action("Create","Items")';
             window.location = url;
         });
-        
+
         $('.editItemsSection').click(function () {
             var url = '@Url.Action("EditSection","Items")';
             window.location = url;
         });
+    });
+
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        var cookieVal = $.cookie("language");
+        if (cookieVal == 'arabic') {
+            $('.imageContainer').css('float', 'right');
+        } else {
+            $('.imageContainer').css('float', 'left');
+        }
     });
 
 </script>

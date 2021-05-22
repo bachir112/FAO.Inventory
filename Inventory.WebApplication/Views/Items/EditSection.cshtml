@@ -17,76 +17,76 @@
 
 
 <style>
-    #editActionContainer{
-        display:block!important;
+    #editActionContainer {
+        display: block !important;
     }
 </style>
 
 @*<div class="modal fade" id="editItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" style="color:red;" id="exampleModalLabel">Edit item</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Name</label>
-                    <div class="input-icon">
-                        <i class="fa fa-tasks font-green" aria-hidden="true"></i>
-                        <input id="editName" type="text" class="form-control" placeholder="Name" name="Name">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="color:red;" id="exampleModalLabel">Edit item</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <div class="input-icon">
+                            <i class="fa fa-tasks font-green" aria-hidden="true"></i>
+                            <input id="editName" type="text" class="form-control" placeholder="Name" name="Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        @Html.DropDownListFor(m => m.CategoryID, new SelectList(categoriesList, "Id", "Name"), new { @name = "CategoryID", @id = "categoryID", @style = "width:100%;" })
+                    </div>
+                    <div class="form-group">
+                        <label>Location in Stock</label>
+                        <div class="input-icon">
+                            <input id="locationInStock" type="text" class="form-control" placeholder="Location In Stock" name="LocationInStock">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Unit</label>
+                        <div class="input-icon">
+                            @Html.DropDownListFor(m => m.UnitID, new SelectList(unitList, "Id", "Name"), new { @name = "UnitID", @id = "unitID", @style = "width:100%;" })
+                        </div>
+                    </div>
+                    <div id="quantityContainer" style="display:none;" class="form-group">
+                        <label>How many?</label>
+                        <div class="input-icon">
+                            <input class="form-control text-box single-line valid" data-val="true" data-val-number="The field Quantity must be a number." data-val-required="Quantity is required." id="Quantity" name="Quantity" type="text" value="" aria-invalid="false">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Expiry Date</label>
+                        <div class="">
+                            <input id="expiryDate" name="ExpiryDate" style="width:100%!important;" class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Supplier</label>
+                        <div class="input-icon">
+                            @Html.DropDownListFor(m => m.SupplierID, new SelectList(suppliersList, "Id", "Supplier1"), new { @name = "SupplierID", @id = "supplierID", @style = "width:100%;" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <div class="">
+                            <textarea id="description" class="form-control" rows="3"></textarea>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Category</label>
-                    @Html.DropDownListFor(m => m.CategoryID, new SelectList(categoriesList, "Id", "Name"), new { @name = "CategoryID", @id = "categoryID", @style = "width:100%;" })
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button id="assignItem" type="button" class="btn btn-primary">Assign</button>
                 </div>
-                <div class="form-group">
-                    <label>Location in Stock</label>
-                    <div class="input-icon">
-                        <input id="locationInStock" type="text" class="form-control" placeholder="Location In Stock" name="LocationInStock">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Unit</label>
-                    <div class="input-icon">
-                        @Html.DropDownListFor(m => m.UnitID, new SelectList(unitList, "Id", "Name"), new { @name = "UnitID", @id = "unitID", @style = "width:100%;" })
-                    </div>
-                </div>
-                <div id="quantityContainer" style="display:none;" class="form-group">
-                    <label>How many?</label>
-                    <div class="input-icon">
-                        <input class="form-control text-box single-line valid" data-val="true" data-val-number="The field Quantity must be a number." data-val-required="Quantity is required." id="Quantity" name="Quantity" type="text" value="" aria-invalid="false">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Expiry Date</label>
-                    <div class="">
-                        <input id="expiryDate" name="ExpiryDate" style="width:100%!important;" class="form-control form-control-inline input-medium date-picker" size="16" type="text" value="">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Supplier</label>
-                    <div class="input-icon">
-                        @Html.DropDownListFor(m => m.SupplierID, new SelectList(suppliersList, "Id", "Supplier1"), new { @name = "SupplierID", @id = "supplierID", @style = "width:100%;" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Description</label>
-                    <div class="">
-                        <textarea id="description" class="form-control" rows="3"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button id="assignItem" type="button" class="btn btn-primary">Assign</button>
             </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 <div class="modal fade" id="deleteItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -187,7 +187,45 @@
             $('#deleteAllItemButton').show();
         });
 
-        $(document).on('click', '.deleteItems', function () {
+        $('.deleteItems').confirm({
+            title: '@Translation.GetStringValue("Confirmation")',
+            content: '@Translation.GetStringValue("AreYouSure")',
+            buttons: {
+                 @Translation.GetStringValue("Yes"): function () {
+                    var ids = $('#deleteAllItemButton').attr('data-SelectedIDs');
+                    var quantity = $('#quantityToDelete').val();
+
+                    console.log('quantity = ' + quantity);
+                    console.log('maxAllowed = ' + maxAllowed);
+
+                    $.ajax({
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        type: 'POST',
+                        url: "@Url.Action("DeleteItems","Items")?listOfIDs=" + ids + '&quantityToDelete=' + quantity,
+                        success: function (response) {
+                            $('#deleteItemModal').modal('hide');
+                            //refreshItemsTable();
+                            $('#success_tic').modal('show');
+                            window.location.reload();
+                        },
+                        error: function (err) {
+                            alert('@Translation.GetStringValue("QuantityError")');
+                        }
+                    });
+
+                },
+                @Translation.GetStringValue("No"): function () {
+
+                }
+            },
+            onContentReady: function () {
+                arabicLayout();
+            }
+        });
+
+
+        @*$(document).on('click', '.deleteItems', function () {
 
             var ids = $(this).attr('data-SelectedIDs');
             var quantity = $('#quantityToDelete').val();
@@ -215,7 +253,7 @@
                 });
             }
 
-        });
+        });*@
 
 
 
@@ -259,7 +297,7 @@
           a = document.createElement("DIV");
           a.setAttribute("id", this.id + "autocomplete-list");
           a.setAttribute("class", "autocomplete-items");
-          /*append the DIV element as a child of the autocomplete container:*/
+          /*append the DIV element as a chiTranslationhe autocomplete container:*/
           this.parentNode.appendChild(a);
           /*for each item in the array...*/
           for (i = 0; i < arr.length; i++) {
@@ -348,5 +386,21 @@
     /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
     autocomplete(document.getElementById("locationInStock"), locationInStock);
     autocomplete(document.getElementById("description"), itemDescription);
+
+</script>
+
+
+<script>
+
+    function arabicLayout() {
+        var cookieVal = $.cookie("language");
+        if (cookieVal == 'arabic') {
+            $('.jconfirm-title').css('float', 'right');
+            $('.jconfirm-content').css('float', 'right');
+        } else {
+            $('.jconfirm-title').css('float', 'left');
+            $('.jconfirm-content').css('float', 'left');
+        }
+    }
 
 </script>

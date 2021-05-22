@@ -4759,6 +4759,8 @@
     <Content Include="assets\global\scripts\datatable.js" />
     <Content Include="assets\global\scripts\datatable.min.js" />
     <Content Include="assets\global\scripts\jquery.cookie.js" />
+    <Content Include="assets\jquery-confirm.min.css" />
+    <Content Include="assets\jquery-confirm.min.js" />
     <Content Include="assets\layouts\global\scripts\cookie-consent.js" />
     <Content Include="assets\layouts\global\scripts\cookie-consent.min.js" />
     <Content Include="assets\layouts\global\scripts\hor-timeline.js" />

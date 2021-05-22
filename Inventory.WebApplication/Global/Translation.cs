@@ -532,6 +532,12 @@ namespace Inventory.WebApplication.Global
             { "NotSet-english", "Not Set"},
             { "NotSet-arabic", "غير مضبوط"},
 
+            { "AreYouSure-english", "Are you sure you want to delete this item?"},
+            { "AreYouSure-arabic", "هل أنت متأكد أنك تريد حذف هذا?"},
+
+            { "Confirmation-english", "Confirmation"},
+            { "Confirmation-arabic", "تأكيد"},
+
             { "PhoneNumber-english", "Phone Number"},
             { "PhoneNumber-arabic", "رقم الهاتف"}
         }; 

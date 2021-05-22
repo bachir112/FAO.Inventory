@@ -103,10 +103,10 @@
         display: none;
     }
 
-    .wizard-card .choice .icon{
-        width:160px;
-        height:160px;
-        padding:15px;
+    .wizard-card .choice .icon {
+        width: 160px;
+        height: 160px;
+        padding: 15px;
     }
 </style>
 
@@ -136,13 +136,13 @@
                         @Html.AntiForgeryToken()
                         <div class="wizard-navigation">
                             <ul class="nav nav-pills">
-                                <li class="active" style="width: 25%;">
+                                <li class="active createLayout" style="width: 25%;">
                                     <a href="#Categories" data-toggle="tab">@Translation.GetStringValue("Categories")</a>
                                 </li>
-                                <li style="width: 25%;">
+                                <li class="createLayout" style="width: 25%;">
                                     <a href="#item" data-toggle="tab">@Translation.GetStringValue("Name")</a>
                                 </li>
-                                <li style="width: 25%;">
+                                <li class="createLayout" style="width: 25%;">
                                     <a href="#details" data-toggle="tab">@Translation.GetStringValue("Details")</a>
                                 </li>
                             </ul>
@@ -166,12 +166,12 @@
                                                         <h6 style="white-space: nowrap;" class="arabic">@category.Name_Arabic</h6>
                                                     </div>
                                                     <div data-Click="category-@(category.Id)"
-                                                         style="display:none;" 
-                                                         class="choice category category-description" 
-                                                         data-categoryID="@category.Id" 
-                                                         data-toggle="wizard-radio" 
-                                                         rel="tooltip" 
-                                                         title="" 
+                                                         style="display:none;"
+                                                         class="choice category category-description"
+                                                         data-categoryID="@category.Id"
+                                                         data-toggle="wizard-radio"
+                                                         rel="tooltip"
+                                                         title=""
                                                          data-original-title="Select this option if @category.Name.">
                                                         <h4 class="english">@(category.Description)</h4>
                                                         <h4 class="arabic">@(category.Description_Arabic)</h4>
@@ -247,7 +247,7 @@
                                                 {
                                                     <input style="display:none;" name="SchoolID" value="@(ViewBag.UserSchool)" />
                                                 }
-                                             }
+                                            }
 
                                             <div class="form-group col-md-6">
                                                 <label class="control-label col-md-2" for="Name">English Name</label>
@@ -273,8 +273,8 @@
                                                 <label class="control-label col-md-2" for="AvailabilityStatusID">@Translation.GetStringValue("Availability")</label>
                                                 <div class="col-md-10">
                                                     <select id="availabilityStatus" name="AvailabilityStatusID" style="width:100%;">
-                                                        @{ 
-                                                            foreach(var avaiStatus in availabilityStatusList)
+                                                        @{
+                                                            foreach (var avaiStatus in availabilityStatusList)
                                                             {
                                                                 <option value="@(avaiStatus.Id)">
                                                                     @(avaiStatus.Status) - @(avaiStatus.Status_Arabic)
@@ -282,8 +282,6 @@
                                                             }
                                                         }
                                                     </select>
-                                                    @*@Html.DropDownListFor(m => m.AvailabilityStatusID, new SelectList(availabilityStatusList, "Id", "Status"), new { @name = "AvailabilityStatusID", @id = "availabilityStatus", @style = "width:100%;" })
-                                                    @Html.ValidationMessageFor(model => model.AvailabilityStatusID, "", new { @class = "text-danger" })*@
                                                 </div>
                                             </div>
 
@@ -300,8 +298,6 @@
                                                             }
                                                         }
                                                     </select>
-                                                    @*@Html.DropDownListFor(m => m.ItemStatusID, new SelectList(itemStatusList, "Id", "Status"), new { @name = "ItemStatusID", @id = "itemStatusID", @style = "width:100%;" })
-                                                    @Html.ValidationMessageFor(model => model.ItemStatusID, "", new { @class = "text-danger" })*@
                                                 </div>
                                             </div>
 
@@ -334,15 +330,13 @@
                                                             }
                                                         }
                                                     </select>
-                                                    @*@Html.DropDownListFor(m => m.UnitID, new SelectList(unitList, "Id", "Name"), new { @name = "UnitID", @id = "unitID", @style = "width:100%;" })
-                                                    @Html.ValidationMessageFor(model => model.UnitID, "", new { @class = "text-danger" })*@
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="control-label col-md-2" id="amountText" for="UnitAmount">@Translation.GetStringValue("Amount")</label>
                                                 <div class="col-md-10">
-                                                    @Html.EditorFor(model => model.UnitAmount, new { htmlAttributes = new { @class = "form-control", @required= "required" } })
+                                                    @Html.EditorFor(model => model.UnitAmount, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                                                     @Html.ValidationMessageFor(model => model.UnitAmount, "", new { @class = "text-danger" })
                                                 </div>
                                             </div>
@@ -383,15 +377,15 @@
                                                 <label class="control-label col-md-2" for="SupplierID">@Translation.GetStringValue("Supplier")</label>
                                                 <div class="col-md-10">
                                                     <select id="Supplier1" name="SupplierID" style="width:100%;">
-                                                        @{ 
+                                                        @{
                                                             foreach (var sup in suppliersList)
                                                             {
                                                                 <option value="@(sup.Id)" data-SchoolID="@(sup.SchoolID)">@(sup.Supplier1)</option>
                                                             }
-                                                         }
-                                                        </select>
+                                                        }
+                                                    </select>
                                                     @*@Html.DropDownListFor(m => m.SupplierID, new SelectList(suppliersList, "Id", "Supplier1"), new { @name = "SupplierID", @id = "supplierID", @style = "width:100%;" })
-                                                    @Html.ValidationMessageFor(model => model.SupplierID, "", new { @class = "text-danger" })*@
+                                                        @Html.ValidationMessageFor(model => model.SupplierID, "", new { @class = "text-danger" })*@
                                                 </div>
                                             </div>
 
@@ -408,13 +402,13 @@
                             </div>
                         </div>
                         <div class="wizard-footer">
-                            <div class="pull-right">
-                                <input type="button" class="btn btn-next btn-fill btn-success btn-wd btn-sm" name="next" value="@Translation.GetStringValue("Next")">
-                                <input type="submit" class="btn btn-finish btn-fill btn-success btn-wd btn-sm" name="finish" value="@Translation.GetStringValue("Create")" style="display: none;">
+                            <div>
+                                <input type="button" class="btn btn-next btn-fill btn-success btn-wd btn-sm nextButton" name="next" value="@Translation.GetStringValue("Next")">
+                                <input type="submit" class="btn btn-finish btn-fill btn-success btn-wd btn-sm nextButton" name="finish" value="@Translation.GetStringValue("Create")" style="display: none;">
 
                             </div>
-                            <div class="pull-left">
-                                <input type="button" class="btn btn-previous btn-fill btn-default btn-wd btn-sm disabled" name="previous" value="@Translation.GetStringValue("Previous")">
+                            <div>
+                                <input type="button" class="btn btn-previous btn-fill btn-default btn-wd btn-sm disabled backButton" name="previous" value="@Translation.GetStringValue("Previous")">
                             </div>
                             <div class="clearfix"></div>
                         </div>
@@ -713,5 +707,23 @@
     /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
     autocomplete(document.getElementById("LocationInStock"), locationInStock);
     autocomplete(document.getElementById("Description"), itemDescription);
+
+</script>
+
+
+
+<script>
+    $(document).ready(function () {
+        var cookieVal = $.cookie("language");
+        if (cookieVal == 'arabic') {
+            $('.createLayout').css('float', 'right');
+            $('.nextButton').css('float', 'left');
+            $('.backButton').css('float', 'right');
+        } else {
+            $('.createLayout').css('float', 'left');
+            $('.nextButton').css('float', 'right');
+            $('.backButton').css('float', 'left');
+        }
+    });
 
 </script>
