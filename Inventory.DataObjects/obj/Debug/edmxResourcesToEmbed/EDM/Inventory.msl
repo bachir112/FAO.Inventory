@@ -203,6 +203,7 @@
     <EntitySetMapping Name="Items">
       <EntityTypeMapping TypeName="InventoryModel.Item">
         <MappingFragment StoreEntitySet="Items">
+          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
           <ScalarProperty Name="SchoolID" ColumnName="SchoolID" />
           <ScalarProperty Name="PendingTransferApproval" ColumnName="PendingTransferApproval" />
           <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />

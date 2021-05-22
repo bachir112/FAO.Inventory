@@ -14,9 +14,24 @@ namespace Inventory.DataObjects.EDM
     
     public partial class AvailabilityStatu
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public AvailabilityStatu()
+        {
+            this.Items = new HashSet<Item>();
+            this.Transactions = new HashSet<Transaction>();
+            this.Transactions1 = new HashSet<Transaction>();
+        }
+    
         public int Id { get; set; }
         public string Status { get; set; }
         public string Description { get; set; }
         public string Status_Arabic { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Item> Items { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction> Transactions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction> Transactions1 { get; set; }
     }
 }

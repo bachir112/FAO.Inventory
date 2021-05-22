@@ -110,6 +110,7 @@
     <Property Name="ModifiedOn" Type="date" />
     <Property Name="PendingTransferApproval" Type="nvarchar" MaxLength="15" />
     <Property Name="SchoolID" Type="int" />
+    <Property Name="SerialNumber" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="ItemsSearchValues">
     <Key>
@@ -145,7 +146,7 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PageName" Type="nvarchar" MaxLength="250" Nullable="false" />
-    <Property Name="RoleName" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
     <Property Name="Allowed" Type="bit" Nullable="false" />
     <Property Name="SchoolID" Type="int" />
   </EntityType>
@@ -297,6 +298,162 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Items_AvailabilityStatus">
+    <End Role="AvailabilityStatus" Type="Self.AvailabilityStatus" Multiplicity="1" />
+    <End Role="Items" Type="Self.Items" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AvailabilityStatus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Items">
+        <PropertyRef Name="AvailabilityStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Items_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Items" Type="Self.Items" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Items">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Items_ItemStatus">
+    <End Role="ItemStatus" Type="Self.ItemStatus" Multiplicity="1" />
+    <End Role="Items" Type="Self.Items" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ItemStatus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Items">
+        <PropertyRef Name="ItemStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Items_Schools">
+    <End Role="Schools" Type="Self.Schools" Multiplicity="0..1" />
+    <End Role="Items" Type="Self.Items" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schools">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Items">
+        <PropertyRef Name="SchoolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PageManagement_PageManagement">
+    <End Role="PageManagement" Type="Self.PageManagement" Multiplicity="1" />
+    <End Role="PageManagement1" Type="Self.PageManagement" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="PageManagement">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PageManagement1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Suppliers_Schools">
+    <End Role="Schools" Type="Self.Schools" Multiplicity="0..1" />
+    <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schools">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Suppliers">
+        <PropertyRef Name="SchoolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_AvailabilityStatus">
+    <End Role="AvailabilityStatus" Type="Self.AvailabilityStatus" Multiplicity="0..1" />
+    <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AvailabilityStatus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="OldAvailabilityStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_AvailabilityStatus1">
+    <End Role="AvailabilityStatus" Type="Self.AvailabilityStatus" Multiplicity="0..1" />
+    <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AvailabilityStatus">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="NewAvailabilityStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Items">
+    <End Role="Items" Type="Self.Items" Multiplicity="0..1" />
+    <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Items">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Schools">
+    <End Role="Schools" Type="Self.Schools" Multiplicity="0..1" />
+    <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schools">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="SchoolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Schools1">
+    <End Role="Schools" Type="Self.Schools" Multiplicity="0..1" />
+    <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schools">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="NewSchoolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Transaction">
+    <End Role="Transaction" Type="Self.Transaction" Multiplicity="1" />
+    <End Role="Transaction1" Type="Self.Transaction" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Transaction">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transaction1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Unit">
+    <End Role="Unit" Type="Self.Unit" Multiplicity="0..1" />
+    <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="UnitID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="InventoryModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -333,6 +490,58 @@
     <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Items_AvailabilityStatus" Association="Self.FK_Items_AvailabilityStatus">
+      <End Role="AvailabilityStatus" EntitySet="AvailabilityStatus" />
+      <End Role="Items" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Items_Category" Association="Self.FK_Items_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Items" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Items_ItemStatus" Association="Self.FK_Items_ItemStatus">
+      <End Role="ItemStatus" EntitySet="ItemStatus" />
+      <End Role="Items" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Items_Schools" Association="Self.FK_Items_Schools">
+      <End Role="Schools" EntitySet="Schools" />
+      <End Role="Items" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PageManagement_PageManagement" Association="Self.FK_PageManagement_PageManagement">
+      <End Role="PageManagement" EntitySet="PageManagement" />
+      <End Role="PageManagement1" EntitySet="PageManagement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Suppliers_Schools" Association="Self.FK_Suppliers_Schools">
+      <End Role="Schools" EntitySet="Schools" />
+      <End Role="Suppliers" EntitySet="Suppliers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_AvailabilityStatus" Association="Self.FK_Transaction_AvailabilityStatus">
+      <End Role="AvailabilityStatus" EntitySet="AvailabilityStatus" />
+      <End Role="Transaction" EntitySet="Transaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_AvailabilityStatus1" Association="Self.FK_Transaction_AvailabilityStatus1">
+      <End Role="AvailabilityStatus" EntitySet="AvailabilityStatus" />
+      <End Role="Transaction" EntitySet="Transaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Items" Association="Self.FK_Transaction_Items">
+      <End Role="Items" EntitySet="Items" />
+      <End Role="Transaction" EntitySet="Transaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Schools" Association="Self.FK_Transaction_Schools">
+      <End Role="Schools" EntitySet="Schools" />
+      <End Role="Transaction" EntitySet="Transaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Schools1" Association="Self.FK_Transaction_Schools1">
+      <End Role="Schools" EntitySet="Schools" />
+      <End Role="Transaction" EntitySet="Transaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Transaction" Association="Self.FK_Transaction_Transaction">
+      <End Role="Transaction" EntitySet="Transaction" />
+      <End Role="Transaction1" EntitySet="Transaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Unit" Association="Self.FK_Transaction_Unit">
+      <End Role="Unit" EntitySet="Unit" />
+      <End Role="Transaction" EntitySet="Transaction" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

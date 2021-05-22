@@ -60,7 +60,56 @@
                                         </thead>
                                         <tbody>
                                             @{
-                                                foreach (ItemsGroupedDTO item in Model)
+                                                var groupedModel = Model.GroupBy(x => x.Name + " | " + x.Name_Arabic).Select(x => new
+                                                {
+                                                    Quantity = x.Count(),
+                                                    Name = x.Key,
+                                                    Items = x.ToList()
+                                                }).ToList();
+
+                                                foreach (var itemGroup in groupedModel)
+                                                {
+                                                    <tr class="groupItem odd gradeX">
+                                                        <td>
+
+                                                        </td>
+                                                        <td>
+                                                            @itemGroup.Name
+                                                            (@Translation.GetStringValue("Quantity") @itemGroup.Quantity)
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    foreach (var item in itemGroup.Items)
+                                                    {
+                                                        <tr class="odd gradeX">
+                                                            <td>
+                                                                @item.SchoolName
+                                                            </td>
+                                                            <td>
+                                                                <span class="english">@item.Name</span>
+                                                                <span class="arabic">@item.Name_Arabic</span>
+                                                                @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
+                                                            </td>
+                                                            <td>
+                                                                @((item.Name.Count() > 2 ? item.Name.Substring(0,3) : item.Name) + item.ItemsIDs)
+                                                            </td>
+                                                            <td class="price">
+                                                                @(item.MaintenancePrice == null ? "0 L.L." : (item.MaintenancePrice + "L.L."))
+                                                            </td>
+                                                            <td class="price">
+                                                                @(item.Price == null ? "Not Set" : (item.Price + "L.L."))
+                                                            </td>
+                                                            <td>
+                                                                @item.Quantity
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                                
+                                                @*foreach (ItemsGroupedDTO item in Model)
                                                 {
                                                     <tr class="odd gradeX">
                                                         <td>
@@ -84,7 +133,7 @@
                                                             @item.Quantity
                                                         </td>
                                                     </tr>
-                                                }
+                                                }*@
                                             }
 
                                         </tbody>
@@ -124,9 +173,7 @@
                     "search": "بحث:",
                     "zeroRecords": "لا يوجد"
                 },
-                "order": [
-                    [0, 'asc']
-                ],
+                "ordering": false,
                 "lengthMenu": [
                     [5, 10, 15, 20, -1],
                     [5, 10, 15, 20, "كل"] // change per page values here
@@ -136,17 +183,17 @@
                 buttons: [
                     {
                         extend: 'print',
+                        text: 'Print or Save as PDF',
                         className: 'btn dark btn-outline',
                         message: '',
-                        customize: function (win)
-                        {
+                        customize: function (win) {
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية</h2>');
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
                             $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
                         }
                     },
-                    { extend: 'pdf', className: 'btn green btn-outline' },
+                    //{ extend: 'pdf', className: 'btn green btn-outline' },
                     //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
                 //,
@@ -170,9 +217,7 @@
                     "search": "Search:",
                     "zeroRecords": "No matching records found"
                 },
-                "order": [
-                    [0, 'asc']
-                ],
+                "ordering": false,
                 "lengthMenu": [
                     [5, 10, 15, 20, -1],
                     [5, 10, 15, 20, "All"] // change per page values here
@@ -182,17 +227,17 @@
                 buttons: [
                     {
                         extend: 'print',
+                        text: 'Print or Save as PDF',
                         className: 'btn dark btn-outline',
                         message: '',
-                        customize: function (win)
-                        {
+                        customize: function (win) {
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية</h2>');
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
                             $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
                         }
                     },
-                    { extend: 'pdf', className: 'btn green btn-outline' },
+                    //{ extend: 'pdf', className: 'btn green btn-outline' },
                     //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
                 //,

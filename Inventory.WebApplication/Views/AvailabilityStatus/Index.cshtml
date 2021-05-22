@@ -70,8 +70,8 @@
                                                             if(item.Id > 4 && item.Id != 1002)
                                                             {
                                                                 <div>
-                                                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                                                    @Html.ActionLink(Translation.GetStringValue("Edit"), "Edit", new { id = item.Id }) |
+                                                                    @Html.ActionLink(Translation.GetStringValue("Delete"), "Delete", new { id = item.Id })
                                                                 </div>
                                                             }
                                                         }

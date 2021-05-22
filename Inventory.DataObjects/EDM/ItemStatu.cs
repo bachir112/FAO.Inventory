@@ -14,9 +14,18 @@ namespace Inventory.DataObjects.EDM
     
     public partial class ItemStatu
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ItemStatu()
+        {
+            this.Items = new HashSet<Item>();
+        }
+    
         public int Id { get; set; }
         public string Status { get; set; }
         public string Description { get; set; }
         public string Status_ar { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Item> Items { get; set; }
     }
 }

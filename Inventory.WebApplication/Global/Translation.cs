@@ -538,6 +538,12 @@ namespace Inventory.WebApplication.Global
             { "Confirmation-english", "Confirmation"},
             { "Confirmation-arabic", "تأكيد"},
 
+            { "Status_English-english", "Status English"},
+            { "Status_English-arabic", "الحالة - انغليزية"},
+
+            { "Status_Arabic-english", "Status Arabic"},
+            { "Status_Arabic-arabic", "الحالة - عربية"},
+
             { "PhoneNumber-english", "Phone Number"},
             { "PhoneNumber-arabic", "رقم الهاتف"}
         }; 

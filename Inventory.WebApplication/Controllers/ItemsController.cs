@@ -286,8 +286,13 @@ namespace Inventory.WebApplication.Controllers
                     newItem.ModifiedBy = User.Identity.GetUserId();
                     newItem.ModifiedOn = DateTime.Now;
                     newItem.SchoolID = item.SchoolID;
+                    newItem.SerialNumber = (newItem.Name.Count() > 2 ? newItem.Name.Substring(0, 3) : newItem.Name) + newItem.Id;
 
                     db.Items.Add(newItem);
+                    db.SaveChanges();
+
+                    Item addedItem = db.Items.First(x => x.Id == newItem.Id);
+                    addedItem.SerialNumber = (addedItem.Name.Count() > 2 ? addedItem.Name.Substring(0, 3) : addedItem.Name) + addedItem.Id;
                     db.SaveChanges();
                 }
 

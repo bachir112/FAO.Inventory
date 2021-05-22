@@ -14,8 +14,26 @@ namespace Inventory.DataObjects.EDM
     
     public partial class School
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public School()
+        {
+            this.Items = new HashSet<Item>();
+            this.Suppliers = new HashSet<Supplier>();
+            this.Transactions = new HashSet<Transaction>();
+            this.Transactions1 = new HashSet<Transaction>();
+        }
+    
         public int ID { get; set; }
         public string SchoolName_En { get; set; }
         public string SchoolName_Ar { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Item> Items { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Supplier> Suppliers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction> Transactions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transaction> Transactions1 { get; set; }
     }
 }

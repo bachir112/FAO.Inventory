@@ -19,5 +19,8 @@ namespace Inventory.DataObjects.EDM
         public string RoleName { get; set; }
         public bool Allowed { get; set; }
         public Nullable<int> SchoolID { get; set; }
+    
+        public virtual PageManagement PageManagement1 { get; set; }
+        public virtual PageManagement PageManagement2 { get; set; }
     }
 }
