@@ -67,17 +67,23 @@
                                                     </td>
                                                     <td>
                                                         @{ 
-                                                            if(item.Id > 4 && item.Id != 1002)
+                                                            if (item.Id > 4 && item.Id != 1002)
                                                             {
                                                                 <div>
-                                                                    @Html.ActionLink(Translation.GetStringValue("Edit"), "Edit", new { id = item.Id }) |
-                                                                    @Html.ActionLink(Translation.GetStringValue("Delete"), "Delete", new { id = item.Id })
+                                                                    @Html.ActionLink(Translation.GetStringValue("Edit"), "Edit", new { id = item.Id })
+                                                                    @*@{
+                                                                        if(item.CanDelete == true)
+                                                                        {
+                                                                            <span>|</span>
+                                                                            Html.ActionLink(Translation.GetStringValue("Delete"), "Delete", new { id = item.Id });
+                                                                        }
+                                                                     }*@
                                                                 </div>
                                                             }
                                                         }
                                                     </td>
                                                 </tr>
-                                            }
+                                                }
                                         </tbody>
                                     </table>
                                 </div>

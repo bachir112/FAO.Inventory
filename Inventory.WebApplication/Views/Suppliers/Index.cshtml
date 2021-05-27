@@ -64,8 +64,8 @@
                                                 <tr>
                                                     <td>
                                                         @Html.ActionLink(Translation.GetStringValue("Edit"), "Edit", new { id = supplier.Id })
-                                                        |
-                                                        @Html.ActionLink(Translation.GetStringValue("Delete"), "Delete", new { id = supplier.Id })
+                                                        @*|
+                                                        @Html.ActionLink(Translation.GetStringValue("Delete"), "Delete", new { id = supplier.Id })*@
                                                     </td>
                                                     <td>
                                                         @(supplier.SchoolID == 0 ? "All" : schools.First(x => x.ID == supplier.SchoolID).SchoolName_Ar)

@@ -38,8 +38,8 @@ C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Debug
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Debug\EntityFramework.xml
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.csprojAssemblyReference.cache
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.csproj.CoreCompileInputs.cache
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.csproj.CopyComplete
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.dll
 C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.pdb
-C:\Users\Hp\Source\Repos\bachir112\FAO.Inventory\Inventory.DataObjects\obj\Debug\Inventory.DataObjects.csprojAssemblyReference.cache

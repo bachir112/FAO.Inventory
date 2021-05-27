@@ -26,6 +26,7 @@ namespace Inventory.DataObjects.EDM
         public string Status { get; set; }
         public string Description { get; set; }
         public string Status_Arabic { get; set; }
+        public bool CanDelete { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Item> Items { get; set; }

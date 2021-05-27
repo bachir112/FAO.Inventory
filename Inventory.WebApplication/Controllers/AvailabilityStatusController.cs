@@ -21,7 +21,10 @@ namespace Inventory.WebApplication.Controllers
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             if (Global.Global.isAllowed(User.Identity.GetUserId(), "Users"))
             {
-                return View(db.AvailabilityStatus.ToList());
+                List<Item> items = db.Items.ToList();
+                List<AvailabilityStatu> availabilityStatus = db.AvailabilityStatus.ToList();
+                availabilityStatus.ForEach(x => x.CanDelete = (items.Where(y => y.AvailabilityStatusID == x.Id).Select(y => y).Count() > 0 ? false : true));
+                return View(availabilityStatus);
             }
             else
             {
