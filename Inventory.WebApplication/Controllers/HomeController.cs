@@ -189,11 +189,13 @@ namespace Inventory.WebApplication.Controllers
                                     item.UnitAmount, 
                                     item.ItemStatusID, 
                                     item.Description ,
-                                    item.SchoolID
+                                    item.SchoolID,
+                                    item.SerialNumber
                                 } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
                                 {
+                                    SerialNumber = items.Key.SerialNumber,
                                     ItemsIDs = items.Key.Id.ToString(),
                                     Category = categories.FirstOrDefault(x => x.Id == items.Key.CategoryID)?.Name,
                                     Category_Arabic = categories.FirstOrDefault(x => x.Id == items.Key.CategoryID)?.Name_Arabic,
@@ -242,10 +244,11 @@ namespace Inventory.WebApplication.Controllers
                                 && item.CategoryID == (categoryID == null ? item.CategoryID : categoryID)
                                 && (fromDate == null ? true : item.ReceivedOn >= fromDate)
                                 && (toDate == null ? true : item.ReceivedOn <= toDate)
-                                group item by new { item.Id, item.Name, item.ExpiryDate, item.UnitID, item.UnitAmount, item.SupplierID, item.ReceivedOn, item.Price, item.MaintenancePrice, item.SchoolID } into items
+                                group item by new { item.Id, item.SerialNumber, item.Name, item.ExpiryDate, item.UnitID, item.UnitAmount, item.SupplierID, item.ReceivedOn, item.Price, item.MaintenancePrice, item.SchoolID } into items
                                 select items).AsEnumerable().Select(
                                 items => new ItemsGroupedDTO()
                                 {
+                                    SerialNumber = items.Key.SerialNumber,
                                     ItemsIDs = string.Join(",", items.Select(x => x.Id).ToList()),
                                     Name = items.Key.Name,
                                     Name_Arabic = items.First().Name_Arabic,
@@ -419,7 +422,14 @@ namespace Inventory.WebApplication.Controllers
                     ToWhom = x.ToWhom,
                     TransactionDate = x.TransactionDate
                 }).OrderByDescending(x => x.TransactionDate).ToList();
+
+                foreach (var transaction in result)
+                {
+                    transaction.SerialNumber = db.Items.FirstOrDefault(x => x.Id.ToString() == transaction.ItemID)?.SerialNumber;
+                }
             }
+
+
 
             return View(result);
         }
@@ -452,6 +462,11 @@ namespace Inventory.WebApplication.Controllers
                         ToWhom = x.ToWhom,
                         TransactionDate = x.TransactionDate
                     }).ToList();
+
+                    foreach (var transaction in result)
+                    {
+                        transaction.SerialNumber = db.Items.FirstOrDefault(x => x.Id.ToString() == transaction.ItemID)?.SerialNumber;
+                    }
                 }
 
                 return View(result);
@@ -569,6 +584,35 @@ namespace Inventory.WebApplication.Controllers
                     db.Transactions.Add(newTransaction);
 
                     db.SaveChanges();
+
+
+                    if(NewSchoolID != null)
+                    {
+                        Item newSchoolItem = new Item();
+                        newSchoolItem.AvailabilityStatusID = 1;
+                        newSchoolItem.CategoryID = itemInDB.First().CategoryID;
+                        newSchoolItem.Description = itemInDB.FirstOrDefault()?.Description;
+                        newSchoolItem.Expandable = itemInDB.FirstOrDefault()?.Expandable;
+                        newSchoolItem.ExpiryDate = itemInDB.FirstOrDefault()?.ExpiryDate;
+                        newSchoolItem.ItemStatusID = itemInDB.First().ItemStatusID;
+                        newSchoolItem.LocationInStock = "";
+                        newSchoolItem.MaintenancePrice = itemInDB.FirstOrDefault()?.MaintenancePrice;
+                        newSchoolItem.Name = itemInDB.FirstOrDefault()?.Name;
+                        newSchoolItem.Name_Arabic = itemInDB.FirstOrDefault()?.Name_Arabic;
+                        newSchoolItem.Price = itemInDB.FirstOrDefault()?.Price;
+                        newSchoolItem.ReceivedOn = DateTime.Now;
+                        newSchoolItem.SchoolID = NewSchoolID;
+                        newSchoolItem.SerialNumber = itemInDB.First().SerialNumber;
+                        newSchoolItem.SupplierID = itemInDB.First().SupplierID;
+                        newSchoolItem.UnitAmount = itemInDB.First().UnitAmount;
+                        newSchoolItem.UnitID = itemInDB.First().UnitID;
+
+                        db.Items.Add(newSchoolItem);
+                        db.SaveChanges();
+
+                    }
+
+
                 }
             }
 

@@ -918,6 +918,7 @@ namespace Inventory.WebApplication.Controllers
                                     group item by new
                                     {
                                         item.Id,
+                                        item.SerialNumber,
                                         item.Name,
                                         item.AvailabilityStatusID,
                                         item.ExpiryDate,
@@ -932,6 +933,7 @@ namespace Inventory.WebApplication.Controllers
                                     select items).AsEnumerable().Select(
                                     items => new ItemsGroupedDTO()
                                     {
+                                        SerialNumber = items.Key.SerialNumber,
                                         GroupedId = items.Key.Id,
                                         Name = items.Key.Name,
                                         Name_Arabic = items.First().Name_Arabic,
@@ -963,6 +965,7 @@ namespace Inventory.WebApplication.Controllers
                                     group item by new
                                     {
                                         item.Id,
+                                        item.SerialNumber,
                                         item.Name,
                                         item.AvailabilityStatusID,
                                         item.ExpiryDate,
@@ -978,6 +981,7 @@ namespace Inventory.WebApplication.Controllers
                                     items => new ItemsGroupedDTO()
                                     {
                                         GroupedId = items.Key.Id,
+                                        SerialNumber = items.Key.SerialNumber,
                                         Name = items.Key.Name,
                                         Name_Arabic = items.First().Name_Arabic,
                                         AvailabilityStatus = availabilityStatuses.FirstOrDefault(x => x.Id == items.Key.AvailabilityStatusID).Status,
@@ -1514,11 +1518,11 @@ namespace Inventory.WebApplication.Controllers
                 {
                     itemsInStock = (from item in db.Items
                                     where (schoolID == 0 ? true : item.SchoolID == schoolID)
-                                    group item by new { item.Id, item.Name, item.AvailabilityStatusID, item.Price, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice, item.SchoolID } into items
+                                    group item by new { item.Id, item.SerialNumber, item.Name, item.AvailabilityStatusID, item.Price, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice, item.SchoolID } into items
                                     select items).AsEnumerable().Select(
                                     items => new ItemsGroupedDTO()
                                     {
-                                        //GroupedId = items.FirstOrDefault().Id,
+                                        SerialNumber = items.Key.SerialNumber,
                                         ItemsIDs = items.Key.Id.ToString(),
                                         Name = items.Key.Name,
                                         Name_Arabic = items.First().Name_Arabic,
@@ -1540,11 +1544,11 @@ namespace Inventory.WebApplication.Controllers
                     itemsInStock = (from item in db.Items
                                     where (schoolID == 0 ? true : item.SchoolID == schoolID)
                                     where item.ModifiedOn >= fromDate && item.ModifiedOn <= toDate
-                                    group item by new { item.Id, item.Name, item.AvailabilityStatusID, item.Price, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice, item.SchoolID } into items
+                                    group item by new { item.SerialNumber, item.Id, item.Name, item.AvailabilityStatusID, item.Price, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice, item.SchoolID } into items
                                     select items).AsEnumerable().Select(
                                     items => new ItemsGroupedDTO()
                                     {
-                                        //GroupedId = items.FirstOrDefault().Id,
+                                        SerialNumber = items.Key.SerialNumber,
                                         ItemsIDs = items.Key.Id.ToString(),
                                         Name = items.Key.Name,
                                         Name_Arabic = items.First().Name_Arabic,

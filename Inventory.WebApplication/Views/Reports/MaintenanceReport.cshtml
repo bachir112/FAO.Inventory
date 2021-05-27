@@ -94,7 +94,7 @@
                                                                 @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
                                                             </td>
                                                             <td>
-                                                                @((item.Name.Count() > 2 ? item.Name.Substring(0,3) : item.Name) + item.ItemsIDs)
+                                                                @(item.SerialNumber)
                                                             </td>
                                                             <td class="price">
                                                                 @(item.MaintenancePrice == null ? "0 L.L." : (item.MaintenancePrice + "L.L."))

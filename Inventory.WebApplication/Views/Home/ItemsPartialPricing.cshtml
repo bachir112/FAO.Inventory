@@ -70,11 +70,6 @@
                             <tr style="@rowColor" class="odd gradeX">
                                 <td style="text-align:center;">
                                     @item.ItemsIDs
-                                    @*<span class="setPriceForItem"
-                                        style="cursor:pointer; color:#36c6d3; font-weight:bold"
-                                        data-ItemName="@item.Name"
-                                        data-ItemAmount="@item.Quantity"
-                                        data-itemsIDs="@item.ItemsIDs">@Translation.GetStringValue("Set")</span>*@
                                 </td>
                                 <td>
                                     <span class="">@item.SchoolName</span>
@@ -84,7 +79,7 @@
                                     <span class="arabic">@item.Name_Arabic</span>
                                 </td>
                                 <td>
-                                    @((item.Name.Count() > 2 ? item.Name.Substring(0,3) : item.Name) + item.ItemsIDs)
+                                    @(item.SerialNumber)
                                 </td>
                                 <td>
                                     @item.Supplier
@@ -105,7 +100,7 @@
                                     @item.UnitAmount @item.Unit
                                 </td>
                                 <td>
-                                    @item.ReceivedOn
+                                    @(item.ReceivedOn?.ToString("dd-MMM-yyyy"))
                                 </td>
                             </tr>
                         }

@@ -62,7 +62,7 @@
                                                 <span class="arabic">@transaction.ItemName_Arabic</span>
                                             </td>
                                             <td>
-                                                @((transaction.ItemName.Count() > 2 ? transaction.ItemName.Substring(0,3) : transaction.ItemName) + transaction.ItemID)
+                                                @(transaction.SerialNumber)
                                             </td>
                                             <td class="center">
                                                 <span> @transaction.Quantity </span>

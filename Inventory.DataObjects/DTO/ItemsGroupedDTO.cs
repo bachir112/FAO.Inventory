@@ -33,6 +33,7 @@ namespace Inventory.DataObjects.DTO
         public string Category_Arabic { get; set; }
         public int SupplierID { get; set; }
         public string Supplier { get; set; }
+        public string SerialNumber { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<decimal> MaintenancePrice { get; set; }
         public Nullable<int> QuantityIn { get; set; }
