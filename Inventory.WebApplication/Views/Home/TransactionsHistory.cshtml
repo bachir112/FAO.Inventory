@@ -37,6 +37,7 @@
                         <table id="transactionsHistoryTable" class="table table-striped table-bordered table-hover table-checkable order-column">
                             <thead>
                                 <tr>
+                                    <th> @Translation.GetStringValue("TransactionID") </th>
                                     <th> @Translation.GetStringValue("School") </th>
                                     <th> @Translation.GetStringValue("ItemName") </th>
                                     <th> @Translation.GetStringValue("SerialCode") </th>
@@ -54,6 +55,9 @@
                                     foreach (TransactionDTO transaction in Model)
                                     {
                                         <tr class="odd gradeX">
+                                            <td class="center">
+                                                @transaction.Id
+                                            </td>
                                             <td class="center">
                                                 <span> @transaction.SchoolName </span>
                                             </td>
@@ -131,7 +135,7 @@
                     "zeroRecords": "لا يوجد"
                 },
                 "order": [
-                    [8, 'desc']
+                    [0, 'desc']
                 ],
                 "lengthMenu": [
                     [5, 10, 15, 20, -1],

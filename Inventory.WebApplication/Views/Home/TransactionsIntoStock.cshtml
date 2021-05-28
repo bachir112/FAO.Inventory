@@ -110,7 +110,7 @@
 
 <script type="text/javascript">
 
-    $('#schoolTransfer').select2();
+    //$('#schoolTransfer').select2();
 
     var selectedItems = [];
     var maxAllowed = 0;
@@ -145,6 +145,12 @@
                 html += '<option value="' + itemLocation + '">' + itemLocation + '</option>';
             });
 
+            var schoolID = $(this).attr('data-SchoolID');
+            $('#schoolTransfer option').show();
+            $('#schoolTransfer option[value=' + schoolID + ']').hide();
+
+            $("#schoolTransfer").val(parseInt(schoolID) + 1);
+
             $('#locationInStock').html('');
             $('#locationInStock').append(html);
 
@@ -163,6 +169,7 @@
         //    $('#assignQuantity').prop('disabled', false);
         //}
     });
+
 
 
 

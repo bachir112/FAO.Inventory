@@ -135,9 +135,9 @@ namespace Inventory.WebApplication.Controllers
                                 group items by items.CategoryID into itemsGroup
                                 select new { 
                                     GroupID = itemsGroup.Key,
-                                    ItemsNames = itemsGroup.Where(x => x.AvailabilityStatusID == (queryID == -1 ? x.AvailabilityStatusID : queryID)).Select(x => x.Name).Distinct().ToList(),
-                                    TotalQuantityInGroup = itemsGroup.Where(x => x.AvailabilityStatusID == (queryID == -1 ? x.AvailabilityStatusID : queryID)).Count(),
-                                    Items = itemsGroup.Where(x => x.AvailabilityStatusID == (queryID == -1 ? x.AvailabilityStatusID : queryID)).ToList()
+                                    ItemsNames = itemsGroup.Where(x => x.AvailabilityStatusID == (queryID == -1 ? x.AvailabilityStatusID : queryID) && x.AvailabilityStatusID != 1002).Select(x => x.Name).Distinct().ToList(),
+                                    TotalQuantityInGroup = itemsGroup.Where(x => x.AvailabilityStatusID == (queryID == -1 ? x.AvailabilityStatusID : queryID) && x.AvailabilityStatusID != 1002).Count(),
+                                    Items = itemsGroup.Where(x => x.AvailabilityStatusID == (queryID == -1 ? x.AvailabilityStatusID : queryID) && x.AvailabilityStatusID != 1002).ToList()
                                 }).ToList();
 
                 foreach(var category in categoriesList)
@@ -178,6 +178,7 @@ namespace Inventory.WebApplication.Controllers
                                     (queryID == 2 ? item.AvailabilityStatusID == 2 || item.AvailabilityStatusID == 4 || item.AvailabilityStatusID > 1002 : false)
                                 )
                                 && (queryID == 2 ? (item.Expandable != true) : true)
+                                && item.AvailabilityStatusID != 1002                                
                                 group item by new 
                                 { 
                                     item.Id,

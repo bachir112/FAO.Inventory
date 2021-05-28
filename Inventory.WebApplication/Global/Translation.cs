@@ -545,7 +545,11 @@ namespace Inventory.WebApplication.Global
             { "Status_Arabic-arabic", "الحالة - عربية"},
 
             { "PhoneNumber-english", "Phone Number"},
-            { "PhoneNumber-arabic", "رقم الهاتف"}
+            { "PhoneNumber-arabic", "رقم الهاتف"},
+
+            { "TransactionID-english", "Transaction ID" },
+            { "TransactionID-arabic", "رقم المعاملة" }
+
         }; 
 
         static public string GetLanguageCookieValue(string cookieName = "language")
