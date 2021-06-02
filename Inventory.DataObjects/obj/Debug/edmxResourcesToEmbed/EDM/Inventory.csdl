@@ -28,14 +28,6 @@
     <EntitySet Name="PageManagements" EntityType="InventoryModel.PageManagement" />
     <EntitySet Name="ReportQueries" EntityType="InventoryModel.ReportQuery" />
     <EntitySet Name="ReportSettings" EntityType="InventoryModel.ReportSetting" />
-    <EntitySet Name="Items" EntityType="InventoryModel.Item" />
-    <EntitySet Name="Loggings" EntityType="InventoryModel.Logging" />
-    <EntitySet Name="Schools" EntityType="InventoryModel.School" />
-    <EntitySet Name="TransactionsReminders" EntityType="InventoryModel.TransactionsReminder" />
-    <AssociationSet Name="FK_Items_AvailabilityStatus" Association="InventoryModel.FK_Items_AvailabilityStatus">
-      <End Role="AvailabilityStatu" EntitySet="AvailabilityStatus" />
-      <End Role="Item" EntitySet="Items" />
-    </AssociationSet>
     <AssociationSet Name="FK_Transaction_AvailabilityStatus" Association="InventoryModel.FK_Transaction_AvailabilityStatus">
       <End Role="AvailabilityStatu" EntitySet="AvailabilityStatus" />
       <End Role="Transaction" EntitySet="Transactions" />
@@ -43,6 +35,27 @@
     <AssociationSet Name="FK_Transaction_AvailabilityStatus1" Association="InventoryModel.FK_Transaction_AvailabilityStatus1">
       <End Role="AvailabilityStatu" EntitySet="AvailabilityStatus" />
       <End Role="Transaction" EntitySet="Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PageManagement_PageManagement" Association="InventoryModel.FK_PageManagement_PageManagement">
+      <End Role="PageManagement" EntitySet="PageManagements" />
+      <End Role="PageManagement1" EntitySet="PageManagements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Transaction" Association="InventoryModel.FK_Transaction_Transaction">
+      <End Role="Transaction" EntitySet="Transactions" />
+      <End Role="Transaction1" EntitySet="Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Transaction_Unit" Association="InventoryModel.FK_Transaction_Unit">
+      <End Role="Unit" EntitySet="Units" />
+      <End Role="Transaction" EntitySet="Transactions" />
+    </AssociationSet>
+    <EntitySet Name="Items" EntityType="InventoryModel.Item" />
+    <EntitySet Name="Loggings" EntityType="InventoryModel.Logging" />
+    <EntitySet Name="Schools" EntityType="InventoryModel.School" />
+    <EntitySet Name="sysdiagrams" EntityType="InventoryModel.sysdiagram" />
+    <EntitySet Name="TransactionsReminders" EntityType="InventoryModel.TransactionsReminder" />
+    <AssociationSet Name="FK_Items_AvailabilityStatus" Association="InventoryModel.FK_Items_AvailabilityStatus">
+      <End Role="AvailabilityStatu" EntitySet="AvailabilityStatus" />
+      <End Role="Item" EntitySet="Items" />
     </AssociationSet>
     <AssociationSet Name="FK_Items_Category" Association="InventoryModel.FK_Items_Category">
       <End Role="Category" EntitySet="Categories" />
@@ -60,10 +73,6 @@
       <End Role="Item" EntitySet="Items" />
       <End Role="Transaction" EntitySet="Transactions" />
     </AssociationSet>
-    <AssociationSet Name="FK_PageManagement_PageManagement" Association="InventoryModel.FK_PageManagement_PageManagement">
-      <End Role="PageManagement" EntitySet="PageManagements" />
-      <End Role="PageManagement1" EntitySet="PageManagements" />
-    </AssociationSet>
     <AssociationSet Name="FK_Suppliers_Schools" Association="InventoryModel.FK_Suppliers_Schools">
       <End Role="School" EntitySet="Schools" />
       <End Role="Supplier" EntitySet="Suppliers" />
@@ -74,14 +83,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_Transaction_Schools1" Association="InventoryModel.FK_Transaction_Schools1">
       <End Role="School" EntitySet="Schools" />
-      <End Role="Transaction" EntitySet="Transactions" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Transaction_Transaction" Association="InventoryModel.FK_Transaction_Transaction">
-      <End Role="Transaction" EntitySet="Transactions" />
-      <End Role="Transaction1" EntitySet="Transactions" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Transaction_Unit" Association="InventoryModel.FK_Transaction_Unit">
-      <End Role="Unit" EntitySet="Units" />
       <End Role="Transaction" EntitySet="Transactions" />
     </AssociationSet>
   </EntityContainer>
@@ -156,9 +157,9 @@
     <Property Name="Status" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="Status_Arabic" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="Items" Relationship="InventoryModel.FK_Items_AvailabilityStatus" FromRole="AvailabilityStatu" ToRole="Item" />
     <NavigationProperty Name="Transactions" Relationship="InventoryModel.FK_Transaction_AvailabilityStatus" FromRole="AvailabilityStatu" ToRole="Transaction" />
     <NavigationProperty Name="Transactions1" Relationship="InventoryModel.FK_Transaction_AvailabilityStatus1" FromRole="AvailabilityStatu" ToRole="Transaction" />
+    <NavigationProperty Name="Items" Relationship="InventoryModel.FK_Items_AvailabilityStatus" FromRole="AvailabilityStatu" ToRole="Item" />
   </EntityType>
   <EntityType Name="Category">
     <Key>
@@ -215,7 +216,7 @@
     <Property Name="StockKeeper" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="UnitID" Type="Int32" />
-    <Property Name="UnitAmount" Type="Int32" />
+    <Property Name="UnitAmount" Type="Decimal" />
     <Property Name="Quantity" Type="Int32" Nullable="false" />
     <Property Name="ToWhom" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="ShouldReturn" Type="Boolean" />
@@ -226,12 +227,12 @@
     <Property Name="ItemID" Type="Int32" />
     <NavigationProperty Name="AvailabilityStatu" Relationship="InventoryModel.FK_Transaction_AvailabilityStatus" FromRole="Transaction" ToRole="AvailabilityStatu" />
     <NavigationProperty Name="AvailabilityStatu1" Relationship="InventoryModel.FK_Transaction_AvailabilityStatus1" FromRole="Transaction" ToRole="AvailabilityStatu" />
-    <NavigationProperty Name="Item" Relationship="InventoryModel.FK_Transaction_Items" FromRole="Transaction" ToRole="Item" />
-    <NavigationProperty Name="School" Relationship="InventoryModel.FK_Transaction_Schools" FromRole="Transaction" ToRole="School" />
-    <NavigationProperty Name="School1" Relationship="InventoryModel.FK_Transaction_Schools1" FromRole="Transaction" ToRole="School" />
     <NavigationProperty Name="Transaction1" Relationship="InventoryModel.FK_Transaction_Transaction" FromRole="Transaction" ToRole="Transaction1" />
     <NavigationProperty Name="Transaction2" Relationship="InventoryModel.FK_Transaction_Transaction" FromRole="Transaction1" ToRole="Transaction" />
     <NavigationProperty Name="Unit" Relationship="InventoryModel.FK_Transaction_Unit" FromRole="Transaction" ToRole="Unit" />
+    <NavigationProperty Name="Item" Relationship="InventoryModel.FK_Transaction_Items" FromRole="Transaction" ToRole="Item" />
+    <NavigationProperty Name="School" Relationship="InventoryModel.FK_Transaction_Schools" FromRole="Transaction" ToRole="School" />
+    <NavigationProperty Name="School1" Relationship="InventoryModel.FK_Transaction_Schools1" FromRole="Transaction" ToRole="School" />
   </EntityType>
   <EntityType Name="Unit">
     <Key>
@@ -319,6 +320,66 @@
     <Property Name="LastSent" Type="DateTime" Precision="3" />
     <Property Name="SchoolID" Type="Int32" />
   </EntityType>
+  <Association Name="FK_Transaction_AvailabilityStatus">
+    <End Type="InventoryModel.AvailabilityStatu" Role="AvailabilityStatu" Multiplicity="0..1" />
+    <End Type="InventoryModel.Transaction" Role="Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AvailabilityStatu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="OldAvailabilityStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_AvailabilityStatus1">
+    <End Type="InventoryModel.AvailabilityStatu" Role="AvailabilityStatu" Multiplicity="0..1" />
+    <End Type="InventoryModel.Transaction" Role="Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AvailabilityStatu">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="NewAvailabilityStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PageManagement_PageManagement">
+    <End Type="InventoryModel.PageManagement" Role="PageManagement" Multiplicity="1" />
+    <End Type="InventoryModel.PageManagement" Role="PageManagement1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="PageManagement">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PageManagement1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Transaction">
+    <End Type="InventoryModel.Transaction" Role="Transaction" Multiplicity="1" />
+    <End Type="InventoryModel.Transaction" Role="Transaction1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Transaction">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transaction1">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Transaction_Unit">
+    <End Type="InventoryModel.Unit" Role="Unit" Multiplicity="0..1" />
+    <End Type="InventoryModel.Transaction" Role="Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Transaction">
+        <PropertyRef Name="UnitID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityType Name="Item">
     <Key>
       <PropertyRef Name="Id" />
@@ -331,7 +392,7 @@
     <Property Name="LocationInStock" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="ExpiryDate" Type="DateTime" Precision="0" />
     <Property Name="UnitID" Type="Int32" Nullable="false" />
-    <Property Name="UnitAmount" Type="Int32" />
+    <Property Name="UnitAmount" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="MaintenancePrice" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="Expandable" Type="Boolean" />
@@ -371,6 +432,16 @@
     <NavigationProperty Name="Transactions" Relationship="InventoryModel.FK_Transaction_Schools" FromRole="School" ToRole="Transaction" />
     <NavigationProperty Name="Transactions1" Relationship="InventoryModel.FK_Transaction_Schools1" FromRole="School" ToRole="Transaction" />
   </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
   <EntityType Name="TransactionsReminder">
     <Key>
       <PropertyRef Name="Id" />
@@ -392,30 +463,6 @@
       </Principal>
       <Dependent Role="Item">
         <PropertyRef Name="AvailabilityStatusID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Transaction_AvailabilityStatus">
-    <End Type="InventoryModel.AvailabilityStatu" Role="AvailabilityStatu" Multiplicity="0..1" />
-    <End Type="InventoryModel.Transaction" Role="Transaction" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AvailabilityStatu">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Transaction">
-        <PropertyRef Name="OldAvailabilityStatus" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Transaction_AvailabilityStatus1">
-    <End Type="InventoryModel.AvailabilityStatu" Role="AvailabilityStatu" Multiplicity="0..1" />
-    <End Type="InventoryModel.Transaction" Role="Transaction" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="AvailabilityStatu">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Transaction">
-        <PropertyRef Name="NewAvailabilityStatus" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -467,18 +514,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_PageManagement_PageManagement">
-    <End Type="InventoryModel.PageManagement" Role="PageManagement" Multiplicity="1" />
-    <End Type="InventoryModel.PageManagement" Role="PageManagement1" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="PageManagement">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="PageManagement1">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Suppliers_Schools">
     <End Type="InventoryModel.School" Role="School" Multiplicity="0..1" />
     <End Type="InventoryModel.Supplier" Role="Supplier" Multiplicity="*" />
@@ -512,30 +547,6 @@
       </Principal>
       <Dependent Role="Transaction">
         <PropertyRef Name="NewSchoolID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Transaction_Transaction">
-    <End Type="InventoryModel.Transaction" Role="Transaction" Multiplicity="1" />
-    <End Type="InventoryModel.Transaction" Role="Transaction1" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Transaction">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Transaction1">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Transaction_Unit">
-    <End Type="InventoryModel.Unit" Role="Unit" Multiplicity="0..1" />
-    <End Type="InventoryModel.Transaction" Role="Transaction" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Unit">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Transaction">
-        <PropertyRef Name="UnitID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

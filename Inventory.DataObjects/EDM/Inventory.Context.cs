@@ -43,6 +43,7 @@ namespace Inventory.DataObjects.EDM
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<Logging> Loggings { get; set; }
         public virtual DbSet<School> Schools { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TransactionsReminder> TransactionsReminders { get; set; }
     }
 }

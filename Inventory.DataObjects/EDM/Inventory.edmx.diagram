@@ -8,7 +8,8 @@
         <EntityTypeShape EntityType="InventoryModel.Item" Width="1.5" PointX="3" PointY="1.125" />
         <EntityTypeShape EntityType="InventoryModel.Logging" Width="1.5" PointX="5.75" PointY="0.75" />
         <EntityTypeShape EntityType="InventoryModel.School" Width="1.5" PointX="0.75" PointY="3" />
-        <EntityTypeShape EntityType="InventoryModel.TransactionsReminder" Width="1.5" PointX="5.75" PointY="3.75" />
+        <EntityTypeShape EntityType="InventoryModel.sysdiagram" Width="1.5" PointX="5.75" PointY="3.75" />
+        <EntityTypeShape EntityType="InventoryModel.TransactionsReminder" Width="1.5" PointX="5.75" PointY="6.75" />
         <AssociationConnector Association="InventoryModel.FK_Items_Schools" />
       </Diagram>
     </edmx:Diagrams>

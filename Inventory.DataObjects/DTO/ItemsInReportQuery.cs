@@ -22,7 +22,7 @@ namespace Inventory.DataObjects.DTO
         public Nullable<System.DateTime> ExpiryDate { get; set; }
         public int UnitID { get; set; }
         public string Unit { get; set; }
-        public Nullable<int> UnitAmount { get; set; }
+        public Nullable<decimal> UnitAmount { get; set; }
         public Nullable<decimal> Price { get; set; }
         public string Description { get; set; }
         public int CategoryID { get; set; }

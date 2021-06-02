@@ -24,7 +24,7 @@ namespace Inventory.DataObjects.DTO
         public string SchoolName { get; set; }
         public Nullable<bool> Expandable { get; set; }
         public string Unit { get; set; }
-        public Nullable<int> UnitAmount { get; set; }
+        public Nullable<decimal> UnitAmount { get; set; }
         public Nullable<decimal> Price { get; set; }
         public Nullable<decimal> TotalPrice { get; set; }
         public string Description { get; set; }

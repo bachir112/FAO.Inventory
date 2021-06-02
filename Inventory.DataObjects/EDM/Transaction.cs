@@ -22,7 +22,7 @@ namespace Inventory.DataObjects.EDM
         public string StockKeeper { get; set; }
         public System.DateTime TransactionDate { get; set; }
         public Nullable<int> UnitID { get; set; }
-        public Nullable<int> UnitAmount { get; set; }
+        public Nullable<decimal> UnitAmount { get; set; }
         public int Quantity { get; set; }
         public string ToWhom { get; set; }
         public Nullable<bool> ShouldReturn { get; set; }
@@ -34,11 +34,11 @@ namespace Inventory.DataObjects.EDM
     
         public virtual AvailabilityStatu AvailabilityStatu { get; set; }
         public virtual AvailabilityStatu AvailabilityStatu1 { get; set; }
-        public virtual Item Item { get; set; }
-        public virtual School School { get; set; }
-        public virtual School School1 { get; set; }
         public virtual Transaction Transaction1 { get; set; }
         public virtual Transaction Transaction2 { get; set; }
         public virtual Unit Unit { get; set; }
+        public virtual Item Item { get; set; }
+        public virtual School School { get; set; }
+        public virtual School School1 { get; set; }
     }
 }

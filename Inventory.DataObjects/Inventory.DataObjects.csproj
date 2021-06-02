@@ -121,6 +121,9 @@
     <Compile Include="EDM\Supplier.cs">
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>
+    <Compile Include="EDM\sysdiagram.cs">
+      <DependentUpon>Inventory.tt</DependentUpon>
+    </Compile>
     <Compile Include="EDM\Transaction.cs">
       <DependentUpon>Inventory.tt</DependentUpon>
     </Compile>
