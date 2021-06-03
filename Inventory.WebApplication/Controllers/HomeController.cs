@@ -327,23 +327,30 @@ namespace Inventory.WebApplication.Controllers
         public ActionResult TransactionsIntoStock()
         {
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
-            using (var db = new InventoryEntities())
+            if (Global.Global.isAllowed(User.Identity.GetUserId(), "Transactions"))
             {
-                Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
+                using (var db = new InventoryEntities())
+                {
+                    Nullable<int> schoolID = Global.Global.GetSchoolCookieValue();
 
-                ViewBag.ToWhom = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.ToWhom != null && x.ToWhom.Trim() != string.Empty)
-                                                .Select(x => x.ToWhom)
-                                                .Distinct()
-                                                .ToList();
+                    ViewBag.ToWhom = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.ToWhom != null && x.ToWhom.Trim() != string.Empty)
+                                                    .Select(x => x.ToWhom)
+                                                    .Distinct()
+                                                    .ToList();
 
-                ViewBag.Description = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.Description != null && x.Description.Trim() != string.Empty)
-                                                .Select(x => x.Description)
-                                                .Distinct()
-                                                .ToList();
+                    ViewBag.Description = db.Transactions.Where(x => (schoolID == 0 ? true : x.SchoolID == schoolID) && x.Description != null && x.Description.Trim() != string.Empty)
+                                                    .Select(x => x.Description)
+                                                    .Distinct()
+                                                    .ToList();
 
-                ViewBag.AvailabilityStatus = db.AvailabilityStatus.Where(x => x.Id != 2).ToList();
+                    ViewBag.AvailabilityStatus = db.AvailabilityStatus.Where(x => x.Id != 2).ToList();
 
-                ViewBag.Schools = db.Schools.ToList();
+                    ViewBag.Schools = db.Schools.ToList();
+                }
+            }
+            else
+            {
+                return RedirectToAction("NotAuthorized", "Home");
             }
 
             return View();
@@ -352,7 +359,7 @@ namespace Inventory.WebApplication.Controllers
         public ActionResult TransactionsOutOfStock()
         {
             ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
-            if (Global.Global.isAllowed(User.Identity.GetUserId(), "Reports"))
+            if (Global.Global.isAllowed(User.Identity.GetUserId(), "Transactions"))
             {
                 using (var db = new InventoryEntities())
                 {
