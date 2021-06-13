@@ -56,6 +56,8 @@
                                                 <th>@Translation.GetStringValue("MaintenancePrice") (LBP)</th>
                                                 <th>@Translation.GetStringValue("Value") (LBP)</th>
                                                 <th>@Translation.GetStringValue("Quantity")</th>
+                                                <th>@Translation.GetStringValue("ModifiedOn")</th>
+                                                <th>@Translation.GetStringValue("Description")</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -77,6 +79,8 @@
                                                             @itemGroup.Name
                                                             (@Translation.GetStringValue("Quantity") @itemGroup.Quantity)
                                                         </td>
+                                                        <td></td>
+                                                        <td></td>
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
@@ -105,35 +109,16 @@
                                                             <td>
                                                                 @item.Quantity
                                                             </td>
+                                                            <td>
+                                                                @(item.ModifiedOn == null ? "" : item.ModifiedOn?.ToString("dd-MMM-yyyy"))
+                                                            </td>
+                                                            <td>
+                                                                @item.Description
+                                                            </td>
                                                         </tr>
                                                     }
                                                 }
                                                 
-                                                @*foreach (ItemsGroupedDTO item in Model)
-                                                {
-                                                    <tr class="odd gradeX">
-                                                        <td>
-                                                            @item.SchoolName
-                                                        </td>
-                                                        <td>
-                                                            <span class="english">@item.Name</span>
-                                                            <span class="arabic">@item.Name_Arabic</span>
-                                                            @item.UnitAmount @(item.Unit == "Unit" ? "" : item.Unit)
-                                                        </td>
-                                                        <td>
-                                                            @((item.Name.Count() > 2 ? item.Name.Substring(0,3) : item.Name) + item.ItemsIDs)
-                                                        </td>
-                                                        <td class="price">
-                                                            @(item.MaintenancePrice == null ? "0 L.L." : (item.MaintenancePrice + "L.L."))
-                                                        </td>
-                                                        <td class="price">
-                                                            @(item.Price == null ? "Not Set" : (item.Price + "L.L."))
-                                                        </td>
-                                                        <td>
-                                                            @item.Quantity
-                                                        </td>
-                                                    </tr>
-                                                }*@
                                             }
 
                                         </tbody>
@@ -188,8 +173,8 @@
                         message: '',
                         customize: function (win) {
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
-                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية</h2>');
-                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية وزارة الزراعة</h2>');
+                            //$(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
                             $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
                         }
                     },
@@ -232,8 +217,8 @@
                         message: '',
                         customize: function (win) {
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
-                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية</h2>');
-                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية وزارة الزراعة</h2>');
+                            //$(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
                             $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
                         }
                     },

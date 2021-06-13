@@ -66,18 +66,26 @@ namespace Inventory.WebApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Supplier1,IsSchool,SchoolID")] Supplier supplier)
         {
+            string userID = User.Identity.GetUserId();
+            ViewBag.UserSchool = db.AspNetUsers.First(x => x.Id == userID).SchoolID;
+
+            ViewBag.Schools = db.Schools.ToList();
+            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
+
+            bool exists = db.Suppliers.FirstOrDefault(x => x.Supplier1.ToLower().Trim() == supplier.Supplier1.ToLower().Trim() && x.SchoolID == supplier.SchoolID) == null ? false : true;
+
+            if (exists)
+            {
+                ViewBag.Exists = true;
+                return View(supplier);
+            }
+
             if (ModelState.IsValid)
             {
                 db.Suppliers.Add(supplier);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            string userID = User.Identity.GetUserId();
-            ViewBag.UserSchool = db.AspNetUsers.First(x => x.Id == userID).SchoolID;
-
-            ViewBag.Schools = db.Schools.ToList();
-            ViewBag.PageManagement = Global.Global.AllowedPages(User.Identity.GetUserId());
             return View(supplier);
         }
 

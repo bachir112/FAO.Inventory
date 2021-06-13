@@ -14,13 +14,8 @@ namespace Inventory.DataObjects.EDM
     
     public partial class Item
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Item()
-        {
-            this.Transactions = new HashSet<Transaction>();
-        }
-    
         public int Id { get; set; }
+        public Nullable<double> Quantity { get; set; }
         public string Name { get; set; }
         public string Name_Arabic { get; set; }
         public int AvailabilityStatusID { get; set; }
@@ -29,7 +24,6 @@ namespace Inventory.DataObjects.EDM
         public Nullable<System.DateTime> ExpiryDate { get; set; }
         public int UnitID { get; set; }
         public Nullable<decimal> UnitAmount { get; set; }
-        public Nullable<decimal> Quantity { get; set; }
         public Nullable<decimal> Price { get; set; }
         public Nullable<decimal> MaintenancePrice { get; set; }
         public Nullable<bool> Expandable { get; set; }
@@ -42,12 +36,11 @@ namespace Inventory.DataObjects.EDM
         public string PendingTransferApproval { get; set; }
         public Nullable<int> SchoolID { get; set; }
         public string SerialNumber { get; set; }
+        public Nullable<System.DateTime> MaintenanceOn { get; set; }
     
         public virtual AvailabilityStatu AvailabilityStatu { get; set; }
         public virtual Category Category { get; set; }
         public virtual ItemStatu ItemStatu { get; set; }
         public virtual School School { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Transaction> Transactions { get; set; }
     }
 }

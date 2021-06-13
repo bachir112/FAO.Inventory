@@ -22,8 +22,8 @@ namespace Inventory.DataObjects.EDM
             this.Items = new HashSet<Item>();
         }
     
-        public int Id { get; set; }
         public Nullable<bool> CanDelete { get; set; }
+        public int Id { get; set; }
         public string Status { get; set; }
         public string Description { get; set; }
         public string Status_Arabic { get; set; }

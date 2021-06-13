@@ -26,13 +26,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <h4 id="assignItemName" style="color:red;">@Translation.GetStringValue("Name")</h4>
+              @*  <h4 id="assignItemName" style="color:red;">@Translation.GetStringValue("Name")</h4>*@
                 <hr />
                 <div class="form-group">
                     <div id="pricingContainer">
                         <div class="input-icon">
+                            <p>@Translation.GetStringValue("AssignPrice") <span style="color:red;">*</span></p>
                             <i class="fa fa-tasks font-green" aria-hidden="true"></i>
-                            <input id="itemPrice" type="number" class="form-control" placeholder="@Translation.GetStringValue("PricePerItem")">
+                            <input id="itemPrice" type="number" min="0" oninput="validity.valid||(value='');" class="form-control" placeholder="@Translation.GetStringValue("PricePerItem")">
                         </div>
                         <hr />
                     </div>
@@ -52,8 +53,9 @@
                         </div>
                         <hr />
                         <div class="input-icon">
+                            <p>@Translation.GetStringValue("AssignPrice") <span style="color:red;">*</span></p>
                             <i class="fa fa-tasks font-green" aria-hidden="true"></i>
-                            <input id="maintenancePrice" type="number" class="form-control" placeholder="@Translation.GetStringValue("MaintenancePricePerItem")">
+                            <input id="maintenancePrice" type="number" min="0" oninput="validity.valid||(value='');" class="form-control" placeholder="@Translation.GetStringValue("MaintenancePricePerItem")">
                         </div>
                     </div>
                 </div>

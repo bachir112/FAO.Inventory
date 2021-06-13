@@ -1517,8 +1517,8 @@ namespace Inventory.WebApplication.Controllers
                 if (fromDate == null && toDate == null)
                 {
                     itemsInStock = (from item in db.Items
-                                    where (schoolID == 0 ? true : item.SchoolID == schoolID)
-                                    group item by new { item.Id, item.SerialNumber, item.Name, item.AvailabilityStatusID, item.Price, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice, item.SchoolID } into items
+                                    where (schoolID == 0 ? true : item.SchoolID == schoolID) && item.MaintenancePrice > 0
+                                    group item by new { item.Id, item.ModifiedOn, item.SerialNumber, item.Name, item.AvailabilityStatusID, item.Price, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice, item.SchoolID } into items
                                     select items).AsEnumerable().Select(
                                     items => new ItemsGroupedDTO()
                                     {
@@ -1536,6 +1536,8 @@ namespace Inventory.WebApplication.Controllers
                                         UnitAmount = items.Key.UnitAmount,
                                         ItemStatusID = items.Key.ItemStatusID,
                                         Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name,
+                                        ModifiedOn = items.Key.ModifiedOn,
+                                        Description = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Description,
                                         SchoolName = schools.FirstOrDefault(x => x.ID == items.Key.SchoolID)?.SchoolName_Ar
                                     }).ToList();
                 }
@@ -1543,8 +1545,8 @@ namespace Inventory.WebApplication.Controllers
                 {
                     itemsInStock = (from item in db.Items
                                     where (schoolID == 0 ? true : item.SchoolID == schoolID)
-                                    where item.ModifiedOn >= fromDate && item.ModifiedOn <= toDate
-                                    group item by new { item.SerialNumber, item.Id, item.Name, item.AvailabilityStatusID, item.Price, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice, item.SchoolID } into items
+                                    where item.ModifiedOn >= fromDate && item.ModifiedOn <= toDate && item.MaintenancePrice > 0
+                                    group item by new { item.SerialNumber, item.ModifiedOn, item.Id, item.Name, item.AvailabilityStatusID, item.Price, item.ExpiryDate, item.UnitID, item.UnitAmount, item.ItemStatusID, item.MaintenancePrice, item.SchoolID } into items
                                     select items).AsEnumerable().Select(
                                     items => new ItemsGroupedDTO()
                                     {
@@ -1562,6 +1564,8 @@ namespace Inventory.WebApplication.Controllers
                                         UnitAmount = items.Key.UnitAmount,
                                         ItemStatusID = items.Key.ItemStatusID,
                                         Unit = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Name,
+                                        ModifiedOn = items.Key.ModifiedOn,
+                                        Description = units.FirstOrDefault(x => x.Id == items.Key.UnitID).Description,
                                         SchoolName = schools.FirstOrDefault(x => x.ID == items.Key.SchoolID)?.SchoolName_Ar
                                     }).ToList();
                 }

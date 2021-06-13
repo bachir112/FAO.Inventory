@@ -25,9 +25,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            @*<div class="modal-body">
                 <h4 id="assignItemName" style="color:red;">@Translation.GetStringValue("Name")</h4>
-            </div>
+            </div>*@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">@Translation.GetStringValue("Cancel")</button>
                 <button id="approveTranserForItem" type="button" class="btn btn-primary">@Translation.GetStringValue("Yes")</button>
@@ -148,7 +148,7 @@
         var itemName = $(this).attr('data-ItemName');
         var itemsIDs = $(this).attr('data-ItemsIDs');
 
-        $('#assignItemName').text('Approve Transfer for ' + itemName);
+        //$('#assignItemName').text('Approve Transfer for ' + itemName);
         $('#approveTranserForItem').attr('data-ItemsIDs', itemsIDs);
 
         $('#itemPriceModal').modal('show');

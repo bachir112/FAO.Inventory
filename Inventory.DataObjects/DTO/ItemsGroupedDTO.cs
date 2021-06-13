@@ -19,6 +19,7 @@ namespace Inventory.DataObjects.DTO
         public string ItemStatus { get; set; }
         public string LocationInStock { get; set; }
         public Nullable<System.DateTime> ExpiryDate { get; set; }
+        public Nullable<System.DateTime> ModifiedOn { get; set; }
         public int UnitID { get; set; }
         public Nullable<int> SchoolID { get; set; }
         public string SchoolName { get; set; }

@@ -404,6 +404,29 @@ namespace Inventory.WebApplication.Controllers
                     listOfItemsNames.Add(item.Name + "(" + item.Name_Arabic + ")");
                     db.Items.Remove(item);
                     db.SaveChanges();
+
+
+
+                    Transaction newTransaction = new Transaction();
+                    newTransaction.ItemName = item.Name;
+                    newTransaction.ItemName_Arabic = item.Name_Arabic;
+                    newTransaction.ItemID = Convert.ToInt32(item.Id);
+                    newTransaction.OldAvailabilityStatus = item.AvailabilityStatusID;
+                    newTransaction.NewAvailabilityStatus = db.AvailabilityStatus.FirstOrDefault(x => x.Status == "Deleted")?.Id;
+                    newTransaction.StockKeeper = User.Identity.GetUserId();
+                    newTransaction.Quantity = 1;
+                    newTransaction.ToWhom = "";
+                    newTransaction.Description = item.Description;
+                    newTransaction.UnitID = item.UnitID;
+                    newTransaction.UnitAmount = item.UnitAmount;
+                    newTransaction.TransactionDate = DateTime.Now;
+                    newTransaction.SchoolID = item.SchoolID;
+                    newTransaction.NewSchoolID = null;
+
+                    db.Transactions.Add(newTransaction);
+
+                    db.SaveChanges();
+
                 }
 
                 listOfItemsNames = listOfItemsNames.Distinct().Select(x => x).ToList();

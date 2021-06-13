@@ -92,7 +92,7 @@
                             <tr class="odd gradeX">
                                 <td>
                                     <label class="mt-checkbox mt-checkbox-single mt-checkbox-outline">
-                                        <input type="checkbox" class="checkboxes"
+                                        <input type="checkbox" class="checkboxes itemCheckbox"
                                                data-itemsIDs="@item.ItemsIDs"
                                                data-Name="@item.Name"
                                                data-AvailabilityStatusID="@item.AvailabilityStatusID"
@@ -196,8 +196,8 @@
                         message: '',
                         customize: function (win) {
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
-                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية</h2>');
-                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية وزارة الزراعة</h2>');
+                            //$(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
                             $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
                         }
                     },
@@ -242,21 +242,32 @@
                         message: '',
                         customize: function (win) {
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
-                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية</h2>');
-                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية وزارة الزراعة</h2>');
+                            //$(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
                             $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
                         }
                     },
-                    //{ extend: 'pdf', className: 'btn green btn-outline' },
-                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
-                //,
-                //responsive: true
             });
-
-
         }
 
     });
+
+    //function countCheckboxes() {
+    //    var checked = $('input.itemCheckbox:checked').length;
+    //    if (checked > 0) {
+    //        $('#assignActionSelector').attr('disabled', true);
+    //    } else {
+    //        $('#assignActionSelector').attr('disabled', false);
+    //    }
+    //}
+
+    //$(document).ready(function () {
+    //    countCheckboxes();
+    //});
+
+    //$(document).on('click', '.itemCheckbox', function () {
+    //    countCheckboxes();
+    //});
 
 </script>

@@ -39,15 +39,15 @@
                                 <tr>
                                     <th> @Translation.GetStringValue("TransactionID") </th>
                                     <th> @Translation.GetStringValue("School") </th>
-                                    <th> @Translation.GetStringValue("ItemName") </th>
                                     <th> @Translation.GetStringValue("SerialCode") </th>
+                                    <th> @Translation.GetStringValue("ItemName") </th>
+                                    <th> @Translation.GetStringValue("Description") </th>
                                     <th> @Translation.GetStringValue("Quantity") </th>
                                     <th> @Translation.GetStringValue("FromStatus") </th>
                                     <th> @Translation.GetStringValue("ToStatus") </th>
-                                    <th> @Translation.GetStringValue("Description") </th>
                                     <th> @Translation.GetStringValue("StockKeeper") </th>
-                                    <th> @Translation.GetStringValue("DateTransfered") </th>
                                     <th> @Translation.GetStringValue("ToWhom") </th>
+                                    <th> @Translation.GetStringValue("DateTransfered") </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,11 +62,14 @@
                                                 <span> @transaction.SchoolName </span>
                                             </td>
                                             <td>
+                                                @(transaction.SerialNumber)
+                                            </td>
+                                            <td>
                                                 <span class="english">@transaction.ItemName</span>
                                                 <span class="arabic">@transaction.ItemName_Arabic</span>
                                             </td>
                                             <td>
-                                                @(transaction.SerialNumber)
+                                                @transaction.Description
                                             </td>
                                             <td class="center">
                                                 <span> @transaction.Quantity </span>
@@ -80,16 +83,13 @@
                                                 <span class="arabic">@transaction.NewAvailabilityStatus_Arabic</span>
                                             </td>
                                             <td>
-                                                @transaction.Description
-                                            </td>
-                                            <td>
                                                 @transaction.StockKeeper
                                             </td>
                                             <td>
-                                                @(transaction.TransactionDate.ToString("dd-MMM-yyyy"))
+                                                @transaction.ToWhom
                                             </td>
                                             <td>
-                                                @transaction.ToWhom
+                                                @(transaction.TransactionDate.ToString("dd-MMM-yyyy"))
                                             </td>
                                         </tr>
                                     }
@@ -151,8 +151,8 @@
                         message: '',
                         customize: function (win) {
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
-                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية</h2>');
-                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية وزارة الزراعة</h2>');
+                            //$(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
                             $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
                         }
                     },
@@ -197,8 +197,8 @@
                         message: '',
                         customize: function (win) {
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
-                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية</h2>');
-                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية وزارة الزراعة</h2>');
+                            //$(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
                             $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
                         }
                     },

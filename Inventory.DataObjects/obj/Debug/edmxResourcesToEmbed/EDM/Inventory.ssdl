@@ -111,6 +111,7 @@
     <Property Name="PendingTransferApproval" Type="nvarchar" MaxLength="15" />
     <Property Name="SchoolID" Type="int" />
     <Property Name="SerialNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaintenanceOn" Type="datetime" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6013: The table/view 'Inventory-A.dbo.ItemsImported' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
@@ -417,18 +418,6 @@ warning 6013: The table/view 'Inventory-A.dbo.ItemsImported' does not have a pri
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Transaction_Items">
-    <End Role="Items" Type="Self.Items" Multiplicity="0..1" />
-    <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Items">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Transaction">
-        <PropertyRef Name="ItemID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Transaction_Schools">
     <End Role="Schools" Type="Self.Schools" Multiplicity="0..1" />
     <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
@@ -545,10 +534,6 @@ warning 6013: The table/view 'Inventory-A.dbo.ItemsImported' does not have a pri
     </AssociationSet>
     <AssociationSet Name="FK_Transaction_AvailabilityStatus1" Association="Self.FK_Transaction_AvailabilityStatus1">
       <End Role="AvailabilityStatus" EntitySet="AvailabilityStatus" />
-      <End Role="Transaction" EntitySet="Transaction" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Transaction_Items" Association="Self.FK_Transaction_Items">
-      <End Role="Items" EntitySet="Items" />
       <End Role="Transaction" EntitySet="Transaction" />
     </AssociationSet>
     <AssociationSet Name="FK_Transaction_Schools" Association="Self.FK_Transaction_Schools">

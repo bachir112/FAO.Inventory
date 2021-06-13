@@ -23,7 +23,10 @@
 <div class="page-content-wrapper">
     <div class="page-content">
 
-        @*@Html.Partial("_ThemeColors")*@
+        <p id="userExists" style="display:none; color:red;">
+            <span class="english">This supplier already exists for this school. Please change the supplier's name</span>
+            <span class="arabic">هذا المورد موجود بالفعل لهذه المدرسة. الرجاء تغيير اسم المورد</span>
+        </p>
 
         <h1 class="page-title"> @Translation.GetStringValue("Suppliers") </h1>
         <div class="page-bar">
@@ -68,7 +71,7 @@
             {
                 <div class="form-group">
                     <label class="control-label col-md-2">@Translation.GetStringValue("School")</label>
-                    <select id="schools" name="SchoolID">
+                    <select id="schools" name="SchoolID" class="control-label col-md-10">
                         @{
                             foreach (var school in schools)
                             {
@@ -100,7 +103,18 @@
 
     $(document).ready(function () {
         pageManagementActive();
-        $('select').select2();
+        $('#IsSchool').select2();
     });
+
+    @{ 
+        if(ViewBag.Exists != null)
+        {
+            <text>
+                $(document).ready(function () {
+                    $('#userExists').show();
+                });
+            </text>
+        }
+    }
 
 </script>

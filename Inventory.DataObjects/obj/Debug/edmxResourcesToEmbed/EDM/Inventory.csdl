@@ -69,10 +69,6 @@
       <End Role="School" EntitySet="Schools" />
       <End Role="Item" EntitySet="Items" />
     </AssociationSet>
-    <AssociationSet Name="FK_Transaction_Items" Association="InventoryModel.FK_Transaction_Items">
-      <End Role="Item" EntitySet="Items" />
-      <End Role="Transaction" EntitySet="Transactions" />
-    </AssociationSet>
     <AssociationSet Name="FK_Suppliers_Schools" Association="InventoryModel.FK_Suppliers_Schools">
       <End Role="School" EntitySet="Schools" />
       <End Role="Supplier" EntitySet="Suppliers" />
@@ -216,7 +212,7 @@
     <Property Name="StockKeeper" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="UnitID" Type="Int32" />
-    <Property Name="UnitAmount" Type="Decimal" />
+    <Property Name="UnitAmount" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="Quantity" Type="Int32" Nullable="false" />
     <Property Name="ToWhom" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="ShouldReturn" Type="Boolean" />
@@ -230,7 +226,6 @@
     <NavigationProperty Name="Transaction1" Relationship="InventoryModel.FK_Transaction_Transaction" FromRole="Transaction" ToRole="Transaction1" />
     <NavigationProperty Name="Transaction2" Relationship="InventoryModel.FK_Transaction_Transaction" FromRole="Transaction1" ToRole="Transaction" />
     <NavigationProperty Name="Unit" Relationship="InventoryModel.FK_Transaction_Unit" FromRole="Transaction" ToRole="Unit" />
-    <NavigationProperty Name="Item" Relationship="InventoryModel.FK_Transaction_Items" FromRole="Transaction" ToRole="Item" />
     <NavigationProperty Name="School" Relationship="InventoryModel.FK_Transaction_Schools" FromRole="Transaction" ToRole="School" />
     <NavigationProperty Name="School1" Relationship="InventoryModel.FK_Transaction_Schools1" FromRole="Transaction" ToRole="School" />
   </EntityType>
@@ -405,11 +400,11 @@
     <Property Name="PendingTransferApproval" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="SchoolID" Type="Int32" />
     <Property Name="SerialNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MaintenanceOn" Type="DateTime" Precision="3" />
     <NavigationProperty Name="AvailabilityStatu" Relationship="InventoryModel.FK_Items_AvailabilityStatus" FromRole="Item" ToRole="AvailabilityStatu" />
     <NavigationProperty Name="Category" Relationship="InventoryModel.FK_Items_Category" FromRole="Item" ToRole="Category" />
     <NavigationProperty Name="ItemStatu" Relationship="InventoryModel.FK_Items_ItemStatus" FromRole="Item" ToRole="ItemStatu" />
     <NavigationProperty Name="School" Relationship="InventoryModel.FK_Items_Schools" FromRole="Item" ToRole="School" />
-    <NavigationProperty Name="Transactions" Relationship="InventoryModel.FK_Transaction_Items" FromRole="Item" ToRole="Transaction" />
   </EntityType>
   <EntityType Name="Logging">
     <Key>
@@ -499,18 +494,6 @@
       </Principal>
       <Dependent Role="Item">
         <PropertyRef Name="SchoolID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Transaction_Items">
-    <End Type="InventoryModel.Item" Role="Item" Multiplicity="0..1" />
-    <End Type="InventoryModel.Transaction" Role="Transaction" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Item">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Transaction">
-        <PropertyRef Name="ItemID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
