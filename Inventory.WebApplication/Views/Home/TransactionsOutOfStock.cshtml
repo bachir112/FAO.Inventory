@@ -330,8 +330,10 @@
         console.log('Checked = ' + checked);
         if (checked > 0) {
             $('#assignActionSelector').attr('disabled', false);
+            $('#changeDescriptionActionSelector').attr('disabled', false);
         } else {
             $('#assignActionSelector').attr('disabled', true);
+            $('#changeDescriptionActionSelector').attr('disabled', true);
         }
     }
 

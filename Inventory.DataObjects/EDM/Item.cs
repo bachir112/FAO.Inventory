@@ -14,8 +14,8 @@ namespace Inventory.DataObjects.EDM
     
     public partial class Item
     {
-        public int Id { get; set; }
         public Nullable<double> Quantity { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Name_Arabic { get; set; }
         public int AvailabilityStatusID { get; set; }

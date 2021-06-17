@@ -402,10 +402,6 @@ namespace Inventory.WebApplication.Controllers
                 {
                     Item item = db.Items.FirstOrDefault(x => x.Id == ID);
                     listOfItemsNames.Add(item.Name + "(" + item.Name_Arabic + ")");
-                    db.Items.Remove(item);
-                    db.SaveChanges();
-
-
 
                     Transaction newTransaction = new Transaction();
                     newTransaction.ItemName = item.Name;
@@ -424,6 +420,7 @@ namespace Inventory.WebApplication.Controllers
                     newTransaction.NewSchoolID = null;
 
                     db.Transactions.Add(newTransaction);
+                    db.Items.Remove(item);
 
                     db.SaveChanges();
 

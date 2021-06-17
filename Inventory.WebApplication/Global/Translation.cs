@@ -548,7 +548,10 @@ namespace Inventory.WebApplication.Global
             { "PhoneNumber-arabic", "رقم الهاتف"},
 
             { "TransactionID-english", "Transaction ID" },
-            { "TransactionID-arabic", "رقم المعاملة" }
+            { "TransactionID-arabic", "رقم المعاملة" },
+
+            { "ModifiedOn-english", "Modified On" },
+            { "ModifiedOn-arabic", "عدل في تاريخ" }
 
         }; 
 
