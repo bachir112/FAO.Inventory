@@ -551,8 +551,14 @@ namespace Inventory.WebApplication.Global
             { "TransactionID-arabic", "رقم المعاملة" },
 
             { "ModifiedOn-english", "Modified On" },
-            { "ModifiedOn-arabic", "عدل في تاريخ" }
+            { "ModifiedOn-arabic", "عدل في تاريخ" },
 
+            { "SchoolName-english", "School Name" },
+            { "SchoolName-arabic", "اسم المدرسة" }
+
+
+
+            //SerialNumber
         }; 
 
         static public string GetLanguageCookieValue(string cookieName = "language")

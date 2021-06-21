@@ -80,10 +80,6 @@
                                                         <td>
                                                             @(item.ReceivedOn?.ToString("dd-MMM-yyyy"))
                                                         </td>
-                                                        @*<td>
-                                                            <span class="english">@(item.Category?.Substring(0, 2))@(item.GroupedId)</span>
-                                                            <span class="arabic">@(item.Category_Arabic?.Substring(0, 2))@(item.GroupedId)</span>
-                                                        </td>*@
                                                         <td>
                                                             @item.Category
                                                         </td>
@@ -95,7 +91,8 @@
                                                             <span class="arabic">@item.AvailabilityStatus_Arabic</span>
                                                         </td>
                                                         <td>
-                                                            @item.Expandable
+                                                            <span class="english">@item.Expandable</span>
+                                                            <span class="arabic">@(item.Expandable == true ? "نعم" : "كلا")</span>                                                            
                                                         </td>
                                                         <td>
                                                             @item.LocationInStock
@@ -133,9 +130,9 @@
 
 
         var cookieVal = $.cookie("language");
-        
+
         if (cookieVal == 'arabic') {
-            
+
             var oTable = table.dataTable({
                 "language": {
                     "aria": {
@@ -166,22 +163,20 @@
                         className: 'btn dark btn-outline',
                         message: '',
                         customize: function (win) {
+                            $(win.document.body).find('.english').css('display', 'none');
+                            $(win.document.body).css('direction', 'rtl');
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">تقرير المخزون السنوي</h2>');
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية وزارة الزراعة</h2>');
-                            //$(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
                             $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
                         }
                     },
-                    //{ extend: 'pdf', className: 'btn green btn-outline' },
-                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
-                //,
-                //responsive: true
             });
 
-        } 
+        }
         else {
-            
+
             var oTable = table.dataTable({
                 "language": {
                     "aria": {
@@ -212,17 +207,13 @@
                         className: 'btn dark btn-outline',
                         message: '',
                         customize: function (win) {
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">Annual stock report</h2>');
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية وزارة الزراعة</h2>');
-                            //$(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
                             $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
                         }
                     },
-                    //{ extend: 'pdf', className: 'btn green btn-outline' },
-                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
-                //,
-                //responsive: true
             });
 
 

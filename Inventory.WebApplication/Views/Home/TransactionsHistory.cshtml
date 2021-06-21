@@ -62,7 +62,7 @@
                                                 <span> @transaction.SchoolName </span>
                                             </td>
                                             <td>
-                                                @(transaction.SerialNumber)
+                                                @((transaction.ItemName.Count() > 2 ? transaction.ItemName.Substring(0, 3) : transaction.ItemName) + transaction.ItemID)
                                             </td>
                                             <td>
                                                 <span class="english">@transaction.ItemName</span>

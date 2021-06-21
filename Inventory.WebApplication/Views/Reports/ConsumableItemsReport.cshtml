@@ -147,17 +147,14 @@
                         className: 'btn dark btn-outline',
                         message: '',
                         customize: function (win) {
+                            $(win.document.body).css('direction', 'rtl');
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">تقرير السلع المتاحة</h2>');
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية وزارة الزراعة</h2>');
-                            //$(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
                             $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
                         }
                     },
-                    //{ extend: 'pdf', className: 'btn green btn-outline' },
-                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
-                //,
-                //responsive: true
             });
 
         } 
@@ -193,17 +190,13 @@
                         className: 'btn dark btn-outline',
                         message: '',
                         customize: function (win) {
+                            $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">Available items report</h2>');
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;"><img src="http://198.71.63.89:2243/Images/logo/ministry-logo.jpg" /></h2>');
                             $(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">الجمهورية اللبنانية وزارة الزراعة</h2>');
-                            //$(win.document.body).css('font-size', '10pt').prepend('<h2 style="text-align:right;width:100%;">وزارة الزراعة</h2>');
                             $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
                         }
                     },
-                    //{ extend: 'pdf', className: 'btn green btn-outline' },
-                    //{ extend: 'excel', className: 'btn yellow btn-outline ' }
                 ]
-                //,
-                //responsive: true
             });
 
 

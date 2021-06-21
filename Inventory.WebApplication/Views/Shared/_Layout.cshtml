@@ -931,12 +931,13 @@
                     $(this).addClass('fa-angle-left');
                 });
 
-                //$('.english').hide();
-                //$('.arabic').show();
+                $('.english').text('');
 
             } else {
                 $('#chooseArabic').css('color', 'white');
                 $('#chooseEnglish').css('color', '#36c6d3');
+
+                $('.arabic').text('');
             }
         });
 

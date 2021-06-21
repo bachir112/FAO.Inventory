@@ -470,11 +470,6 @@ namespace Inventory.WebApplication.Controllers
                         ToWhom = x.ToWhom,
                         TransactionDate = x.TransactionDate
                     }).ToList();
-
-                    foreach (var transaction in result)
-                    {
-                        transaction.SerialNumber = db.Items.FirstOrDefault(x => x.Id.ToString() == transaction.ItemID)?.SerialNumber;
-                    }
                 }
 
                 return View(result);
